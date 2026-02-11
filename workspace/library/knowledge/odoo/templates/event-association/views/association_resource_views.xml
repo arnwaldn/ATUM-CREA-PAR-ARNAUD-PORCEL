@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Resource Form View -->
+    <record id="view_association_resource_form" model="ir.ui.view">
+        <field name="name">association.resource.form</field>
+        <field name="model">association.resource</field>
+        <field name="arch" type="xml">
+            <form string="Resource">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_bookings" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <field name="booking_count" widget="statinfo"
+                                   string="Bookings"/>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Resource Name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Details">
+                            <field name="resource_type"/>
+                            <field name="capacity"/>
+                            <field name="location"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Availability">
+                            <field name="available_from" widget="float_time"/>
+                            <field name="available_to" widget="float_time"/>
+                            <field name="available_days" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Pricing">
+                            <field name="is_free"/>
+                            <field name="hourly_rate" invisible="is_free"/>
+                            <field name="daily_rate" invisible="is_free"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Rules">
+                            <field name="member_only"/>
+                            <field name="requires_approval"/>
+                            <field name="min_booking_hours"/>
+                            <field name="max_booking_hours"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Equipment" name="equipment">
+                            <field name="equipment_list"/>
+                        </page>
+                        <page string="Rules &amp; Conditions" name="rules">
+                            <field name="booking_rules"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Resource Tree View -->
+    <record id="view_association_resource_tree" model="ir.ui.view">
+        <field name="name">association.resource.tree</field>
+        <field name="model">association.resource</field>
+        <field name="arch" type="xml">
+            <tree string="Resources">
+                <field name="name"/>
+                <field name="resource_type"/>
+                <field name="capacity"/>
+                <field name="location"/>
+                <field name="is_free"/>
+                <field name="hourly_rate" invisible="is_free"/>
+                <field name="member_only"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Resource Kanban View -->
+    <record id="view_association_resource_kanban" model="ir.ui.view">
+        <field name="name">association.resource.kanban</field>
+        <field name="model">association.resource</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="resource_type">
+                <field name="name"/>
+                <field name="image"/>
+                <field name="capacity"/>
+                <field name="location"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('association.resource', 'image', record.id.raw_value)"
+                                     alt="Resource" class="o_image_64_cover"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div t-if="record.capacity.value">
+                                    <i class="fa fa-users"/> Capacity: <field name="capacity"/>
+                                </div>
+                                <div t-if="record.location.value">
+                                    <i class="fa fa-map-marker"/> <field name="location"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Resource Booking Form View -->
+    <record id="view_association_resource_booking_form" model="ir.ui.view">
+        <field name="name">association.resource.booking.form</field>
+        <field name="model">association.resource.booking</field>
+        <field name="arch" type="xml">
+            <form string="Resource Booking">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="Approve"
+                            class="oe_highlight" invisible="state != 'pending'"/>
+                    <button name="action_reject" type="object" string="Reject"
+                            invisible="state != 'pending'"/>
+                    <button name="action_checkin" type="object" string="Check In"
+                            class="oe_highlight" invisible="state != 'confirmed'"/>
+                    <button name="action_checkout" type="object" string="Check Out"
+                            class="oe_highlight" invisible="state != 'in_use'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('done', 'cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,in_use,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Booking Details">
+                            <field name="resource_id"/>
+                            <field name="member_id"/>
+                            <field name="partner_id" invisible="member_id"/>
+                            <field name="purpose"/>
+                        </group>
+                        <group string="Schedule">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="duration"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Pricing">
+                            <field name="amount"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="payment_state"/>
+                        </group>
+                        <group string="Attendees">
+                            <field name="attendee_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Resource Booking Tree View -->
+    <record id="view_association_resource_booking_tree" model="ir.ui.view">
+        <field name="name">association.resource.booking.tree</field>
+        <field name="model">association.resource.booking</field>
+        <field name="arch" type="xml">
+            <tree string="Resource Bookings" decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="resource_id"/>
+                <field name="member_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="duration"/>
+                <field name="amount"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'pending'"
+                       decoration-primary="state == 'confirmed'"
+                       decoration-success="state == 'done'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Resource Booking Calendar View -->
+    <record id="view_association_resource_booking_calendar" model="ir.ui.view">
+        <field name="name">association.resource.booking.calendar</field>
+        <field name="model">association.resource.booking</field>
+        <field name="arch" type="xml">
+            <calendar string="Resource Bookings" date_start="date_start" date_stop="date_end"
+                      color="resource_id" mode="week" quick_create="0">
+                <field name="resource_id"/>
+                <field name="member_id"/>
+                <field name="purpose"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Resource Booking Search View -->
+    <record id="view_association_resource_booking_search" model="ir.ui.view">
+        <field name="name">association.resource.booking.search</field>
+        <field name="model">association.resource.booking</field>
+        <field name="arch" type="xml">
+            <search string="Search Bookings">
+                <field name="name"/>
+                <field name="resource_id"/>
+                <field name="member_id"/>
+                <separator/>
+                <filter name="filter_today" string="Today"
+                        domain="[('date_start', '>=', context_today().strftime('%%Y-%%m-%%d')), ('date_start', '&lt;', (context_today() + relativedelta(days=1)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="filter_upcoming" string="Upcoming"
+                        domain="[('date_start', '>=', context_today().strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="filter_pending" string="Pending Approval"
+                        domain="[('state', '=', 'pending')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_resource" string="Resource"
+                            context="{'group_by': 'resource_id'}"/>
+                    <filter name="groupby_member" string="Member"
+                            context="{'group_by': 'member_id'}"/>
+                    <filter name="groupby_date" string="Date"
+                            context="{'group_by': 'date_start:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_association_resource" model="ir.actions.act_window">
+        <field name="name">Resources</field>
+        <field name="res_model">association.resource</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record id="action_association_resource_booking" model="ir.actions.act_window">
+        <field name="name">Resource Bookings</field>
+        <field name="res_model">association.resource.booking</field>
+        <field name="view_mode">calendar,tree,form</field>
+        <field name="search_view_id" ref="view_association_resource_booking_search"/>
+        <field name="context">{'search_default_filter_upcoming': 1}</field>
+    </record>
+</odoo>

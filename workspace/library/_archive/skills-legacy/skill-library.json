@@ -1,0 +1,48 @@
+{
+  "": "https://json-schema.org/draft/2020-12/schema",
+  "version": "27.18",
+  "description": "Executable Skill Library (Pattern 26 - Voyager) - Storage for verified executable code",
+  "skills": {
+    "file-operations": {
+      "id": "file-operations",
+      "name": "File Operations",
+      "description": "Common file system operations with error handling",
+      "verified": true,
+      "verifiedAt": "2026-01-11T00:00:00Z",
+      "successCount": 0,
+      "tags": ["filesystem", "io", "utility"],
+      "file": "verified/file-operations.js"
+    },
+    "git-workflow": {
+      "id": "git-workflow",
+      "name": "Git Workflow",
+      "description": "Standard git operations (add, commit, push, branch)",
+      "verified": true,
+      "verifiedAt": "2026-01-11T00:00:00Z",
+      "successCount": 0,
+      "tags": ["git", "vcs", "workflow"],
+      "file": "verified/git-workflow.js"
+    },
+    "hindsight-retain": {
+      "id": "hindsight-retain",
+      "name": "Hindsight Memory Retention",
+      "description": "Save patterns, errors, and learnings to Hindsight banks",
+      "verified": true,
+      "verifiedAt": "2026-01-11T00:00:00Z",
+      "successCount": 0,
+      "tags": ["memory", "hindsight", "retention"],
+      "file": "verified/hindsight-retain.js"
+    }
+  },
+  "autoDetection": {
+    "markers": ["// SKILL:", "// @skill"],
+    "minSuccessCount": 3,
+    "autoPromote": true
+  },
+  "metadata": {
+    "totalSkills": 3,
+    "verifiedSkills": 3,
+    "lastUpdated": "2026-01-11T00:00:00Z",
+    "benefit": "50% increased code reuse, accelerated execution"
+  }
+}

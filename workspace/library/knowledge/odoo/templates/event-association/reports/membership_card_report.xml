@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Membership Card Report -->
+    <record id="action_report_membership_card" model="ir.actions.report">
+        <field name="name">Membership Card</field>
+        <field name="model">association.member</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">association.report_membership_card</field>
+        <field name="report_file">association.report_membership_card</field>
+        <field name="print_report_name">'Membership_Card_%s' % object.member_number</field>
+        <field name="binding_model_id" ref="model_association_member"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="association.paperformat_membership_card"/>
+    </record>
+
+    <!-- Paper Format for Membership Card (Credit Card Size) -->
+    <record id="paperformat_membership_card" model="report.paperformat">
+        <field name="name">Membership Card Format</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_width">85.6</field>
+        <field name="page_height">53.98</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">150</field>
+    </record>
+
+    <!-- Membership Card Template -->
+    <template id="report_membership_card">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="member">
+                <div class="membership-card">
+                    <div class="card-front">
+                        <!-- Header with Association Name -->
+                        <div class="card-header">
+                            <img t-if="member.company_id.logo"
+                                 t-att-src="image_data_uri(member.company_id.logo)"
+                                 class="company-logo"/>
+                            <div class="association-name">
+                                <t t-esc="member.company_id.name"/>
+                            </div>
+                        </div>
+
+                        <!-- Member Photo -->
+                        <div class="member-photo">
+                            <img t-if="member.image_128"
+                                 t-att-src="image_data_uri(member.image_128)"
+                                 class="photo"/>
+                            <div t-else="" class="photo-placeholder">
+                                <i class="fa fa-user"/>
+                            </div>
+                        </div>
+
+                        <!-- Member Info -->
+                        <div class="member-info">
+                            <div class="member-name">
+                                <t t-esc="member.name"/>
+                            </div>
+                            <div class="member-number">
+                                <t t-esc="member.member_number"/>
+                            </div>
+                            <div class="member-type">
+                                <t t-esc="member.member_type_id.name"/>
+                            </div>
+                        </div>
+
+                        <!-- Validity -->
+                        <div class="validity">
+                            <span class="label">Valid Until:</span>
+                            <span class="date" t-esc="member.membership_end" t-options='{"widget": "date"}'/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Membership Card Styles -->
+    <template id="report_membership_card_styles">
+        <style>
+            .membership-card {
+                width: 81.6mm;
+                height: 49.98mm;
+                border: 1px solid #333;
+                border-radius: 8px;
+                padding: 3mm;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                font-family: Arial, sans-serif;
+                position: relative;
+                page-break-after: always;
+            }
+
+            .card-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 2mm;
+            }
+
+            .company-logo {
+                width: 12mm;
+                height: auto;
+                margin-right: 2mm;
+            }
+
+            .association-name {
+                font-size: 10pt;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            .member-photo {
+                position: absolute;
+                right: 3mm;
+                top: 12mm;
+            }
+
+            .photo, .photo-placeholder {
+                width: 18mm;
+                height: 22mm;
+                border: 1px solid white;
+                border-radius: 2mm;
+                object-fit: cover;
+            }
+
+            .photo-placeholder {
+                background: rgba(255,255,255,0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20pt;
+            }
+
+            .member-info {
+                margin-top: 4mm;
+            }
+
+            .member-name {
+                font-size: 12pt;
+                font-weight: bold;
+                margin-bottom: 1mm;
+            }
+
+            .member-number {
+                font-size: 9pt;
+                font-family: monospace;
+                background: rgba(255,255,255,0.2);
+                padding: 1mm 2mm;
+                border-radius: 1mm;
+                display: inline-block;
+                margin-bottom: 1mm;
+            }
+
+            .member-type {
+                font-size: 8pt;
+                text-transform: uppercase;
+                opacity: 0.9;
+            }
+
+            .validity {
+                position: absolute;
+                bottom: 3mm;
+                left: 3mm;
+                font-size: 8pt;
+            }
+
+            .validity .label {
+                opacity: 0.8;
+            }
+
+            .validity .date {
+                font-weight: bold;
+            }
+        </style>
+    </template>
+
+    <!-- Tax Receipt Report -->
+    <record id="action_report_tax_receipt" model="ir.actions.report">
+        <field name="name">Tax Receipt</field>
+        <field name="model">association.tax.receipt</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">association.report_tax_receipt</field>
+        <field name="report_file">association.report_tax_receipt</field>
+        <field name="print_report_name">'Tax_Receipt_%s' % object.name</field>
+        <field name="binding_model_id" ref="model_association_tax_receipt"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Tax Receipt Template -->
+    <template id="report_tax_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="receipt">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center mb-4">
+                            <h2>TAX RECEIPT FOR CHARITABLE DONATIONS</h2>
+                            <h4 class="text-muted"><t t-esc="receipt.name"/></h4>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <strong>Receipt Number:</strong>
+                                <span t-esc="receipt.name"/>
+                            </div>
+                            <div class="col-6 text-end">
+                                <strong>Issue Date:</strong>
+                                <span t-esc="receipt.issue_date" t-options='{"widget": "date"}'/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Donor Information</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong><t t-esc="receipt.donor_id.name"/></strong></p>
+                                        <p t-if="receipt.donor_id.street" t-esc="receipt.donor_id.street"/>
+                                        <p>
+                                            <t t-if="receipt.donor_id.zip" t-esc="receipt.donor_id.zip"/>
+                                            <t t-if="receipt.donor_id.city" t-esc="receipt.donor_id.city"/>
+                                        </p>
+                                        <p t-if="receipt.donor_id.country_id" t-esc="receipt.donor_id.country_id.name"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5>Donations for Fiscal Year <t t-esc="receipt.fiscal_year"/></h5>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Reference</th>
+                                            <th>Description</th>
+                                            <th class="text-end">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="receipt.donation_ids" t-as="donation">
+                                            <tr>
+                                                <td t-esc="donation.donation_date" t-options='{"widget": "date"}'/>
+                                                <td t-esc="donation.name"/>
+                                                <td t-esc="donation.designation or '-'"/>
+                                                <td class="text-end" t-esc="donation.amount"
+                                                    t-options='{"widget": "monetary", "display_currency": donation.currency_id}'/>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="fw-bold">
+                                            <td colspan="3" class="text-end">Total:</td>
+                                            <td class="text-end" t-esc="receipt.total_amount"
+                                                t-options='{"widget": "monetary", "display_currency": receipt.currency_id}'/>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="alert alert-info">
+                                    <p class="mb-0">
+                                        This receipt confirms that the above-mentioned donations were received by
+                                        <strong><t t-esc="receipt.company_id.name"/></strong>,
+                                        a registered non-profit organization.
+                                    </p>
+                                    <p class="mb-0 mt-2" t-if="receipt.company_id.vat">
+                                        Tax ID: <t t-esc="receipt.company_id.vat"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <p>Date: ___________________</p>
+                            </div>
+                            <div class="col-6 text-end">
+                                <p>Authorized Signature</p>
+                                <br/><br/>
+                                <p>___________________________</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Event Registration Confirmation -->
+    <record id="action_report_event_registration" model="ir.actions.report">
+        <field name="name">Event Registration Confirmation</field>
+        <field name="model">association.event.registration</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">association.report_event_registration</field>
+        <field name="report_file">association.report_event_registration</field>
+        <field name="print_report_name">'Registration_%s' % object.event_id.code</field>
+        <field name="binding_model_id" ref="model_association_event_registration"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Event Registration Template -->
+    <template id="report_event_registration">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="reg">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center mb-4">
+                            <h2>EVENT REGISTRATION CONFIRMATION</h2>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h3 class="card-title" t-esc="reg.event_id.name"/>
+                                        <p class="mb-1">
+                                            <i class="fa fa-calendar"/>
+                                            <t t-esc="reg.event_id.date_start" t-options='{"widget": "datetime"}'/> -
+                                            <t t-esc="reg.event_id.date_end" t-options='{"widget": "datetime"}'/>
+                                        </p>
+                                        <p class="mb-1" t-if="reg.event_id.venue_id">
+                                            <i class="fa fa-map-marker"/>
+                                            <t t-esc="reg.event_id.venue_id.name"/>
+                                            <t t-if="reg.event_id.address"> - <t t-esc="reg.event_id.address"/></t>
+                                        </p>
+                                        <p class="mb-0" t-if="reg.event_id.online_link">
+                                            <i class="fa fa-video-camera"/> Online Event
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <h5>Participant</h5>
+                                <p><strong><t t-esc="reg.partner_id.name or reg.member_id.name"/></strong></p>
+                                <p t-if="reg.partner_id.email" t-esc="reg.partner_id.email"/>
+                                <p t-if="reg.member_id">Member: <t t-esc="reg.member_id.member_number"/></p>
+                            </div>
+                            <div class="col-6 text-end">
+                                <h5>Registration Details</h5>
+                                <p>Date: <t t-esc="reg.registration_date" t-options='{"widget": "date"}'/></p>
+                                <p>Guests: <t t-esc="reg.guests"/></p>
+                                <p>Status: <span class="badge bg-success"><t t-esc="reg.state"/></span></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4" t-if="reg.amount">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Registration Fee</td>
+                                        <td class="text-end" t-esc="reg.amount"
+                                            t-options='{"widget": "monetary", "display_currency": reg.currency_id}'/>
+                                    </tr>
+                                    <tr class="fw-bold">
+                                        <td>Payment Status</td>
+                                        <td class="text-end" t-esc="reg.payment_state"/>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row" t-if="reg.event_id.short_description">
+                            <div class="col-12">
+                                <h5>About this Event</h5>
+                                <p t-raw="reg.event_id.short_description"/>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12 text-center">
+                                <div class="alert alert-warning">
+                                    <strong>Please present this confirmation at the event entrance.</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Prescription Form View -->
+    <record id="view_healthcare_prescription_form" model="ir.ui.view">
+        <field name="name">healthcare.prescription.form</field>
+        <field name="model">healthcare.prescription</field>
+        <field name="arch" type="xml">
+            <form string="Prescription">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_dispense" type="object" string="Mark Dispensed"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_print" type="object" string="Print"
+                            invisible="state not in ('confirmed', 'dispensed')"/>
+                    <button name="action_renew" type="object" string="Renew"
+                            invisible="not can_renew"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state not in ('draft', 'confirmed')"/>
+                    <button name="action_draft" type="object" string="Reset to Draft"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,dispensed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Patient & Prescriber">
+                            <field name="patient_id" options='{"no_create": True}'/>
+                            <field name="practitioner_id" options='{"no_create": True}'/>
+                            <field name="consultation_id"/>
+                        </group>
+                        <group string="Validity">
+                            <field name="date"/>
+                            <field name="validity_days"/>
+                            <field name="validity_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Medications" name="medications">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="medication_id"/>
+                                    <field name="medication_form"/>
+                                    <field name="dosage"/>
+                                    <field name="frequency"/>
+                                    <field name="frequency_other"
+                                           invisible="frequency != 'other'"/>
+                                    <field name="duration"/>
+                                    <field name="duration_unit"/>
+                                    <field name="quantity"/>
+                                    <field name="substitution_allowed"/>
+                                    <field name="instructions" optional="hide"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group string="Medication">
+                                            <field name="medication_id"/>
+                                            <field name="medication_form"/>
+                                        </group>
+                                        <group string="Dosage">
+                                            <field name="dosage"/>
+                                            <field name="frequency"/>
+                                            <field name="frequency_other"
+                                                   invisible="frequency != 'other'"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group string="Duration & Quantity">
+                                            <field name="duration"/>
+                                            <field name="duration_unit"/>
+                                            <field name="quantity"/>
+                                            <field name="quantity_unit"/>
+                                        </group>
+                                        <group string="Options">
+                                            <field name="take_with_food"/>
+                                            <field name="time_of_day"/>
+                                            <field name="substitution_allowed"/>
+                                        </group>
+                                    </group>
+                                    <group string="Instructions">
+                                        <field name="instructions" nolabel="1"/>
+                                    </group>
+                                    <group string="Full Instructions (Preview)">
+                                        <field name="full_instructions" nolabel="1" readonly="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Additional Info" name="info">
+                            <group>
+                                <group string="Diagnosis">
+                                    <field name="diagnosis"/>
+                                </group>
+                                <group string="Renewal">
+                                    <field name="is_renewal"/>
+                                    <field name="original_prescription_id"
+                                           invisible="not is_renewal" readonly="1"/>
+                                    <field name="renewal_count"/>
+                                    <field name="max_renewals"/>
+                                    <field name="can_renew" invisible="1"/>
+                                </group>
+                            </group>
+                            <separator string="Patient Instructions"/>
+                            <field name="notes" placeholder="Instructions for the patient..."/>
+                            <separator string="Internal Notes"/>
+                            <field name="internal_notes" placeholder="Internal notes (not printed)..."/>
+                        </page>
+                        <page string="Dispensing" name="dispensing"
+                              invisible="state not in ('dispensed',)">
+                            <group>
+                                <group>
+                                    <field name="dispensed_date"/>
+                                    <field name="dispensed_by"/>
+                                </group>
+                                <group>
+                                    <field name="print_count"/>
+                                    <field name="last_printed"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Prescription Tree View -->
+    <record id="view_healthcare_prescription_tree" model="ir.ui.view">
+        <field name="name">healthcare.prescription.tree</field>
+        <field name="model">healthcare.prescription</field>
+        <field name="arch" type="xml">
+            <tree string="Prescriptions"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-success="state == 'dispensed'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="patient_id"/>
+                <field name="practitioner_id"/>
+                <field name="line_count"/>
+                <field name="validity_date"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-primary="state == 'confirmed'"
+                       decoration-success="state == 'dispensed'"
+                       decoration-danger="state == 'cancelled'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Prescription Search View -->
+    <record id="view_healthcare_prescription_search" model="ir.ui.view">
+        <field name="name">healthcare.prescription.search</field>
+        <field name="model">healthcare.prescription</field>
+        <field name="arch" type="xml">
+            <search string="Search Prescriptions">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="practitioner_id"/>
+                <separator/>
+                <filter name="filter_today" string="Today"
+                        domain="[('date', '=', context_today().strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="filter_valid" string="Valid"
+                        domain="[('validity_date', '&gt;=', context_today().strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="filter_expired" string="Expired"
+                        domain="[('validity_date', '&lt;', context_today().strftime('%%Y-%%m-%%d'))]"/>
+                <separator/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_confirmed" string="To Dispense"
+                        domain="[('state', '=', 'confirmed')]"/>
+                <filter name="filter_dispensed" string="Dispensed"
+                        domain="[('state', '=', 'dispensed')]"/>
+                <separator/>
+                <filter name="filter_renewal" string="Renewals"
+                        domain="[('is_renewal', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_patient" string="Patient"
+                            context="{'group_by': 'patient_id'}"/>
+                    <filter name="groupby_practitioner" string="Prescriber"
+                            context="{'group_by': 'practitioner_id'}"/>
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="groupby_date" string="Date"
+                            context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Prescription Actions -->
+    <record id="action_healthcare_prescription" model="ir.actions.act_window">
+        <field name="name">Prescriptions</field>
+        <field name="res_model">healthcare.prescription</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_healthcare_prescription_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first prescription
+            </p>
+            <p>
+                Prescribe medications for patients during consultations.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_healthcare_prescription_to_dispense" model="ir.actions.act_window">
+        <field name="name">To Dispense</field>
+        <field name="res_model">healthcare.prescription</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_healthcare_prescription_search"/>
+        <field name="context">{'search_default_filter_confirmed': 1}</field>
+    </record>
+
+    <!-- Medication Views -->
+    <record id="view_healthcare_medication_form" model="ir.ui.view">
+        <field name="name">healthcare.medication.form</field>
+        <field name="model">healthcare.medication</field>
+        <field name="arch" type="xml">
+            <form string="Medication">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Medication Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Classification">
+                            <field name="active_ingredient"/>
+                            <field name="brand_name"/>
+                            <field name="medication_type"/>
+                            <field name="category_id"/>
+                        </group>
+                        <group string="Dosage Form">
+                            <field name="form"/>
+                            <field name="strength"/>
+                            <field name="unit"/>
+                            <field name="route"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Prescribing Defaults" name="defaults">
+                            <group>
+                                <group>
+                                    <field name="default_dosage"/>
+                                    <field name="default_frequency"/>
+                                    <field name="default_duration_days"/>
+                                </group>
+                                <group>
+                                    <field name="requires_prescription"/>
+                                    <field name="controlled_substance"/>
+                                    <field name="controlled_schedule"
+                                           invisible="not controlled_substance"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Safety Information" name="safety">
+                            <group>
+                                <field name="pregnancy_category"/>
+                            </group>
+                            <separator string="Contraindications"/>
+                            <field name="contraindications"/>
+                            <separator string="Side Effects"/>
+                            <field name="side_effects"/>
+                            <separator string="Drug Interactions"/>
+                            <field name="interactions"/>
+                        </page>
+                        <page string="Inventory" name="inventory">
+                            <group>
+                                <field name="product_id"/>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_healthcare_medication_tree" model="ir.ui.view">
+        <field name="name">healthcare.medication.tree</field>
+        <field name="model">healthcare.medication</field>
+        <field name="arch" type="xml">
+            <tree string="Medications">
+                <field name="name"/>
+                <field name="active_ingredient"/>
+                <field name="form"/>
+                <field name="strength"/>
+                <field name="route"/>
+                <field name="category_id"/>
+                <field name="requires_prescription"/>
+                <field name="controlled_substance"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_healthcare_medication_search" model="ir.ui.view">
+        <field name="name">healthcare.medication.search</field>
+        <field name="model">healthcare.medication</field>
+        <field name="arch" type="xml">
+            <search string="Search Medications">
+                <field name="name"/>
+                <field name="active_ingredient"/>
+                <field name="brand_name"/>
+                <field name="category_id"/>
+                <separator/>
+                <filter name="filter_prescription" string="Prescription Only"
+                        domain="[('requires_prescription', '=', True)]"/>
+                <filter name="filter_otc" string="OTC"
+                        domain="[('requires_prescription', '=', False)]"/>
+                <filter name="filter_controlled" string="Controlled"
+                        domain="[('controlled_substance', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_category" string="Category"
+                            context="{'group_by': 'category_id'}"/>
+                    <filter name="groupby_form" string="Form"
+                            context="{'group_by': 'form'}"/>
+                    <filter name="groupby_route" string="Route"
+                            context="{'group_by': 'route'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_healthcare_medication" model="ir.actions.act_window">
+        <field name="name">Medications</field>
+        <field name="res_model">healthcare.medication</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_healthcare_medication_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first medication
+            </p>
+            <p>
+                Create a medication database for prescriptions.
+            </p>
+        </field>
+    </record>
+
+    <!-- Condition Views -->
+    <record id="view_healthcare_condition_tree" model="ir.ui.view">
+        <field name="name">healthcare.condition.tree</field>
+        <field name="model">healthcare.condition</field>
+        <field name="arch" type="xml">
+            <tree string="Conditions">
+                <field name="icd_code"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="is_chronic"/>
+                <field name="is_allergy"/>
+                <field name="severity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_healthcare_condition_form" model="ir.ui.view">
+        <field name="name">healthcare.condition.form</field>
+        <field name="model">healthcare.condition</field>
+        <field name="arch" type="xml">
+            <form string="Condition">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="icd_code"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <field name="is_chronic"/>
+                            <field name="is_allergy"/>
+                            <field name="severity"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <separator string="Description"/>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_healthcare_condition" model="ir.actions.act_window">
+        <field name="name">Conditions / Diagnoses</field>
+        <field name="res_model">healthcare.condition</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add medical conditions
+            </p>
+            <p>
+                Create a database of medical conditions with ICD-10 codes.
+            </p>
+        </field>
+    </record>
+</odoo>

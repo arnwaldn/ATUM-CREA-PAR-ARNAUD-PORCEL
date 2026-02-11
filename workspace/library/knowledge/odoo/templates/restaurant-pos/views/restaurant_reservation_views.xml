@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Reservation Form View -->
+    <record id="view_restaurant_reservation_form" model="ir.ui.view">
+        <field name="name">restaurant.reservation.form</field>
+        <field name="model">restaurant.reservation</field>
+        <field name="arch" type="xml">
+            <form string="Reservation">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_seat" type="object" string="Seat"
+                            class="oe_highlight" invisible="state != 'confirmed'"/>
+                    <button name="action_complete" type="object" string="Complete"
+                            invisible="state != 'seated'"/>
+                    <button name="action_no_show" type="object" string="No Show"
+                            invisible="state not in ('draft', 'confirmed')"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('seated', 'completed', 'cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,seated,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_order" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o"
+                                invisible="not order_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">View Order</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Customer">
+                            <field name="customer_name"/>
+                            <field name="customer_phone"/>
+                            <field name="customer_email"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group string="Reservation">
+                            <field name="reservation_datetime"/>
+                            <field name="duration"/>
+                            <field name="end_datetime"/>
+                            <field name="party_size"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Tables">
+                            <field name="floor_id"/>
+                            <field name="table_ids" widget="many2many_tags"/>
+                        </group>
+                        <group string="Details">
+                            <field name="source"/>
+                            <field name="occasion"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Requests" name="requests">
+                            <group>
+                                <field name="special_requests" nolabel="1"
+                                       placeholder="Special requests from the customer..."/>
+                            </group>
+                        </page>
+                        <page string="Internal Notes" name="notes">
+                            <group>
+                                <field name="internal_notes" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Reservation Tree View -->
+    <record id="view_restaurant_reservation_tree" model="ir.ui.view">
+        <field name="name">restaurant.reservation.tree</field>
+        <field name="model">restaurant.reservation</field>
+        <field name="arch" type="xml">
+            <tree string="Reservations" decoration-danger="state == 'no_show'"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-success="state == 'completed'">
+                <field name="name"/>
+                <field name="customer_name"/>
+                <field name="customer_phone"/>
+                <field name="reservation_datetime"/>
+                <field name="party_size"/>
+                <field name="table_ids" widget="many2many_tags"/>
+                <field name="occasion"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-primary="state == 'confirmed'"
+                       decoration-warning="state == 'seated'"
+                       decoration-success="state == 'completed'"
+                       decoration-danger="state == 'no_show'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Reservation Calendar View -->
+    <record id="view_restaurant_reservation_calendar" model="ir.ui.view">
+        <field name="name">restaurant.reservation.calendar</field>
+        <field name="model">restaurant.reservation</field>
+        <field name="arch" type="xml">
+            <calendar string="Reservations" date_start="reservation_datetime"
+                      date_stop="end_datetime" color="state" mode="week"
+                      quick_create="0" event_open_popup="1">
+                <field name="customer_name"/>
+                <field name="party_size"/>
+                <field name="table_ids"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Reservation Search View -->
+    <record id="view_restaurant_reservation_search" model="ir.ui.view">
+        <field name="name">restaurant.reservation.search</field>
+        <field name="model">restaurant.reservation</field>
+        <field name="arch" type="xml">
+            <search string="Search Reservations">
+                <field name="name"/>
+                <field name="customer_name"/>
+                <field name="customer_phone"/>
+                <separator/>
+                <filter name="filter_today" string="Today"
+                        domain="[('reservation_datetime', '>=', time.strftime('%%Y-%%m-%%d 00:00:00')),
+                                 ('reservation_datetime', '&lt;=', time.strftime('%%Y-%%m-%%d 23:59:59'))]"/>
+                <filter name="filter_tomorrow" string="Tomorrow"
+                        domain="[('reservation_datetime', '>=', (context_today() + relativedelta(days=1)).strftime('%%Y-%%m-%%d 00:00:00')),
+                                 ('reservation_datetime', '&lt;=', (context_today() + relativedelta(days=1)).strftime('%%Y-%%m-%%d 23:59:59'))]"/>
+                <filter name="filter_week" string="This Week"
+                        domain="[('reservation_datetime', '>=', (context_today() - relativedelta(weekday=0)).strftime('%%Y-%%m-%%d'))]"/>
+                <separator/>
+                <filter name="filter_pending" string="Pending"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_confirmed" string="Confirmed"
+                        domain="[('state', '=', 'confirmed')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_date" string="Date"
+                            context="{'group_by': 'reservation_datetime:day'}"/>
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="groupby_occasion" string="Occasion"
+                            context="{'group_by': 'occasion'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_restaurant_reservation" model="ir.actions.act_window">
+        <field name="name">Reservations</field>
+        <field name="res_model">restaurant.reservation</field>
+        <field name="view_mode">calendar,tree,form</field>
+        <field name="search_view_id" ref="view_restaurant_reservation_search"/>
+        <field name="context">{'search_default_filter_today': 1}</field>
+    </record>
+
+    <record id="action_restaurant_reservation_today" model="ir.actions.act_window">
+        <field name="name">Today's Reservations</field>
+        <field name="res_model">restaurant.reservation</field>
+        <field name="view_mode">tree,calendar,form</field>
+        <field name="context">{'search_default_filter_today': 1}</field>
+    </record>
+</odoo>

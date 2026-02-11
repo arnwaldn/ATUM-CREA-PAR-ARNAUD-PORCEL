@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================== CATÉGORIE ==================== -->
+    <record id="module_category_{{module_name}}" model="ir.module.category">
+        <field name="name">{{Module Name}}</field>
+        <field name="sequence">100</field>
+    </record>
+
+    <!-- ==================== GROUPES ==================== -->
+
+    <!-- Groupe Utilisateur -->
+    <record id="group_user" model="res.groups">
+        <field name="name">Utilisateur</field>
+        <field name="category_id" ref="module_category_{{module_name}}"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Groupe Manager -->
+    <record id="group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_{{module_name}}"/>
+        <field name="implied_ids" eval="[(4, ref('group_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <!-- ==================== RÈGLES D'ENREGISTREMENT ==================== -->
+
+    <!-- Règle Multi-Société -->
+    <record id="rule_{{model_name}}_company" model="ir.rule">
+        <field name="name">{{Model Name}}: Multi-Société</field>
+        <field name="model_id" ref="model_{{model_name_underscore}}"/>
+        <field name="domain_force">[
+            '|',
+            ('company_id', '=', False),
+            ('company_id', 'in', company_ids)
+        ]</field>
+    </record>
+
+    <!-- Règle: Utilisateur voit ses propres enregistrements -->
+    <record id="rule_{{model_name}}_user_own" model="ir.rule">
+        <field name="name">{{Model Name}}: Propres enregistrements</field>
+        <field name="model_id" ref="model_{{model_name_underscore}}"/>
+        <field name="groups" eval="[(4, ref('group_user'))]"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Règle: Manager voit tout -->
+    <record id="rule_{{model_name}}_manager_all" model="ir.rule">
+        <field name="name">{{Model Name}}: Manager - Accès complet</field>
+        <field name="model_id" ref="model_{{model_name_underscore}}"/>
+        <field name="groups" eval="[(4, ref('group_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+</odoo>

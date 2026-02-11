@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Practitioner Specialties are managed through selection field -->
+
+        <!-- Medication Categories -->
+        <record id="medication_category_analgesic" model="healthcare.medication.category">
+            <field name="name">Analgesics / Pain Relievers</field>
+            <field name="code">ANALG</field>
+        </record>
+        <record id="medication_category_antibiotic" model="healthcare.medication.category">
+            <field name="name">Antibiotics</field>
+            <field name="code">ANTIB</field>
+        </record>
+        <record id="medication_category_antiviral" model="healthcare.medication.category">
+            <field name="name">Antivirals</field>
+            <field name="code">ANTIV</field>
+        </record>
+        <record id="medication_category_cardiovascular" model="healthcare.medication.category">
+            <field name="name">Cardiovascular</field>
+            <field name="code">CARDIO</field>
+        </record>
+        <record id="medication_category_respiratory" model="healthcare.medication.category">
+            <field name="name">Respiratory</field>
+            <field name="code">RESP</field>
+        </record>
+        <record id="medication_category_gastrointestinal" model="healthcare.medication.category">
+            <field name="name">Gastrointestinal</field>
+            <field name="code">GASTRO</field>
+        </record>
+        <record id="medication_category_psychiatric" model="healthcare.medication.category">
+            <field name="name">Psychiatric / CNS</field>
+            <field name="code">PSYCH</field>
+        </record>
+        <record id="medication_category_endocrine" model="healthcare.medication.category">
+            <field name="name">Endocrine / Hormonal</field>
+            <field name="code">ENDO</field>
+        </record>
+        <record id="medication_category_dermatological" model="healthcare.medication.category">
+            <field name="name">Dermatological</field>
+            <field name="code">DERM</field>
+        </record>
+        <record id="medication_category_ophthalmic" model="healthcare.medication.category">
+            <field name="name">Ophthalmic</field>
+            <field name="code">OPHTH</field>
+        </record>
+
+        <!-- Common Medical Conditions (ICD-10 Codes) -->
+        <record id="condition_hypertension" model="healthcare.condition">
+            <field name="name">Essential Hypertension</field>
+            <field name="icd_code">I10</field>
+            <field name="category">circulatory</field>
+            <field name="is_chronic">True</field>
+        </record>
+        <record id="condition_diabetes_type2" model="healthcare.condition">
+            <field name="name">Type 2 Diabetes Mellitus</field>
+            <field name="icd_code">E11</field>
+            <field name="category">endocrine</field>
+            <field name="is_chronic">True</field>
+        </record>
+        <record id="condition_uri" model="healthcare.condition">
+            <field name="name">Acute Upper Respiratory Infection</field>
+            <field name="icd_code">J06.9</field>
+            <field name="category">respiratory</field>
+        </record>
+        <record id="condition_pharyngitis" model="healthcare.condition">
+            <field name="name">Acute Pharyngitis</field>
+            <field name="icd_code">J02.9</field>
+            <field name="category">respiratory</field>
+        </record>
+        <record id="condition_bronchitis" model="healthcare.condition">
+            <field name="name">Acute Bronchitis</field>
+            <field name="icd_code">J20.9</field>
+            <field name="category">respiratory</field>
+        </record>
+        <record id="condition_gastritis" model="healthcare.condition">
+            <field name="name">Gastritis</field>
+            <field name="icd_code">K29.7</field>
+            <field name="category">digestive</field>
+        </record>
+        <record id="condition_migraine" model="healthcare.condition">
+            <field name="name">Migraine</field>
+            <field name="icd_code">G43.9</field>
+            <field name="category">nervous</field>
+            <field name="is_chronic">True</field>
+        </record>
+        <record id="condition_anxiety" model="healthcare.condition">
+            <field name="name">Generalized Anxiety Disorder</field>
+            <field name="icd_code">F41.1</field>
+            <field name="category">mental</field>
+            <field name="is_chronic">True</field>
+        </record>
+        <record id="condition_depression" model="healthcare.condition">
+            <field name="name">Major Depressive Episode</field>
+            <field name="icd_code">F32.9</field>
+            <field name="category">mental</field>
+        </record>
+        <record id="condition_uti" model="healthcare.condition">
+            <field name="name">Urinary Tract Infection</field>
+            <field name="icd_code">N39.0</field>
+            <field name="category">genitourinary</field>
+        </record>
+        <record id="condition_back_pain" model="healthcare.condition">
+            <field name="name">Low Back Pain</field>
+            <field name="icd_code">M54.5</field>
+            <field name="category">musculoskeletal</field>
+        </record>
+        <record id="condition_dermatitis" model="healthcare.condition">
+            <field name="name">Allergic Contact Dermatitis</field>
+            <field name="icd_code">L23.9</field>
+            <field name="category">skin</field>
+        </record>
+
+        <!-- Common Allergies -->
+        <record id="allergy_penicillin" model="healthcare.condition">
+            <field name="name">Allergy to Penicillin</field>
+            <field name="icd_code">Z88.0</field>
+            <field name="category">other</field>
+            <field name="is_allergy">True</field>
+            <field name="severity">severe</field>
+        </record>
+        <record id="allergy_sulfonamides" model="healthcare.condition">
+            <field name="name">Allergy to Sulfonamides</field>
+            <field name="icd_code">Z88.2</field>
+            <field name="category">other</field>
+            <field name="is_allergy">True</field>
+        </record>
+        <record id="allergy_nsaid" model="healthcare.condition">
+            <field name="name">Allergy to NSAIDs</field>
+            <field name="icd_code">Z88.6</field>
+            <field name="category">other</field>
+            <field name="is_allergy">True</field>
+        </record>
+
+        <!-- Common Medications -->
+        <record id="medication_paracetamol" model="healthcare.medication">
+            <field name="name">Paracetamol</field>
+            <field name="active_ingredient">Acetaminophen</field>
+            <field name="category_id" ref="medication_category_analgesic"/>
+            <field name="form">tablet</field>
+            <field name="strength">500mg</field>
+            <field name="unit">mg</field>
+            <field name="route">oral</field>
+            <field name="requires_prescription">False</field>
+            <field name="default_dosage">1-2 tablets</field>
+            <field name="default_frequency">every_6h</field>
+            <field name="pregnancy_category">b</field>
+        </record>
+        <record id="medication_ibuprofen" model="healthcare.medication">
+            <field name="name">Ibuprofen</field>
+            <field name="active_ingredient">Ibuprofen</field>
+            <field name="category_id" ref="medication_category_analgesic"/>
+            <field name="form">tablet</field>
+            <field name="strength">400mg</field>
+            <field name="unit">mg</field>
+            <field name="route">oral</field>
+            <field name="requires_prescription">False</field>
+            <field name="default_dosage">1 tablet</field>
+            <field name="default_frequency">three_daily</field>
+            <field name="pregnancy_category">c</field>
+            <field name="contraindications">Gastric ulcer, renal impairment, aspirin-sensitive asthma</field>
+        </record>
+        <record id="medication_amoxicillin" model="healthcare.medication">
+            <field name="name">Amoxicillin</field>
+            <field name="active_ingredient">Amoxicillin</field>
+            <field name="category_id" ref="medication_category_antibiotic"/>
+            <field name="form">capsule</field>
+            <field name="strength">500mg</field>
+            <field name="unit">mg</field>
+            <field name="route">oral</field>
+            <field name="default_dosage">1 capsule</field>
+            <field name="default_frequency">three_daily</field>
+            <field name="default_duration_days">7</field>
+            <field name="pregnancy_category">b</field>
+        </record>
+        <record id="medication_omeprazole" model="healthcare.medication">
+            <field name="name">Omeprazole</field>
+            <field name="active_ingredient">Omeprazole</field>
+            <field name="category_id" ref="medication_category_gastrointestinal"/>
+            <field name="form">capsule</field>
+            <field name="strength">20mg</field>
+            <field name="unit">mg</field>
+            <field name="route">oral</field>
+            <field name="default_dosage">1 capsule</field>
+            <field name="default_frequency">once_daily</field>
+            <field name="pregnancy_category">c</field>
+        </record>
+        <record id="medication_metformin" model="healthcare.medication">
+            <field name="name">Metformin</field>
+            <field name="active_ingredient">Metformin Hydrochloride</field>
+            <field name="category_id" ref="medication_category_endocrine"/>
+            <field name="form">tablet</field>
+            <field name="strength">500mg</field>
+            <field name="unit">mg</field>
+            <field name="route">oral</field>
+            <field name="default_dosage">1 tablet</field>
+            <field name="default_frequency">twice_daily</field>
+            <field name="pregnancy_category">b</field>
+        </record>
+        <record id="medication_lisinopril" model="healthcare.medication">
+            <field name="name">Lisinopril</field>
+            <field name="active_ingredient">Lisinopril</field>
+            <field name="category_id" ref="medication_category_cardiovascular"/>
+            <field name="form">tablet</field>
+            <field name="strength">10mg</field>
+            <field name="unit">mg</field>
+            <field name="route">oral</field>
+            <field name="default_dosage">1 tablet</field>
+            <field name="default_frequency">once_daily</field>
+            <field name="pregnancy_category">d</field>
+        </record>
+    </data>
+</odoo>

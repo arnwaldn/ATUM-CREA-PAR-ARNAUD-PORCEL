@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_{{model_name}}_user,{{model.name}}.user,model_{{model_name_underscore}},group_user,1,1,1,0
+access_{{model_name}}_manager,{{model.name}}.manager,model_{{model_name_underscore}},group_manager,1,1,1,1
+access_{{model_name}}_line_user,{{model.name}}.line.user,model_{{model_name_underscore}}_line,group_user,1,1,1,0
+access_{{model_name}}_line_manager,{{model.name}}.line.manager,model_{{model_name_underscore}}_line,group_manager,1,1,1,1
+access_{{model_name}}_log_user,{{module_name}}.log.user,model_{{module_name}}_log,group_user,1,0,0,0
+access_{{model_name}}_log_manager,{{module_name}}.log.manager,model_{{module_name}}_log,group_manager,1,1,1,1

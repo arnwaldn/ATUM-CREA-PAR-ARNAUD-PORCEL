@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Offer Form View -->
+    <record id="view_realestate_offer_form" model="ir.ui.view">
+        <field name="name">realestate.offer.form</field>
+        <field name="model">realestate.offer</field>
+        <field name="arch" type="xml">
+            <form string="Offer">
+                <header>
+                    <button name="action_submit" type="object" string="Submit"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_negotiate" type="object" string="Negotiate"
+                            invisible="state != 'submitted'"/>
+                    <button name="action_accept" type="object" string="Accept"
+                            class="oe_highlight"
+                            invisible="state not in ('submitted', 'negotiating')"/>
+                    <button name="action_reject" type="object" string="Reject"
+                            invisible="state not in ('submitted', 'negotiating')"/>
+                    <button name="action_counter_offer" type="object" string="Counter Offer"
+                            invisible="state not in ('submitted', 'negotiating')"/>
+                    <button name="action_withdraw" type="object" string="Withdraw"
+                            invisible="state not in ('submitted', 'negotiating')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,submitted,negotiating,accepted"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Property">
+                            <field name="property_id"/>
+                            <field name="property_price"/>
+                        </group>
+                        <group string="Buyer">
+                            <field name="buyer_id"/>
+                            <field name="buyer_phone"/>
+                            <field name="buyer_email"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Offer">
+                            <field name="offer_amount"/>
+                            <field name="offer_percentage" widget="percentage"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Dates">
+                            <field name="offer_date"/>
+                            <field name="validity_date"/>
+                            <field name="expected_closing"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Conditions" name="conditions">
+                            <group>
+                                <group>
+                                    <field name="condition_financing"/>
+                                    <field name="financing_amount"
+                                           invisible="not condition_financing"/>
+                                    <field name="condition_inspection"/>
+                                    <field name="condition_sale"/>
+                                </group>
+                                <group>
+                                    <field name="deposit_amount"/>
+                                    <field name="deposit_received"/>
+                                    <field name="deposit_date"
+                                           invisible="not deposit_received"/>
+                                </group>
+                            </group>
+                            <separator string="Other Conditions"/>
+                            <field name="other_conditions"/>
+                        </page>
+                        <page string="Counter-Offers" name="counter"
+                              invisible="not counter_offers and not is_counter">
+                            <field name="is_counter"/>
+                            <field name="parent_offer_id" invisible="not is_counter"/>
+                            <field name="counter_offers" invisible="is_counter">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="offer_amount"/>
+                                    <field name="offer_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                            <field name="rejection_reason" readonly="1"
+                                   invisible="state != 'rejected'"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Offer Tree View -->
+    <record id="view_realestate_offer_tree" model="ir.ui.view">
+        <field name="name">realestate.offer.tree</field>
+        <field name="model">realestate.offer</field>
+        <field name="arch" type="xml">
+            <tree string="Offers" decoration-success="state == 'accepted'"
+                  decoration-danger="state in ('rejected', 'expired', 'withdrawn')">
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="buyer_id"/>
+                <field name="offer_amount" sum="Total"/>
+                <field name="offer_percentage"/>
+                <field name="offer_date"/>
+                <field name="validity_date"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Offer Search View -->
+    <record id="view_realestate_offer_search" model="ir.ui.view">
+        <field name="name">realestate.offer.search</field>
+        <field name="model">realestate.offer</field>
+        <field name="arch" type="xml">
+            <search string="Search Offers">
+                <field name="property_id"/>
+                <field name="buyer_id"/>
+                <separator/>
+                <filter name="filter_pending" string="Pending"
+                        domain="[('state', 'in', ['submitted', 'negotiating'])]"/>
+                <filter name="filter_accepted" string="Accepted"
+                        domain="[('state', '=', 'accepted')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_property" string="Property"
+                            context="{'group_by': 'property_id'}"/>
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Offer Action -->
+    <record id="action_realestate_offer" model="ir.actions.act_window">
+        <field name="name">Offers</field>
+        <field name="res_model">realestate.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_realestate_offer_search"/>
+        <field name="context">{'search_default_filter_pending': 1}</field>
+    </record>
+</odoo>

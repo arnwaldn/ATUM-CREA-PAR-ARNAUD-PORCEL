@@ -1,0 +1,45 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/skills-config.json",
+  "version": "1.0.0",
+  "description": "Configuration for Agent Skills integration in ATUM CREA",
+
+  "paths": {
+    "skillsRoot": "skills",
+    "exportedPath": "skills/exported",
+    "communityPath": "skills/community",
+    "scriptsPath": "scripts/skills"
+  },
+
+  "exportSettings": {
+    "includeReferences": true,
+    "includeScripts": true,
+    "maxInstructionTokens": 5000,
+    "generateManifest": true,
+    "license": "Apache-2.0"
+  },
+
+  "importSettings": {
+    "autoRegister": true,
+    "validateOnImport": true,
+    "createVirtualAgent": true
+  },
+
+  "exportableCommands": [
+    "create", "scaffold", "analyze", "debug", "refactor", "deploy",
+    "generate", "test", "tdd", "review", "review-fix", "optimize", "migrate",
+    "research", "deep-research", "papers", "learn", "learn-pdf", "learn-video",
+    "odoo", "odoo-module", "mql5", "game", "3d", "docs", "code-team", "uiux"
+  ],
+
+  "skillSources": {
+    "anthropic": {
+      "repo": "anthropics/skills",
+      "priority": "high",
+      "recommended": ["docx", "xlsx", "pptx", "pdf", "webapp-testing", "mcp-builder", "artifacts-builder"]
+    },
+    "community": {
+      "awesomeList": "travisvn/awesome-claude-skills",
+      "pluginsPlus": "jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "mcpServers": {
+    "firecrawl": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
+      }
+    },
+    "tavily": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@tavily/mcp-server"],
+      "env": {
+        "TAVILY_API_KEY": "${TAVILY_API_KEY}"
+      }
+    },
+    "exa": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "exa-mcp-server"],
+      "env": {
+        "EXA_API_KEY": "${EXA_API_KEY}"
+      }
+    },
+    "cloudflare": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@cloudflare/mcp-server-cloudflare"],
+      "env": {
+        "CLOUDFLARE_API_TOKEN": "${CLOUDFLARE_API_TOKEN}",
+        "CLOUDFLARE_ACCOUNT_ID": "${CLOUDFLARE_ACCOUNT_ID}"
+      }
+    },
+    "sentry": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@sentry/mcp-server-sentry"],
+      "env": {
+        "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}"
+      }
+    },
+    "stripe": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@stripe/mcp-server"],
+      "env": {
+        "STRIPE_SECRET_KEY": "${STRIPE_SECRET_KEY}"
+      }
+    },
+    "sonarqube": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@sonarqube/mcp-server"],
+      "env": {
+        "SONAR_HOST_URL": "https://sonarcloud.io",
+        "SONAR_TOKEN": "${SONAR_TOKEN}"
+      }
+    },
+    "make": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@make/mcp-server"],
+      "env": {
+        "MAKE_API_KEY": "${MAKE_API_KEY}"
+      }
+    },
+    "zapier": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@zapier/mcp-server"],
+      "env": {
+        "ZAPIER_API_KEY": "${ZAPIER_API_KEY}"
+      }
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "env": {}
+    },
+    "magic-ui": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic-mcp"],
+      "env": {}
+    },
+    "shadcn": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "shadcn-ui-mcp-server"],
+      "env": {}
+    },
+    "mermaid": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "mcp-mermaid"],
+      "env": {}
+    },
+    "semgrep": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@semgrep/mcp-server"],
+      "env": {}
+    }
+  }
+}

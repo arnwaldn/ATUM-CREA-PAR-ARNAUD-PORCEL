@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Property Sheet Report -->
+    <record id="action_report_property_sheet" model="ir.actions.report">
+        <field name="name">Property Sheet</field>
+        <field name="model">realestate.property</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate_agency.report_property_sheet</field>
+        <field name="report_file">real_estate_agency.report_property_sheet</field>
+        <field name="print_report_name">'Property - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_realestate_property"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Property Sheet Template -->
+    <template id="report_property_sheet">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- Header with Image -->
+                        <div class="row mb-4">
+                            <div class="col-12 text-center">
+                                <h2><t t-esc="doc.title"/></h2>
+                                <h4 class="text-muted">
+                                    <t t-esc="doc.name"/> -
+                                    <t t-esc="dict(doc._fields['property_type'].selection).get(doc.property_type, '')"/>
+                                </h4>
+                            </div>
+                        </div>
+
+                        <!-- Main Image -->
+                        <div class="row mb-4" t-if="doc.image_main">
+                            <div class="col-12 text-center">
+                                <img t-att-src="'data:image/png;base64,%s' % doc.image_main.decode('utf-8')"
+                                     style="max-width: 100%; max-height: 300px;"/>
+                            </div>
+                        </div>
+
+                        <!-- Price and Location -->
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <h3 style="color: #2196F3;">
+                                    <t t-if="doc.transaction_type != 'rent'">
+                                        <t t-esc="'{:,.0f}'.format(doc.sale_price)"/> €
+                                    </t>
+                                    <t t-if="doc.transaction_type != 'sale'">
+                                        <t t-esc="'{:,.0f}'.format(doc.rent_price)"/> €/month
+                                    </t>
+                                </h3>
+                            </div>
+                            <div class="col-6 text-end">
+                                <strong><t t-esc="doc.city"/></strong><br/>
+                                <span t-if="doc.street">
+                                    <t t-esc="doc.street"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Key Features -->
+                        <div class="row mb-4">
+                            <div class="col-3 text-center" style="border-right: 1px solid #ddd;">
+                                <h4><t t-esc="doc.living_area"/> m²</h4>
+                                <small>Living Area</small>
+                            </div>
+                            <div class="col-3 text-center" style="border-right: 1px solid #ddd;">
+                                <h4><t t-esc="doc.rooms"/></h4>
+                                <small>Rooms</small>
+                            </div>
+                            <div class="col-3 text-center" style="border-right: 1px solid #ddd;">
+                                <h4><t t-esc="doc.bedrooms"/></h4>
+                                <small>Bedrooms</small>
+                            </div>
+                            <div class="col-3 text-center">
+                                <h4><t t-esc="doc.bathrooms"/></h4>
+                                <small>Bathrooms</small>
+                            </div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <h5>Property Details</h5>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td>Type</td>
+                                        <td><t t-esc="dict(doc._fields['property_type'].selection).get(doc.property_type, '')"/></td>
+                                    </tr>
+                                    <tr t-if="doc.floor">
+                                        <td>Floor</td>
+                                        <td><t t-esc="doc.floor"/> / <t t-esc="doc.total_floors"/></td>
+                                    </tr>
+                                    <tr t-if="doc.construction_year">
+                                        <td>Year Built</td>
+                                        <td><t t-esc="doc.construction_year"/></td>
+                                    </tr>
+                                    <tr t-if="doc.condition">
+                                        <td>Condition</td>
+                                        <td><t t-esc="dict(doc._fields['condition'].selection).get(doc.condition, '')"/></td>
+                                    </tr>
+                                    <tr t-if="doc.heating_type">
+                                        <td>Heating</td>
+                                        <td><t t-esc="dict(doc._fields['heating_type'].selection).get(doc.heating_type, '')"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <h5>Energy Performance</h5>
+                                <div t-if="doc.energy_class" style="margin-bottom: 10px;">
+                                    <span style="font-size: 24px; font-weight: bold; padding: 5px 15px; border-radius: 5px;"
+                                          t-attf-style="background-color: {{ {'a': '#00a651', 'b': '#50b848', 'c': '#b3d334', 'd': '#fff200', 'e': '#f7931d', 'f': '#f15a24', 'g': '#ed1c24'}.get(doc.energy_class, '#999') }}; color: white;">
+                                        <t t-esc="doc.energy_class.upper()"/>
+                                    </span>
+                                    <span t-if="doc.energy_value">
+                                        <t t-esc="doc.energy_value"/> kWh/m²/year
+                                    </span>
+                                </div>
+                                <h5 class="mt-3">Features</h5>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li t-if="doc.garage">✓ Garage</li>
+                                    <li t-if="doc.parking_spaces">✓ <t t-esc="doc.parking_spaces"/> Parking spaces</li>
+                                    <li t-if="doc.garden">✓ Garden (<t t-esc="doc.garden_area"/> m²)</li>
+                                    <li t-if="doc.terrace">✓ Terrace</li>
+                                    <li t-if="doc.balcony">✓ Balcony</li>
+                                    <li t-if="doc.elevator">✓ Elevator</li>
+                                    <li t-if="doc.swimming_pool">✓ Swimming Pool</li>
+                                    <li t-if="doc.cellar">✓ Cellar</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="row mb-4" t-if="doc.description">
+                            <div class="col-12">
+                                <h5>Description</h5>
+                                <div t-raw="doc.description"/>
+                            </div>
+                        </div>
+
+                        <!-- Contact -->
+                        <div class="row mt-4">
+                            <div class="col-12 text-center" style="border-top: 1px solid #ddd; padding-top: 15px;">
+                                <strong>Reference: <t t-esc="doc.name"/></strong><br/>
+                                <span t-if="doc.agent_id">
+                                    Contact: <t t-esc="doc.agent_id.name"/>
+                                    <t t-if="doc.agent_id.phone">- <t t-esc="doc.agent_id.phone"/></t>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

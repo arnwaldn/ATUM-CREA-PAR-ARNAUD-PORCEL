@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Security Groups -->
+    <record id="module_category_association" model="ir.module.category">
+        <field name="name">Association</field>
+        <field name="description">Association and Event Management</field>
+        <field name="sequence">55</field>
+    </record>
+
+    <record id="group_association_member" model="res.groups">
+        <field name="name">Member Portal</field>
+        <field name="category_id" ref="module_category_association"/>
+        <field name="comment">Portal access for association members</field>
+    </record>
+
+    <record id="group_association_volunteer" model="res.groups">
+        <field name="name">Volunteer</field>
+        <field name="category_id" ref="module_category_association"/>
+        <field name="implied_ids" eval="[(4, ref('group_association_member'))]"/>
+        <field name="comment">Can help with events and activities</field>
+    </record>
+
+    <record id="group_association_officer" model="res.groups">
+        <field name="name">Officer</field>
+        <field name="category_id" ref="module_category_association"/>
+        <field name="implied_ids" eval="[(4, ref('group_association_volunteer'))]"/>
+        <field name="comment">Can manage members, events, and activities</field>
+    </record>
+
+    <record id="group_association_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="module_category_association"/>
+        <field name="implied_ids" eval="[(4, ref('group_association_officer'))]"/>
+        <field name="comment">Full access to all association features</field>
+    </record>
+
+    <!-- Record Rules -->
+    <!-- Members can see their own record -->
+    <record id="rule_member_own" model="ir.rule">
+        <field name="name">Member: Own Record</field>
+        <field name="model_id" ref="model_association_member"/>
+        <field name="domain_force">[('partner_id.user_ids', 'in', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_association_member'))]"/>
+        <field name="perm_read">1</field>
+        <field name="perm_write">0</field>
+        <field name="perm_create">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+
+    <!-- Officers can manage all members -->
+    <record id="rule_member_officer" model="ir.rule">
+        <field name="name">Member: Officer Access</field>
+        <field name="model_id" ref="model_association_member"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_association_officer'))]"/>
+    </record>
+
+    <!-- Multi-company rules -->
+    <record id="rule_member_company" model="ir.rule">
+        <field name="name">Member: Multi-Company</field>
+        <field name="model_id" ref="model_association_member"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="rule_event_company" model="ir.rule">
+        <field name="name">Event: Multi-Company</field>
+        <field name="model_id" ref="model_association_event"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="rule_activity_company" model="ir.rule">
+        <field name="name">Activity: Multi-Company</field>
+        <field name="model_id" ref="model_association_activity"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="rule_donation_company" model="ir.rule">
+        <field name="name">Donation: Multi-Company</field>
+        <field name="model_id" ref="model_association_donation"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="rule_resource_company" model="ir.rule">
+        <field name="name">Resource: Multi-Company</field>
+        <field name="model_id" ref="model_association_resource"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Published events visible to all -->
+    <record id="rule_event_published" model="ir.rule">
+        <field name="name">Event: Published Events</field>
+        <field name="model_id" ref="model_association_event"/>
+        <field name="domain_force">[('state', 'in', ('published', 'ongoing', 'done'))]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_read">1</field>
+        <field name="perm_write">0</field>
+        <field name="perm_create">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+</odoo>

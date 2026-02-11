@@ -1,0 +1,124 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/hindsight-config.json",
+  "version": "27.17",
+  "description": "Hindsight Memory Configuration for ATUM CREA v27.17 - Progressive Disclosure + Hybrid Search + MMR",
+  "lastUpdated": "2026-01-11",
+
+  "server": {
+    "url": "http://localhost:8888",
+    "ui_url": "http://localhost:9999",
+    "health_check": "/health",
+    "timeout_ms": 30000
+  },
+
+  "banks": {
+    "_verified": "08-Feb-2026 via hindsight_banks API - 9 actual banks",
+    "primary": {
+      "development": "development",
+      "patterns": "patterns",
+      "errors": "errors"
+    },
+    "specialized": {
+      "trading": "trading",
+      "user_preferences": "user_preferences",
+      "world_facts": "world_facts",
+      "experiences": "experiences",
+      "skills": "skills",
+      "projects": "projects"
+    },
+    "description": {
+      "development": "Main development memory - patterns, solutions, code snippets",
+      "patterns": "Reusable patterns and best practices",
+      "errors": "Resolved errors and their solutions",
+      "trading": "Trading strategies and MQL5 patterns",
+      "user_preferences": "User preferences and settings",
+      "world_facts": "General knowledge and facts",
+      "experiences": "Past experiences and outcomes",
+      "skills": "Learned skills and techniques",
+      "projects": "Project-specific memory and context"
+    }
+  },
+
+  "llm": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-20250514",
+    "fallback_model": "claude-haiku-4-5-20251001",
+    "embedding_model": "text-embedding-3-large",
+    "context_window": 200000
+  },
+
+  "retention_policy": {
+    "auto_reflect_threshold": 50,
+    "reflect_schedule": "0 3 * * *",
+    "max_memories_per_bank": 10000,
+    "deduplication": true,
+    "min_confidence": 0.7
+  },
+
+  "operations": {
+    "retain": {
+      "auto_timestamp": true,
+      "extract_entities": true,
+      "add_context": true,
+      "validate_before_store": true
+    },
+    "recall": {
+      "strategies": ["hybrid", "semantic", "keyword", "graph", "temporal"],
+      "default_top_k": 5,
+      "max_tokens": 8000,
+      "rerank": true,
+      "include_metadata": true,
+      "progressiveDisclosure": {
+        "enabled": true,
+        "layer1_fields": ["id", "summary", "score", "timestamp"],
+        "layer2_fields": ["id", "summary", "context", "entities", "score"],
+        "layer3_fields": ["*"],
+        "default_layer": 1,
+        "auto_expand_threshold": 0.85
+      },
+      "hybrid_search": {
+        "enabled": true,
+        "keyword_weight": 0.3,
+        "semantic_weight": 0.7,
+        "combine_method": "rrf"
+      }
+    },
+    "reflect": {
+      "generate_opinions": true,
+      "generate_observations": true,
+      "confidence_threshold": 0.7,
+      "cross_bank_analysis": true
+    }
+  },
+
+  "integration": {
+    "memory_first": {
+      "enabled": true,
+      "recall_before_task": true,
+      "banks_to_check": ["errors", "patterns", "development"]
+    },
+    "auto_learning": {
+      "auto_retain_on_success": true,
+      "auto_retain_on_error": true,
+      "error_bank": "errors",
+      "pattern_bank": "patterns"
+    },
+    "hooks": {
+      "memory_first_hook": "scripts/hooks/memory-first.js",
+      "post_edit_learn": "scripts/hooks/post-edit-learn.js",
+      "self_healing_hook": "scripts/hooks/self-healing-hook.js",
+      "session_start_hook": "scripts/hooks/session-start.js",
+      "session_end_hook": "scripts/hooks/session-end.js"
+    }
+  },
+
+  "ultraThinkIntegration": {
+    "enabled": true,
+    "description": "Ultra Think mode integration for deep memory utilization",
+    "behavior": {
+      "consultAllBanks": true,
+      "tripleVerification": true,
+      "crossReferencePatterns": true
+    }
+  }
+}

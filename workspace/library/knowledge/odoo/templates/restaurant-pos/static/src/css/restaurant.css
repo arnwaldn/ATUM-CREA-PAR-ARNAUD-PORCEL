@@ -1,0 +1,300 @@
+/* Restaurant POS Management Styles */
+
+/* Table status colors */
+.o_restaurant_table_available {
+    background-color: #d4edda !important;
+    border-color: #28a745 !important;
+}
+
+.o_restaurant_table_occupied {
+    background-color: #f8d7da !important;
+    border-color: #dc3545 !important;
+}
+
+.o_restaurant_table_reserved {
+    background-color: #fff3cd !important;
+    border-color: #ffc107 !important;
+}
+
+.o_restaurant_table_cleaning {
+    background-color: #cce5ff !important;
+    border-color: #007bff !important;
+}
+
+/* Table card in kanban */
+.o_restaurant_table_card {
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    min-height: 120px;
+    transition: all 0.2s ease;
+}
+
+.o_restaurant_table_card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Floor plan canvas */
+.o_restaurant_floor_plan {
+    position: relative;
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.o_restaurant_floor_table {
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.o_restaurant_floor_table:hover {
+    transform: scale(1.1);
+    z-index: 100;
+}
+
+/* Order kanban states */
+.o_restaurant_order_draft {
+    border-left: 4px solid #6c757d;
+}
+
+.o_restaurant_order_confirmed {
+    border-left: 4px solid #007bff;
+}
+
+.o_restaurant_order_preparing {
+    border-left: 4px solid #ffc107;
+}
+
+.o_restaurant_order_ready {
+    border-left: 4px solid #17a2b8;
+    animation: pulse 2s infinite;
+}
+
+.o_restaurant_order_served {
+    border-left: 4px solid #28a745;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(23, 162, 184, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(23, 162, 184, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(23, 162, 184, 0); }
+}
+
+/* Kitchen display */
+.o_restaurant_kitchen_display {
+    background-color: #212529;
+    color: #fff;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.o_restaurant_kitchen_order {
+    background-color: #343a40;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.o_restaurant_kitchen_order.urgent {
+    border: 2px solid #dc3545;
+    animation: urgent-pulse 1s infinite;
+}
+
+@keyframes urgent-pulse {
+    0%, 100% { background-color: #343a40; }
+    50% { background-color: #4a1f1f; }
+}
+
+.o_restaurant_kitchen_item {
+    padding: 8px 0;
+    border-bottom: 1px solid #495057;
+    font-size: 1.1em;
+}
+
+.o_restaurant_kitchen_item:last-child {
+    border-bottom: none;
+}
+
+.o_restaurant_kitchen_modification {
+    color: #ffc107;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+/* Menu item card */
+.o_restaurant_menu_item {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.o_restaurant_menu_item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.o_restaurant_menu_item.unavailable {
+    opacity: 0.5;
+    filter: grayscale(50%);
+}
+
+/* Dietary badges */
+.o_restaurant_badge_vegetarian {
+    background-color: #28a745;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75em;
+}
+
+.o_restaurant_badge_vegan {
+    background-color: #20c997;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75em;
+}
+
+.o_restaurant_badge_gluten_free {
+    background-color: #fd7e14;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75em;
+}
+
+.o_restaurant_badge_spicy {
+    background-color: #dc3545;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75em;
+}
+
+/* Order total section */
+.o_restaurant_order_total {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.o_restaurant_order_total .total-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.o_restaurant_order_total .grand-total {
+    font-size: 1.4em;
+    font-weight: bold;
+    border-top: 2px solid #dee2e6;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+/* Payment modal */
+.o_restaurant_payment_modal {
+    max-width: 500px;
+}
+
+.o_restaurant_payment_numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.o_restaurant_payment_numpad button {
+    padding: 20px;
+    font-size: 1.5em;
+    border-radius: 8px;
+}
+
+/* Reservation calendar */
+.o_restaurant_reservation_calendar .fc-event {
+    border-radius: 4px;
+    padding: 2px 5px;
+}
+
+.o_restaurant_reservation_confirmed {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.o_restaurant_reservation_pending {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+/* Staff card */
+.o_restaurant_staff_card {
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+}
+
+.o_restaurant_staff_on_shift {
+    border: 2px solid #28a745;
+}
+
+.o_restaurant_staff_off {
+    opacity: 0.7;
+}
+
+/* Receipt/ticket printing */
+@media print {
+    .o_restaurant_ticket {
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        width: 80mm;
+        margin: 0 auto;
+    }
+
+    .o_restaurant_ticket .header {
+        text-align: center;
+        border-bottom: 2px dashed #000;
+        padding-bottom: 10px;
+    }
+
+    .o_restaurant_ticket .items {
+        margin: 15px 0;
+    }
+
+    .o_restaurant_ticket .item {
+        margin-bottom: 8px;
+    }
+
+    .o_restaurant_ticket .total {
+        border-top: 2px dashed #000;
+        padding-top: 10px;
+        font-weight: bold;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .o_restaurant_floor_plan {
+        min-height: 300px;
+    }
+
+    .o_restaurant_table_card {
+        min-height: 80px;
+        padding: 10px;
+    }
+
+    .o_restaurant_payment_numpad button {
+        padding: 15px;
+        font-size: 1.2em;
+    }
+}

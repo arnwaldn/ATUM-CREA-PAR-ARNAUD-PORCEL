@@ -1,0 +1,180 @@
+/* Healthcare Clinic Module Styles */
+
+/* Patient card styling */
+.o_healthcare_patient_kanban .o_kanban_image {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.o_healthcare_patient_kanban .o_kanban_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Appointment status colors */
+.o_healthcare_appointment_status_draft {
+    background-color: #6c757d;
+    color: white;
+}
+
+.o_healthcare_appointment_status_confirmed {
+    background-color: #007bff;
+    color: white;
+}
+
+.o_healthcare_appointment_status_arrived {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.o_healthcare_appointment_status_in_progress {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.o_healthcare_appointment_status_done {
+    background-color: #28a745;
+    color: white;
+}
+
+.o_healthcare_appointment_status_cancelled,
+.o_healthcare_appointment_status_no_show {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Vital signs display */
+.o_healthcare_vitals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.o_healthcare_vital_item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    min-width: 100px;
+}
+
+.o_healthcare_vital_item .vital_value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #495057;
+}
+
+.o_healthcare_vital_item .vital_label {
+    font-size: 0.75rem;
+    color: #6c757d;
+    text-transform: uppercase;
+}
+
+/* Alert for allergies */
+.o_healthcare_allergy_warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.o_healthcare_allergy_warning::before {
+    content: "⚠️ ";
+}
+
+/* Prescription styling */
+.o_healthcare_prescription_line {
+    border-left: 3px solid #007bff;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.o_healthcare_prescription_medication {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.o_healthcare_prescription_instructions {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Calendar appointment colors by type */
+.fc-event.o_healthcare_appointment_consultation {
+    background-color: #007bff !important;
+    border-color: #0056b3 !important;
+}
+
+.fc-event.o_healthcare_appointment_follow_up {
+    background-color: #28a745 !important;
+    border-color: #1e7e34 !important;
+}
+
+.fc-event.o_healthcare_appointment_emergency {
+    background-color: #dc3545 !important;
+    border-color: #bd2130 !important;
+}
+
+.fc-event.o_healthcare_appointment_procedure {
+    background-color: #6f42c1 !important;
+    border-color: #59359a !important;
+}
+
+/* Consultation form tabs styling */
+.o_healthcare_consultation_tabs .nav-link {
+    font-weight: 500;
+}
+
+.o_healthcare_consultation_tabs .nav-link.active {
+    border-bottom: 3px solid #007bff;
+}
+
+/* Diagnosis tags */
+.o_healthcare_diagnosis_tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    margin: 0.125rem;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.o_healthcare_diagnosis_tag.chronic {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.o_healthcare_diagnosis_tag.allergy {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Print styles for prescription */
+@media print {
+    .o_healthcare_prescription_print {
+        font-size: 12pt;
+    }
+
+    .o_healthcare_prescription_print .no-print {
+        display: none !important;
+    }
+
+    .o_healthcare_prescription_print .medication_row {
+        page-break-inside: avoid;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .o_healthcare_vitals {
+        flex-direction: column;
+    }
+
+    .o_healthcare_vital_item {
+        width: 100%;
+    }
+}

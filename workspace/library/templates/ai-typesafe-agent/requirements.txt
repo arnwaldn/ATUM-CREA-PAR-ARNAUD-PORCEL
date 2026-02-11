@@ -1,0 +1,25 @@
+# TypeSafe Agent - Dependencies
+# ULTRA-CREATE v27.3
+
+# Core Framework
+agno>=2.0.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# LLM Providers
+openai>=1.0.0
+anthropic>=0.20.0  # Optional: for Claude support
+
+# Tools
+yfinance>=0.2.0
+duckduckgo-search>=4.0.0
+
+# Output Formatting
+rich>=13.0.0
+
+# Observability (optional)
+traceloop-sdk>=0.15.0
+
+# Utilities
+python-dotenv>=1.0.0
+httpx>=0.25.0

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Equipment Form View -->
+    <record id="view_fsm_equipment_form" model="ir.ui.view">
+        <field name="name">fsm.equipment.form</field>
+        <field name="model">fsm.equipment</field>
+        <field name="arch" type="xml">
+            <form string="Equipment">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_interventions" type="object"
+                                class="oe_stat_button" icon="fa-wrench">
+                            <field name="intervention_count" widget="statinfo"
+                                   string="Interventions"/>
+                        </button>
+                        <button name="action_schedule_maintenance" type="object"
+                                class="oe_stat_button" icon="fa-calendar-check-o"
+                                invisible="not maintenance_required">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Schedule</span>
+                                <span class="o_stat_text">Maintenance</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Equipment Information">
+                            <field name="equipment_type_id"/>
+                            <field name="serial_number"/>
+                            <field name="model"/>
+                            <field name="brand"/>
+                            <field name="description"/>
+                        </group>
+                        <group string="Customer">
+                            <field name="partner_id"/>
+                            <field name="location_street"/>
+                            <field name="location_city"/>
+                            <field name="location_zip"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Purchase & Warranty">
+                            <field name="purchase_date"/>
+                            <field name="warranty_end"/>
+                            <field name="warranty_active"/>
+                        </group>
+                        <group string="Maintenance">
+                            <field name="maintenance_interval"/>
+                            <field name="last_maintenance"/>
+                            <field name="next_maintenance"/>
+                            <field name="maintenance_required"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Technical Details" name="technical">
+                            <field name="technical_specs"/>
+                        </page>
+                        <page string="Intervention History" name="history">
+                            <field name="intervention_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="scheduled_date"/>
+                                    <field name="intervention_type_id"/>
+                                    <field name="technician_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Equipment Tree View -->
+    <record id="view_fsm_equipment_tree" model="ir.ui.view">
+        <field name="name">fsm.equipment.tree</field>
+        <field name="model">fsm.equipment</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment" decoration-warning="maintenance_required">
+                <field name="name"/>
+                <field name="equipment_type_id"/>
+                <field name="partner_id"/>
+                <field name="serial_number"/>
+                <field name="model"/>
+                <field name="warranty_active" widget="boolean"/>
+                <field name="next_maintenance"/>
+                <field name="maintenance_required" invisible="1"/>
+                <field name="intervention_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Equipment Kanban View -->
+    <record id="view_fsm_equipment_kanban" model="ir.ui.view">
+        <field name="name">fsm.equipment.kanban</field>
+        <field name="model">fsm.equipment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="equipment_type_id">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="equipment_type_id"/>
+                <field name="warranty_active"/>
+                <field name="maintenance_required"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click #{record.maintenance_required.raw_value ? 'oe_kanban_color_3' : ''}">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <span t-if="record.warranty_active.raw_value"
+                                      class="badge text-bg-success">Under Warranty</span>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div><i class="fa fa-user"/> <field name="partner_id"/></div>
+                                <div><i class="fa fa-cog"/> <field name="equipment_type_id"/></div>
+                            </div>
+                            <div class="o_kanban_record_bottom" t-if="record.maintenance_required.raw_value">
+                                <span class="text-danger">
+                                    <i class="fa fa-exclamation-triangle"/> Maintenance Required
+                                </span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Equipment Search View -->
+    <record id="view_fsm_equipment_search" model="ir.ui.view">
+        <field name="name">fsm.equipment.search</field>
+        <field name="model">fsm.equipment</field>
+        <field name="arch" type="xml">
+            <search string="Search Equipment">
+                <field name="name"/>
+                <field name="serial_number"/>
+                <field name="partner_id"/>
+                <field name="equipment_type_id"/>
+                <separator/>
+                <filter name="filter_warranty" string="Under Warranty"
+                        domain="[('warranty_end', '>=', context_today().strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="filter_maintenance" string="Maintenance Required"
+                        domain="[('next_maintenance', '&lt;=', context_today().strftime('%%Y-%%m-%%d'))]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_type" string="Type"
+                            context="{'group_by': 'equipment_type_id'}"/>
+                    <filter name="groupby_customer" string="Customer"
+                            context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Equipment Type Views -->
+    <record id="view_fsm_equipment_type_tree" model="ir.ui.view">
+        <field name="name">fsm.equipment.type.tree</field>
+        <field name="model">fsm.equipment.type</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment Types" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="default_maintenance_interval"/>
+                <field name="required_skills" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_fsm_equipment" model="ir.actions.act_window">
+        <field name="name">Equipment</field>
+        <field name="res_model">fsm.equipment</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_fsm_equipment_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register your first equipment
+            </p>
+        </field>
+    </record>
+
+    <record id="action_fsm_equipment_maintenance" model="ir.actions.act_window">
+        <field name="name">Maintenance Required</field>
+        <field name="res_model">fsm.equipment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{'search_default_filter_maintenance': 1}</field>
+    </record>
+
+    <record id="action_fsm_equipment_type" model="ir.actions.act_window">
+        <field name="name">Equipment Types</field>
+        <field name="res_model">fsm.equipment.type</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

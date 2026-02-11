@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vue des paramètres -->
+    <record id="res_config_settings_view_form_{{module_name}}" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.{{module_name}}</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority">50</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="{{Module Name}}"
+                     string="{{Module Name}}"
+                     name="{{module_name}}"
+                     groups="{{module_name}}.group_manager">
+                    <block title="Configuration API" name="api_config">
+                        <setting id="{{module_name}}_api_settings"
+                                 title="Paramètres API"
+                                 help="Configurer la connexion à l'API externe">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="{{module_name}}_api_url"
+                                           class="col-lg-3 o_light_label"/>
+                                    <field name="{{module_name}}_api_url"
+                                           class="col-lg-9"/>
+                                </div>
+                                <div class="row">
+                                    <label for="{{module_name}}_api_key"
+                                           class="col-lg-3 o_light_label"/>
+                                    <field name="{{module_name}}_api_key"
+                                           class="col-lg-9"
+                                           password="True"/>
+                                </div>
+                                <div class="row">
+                                    <label for="{{module_name}}_api_secret"
+                                           class="col-lg-3 o_light_label"/>
+                                    <field name="{{module_name}}_api_secret"
+                                           class="col-lg-9"
+                                           password="True"/>
+                                </div>
+                                <div class="row mt8">
+                                    <div class="col-lg-12">
+                                        <button name="action_test_connection"
+                                                string="Tester la connexion"
+                                                type="object"
+                                                class="btn-secondary"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+
+                    <block title="Webhooks" name="webhook_config">
+                        <setting id="{{module_name}}_webhook_settings"
+                                 title="Configuration Webhooks"
+                                 help="Configurer la réception des webhooks">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="{{module_name}}_webhook_secret"
+                                           class="col-lg-3 o_light_label"/>
+                                    <field name="{{module_name}}_webhook_secret"
+                                           class="col-lg-9"
+                                           password="True"/>
+                                </div>
+                                <div class="row mt8">
+                                    <div class="col-lg-12 text-muted">
+                                        <i class="fa fa-info-circle"/>
+                                        URL du webhook: <code>/{{module_name}}/webhook</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+
+                    <block title="Synchronisation" name="sync_config">
+                        <setting id="{{module_name}}_sync_settings"
+                                 title="Synchronisation automatique"
+                                 help="Configurer la synchronisation périodique">
+                            <field name="{{module_name}}_auto_sync"/>
+                            <div class="content-group"
+                                 invisible="not {{module_name}}_auto_sync">
+                                <div class="row mt16">
+                                    <label for="{{module_name}}_sync_interval"
+                                           class="col-lg-3 o_light_label"/>
+                                    <field name="{{module_name}}_sync_interval"
+                                           class="col-lg-3"/>
+                                    <span class="col-lg-6">minutes</span>
+                                </div>
+                            </div>
+                            <div class="row mt8">
+                                <div class="col-lg-12">
+                                    <button name="action_sync_now"
+                                            string="Synchroniser maintenant"
+                                            type="object"
+                                            class="btn-primary"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Action pour ouvrir les paramètres -->
+    <record id="action_{{module_name}}_config_settings" model="ir.actions.act_window">
+        <field name="name">Paramètres</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': '{{module_name}}'}</field>
+    </record>
+
+</odoo>

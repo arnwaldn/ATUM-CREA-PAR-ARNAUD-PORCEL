@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_healthcare_root"
+              name="Healthcare"
+              web_icon="healthcare_clinic,static/description/icon.png"
+              sequence="100"/>
+
+    <!-- Main Menus -->
+    <menuitem id="menu_healthcare_main"
+              name="Healthcare"
+              parent="menu_healthcare_root"
+              sequence="10"/>
+
+    <menuitem id="menu_healthcare_appointments"
+              name="Appointments"
+              parent="menu_healthcare_main"
+              action="action_healthcare_appointment"
+              sequence="10"/>
+
+    <menuitem id="menu_healthcare_appointments_today"
+              name="Today's Appointments"
+              parent="menu_healthcare_main"
+              action="action_healthcare_appointment_today"
+              sequence="15"/>
+
+    <menuitem id="menu_healthcare_consultations"
+              name="Consultations"
+              parent="menu_healthcare_main"
+              action="action_healthcare_consultation"
+              sequence="20"/>
+
+    <menuitem id="menu_healthcare_prescriptions"
+              name="Prescriptions"
+              parent="menu_healthcare_main"
+              action="action_healthcare_prescription"
+              sequence="30"/>
+
+    <menuitem id="menu_healthcare_prescriptions_to_dispense"
+              name="To Dispense"
+              parent="menu_healthcare_main"
+              action="action_healthcare_prescription_to_dispense"
+              sequence="35"/>
+
+    <!-- Patients Menu -->
+    <menuitem id="menu_healthcare_patients_main"
+              name="Patients"
+              parent="menu_healthcare_root"
+              sequence="20"/>
+
+    <menuitem id="menu_healthcare_patients"
+              name="All Patients"
+              parent="menu_healthcare_patients_main"
+              action="action_healthcare_patient"
+              sequence="10"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_healthcare_configuration"
+              name="Configuration"
+              parent="menu_healthcare_root"
+              groups="group_healthcare_manager"
+              sequence="100"/>
+
+    <menuitem id="menu_healthcare_practitioners"
+              name="Practitioners"
+              parent="menu_healthcare_configuration"
+              action="action_healthcare_practitioner"
+              sequence="10"/>
+
+    <menuitem id="menu_healthcare_medications"
+              name="Medications"
+              parent="menu_healthcare_configuration"
+              action="action_healthcare_medication"
+              sequence="20"/>
+
+    <menuitem id="menu_healthcare_conditions"
+              name="Conditions / ICD-10"
+              parent="menu_healthcare_configuration"
+              action="action_healthcare_condition"
+              sequence="30"/>
+
+    <!-- Reporting Menu -->
+    <menuitem id="menu_healthcare_reporting"
+              name="Reporting"
+              parent="menu_healthcare_root"
+              groups="group_healthcare_manager"
+              sequence="90"/>
+</odoo>

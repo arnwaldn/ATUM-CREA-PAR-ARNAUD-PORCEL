@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Prescription Report Action -->
+    <record id="action_report_prescription" model="ir.actions.report">
+        <field name="name">Prescription</field>
+        <field name="model">healthcare.prescription</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">healthcare_clinic.report_prescription</field>
+        <field name="report_file">healthcare_clinic.report_prescription</field>
+        <field name="print_report_name">'Prescription - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_healthcare_prescription"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Prescription Report Template -->
+    <template id="report_prescription">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- Header -->
+                        <div class="row mb-4">
+                            <div class="col-12 text-center">
+                                <h2>MEDICAL PRESCRIPTION</h2>
+                                <h4 class="text-muted"><t t-esc="doc.name"/></h4>
+                            </div>
+                        </div>
+
+                        <!-- Practitioner Info -->
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <strong>Prescriber:</strong><br/>
+                                <span t-field="doc.practitioner_id.name"/><br/>
+                                <span t-if="doc.practitioner_id.specialty">
+                                    <t t-esc="dict(doc.practitioner_id._fields['specialty'].selection).get(doc.practitioner_id.specialty, '')"/>
+                                </span><br/>
+                                <span t-if="doc.practitioner_id.registration_number">
+                                    Reg. No: <t t-esc="doc.practitioner_id.registration_number"/>
+                                </span>
+                            </div>
+                            <div class="col-6 text-end">
+                                <strong>Date:</strong> <span t-field="doc.date"/><br/>
+                                <strong>Valid Until:</strong> <span t-field="doc.validity_date"/>
+                            </div>
+                        </div>
+
+                        <!-- Patient Info -->
+                        <div class="row mb-4 p-3" style="background-color: #f8f9fa; border-radius: 5px;">
+                            <div class="col-12">
+                                <strong>Patient:</strong>
+                                <span t-field="doc.patient_id.name" style="font-size: 1.2em;"/><br/>
+                                <t t-if="doc.patient_id.birthdate">
+                                    <strong>DOB:</strong> <span t-field="doc.patient_id.birthdate"/>
+                                    (<span t-field="doc.patient_id.age"/> years)
+                                </t>
+                            </div>
+                        </div>
+
+                        <!-- Diagnosis -->
+                        <div class="row mb-3" t-if="doc.diagnosis">
+                            <div class="col-12">
+                                <strong>Diagnosis:</strong>
+                                <span t-field="doc.diagnosis"/>
+                            </div>
+                        </div>
+
+                        <!-- Medications -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2">Medications</h5>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">#</th>
+                                            <th style="width: 35%;">Medication</th>
+                                            <th style="width: 40%;">Instructions</th>
+                                            <th style="width: 20%;">Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.line_ids" t-as="line">
+                                            <tr>
+                                                <td><t t-esc="line_index + 1"/></td>
+                                                <td>
+                                                    <strong t-field="line.medication_id.name"/><br/>
+                                                    <small class="text-muted">
+                                                        <t t-if="line.medication_id.strength">
+                                                            <t t-esc="line.medication_id.strength"/>
+                                                        </t>
+                                                        <t t-if="line.medication_form">
+                                                            - <t t-esc="dict(line._fields['medication_form'].selection).get(line.medication_form, '')"/>
+                                                        </t>
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line.dosage"/>
+                                                    <t t-esc="dict(line._fields['frequency'].selection).get(line.frequency, '')"/>
+                                                    <t t-if="line.frequency == 'other' and line.frequency_other">
+                                                        (<t t-esc="line.frequency_other"/>)
+                                                    </t>
+                                                    <br/>
+                                                    <t t-if="line.duration">
+                                                        For <t t-esc="line.duration"/>
+                                                        <t t-esc="dict(line._fields['duration_unit'].selection).get(line.duration_unit, '')"/>
+                                                    </t>
+                                                    <br/>
+                                                    <t t-if="line.take_with_food">
+                                                        <em>Take with food</em><br/>
+                                                    </t>
+                                                    <t t-if="line.instructions">
+                                                        <small><t t-esc="line.instructions"/></small>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="line.quantity">
+                                                        <t t-esc="line.quantity"/>
+                                                        <t t-esc="line.quantity_unit"/>
+                                                    </t>
+                                                    <br/>
+                                                    <small t-if="not line.substitution_allowed" class="text-danger">
+                                                        No substitution
+                                                    </small>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Patient Instructions -->
+                        <div class="row mb-4" t-if="doc.notes">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2">Instructions for Patient</h5>
+                                <p t-field="doc.notes"/>
+                            </div>
+                        </div>
+
+                        <!-- Renewal Info -->
+                        <div class="row mb-4" t-if="doc.max_renewals > 0">
+                            <div class="col-12">
+                                <small class="text-muted">
+                                    Renewals: <t t-esc="doc.renewal_count"/> of <t t-esc="doc.max_renewals"/> allowed
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Signature Area -->
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <!-- Empty for layout -->
+                            </div>
+                            <div class="col-6 text-center">
+                                <div style="border-top: 1px solid #000; padding-top: 10px; margin-top: 50px;">
+                                    <strong>Prescriber's Signature</strong><br/>
+                                    <span t-field="doc.practitioner_id.name"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Note -->
+                        <div class="row mt-4">
+                            <div class="col-12 text-center">
+                                <small class="text-muted">
+                                    This prescription is valid until <span t-field="doc.validity_date"/>.
+                                    Please consult your pharmacist for medication interactions.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

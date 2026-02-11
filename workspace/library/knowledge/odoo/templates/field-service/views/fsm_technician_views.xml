@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Technician Form View -->
+    <record id="view_fsm_technician_form" model="ir.ui.view">
+        <field name="name">fsm.technician.form</field>
+        <field name="model">fsm.technician</field>
+        <field name="arch" type="xml">
+            <form string="Technician">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_interventions" type="object"
+                                class="oe_stat_button" icon="fa-wrench">
+                            <field name="intervention_count" widget="statinfo"
+                                   string="Interventions"/>
+                        </button>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar"
+                           options="{'preview_image': 'image_128'}"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Technician Name"/></h1>
+                        <field name="job_title" placeholder="Job Title"/>
+                    </div>
+                    <group>
+                        <group string="Information">
+                            <field name="employee_id"/>
+                            <field name="user_id"/>
+                            <field name="work_phone"/>
+                            <field name="mobile_phone"/>
+                            <field name="work_email"/>
+                        </group>
+                        <group string="Status">
+                            <field name="availability_status" widget="badge"
+                                   decoration-success="availability_status == 'available'"
+                                   decoration-warning="availability_status == 'busy'"
+                                   decoration-danger="availability_status == 'unavailable'"/>
+                            <field name="current_location"/>
+                            <field name="hourly_rate"/>
+                            <field name="overtime_rate"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Skills" name="skills">
+                            <field name="skill_ids">
+                                <tree editable="bottom">
+                                    <field name="skill_id"/>
+                                    <field name="level" widget="badge"
+                                           decoration-info="level == 'beginner'"
+                                           decoration-warning="level == 'intermediate'"
+                                           decoration-success="level == 'expert'"/>
+                                    <field name="certified"/>
+                                    <field name="certification_date"/>
+                                    <field name="certification_expiry"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Work Hours" name="hours">
+                            <group>
+                                <group string="Weekly Schedule">
+                                    <field name="monday_start" widget="float_time"/>
+                                    <field name="monday_end" widget="float_time"/>
+                                    <field name="tuesday_start" widget="float_time"/>
+                                    <field name="tuesday_end" widget="float_time"/>
+                                    <field name="wednesday_start" widget="float_time"/>
+                                    <field name="wednesday_end" widget="float_time"/>
+                                    <field name="thursday_start" widget="float_time"/>
+                                    <field name="thursday_end" widget="float_time"/>
+                                    <field name="friday_start" widget="float_time"/>
+                                    <field name="friday_end" widget="float_time"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Technician Tree View -->
+    <record id="view_fsm_technician_tree" model="ir.ui.view">
+        <field name="name">fsm.technician.tree</field>
+        <field name="model">fsm.technician</field>
+        <field name="arch" type="xml">
+            <tree string="Technicians">
+                <field name="name"/>
+                <field name="work_phone"/>
+                <field name="mobile_phone"/>
+                <field name="skill_ids" widget="many2many_tags"/>
+                <field name="availability_status" widget="badge"
+                       decoration-success="availability_status == 'available'"
+                       decoration-warning="availability_status == 'busy'"
+                       decoration-danger="availability_status == 'unavailable'"/>
+                <field name="intervention_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Technician Kanban View -->
+    <record id="view_fsm_technician_kanban" model="ir.ui.view">
+        <field name="name">fsm.technician.kanban</field>
+        <field name="model">fsm.technician</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="image_128"/>
+                <field name="availability_status"/>
+                <field name="mobile_phone"/>
+                <field name="intervention_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('fsm.technician', 'image_128', record.id.raw_value)"
+                                     alt="Technician" class="o_image_64_cover"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div><i class="fa fa-phone"/> <field name="mobile_phone"/></div>
+                                <div>
+                                    <span t-attf-class="badge #{record.availability_status.raw_value == 'available' ? 'text-bg-success' : record.availability_status.raw_value == 'busy' ? 'text-bg-warning' : 'text-bg-danger'}">
+                                        <field name="availability_status"/>
+                                    </span>
+                                </div>
+                                <div><field name="intervention_count"/> interventions</div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Technician Search View -->
+    <record id="view_fsm_technician_search" model="ir.ui.view">
+        <field name="name">fsm.technician.search</field>
+        <field name="model">fsm.technician</field>
+        <field name="arch" type="xml">
+            <search string="Search Technicians">
+                <field name="name"/>
+                <field name="skill_ids"/>
+                <separator/>
+                <filter name="filter_available" string="Available"
+                        domain="[('availability_status', '=', 'available')]"/>
+                <filter name="filter_busy" string="Busy"
+                        domain="[('availability_status', '=', 'busy')]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_status" string="Status"
+                            context="{'group_by': 'availability_status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Skill Views -->
+    <record id="view_fsm_skill_tree" model="ir.ui.view">
+        <field name="name">fsm.skill.tree</field>
+        <field name="model">fsm.skill</field>
+        <field name="arch" type="xml">
+            <tree string="Skills" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="requires_certification"/>
+                <field name="certification_validity_months"
+                       invisible="not requires_certification"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Intervention Type Views -->
+    <record id="view_fsm_intervention_type_tree" model="ir.ui.view">
+        <field name="name">fsm.intervention.type.tree</field>
+        <field name="model">fsm.intervention.type</field>
+        <field name="arch" type="xml">
+            <tree string="Intervention Types" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="default_duration" widget="float_time"/>
+                <field name="default_priority"/>
+                <field name="sla_response_hours"/>
+                <field name="sla_resolution_hours"/>
+                <field name="color" widget="color_picker"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_fsm_technician" model="ir.actions.act_window">
+        <field name="name">Technicians</field>
+        <field name="res_model">fsm.technician</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_fsm_technician_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register your first technician
+            </p>
+        </field>
+    </record>
+
+    <record id="action_fsm_skill" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">fsm.skill</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="action_fsm_intervention_type" model="ir.actions.act_window">
+        <field name="name">Intervention Types</field>
+        <field name="res_model">fsm.intervention.type</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

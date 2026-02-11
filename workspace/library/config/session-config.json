@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "27.17",
+  "name": "Session State Configuration",
+  "description": "Full state serialization for crash recovery (Loop GPT Pattern)",
+  "source_pattern": "Loop GPT (awesome-ai-agents)",
+
+  "storage": {
+    "state_dir": "~/.ultra-create/sessions",
+    "max_sessions": 10,
+    "compression": true,
+    "auto_prune_days": 7
+  },
+
+  "serialization": {
+    "interval_ms": 30000,
+    "on_events": ["tool_call", "agent_switch", "error", "milestone"],
+    "include": {
+      "conversation_context": true,
+      "tool_history": true,
+      "agent_states": true,
+      "decision_tree": true,
+      "memory_snapshots": true,
+      "file_changes": true,
+      "error_log": true
+    },
+    "exclude": {
+      "sensitive_data": true,
+      "large_file_contents": true,
+      "binary_data": true
+    }
+  },
+
+  "state_schema": {
+    "session_id": "string (UUID)",
+    "created_at": "ISO date",
+    "updated_at": "ISO date",
+    "status": "active | paused | completed | crashed",
+    "project": {
+      "path": "string",
+      "name": "string",
+      "type": "string"
+    },
+    "context": {
+      "user_intent": "string",
+      "current_phase": "string",
+      "progress_percent": "number"
+    },
+    "agents": {
+      "active": ["agent_id"],
+      "states": { "agent_id": {} }
+    },
+    "tools": {
+      "history": [{ "tool": "string", "input": {}, "output": {}, "timestamp": "ISO" }],
+      "pending": []
+    },
+    "decisions": {
+      "tree": [],
+      "current_branch": "string"
+    },
+    "memory": {
+      "hindsight_queries": [],
+      "context7_lookups": [],
+      "local_cache": {}
+    },
+    "files": {
+      "created": [],
+      "modified": [],
+      "deleted": []
+    },
+    "errors": {
+      "count": 0,
+      "log": []
+    },
+    "checkpoints": []
+  },
+
+  "recovery": {
+    "auto_resume": true,
+    "resume_delay_ms": 1000,
+    "max_resume_attempts": 3,
+    "fallback_to_checkpoint": true
+  },
+
+  "checkpoints": {
+    "auto_create": true,
+    "triggers": ["phase_complete", "major_milestone", "before_risky_operation"],
+    "max_checkpoints_per_session": 5,
+    "retention": {
+      "keep_on_success": 1,
+      "keep_on_failure": 3
+    }
+  },
+
+  "hooks": {
+    "on_serialize": "session-serializer.cjs",
+    "on_restore": "session-restore.cjs",
+    "on_crash": "session-crash-handler.cjs"
+  }
+}

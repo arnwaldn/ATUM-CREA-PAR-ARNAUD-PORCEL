@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebXR Experience</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+  <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+  <a-scene
+    id="scene"
+    vr-mode-ui="enabled: true; enterVRButton: #enterVRButton"
+    loading-screen="dotsColor: #6750A4; backgroundColor: #1C1B1F"
+    renderer="antialias: true; colorManagement: true; physicallyCorrectLights: true; highRefreshRate: true"
+    webxr="requiredFeatures: hit-test, local-floor; optionalFeatures: hand-tracking"
+  >
+    <!-- Assets -->
+    <a-assets timeout="30000">
+      <img id="sky-texture" src="/textures/sky.jpg">
+      <img id="floor-texture" src="/textures/floor.jpg">
+      <a-asset-item id="scene-model" src="/models/scene.glb"></a-asset-item>
+      <audio id="ambient-audio" src="/audio/ambient.mp3" preload="auto"></audio>
+      <audio id="click-audio" src="/audio/click.mp3" preload="auto"></audio>
+    </a-assets>
+
+    <!-- Sky -->
+    <a-sky src="#sky-texture" rotation="0 -90 0"></a-sky>
+
+    <!-- Ground -->
+    <a-plane
+      id="ground"
+      src="#floor-texture"
+      rotation="-90 0 0"
+      width="50"
+      height="50"
+      repeat="10 10"
+      shadow="receive: true"
+      class="teleportable"
+    ></a-plane>
+
+    <!-- Environment lighting -->
+    <a-entity light="type: ambient; color: #BBB; intensity: 0.5"></a-entity>
+    <a-entity
+      light="type: directional; color: #FFF; intensity: 0.8; castShadow: true; shadowMapWidth: 2048; shadowMapHeight: 2048"
+      position="-1 4 2"
+    ></a-entity>
+
+    <!-- 3D Scene Model -->
+    <a-entity
+      id="main-model"
+      gltf-model="#scene-model"
+      position="0 0 -5"
+      scale="1 1 1"
+      animation-mixer
+      shadow="cast: true; receive: true"
+    ></a-entity>
+
+    <!-- Interactive Objects -->
+    <a-entity id="interactive-objects">
+      <a-box
+        class="grabbable clickable"
+        position="-2 1.2 -3"
+        width="0.4"
+        height="0.4"
+        depth="0.4"
+        color="#6750A4"
+        shadow="cast: true"
+        grabbable
+        sound="src: #click-audio; on: click"
+        animation__hover="property: scale; to: 1.1 1.1 1.1; startEvents: mouseenter; dur: 200"
+        animation__unhover="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 200"
+      ></a-box>
+
+      <a-sphere
+        class="grabbable clickable"
+        position="0 1.2 -3"
+        radius="0.25"
+        color="#7D5260"
+        shadow="cast: true"
+        grabbable
+        sound="src: #click-audio; on: click"
+      ></a-sphere>
+
+      <a-cylinder
+        class="grabbable clickable"
+        position="2 1 -3"
+        radius="0.2"
+        height="0.6"
+        color="#625B71"
+        shadow="cast: true"
+        grabbable
+        sound="src: #click-audio; on: click"
+      ></a-cylinder>
+    </a-entity>
+
+    <!-- Info Panel -->
+    <a-entity
+      id="info-panel"
+      position="0 2 -4"
+      geometry="primitive: plane; width: 3; height: 1.5"
+      material="color: #1C1B1F; opacity: 0.9"
+    >
+      <a-text
+        value="Bienvenue dans l'expérience VR\n\nUtilisez les manettes pour interagir\nPointez et appuyez pour téléporter"
+        align="center"
+        color="#E6E1E5"
+        width="2.5"
+        position="0 0 0.01"
+      ></a-text>
+    </a-entity>
+
+    <!-- Camera Rig with Locomotion -->
+    <a-entity
+      id="rig"
+      movement-controls="fly: false; speed: 0.1"
+      position="0 0 3"
+    >
+      <!-- VR Camera -->
+      <a-entity
+        id="camera"
+        camera
+        look-controls="pointerLockEnabled: false"
+        position="0 1.6 0"
+      >
+        <!-- Gaze cursor for mobile VR -->
+        <a-cursor
+          id="cursor"
+          fuse="true"
+          fuse-timeout="1500"
+          color="#FFFFFF"
+          raycaster="objects: .clickable"
+          animation__fusing="property: scale; from: 1 1 1; to: 0.5 0.5 0.5; dur: 1500; startEvents: fusing"
+          animation__reset="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
+        >
+          <a-animation
+            begin="click"
+            attribute="scale"
+            from="0.1 0.1 0.1"
+            to="1 1 1"
+            dur="150"
+          ></a-animation>
+        </a-cursor>
+      </a-entity>
+
+      <!-- Left Controller -->
+      <a-entity
+        id="left-controller"
+        laser-controls="hand: left"
+        raycaster="objects: .clickable, .teleportable; far: 10"
+        line="color: #6750A4; opacity: 0.75"
+        teleport-controls="cameraRig: #rig; teleportOrigin: #camera; button: trigger"
+      ></a-entity>
+
+      <!-- Right Controller -->
+      <a-entity
+        id="right-controller"
+        laser-controls="hand: right"
+        raycaster="objects: .clickable, .grabbable; far: 5"
+        line="color: #6750A4; opacity: 0.75"
+        super-hands="colliderEvent: raycaster-intersection; colliderEventProperty: els; colliderEndEvent: raycaster-intersection-cleared; colliderEndEventProperty: clearedEls"
+      ></a-entity>
+
+      <!-- Hand Tracking (if available) -->
+      <a-entity
+        id="left-hand"
+        hand-tracking-controls="hand: left; modelColor: #6750A4"
+      ></a-entity>
+
+      <a-entity
+        id="right-hand"
+        hand-tracking-controls="hand: right; modelColor: #6750A4"
+      ></a-entity>
+    </a-entity>
+
+    <!-- Ambient Sound -->
+    <a-entity
+      sound="src: #ambient-audio; autoplay: true; loop: true; volume: 0.2; positional: false"
+    ></a-entity>
+  </a-scene>
+
+  <!-- Custom Enter VR Button -->
+  <button id="enterVRButton" class="vr-button">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.5 6h-17C2.67 6 2 6.67 2 7.5v9c0 .83.67 1.5 1.5 1.5h5.25L10 15.5h4l1.25 2.5h5.25c.83 0 1.5-.67 1.5-1.5v-9c0-.83-.67-1.5-1.5-1.5zM8 13c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm8 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+    </svg>
+    <span>Enter VR</span>
+  </button>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="loader"></div>
+    <p>Loading experience...</p>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

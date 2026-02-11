@@ -1,0 +1,105 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_PAT_HERE"
+      },
+      "description": "GitHub operations - PRs, issues, repos"
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "YOUR_FIRECRAWL_KEY_HERE"
+      },
+      "description": "Web scraping and crawling"
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase@latest", "--project-ref", "YOUR_SUPABASE_PROJECT_REF"],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "YOUR_SUPABASE_ACCESS_TOKEN"
+      },
+      "description": "Supabase database operations"
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Persistent memory across sessions"
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Chain-of-thought reasoning"
+    },
+    "railway": {
+      "command": "npx",
+      "args": ["-y", "@railway/mcp-server"],
+      "env": {
+        "RAILWAY_TOKEN": "YOUR_RAILWAY_TOKEN_HERE"
+      },
+      "description": "Railway deployments"
+    },
+    "cloudflare-docs": {
+      "type": "http",
+      "url": "https://docs.mcp.cloudflare.com/mcp",
+      "description": "Cloudflare documentation search"
+    },
+    "cloudflare": {
+      "command": "npx",
+      "args": ["-y", "@cloudflare/mcp-server-cloudflare"],
+      "env": {
+        "CLOUDFLARE_API_TOKEN": "YOUR_CLOUDFLARE_API_TOKEN_HERE",
+        "CLOUDFLARE_ACCOUNT_ID": "YOUR_CLOUDFLARE_ACCOUNT_ID_HERE"
+      },
+      "description": "Cloudflare Workers, KV, R2, D1, Analytics"
+    },
+    "vercel": {
+      "command": "npx",
+      "args": ["-y", "vercel-mcp"],
+      "env": {
+        "VERCEL_API_TOKEN": "YOUR_VERCEL_API_TOKEN_HERE"
+      },
+      "description": "Vercel deployments and projects"
+    },
+    "clickhouse": {
+      "command": "npx",
+      "args": ["-y", "@clickhouse/mcp-server"],
+      "env": {
+        "CLICKHOUSE_HOST": "YOUR_CLICKHOUSE_HOST_HERE",
+        "CLICKHOUSE_USER": "YOUR_CLICKHOUSE_USER_HERE",
+        "CLICKHOUSE_PASSWORD": "YOUR_CLICKHOUSE_PASSWORD_HERE"
+      },
+      "description": "ClickHouse analytics queries"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "description": "Live documentation lookup"
+    },
+    "magic": {
+      "command": "npx",
+      "args": ["-y", "@magicuidesign/mcp@latest"],
+      "description": "Magic UI components"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "C:\\Claude-Code-Creation", "C:\\Users\\arnau"],
+      "description": "Filesystem operations - ATUM CREA base + user home"
+    },
+    "hindsight": {
+      "command": "node",
+      "args": ["C:\\Claude-Code-Creation\\scripts\\hindsight-mcp-bridge.cjs"],
+      "description": "Persistent memory with 13 banks (patterns, errors, development, trading, etc.) - requires Docker container on port 8888"
+    }
+  },
+  "_comments": {
+    "role": "Template/reference file - real auth is managed via OAuth (~/.claude/.credentials.json) and session config",
+    "placeholders": "YOUR_*_HERE values are reference placeholders - actual tokens are injected at session level",
+    "disabling": "Use disabledMcpServers array in project config to disable per-project",
+    "context_warning": "Keep under 10 MCPs enabled to preserve context window",
+    "status": "All 14 MCPs (13 + hindsight) are functional as of 08-Feb-2026"
+  }
+}

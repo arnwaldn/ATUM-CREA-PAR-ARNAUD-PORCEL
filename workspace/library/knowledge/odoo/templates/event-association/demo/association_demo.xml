@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Venues -->
+        <record id="venue_main_hall" model="association.venue">
+            <field name="name">Main Hall</field>
+            <field name="capacity">200</field>
+            <field name="address">123 Association Street</field>
+            <field name="city">Demo City</field>
+            <field name="facilities">Stage, Audio System, Projector, Microphones</field>
+        </record>
+
+        <record id="venue_meeting_room" model="association.venue">
+            <field name="name">Meeting Room A</field>
+            <field name="capacity">30</field>
+            <field name="address">123 Association Street</field>
+            <field name="city">Demo City</field>
+            <field name="facilities">Whiteboard, Projector, Conference Table</field>
+        </record>
+
+        <record id="venue_sports_center" model="association.venue">
+            <field name="name">Sports Center</field>
+            <field name="capacity">100</field>
+            <field name="address">45 Sports Avenue</field>
+            <field name="city">Demo City</field>
+            <field name="facilities">Gym, Changing Rooms, Showers</field>
+        </record>
+
+        <!-- Demo Members -->
+        <record id="member_alice" model="association.member">
+            <field name="name">Alice Johnson</field>
+            <field name="email">alice.johnson@example.com</field>
+            <field name="phone">+1 555-0101</field>
+            <field name="member_type_id" ref="member_type_regular"/>
+            <field name="join_date" eval="(DateTime.today() - relativedelta(years=2)).strftime('%Y-%m-%d')"/>
+            <field name="birth_date">1985-03-15</field>
+            <field name="gender">female</field>
+            <field name="occupation">Software Engineer</field>
+            <field name="street">456 Oak Street</field>
+            <field name="city">Demo City</field>
+            <field name="zip">12345</field>
+            <field name="state">active</field>
+            <field name="newsletter" eval="True"/>
+        </record>
+
+        <record id="member_bob" model="association.member">
+            <field name="name">Bob Smith</field>
+            <field name="email">bob.smith@example.com</field>
+            <field name="phone">+1 555-0102</field>
+            <field name="member_type_id" ref="member_type_regular"/>
+            <field name="join_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="birth_date">1978-07-22</field>
+            <field name="gender">male</field>
+            <field name="occupation">Teacher</field>
+            <field name="street">789 Maple Avenue</field>
+            <field name="city">Demo City</field>
+            <field name="zip">12346</field>
+            <field name="state">active</field>
+            <field name="newsletter" eval="True"/>
+        </record>
+
+        <record id="member_carol" model="association.member">
+            <field name="name">Carol Williams</field>
+            <field name="email">carol.williams@example.com</field>
+            <field name="phone">+1 555-0103</field>
+            <field name="member_type_id" ref="member_type_student"/>
+            <field name="join_date" eval="(DateTime.today() - relativedelta(months=6)).strftime('%Y-%m-%d')"/>
+            <field name="birth_date">2002-11-30</field>
+            <field name="gender">female</field>
+            <field name="occupation">Student</field>
+            <field name="street">321 Pine Road</field>
+            <field name="city">Demo City</field>
+            <field name="zip">12347</field>
+            <field name="state">active</field>
+        </record>
+
+        <record id="member_david" model="association.member">
+            <field name="name">David Brown</field>
+            <field name="email">david.brown@example.com</field>
+            <field name="phone">+1 555-0104</field>
+            <field name="member_type_id" ref="member_type_senior"/>
+            <field name="join_date" eval="(DateTime.today() - relativedelta(years=5)).strftime('%Y-%m-%d')"/>
+            <field name="birth_date">1955-01-10</field>
+            <field name="gender">male</field>
+            <field name="occupation">Retired</field>
+            <field name="street">654 Elm Street</field>
+            <field name="city">Demo City</field>
+            <field name="zip">12348</field>
+            <field name="state">active</field>
+            <field name="newsletter" eval="True"/>
+        </record>
+
+        <record id="member_eva" model="association.member">
+            <field name="name">Eva Martinez</field>
+            <field name="email">eva.martinez@example.com</field>
+            <field name="phone">+1 555-0105</field>
+            <field name="member_type_id" ref="member_type_regular"/>
+            <field name="join_date" eval="(DateTime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')"/>
+            <field name="birth_date">1990-06-25</field>
+            <field name="gender">female</field>
+            <field name="occupation">Marketing Manager</field>
+            <field name="state">pending</field>
+        </record>
+
+        <!-- Demo Memberships -->
+        <record id="membership_alice" model="association.membership">
+            <field name="member_id" ref="member_alice"/>
+            <field name="member_type_id" ref="member_type_regular"/>
+            <field name="date_start" eval="(DateTime.today() - relativedelta(months=6)).strftime('%Y-%m-%d')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(months=6)).strftime('%Y-%m-%d')"/>
+            <field name="amount">50.00</field>
+            <field name="payment_state">paid</field>
+            <field name="state">active</field>
+        </record>
+
+        <record id="membership_bob" model="association.membership">
+            <field name="member_id" ref="member_bob"/>
+            <field name="member_type_id" ref="member_type_regular"/>
+            <field name="date_start" eval="(DateTime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(months=9)).strftime('%Y-%m-%d')"/>
+            <field name="amount">50.00</field>
+            <field name="payment_state">paid</field>
+            <field name="state">active</field>
+        </record>
+
+        <!-- Demo Events -->
+        <record id="event_annual_meeting" model="association.event">
+            <field name="name">Annual General Meeting 2025</field>
+            <field name="event_type_id" ref="event_type_meeting"/>
+            <field name="venue_id" ref="venue_main_hall"/>
+            <field name="location_type">physical</field>
+            <field name="date_start" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d 17:00:00')"/>
+            <field name="registration_deadline" eval="(DateTime.today() + relativedelta(weeks=3)).strftime('%Y-%m-%d')"/>
+            <field name="capacity_min">20</field>
+            <field name="capacity_max">150</field>
+            <field name="is_free" eval="True"/>
+            <field name="member_only" eval="True"/>
+            <field name="short_description">Annual meeting for all members to discuss association matters and elect new board members.</field>
+            <field name="state">published</field>
+        </record>
+
+        <record id="event_workshop_photography" model="association.event">
+            <field name="name">Photography Workshop: Basics</field>
+            <field name="event_type_id" ref="event_type_workshop"/>
+            <field name="venue_id" ref="venue_meeting_room"/>
+            <field name="location_type">physical</field>
+            <field name="date_start" eval="(DateTime.today() + relativedelta(weeks=2)).strftime('%Y-%m-%d 10:00:00')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(weeks=2)).strftime('%Y-%m-%d 16:00:00')"/>
+            <field name="registration_deadline" eval="(DateTime.today() + relativedelta(weeks=1)).strftime('%Y-%m-%d')"/>
+            <field name="capacity_min">5</field>
+            <field name="capacity_max">15</field>
+            <field name="is_free" eval="False"/>
+            <field name="price_member">25.00</field>
+            <field name="price_non_member">40.00</field>
+            <field name="short_description">Learn the basics of photography in this hands-on workshop.</field>
+            <field name="state">published</field>
+        </record>
+
+        <record id="event_charity_gala" model="association.event">
+            <field name="name">Charity Gala Evening</field>
+            <field name="event_type_id" ref="event_type_fundraiser"/>
+            <field name="venue_id" ref="venue_main_hall"/>
+            <field name="location_type">physical</field>
+            <field name="date_start" eval="(DateTime.today() + relativedelta(months=2)).strftime('%Y-%m-%d 19:00:00')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(months=2)).strftime('%Y-%m-%d 23:00:00')"/>
+            <field name="registration_deadline" eval="(DateTime.today() + relativedelta(months=2, weeks=-1)).strftime('%Y-%m-%d')"/>
+            <field name="capacity_max">100</field>
+            <field name="is_free" eval="False"/>
+            <field name="price_member">75.00</field>
+            <field name="price_non_member">100.00</field>
+            <field name="short_description">An elegant evening of dining and entertainment to support our community programs.</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="event_online_webinar" model="association.event">
+            <field name="name">Webinar: Digital Marketing Trends</field>
+            <field name="event_type_id" ref="event_type_conference"/>
+            <field name="location_type">online</field>
+            <field name="online_link">https://zoom.us/j/example123</field>
+            <field name="date_start" eval="(DateTime.today() + relativedelta(weeks=3)).strftime('%Y-%m-%d 18:00:00')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(weeks=3)).strftime('%Y-%m-%d 19:30:00')"/>
+            <field name="capacity_max">500</field>
+            <field name="is_free" eval="True"/>
+            <field name="short_description">Join us online for insights into the latest digital marketing trends.</field>
+            <field name="state">published</field>
+        </record>
+
+        <!-- Demo Event Registrations -->
+        <record id="registration_alice_meeting" model="association.event.registration">
+            <field name="event_id" ref="event_annual_meeting"/>
+            <field name="member_id" ref="member_alice"/>
+            <field name="partner_id" ref="member_alice" model="association.member" eval="obj().partner_id.id"/>
+            <field name="state">confirmed</field>
+        </record>
+
+        <record id="registration_bob_meeting" model="association.event.registration">
+            <field name="event_id" ref="event_annual_meeting"/>
+            <field name="member_id" ref="member_bob"/>
+            <field name="partner_id" ref="member_bob" model="association.member" eval="obj().partner_id.id"/>
+            <field name="state">confirmed</field>
+        </record>
+
+        <record id="registration_alice_workshop" model="association.event.registration">
+            <field name="event_id" ref="event_workshop_photography"/>
+            <field name="member_id" ref="member_alice"/>
+            <field name="partner_id" ref="member_alice" model="association.member" eval="obj().partner_id.id"/>
+            <field name="amount">25.00</field>
+            <field name="payment_state">paid</field>
+            <field name="state">confirmed</field>
+        </record>
+
+        <!-- Demo Activities -->
+        <record id="activity_yoga" model="association.activity">
+            <field name="name">Morning Yoga Class</field>
+            <field name="activity_type_id" ref="activity_type_fitness"/>
+            <field name="venue_id" ref="venue_sports_center"/>
+            <field name="level">beginner</field>
+            <field name="date_start" eval="(DateTime.today()).strftime('%Y-%m-%d')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(months=3)).strftime('%Y-%m-%d')"/>
+            <field name="recurrence">weekly</field>
+            <field name="time_start">7.0</field>
+            <field name="time_end">8.0</field>
+            <field name="capacity_min">5</field>
+            <field name="capacity_max">20</field>
+            <field name="price_member">10.00</field>
+            <field name="price_non_member">15.00</field>
+            <field name="description">Start your day with energizing yoga sessions suitable for all levels.</field>
+            <field name="state">ongoing</field>
+        </record>
+
+        <record id="activity_painting" model="association.activity">
+            <field name="name">Painting Workshop</field>
+            <field name="activity_type_id" ref="activity_type_arts"/>
+            <field name="venue_id" ref="venue_meeting_room"/>
+            <field name="level">intermediate</field>
+            <field name="date_start" eval="(DateTime.today() + relativedelta(weeks=1)).strftime('%Y-%m-%d')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(months=2)).strftime('%Y-%m-%d')"/>
+            <field name="recurrence">weekly</field>
+            <field name="time_start">14.0</field>
+            <field name="time_end">16.0</field>
+            <field name="capacity_max">12</field>
+            <field name="price_member">20.00</field>
+            <field name="price_non_member">30.00</field>
+            <field name="description">Learn various painting techniques with professional guidance.</field>
+            <field name="equipment_needed">Apron, brushes (provided), canvas (provided)</field>
+            <field name="state">open</field>
+        </record>
+
+        <!-- Demo Donations -->
+        <record id="donation_alice_1" model="association.donation">
+            <field name="donor_id" ref="member_alice" model="association.member" eval="obj().partner_id.id"/>
+            <field name="member_id" ref="member_alice"/>
+            <field name="donation_date" eval="(DateTime.today() - relativedelta(months=2)).strftime('%Y-%m-%d')"/>
+            <field name="donation_type">monetary</field>
+            <field name="amount">100.00</field>
+            <field name="payment_method">bank_transfer</field>
+            <field name="tax_deductible" eval="True"/>
+            <field name="thanked" eval="True"/>
+            <field name="state">received</field>
+        </record>
+
+        <record id="donation_bob_1" model="association.donation">
+            <field name="donor_id" ref="member_bob" model="association.member" eval="obj().partner_id.id"/>
+            <field name="member_id" ref="member_bob"/>
+            <field name="donation_date" eval="(DateTime.today() - relativedelta(weeks=3)).strftime('%Y-%m-%d')"/>
+            <field name="donation_type">monetary</field>
+            <field name="amount">50.00</field>
+            <field name="payment_method">card</field>
+            <field name="tax_deductible" eval="True"/>
+            <field name="thanked" eval="False"/>
+            <field name="state">received</field>
+        </record>
+
+        <record id="donation_anonymous" model="association.donation">
+            <field name="is_anonymous" eval="True"/>
+            <field name="donor_email">anonymous@example.com</field>
+            <field name="donation_date" eval="(DateTime.today() - relativedelta(weeks=1)).strftime('%Y-%m-%d')"/>
+            <field name="donation_type">monetary</field>
+            <field name="amount">500.00</field>
+            <field name="payment_method">bank_transfer</field>
+            <field name="tax_deductible" eval="True"/>
+            <field name="state">received</field>
+        </record>
+
+        <!-- Demo Fundraising Campaign -->
+        <record id="campaign_building_fund" model="association.donation.campaign">
+            <field name="name">Building Renovation Fund</field>
+            <field name="goal_amount">10000.00</field>
+            <field name="date_start" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(months=5)).strftime('%Y-%m-%d')"/>
+            <field name="description">Help us renovate our community building to better serve our members and the community.</field>
+            <field name="state">active</field>
+        </record>
+
+        <!-- Demo Resources -->
+        <record id="resource_projector" model="association.resource">
+            <field name="name">Portable Projector</field>
+            <field name="resource_type">equipment</field>
+            <field name="is_free" eval="True"/>
+            <field name="member_only" eval="True"/>
+            <field name="description">Full HD portable projector with HDMI and USB connections.</field>
+        </record>
+
+        <record id="resource_conference_room" model="association.resource">
+            <field name="name">Conference Room B</field>
+            <field name="resource_type">room</field>
+            <field name="capacity">15</field>
+            <field name="location">Second Floor</field>
+            <field name="is_free" eval="False"/>
+            <field name="hourly_rate">25.00</field>
+            <field name="member_only" eval="False"/>
+            <field name="requires_approval" eval="True"/>
+            <field name="min_booking_hours">1</field>
+            <field name="max_booking_hours">8</field>
+            <field name="available_from">8.0</field>
+            <field name="available_to">20.0</field>
+            <field name="equipment_list">Conference table, 15 chairs, whiteboard, TV screen</field>
+        </record>
+
+        <!-- Demo Resource Booking -->
+        <record id="booking_conference" model="association.resource.booking">
+            <field name="resource_id" ref="resource_conference_room"/>
+            <field name="member_id" ref="member_bob"/>
+            <field name="partner_id" ref="member_bob" model="association.member" eval="obj().partner_id.id"/>
+            <field name="date_start" eval="(DateTime.today() + relativedelta(days=5)).strftime('%Y-%m-%d 10:00:00')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(days=5)).strftime('%Y-%m-%d 12:00:00')"/>
+            <field name="purpose">Project planning meeting</field>
+            <field name="attendee_count">8</field>
+            <field name="amount">50.00</field>
+            <field name="state">confirmed</field>
+        </record>
+    </data>
+</odoo>

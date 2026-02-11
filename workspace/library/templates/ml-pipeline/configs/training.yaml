@@ -1,0 +1,46 @@
+# Training Configuration
+model:
+  name: classifier
+  architecture: resnet18
+  num_classes: 10
+  pretrained: true
+  freeze_backbone: false
+
+data:
+  train_path: data/train
+  val_path: data/val
+  test_path: data/test
+  batch_size: 32
+  num_workers: 4
+  image_size: [224, 224]
+
+training:
+  epochs: 50
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  optimizer: adamw
+  scheduler: cosine
+  warmup_epochs: 5
+  early_stopping:
+    patience: 10
+    min_delta: 0.001
+
+augmentation:
+  enabled: true
+  horizontal_flip: true
+  vertical_flip: false
+  rotation: 15
+  color_jitter: 0.2
+
+mlflow:
+  experiment_name: {{APP_NAME}}
+  run_name: null  # Auto-generated if null
+  tags:
+    project: {{APP_NAME}}
+    type: training
+
+checkpoints:
+  save_best: true
+  save_last: true
+  metric: val_accuracy
+  mode: max

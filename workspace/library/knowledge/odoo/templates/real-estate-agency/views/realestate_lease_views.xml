@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Lease Form View -->
+    <record id="view_realestate_lease_form" model="ir.ui.view">
+        <field name="name">realestate.lease.form</field>
+        <field name="model">realestate.lease</field>
+        <field name="arch" type="xml">
+            <form string="Lease">
+                <header>
+                    <button name="action_activate" type="object" string="Activate"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_give_notice" type="object" string="Give Notice"
+                            invisible="state != 'active'"/>
+                    <button name="action_end" type="object" string="End Lease"
+                            invisible="state not in ('active', 'notice')"/>
+                    <button name="action_renew" type="object" string="Renew"
+                            invisible="state not in ('active', 'notice')"/>
+                    <button name="action_generate_rent_invoice" type="object"
+                            string="Generate Invoice" invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,ended"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Property">
+                            <field name="property_id"/>
+                            <field name="owner_id"/>
+                            <field name="agent_id"/>
+                        </group>
+                        <group string="Tenant">
+                            <field name="tenant_id"/>
+                            <field name="lease_type"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Dates">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="duration_months"/>
+                            <field name="notice_period"/>
+                        </group>
+                        <group string="Rent">
+                            <field name="rent_amount"/>
+                            <field name="charges_amount"/>
+                            <field name="total_monthly"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Deposit" name="deposit">
+                            <group>
+                                <group>
+                                    <field name="deposit_amount"/>
+                                    <field name="deposit_received"/>
+                                    <field name="deposit_date"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Rent Review" name="review">
+                            <group>
+                                <group>
+                                    <field name="rent_review_type"/>
+                                    <field name="rent_review_percentage"
+                                           invisible="rent_review_type != 'fixed'"/>
+                                </group>
+                                <group>
+                                    <field name="rent_review_date"/>
+                                    <field name="last_review_date"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Payment" name="payment">
+                            <group>
+                                <group>
+                                    <field name="payment_day"/>
+                                    <field name="payment_method"/>
+                                </group>
+                                <group>
+                                    <field name="balance"/>
+                                </group>
+                            </group>
+                            <field name="payment_ids">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="period_start"/>
+                                    <field name="period_end"/>
+                                    <field name="payment_type"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="state"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Inventory" name="inventory">
+                            <group>
+                                <group string="Move-in">
+                                    <field name="inventory_in_date"/>
+                                    <field name="inventory_in_done"/>
+                                </group>
+                                <group string="Move-out">
+                                    <field name="inventory_out_date"/>
+                                    <field name="inventory_out_done"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Documents" name="documents">
+                            <field name="lease_signed"/>
+                            <field name="document_ids" widget="many2many_binary"/>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Lease Tree View -->
+    <record id="view_realestate_lease_tree" model="ir.ui.view">
+        <field name="name">realestate.lease.tree</field>
+        <field name="model">realestate.lease</field>
+        <field name="arch" type="xml">
+            <tree string="Leases" decoration-success="state == 'active'"
+                  decoration-warning="state == 'notice'"
+                  decoration-muted="state == 'ended'">
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="tenant_id"/>
+                <field name="lease_type"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="total_monthly" sum="Total"/>
+                <field name="balance"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Lease Search View -->
+    <record id="view_realestate_lease_search" model="ir.ui.view">
+        <field name="name">realestate.lease.search</field>
+        <field name="model">realestate.lease</field>
+        <field name="arch" type="xml">
+            <search string="Search Leases">
+                <field name="property_id"/>
+                <field name="tenant_id"/>
+                <field name="owner_id"/>
+                <separator/>
+                <filter name="filter_active" string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="filter_notice" string="Notice Given"
+                        domain="[('state', '=', 'notice')]"/>
+                <filter name="filter_ending_soon" string="Ending Soon"
+                        domain="[('date_end', '&lt;=', (context_today() + relativedelta(months=3)).strftime('%%Y-%%m-%%d')),
+                                 ('state', '=', 'active')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_property" string="Property"
+                            context="{'group_by': 'property_id'}"/>
+                    <filter name="groupby_tenant" string="Tenant"
+                            context="{'group_by': 'tenant_id'}"/>
+                    <filter name="groupby_type" string="Type"
+                            context="{'group_by': 'lease_type'}"/>
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Lease Action -->
+    <record id="action_realestate_lease" model="ir.actions.act_window">
+        <field name="name">Leases</field>
+        <field name="res_model">realestate.lease</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_realestate_lease_search"/>
+        <field name="context">{'search_default_filter_active': 1}</field>
+    </record>
+
+    <!-- Tenant Views -->
+    <record id="view_realestate_tenant_form" model="ir.ui.view">
+        <field name="name">realestate.tenant.form</field>
+        <field name="model">realestate.tenant</field>
+        <field name="arch" type="xml">
+            <form string="Tenant">
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Tenant Name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Contact">
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                            <field name="email"/>
+                        </group>
+                        <group string="Employment">
+                            <field name="employer"/>
+                            <field name="profession"/>
+                            <field name="monthly_income"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Guarantor">
+                            <field name="guarantor_name"/>
+                            <field name="guarantor_phone"/>
+                            <field name="guarantor_address"/>
+                        </group>
+                        <group string="Documents">
+                            <field name="has_id_copy"/>
+                            <field name="has_income_proof"/>
+                            <field name="has_employer_letter"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Leases" name="leases">
+                            <field name="lease_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="property_id"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_realestate_tenant_tree" model="ir.ui.view">
+        <field name="name">realestate.tenant.tree</field>
+        <field name="model">realestate.tenant</field>
+        <field name="arch" type="xml">
+            <tree string="Tenants">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="employer"/>
+                <field name="monthly_income"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_realestate_tenant" model="ir.actions.act_window">
+        <field name="name">Tenants</field>
+        <field name="res_model">realestate.tenant</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

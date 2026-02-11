@@ -1,0 +1,449 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/behavioral-modes.json",
+  "version": "28.0",
+  "description": "Behavioral Modes Configuration - ATUM CREA v27.8 PRE-IMPLEMENTATION VERIFICATION",
+  "lastUpdated": "2026-01-09",
+  "defaultMode": "ultra-think",
+
+  "modes": {
+    "Standard": {
+      "id": "standard",
+      "name": "Standard Mode",
+      "description": "Balanced approach for most tasks",
+      "activation": "/mode standard",
+      "config": {
+        "parallelism": {
+          "maxAgents": 10,
+          "strategy": "adaptive"
+        },
+        "validation": {
+          "lint": true,
+          "lintLevel": "warning",
+          "typeCheck": true,
+          "tests": false,
+          "testCoverage": 0,
+          "security": "basic"
+        },
+        "behavior": {
+          "codeGeneration": true,
+          "autoFix": true,
+          "explainDecisions": false,
+          "askBeforeAction": false
+        },
+        "tokenOptimization": {
+          "enabled": false,
+          "targetReduction": 0
+        }
+      },
+      "agents": {
+        "priority": ["pm-agent", "confidence-checker", "fullstack-super"],
+        "disabled": [],
+        "autoActivate": ["self-checker"]
+      }
+    },
+
+    "Speed": {
+      "id": "speed",
+      "name": "Speed Mode",
+      "description": "Maximum velocity, minimal validation - for prototypes and MVPs",
+      "activation": "/mode speed",
+      "config": {
+        "parallelism": {
+          "maxAgents": 25,
+          "strategy": "maximum"
+        },
+        "validation": {
+          "lint": false,
+          "lintLevel": "off",
+          "typeCheck": false,
+          "tests": false,
+          "testCoverage": 0,
+          "security": "none"
+        },
+        "behavior": {
+          "codeGeneration": true,
+          "autoFix": false,
+          "explainDecisions": false,
+          "askBeforeAction": false,
+          "skipReview": true
+        },
+        "tokenOptimization": {
+          "enabled": true,
+          "targetReduction": 60
+        }
+      },
+      "agents": {
+        "priority": ["parallel-executor-v18", "token-optimizer", "fullstack-super"],
+        "disabled": ["security-auditor", "code-reviewer", "self-reflection-loop"],
+        "autoActivate": []
+      },
+      "warnings": [
+        "No validation - use only for prototypes",
+        "Security checks disabled",
+        "Manual review required before production"
+      ]
+    },
+
+    "Quality": {
+      "id": "quality",
+      "name": "Quality Mode",
+      "description": "Maximum quality - comprehensive testing, security, and review",
+      "activation": "/mode quality",
+      "config": {
+        "parallelism": {
+          "maxAgents": 5,
+          "strategy": "sequential-preferred"
+        },
+        "validation": {
+          "lint": true,
+          "lintLevel": "strict",
+          "typeCheck": true,
+          "tests": true,
+          "testCoverage": 80,
+          "security": "comprehensive"
+        },
+        "behavior": {
+          "codeGeneration": true,
+          "autoFix": true,
+          "explainDecisions": true,
+          "askBeforeAction": false,
+          "requireReview": true
+        },
+        "tokenOptimization": {
+          "enabled": false,
+          "targetReduction": 0
+        }
+      },
+      "agents": {
+        "priority": ["quality-super", "security-auditor", "code-reviewer", "tester"],
+        "disabled": ["token-optimizer"],
+        "autoActivate": ["self-reflection-loop", "self-checker", "accessibility-auditor"]
+      },
+      "requirements": {
+        "minTestCoverage": 80,
+        "securityScanRequired": true,
+        "codeReviewRequired": true
+      }
+    },
+
+    "Architect": {
+      "id": "architect",
+      "name": "Architect Mode",
+      "description": "Design and planning only - no code generation",
+      "activation": "/mode architect",
+      "config": {
+        "parallelism": {
+          "maxAgents": 3,
+          "strategy": "sequential"
+        },
+        "validation": {
+          "lint": false,
+          "typeCheck": false,
+          "tests": false,
+          "security": "architecture-review"
+        },
+        "behavior": {
+          "codeGeneration": false,
+          "designOnly": true,
+          "explainDecisions": true,
+          "askBeforeAction": true,
+          "requireUserValidation": true,
+          "generateDiagrams": true
+        },
+        "tokenOptimization": {
+          "enabled": false
+        }
+      },
+      "agents": {
+        "priority": ["design-strategist", "tree-of-thoughts", "pm-agent"],
+        "disabled": ["fullstack-super", "backend-super", "parallel-executor-v18"],
+        "autoActivate": ["reasoning-agent"]
+      },
+      "outputs": {
+        "diagrams": true,
+        "specifications": true,
+        "codeEstimates": true,
+        "riskAnalysis": true
+      },
+      "mcps": ["mermaid", "sequential-thinking"]
+    },
+
+    "Autonomous": {
+      "id": "autonomous",
+      "name": "Autonomous Mode",
+      "description": "Full autonomy with safety limits - minimal human intervention",
+      "activation": "/mode autonomous",
+      "config": {
+        "parallelism": {
+          "maxAgents": 20,
+          "strategy": "adaptive-aggressive"
+        },
+        "validation": {
+          "lint": true,
+          "lintLevel": "warning",
+          "typeCheck": true,
+          "tests": true,
+          "testCoverage": 60,
+          "security": "automatic"
+        },
+        "behavior": {
+          "codeGeneration": true,
+          "autoFix": true,
+          "autoDecide": true,
+          "explainDecisions": false,
+          "askBeforeAction": false,
+          "selfHeal": true
+        },
+        "tokenOptimization": {
+          "enabled": true,
+          "targetReduction": 30
+        }
+      },
+      "agents": {
+        "priority": ["autonomous-executor", "self-healer", "queen-v18"],
+        "disabled": ["wizard-agent"],
+        "autoActivate": ["self-checker", "confidence-checker", "auto-validator"]
+      },
+      "safetyLimits": {
+        "noPushForce": true,
+        "noDeleteProduction": true,
+        "noModifyEnvFiles": true,
+        "requireConfirmFor": ["deploy", "payment-integration", "api-keys", "database-migration"],
+        "maxFilesPerEdit": 20,
+        "maxLinesPerFile": 500,
+        "rollbackOnError": true
+      }
+    },
+
+    "Brainstorm": {
+      "id": "brainstorm",
+      "name": "Brainstorm Mode",
+      "description": "Exploratory mode - multiple ideas, no validation",
+      "activation": "/mode brainstorm",
+      "config": {
+        "parallelism": {
+          "maxAgents": 5,
+          "strategy": "divergent"
+        },
+        "validation": {
+          "lint": false,
+          "typeCheck": false,
+          "tests": false,
+          "security": "none"
+        },
+        "behavior": {
+          "codeGeneration": false,
+          "generateIdeas": true,
+          "exploreAlternatives": true,
+          "explainDecisions": true,
+          "askBeforeAction": false,
+          "produceVariants": 3
+        },
+        "tokenOptimization": {
+          "enabled": false
+        }
+      },
+      "agents": {
+        "priority": ["tree-of-thoughts", "deep-researcher", "design-strategist"],
+        "disabled": ["self-checker", "security-auditor", "tester"],
+        "autoActivate": ["reasoning-agent"]
+      },
+      "outputs": {
+        "ideas": true,
+        "pros_cons": true,
+        "comparisons": true,
+        "recommendations": true
+      },
+      "mcps": ["exa", "firecrawl", "sequential-thinking"]
+    },
+
+    "Mentor": {
+      "id": "mentor",
+      "name": "Mentor Mode",
+      "description": "Educational mode - explain everything, teach concepts",
+      "activation": "/mode mentor",
+      "config": {
+        "parallelism": {
+          "maxAgents": 2,
+          "strategy": "sequential"
+        },
+        "validation": {
+          "lint": false,
+          "typeCheck": false,
+          "tests": false,
+          "security": "educational"
+        },
+        "behavior": {
+          "codeGeneration": true,
+          "generateWithExplanations": true,
+          "explainDecisions": true,
+          "explainWhyNot": true,
+          "askBeforeAction": true,
+          "stepByStep": true,
+          "includeResources": true
+        },
+        "tokenOptimization": {
+          "enabled": false
+        }
+      },
+      "agents": {
+        "priority": ["documentation-generator", "reasoning-agent"],
+        "disabled": ["parallel-executor-v18", "token-optimizer"],
+        "autoActivate": []
+      },
+      "outputs": {
+        "explanations": true,
+        "codeComments": "verbose",
+        "learningResources": true,
+        "bestPractices": true,
+        "commonMistakes": true
+      }
+    },
+
+    "UltraThink": {
+      "id": "ultra-think",
+      "name": "Ultra Think Mode",
+      "description": "Reflexion maximale permanente - MODE PAR DEFAUT. Pousse chaque analyse a sa profondeur maximale.",
+      "activation": "AUTOMATIQUE (mode par defaut)",
+      "isDefault": true,
+      "config": {
+        "thinking": {
+          "extended": true,
+          "depth": "maximum",
+          "minThinkingTime": "proportional-to-complexity",
+          "multiPerspective": true,
+          "verificationPasses": 3
+        },
+        "parallelism": {
+          "maxAgents": 15,
+          "strategy": "quality-first"
+        },
+        "validation": {
+          "lint": true,
+          "lintLevel": "strict",
+          "typeCheck": true,
+          "tests": true,
+          "testCoverage": 80,
+          "security": "comprehensive",
+          "documentation": "required"
+        },
+        "behavior": {
+          "codeGeneration": true,
+          "autoFix": true,
+          "explainDecisions": true,
+          "deepAnalysis": true,
+          "noSuperficialAnswers": true,
+          "tripleVerification": true,
+          "askBeforeAction": false
+        },
+        "tokenOptimization": {
+          "enabled": false,
+          "targetReduction": 0
+        }
+      },
+      "agents": {
+        "priority": ["tree-of-thoughts", "reasoning-agent", "self-reflection-loop", "pm-agent", "confidence-checker"],
+        "disabled": ["token-optimizer"],
+        "autoActivate": ["confidence-checker", "self-checker", "auto-validator", "self-reflection-loop"]
+      },
+      "thinkingPatterns": {
+        "beforeAction": [
+          "Analyser le contexte complet",
+          "Identifier toutes les implications",
+          "Considerer les alternatives",
+          "Verifier les hypotheses",
+          "Planifier la meilleure approche"
+        ],
+        "duringAction": [
+          "Controler chaque etape",
+          "Valider les resultats intermediaires",
+          "Corriger immediatement si necessaire",
+          "Documenter les decisions"
+        ],
+        "afterAction": [
+          "Verifier 100% du resultat",
+          "Valider la coherence globale",
+          "Confirmer les tests passent",
+          "Reviser la qualite finale"
+        ]
+      },
+      "requirements": {
+        "minVerificationPasses": 3,
+        "qualityGate": true,
+        "documentationRequired": true,
+        "noShortcuts": true
+      }
+    }
+  },
+
+  "modeTransitions": {
+    "_description": "Automatic mode transitions based on context",
+    "rules": [
+      {
+        "from": "Standard",
+        "to": "Quality",
+        "condition": "intent.includes('production') || intent.includes('deploy')",
+        "message": "Switching to Quality mode for production deployment"
+      },
+      {
+        "from": "Standard",
+        "to": "Architect",
+        "condition": "intent.includes('design') || intent.includes('architecture') || intent.includes('plan')",
+        "message": "Switching to Architect mode for design phase"
+      },
+      {
+        "from": "Speed",
+        "to": "Quality",
+        "condition": "intent.includes('review') || intent.includes('production')",
+        "message": "Switching to Quality mode - validation required"
+      },
+      {
+        "from": "any",
+        "to": "Mentor",
+        "condition": "intent.includes('explain') || intent.includes('teach') || intent.includes('learn')",
+        "message": "Switching to Mentor mode for educational content"
+      }
+    ]
+  },
+
+  "combinedModes": {
+    "_description": "Predefined mode combinations",
+
+    "ProductionDeploy": {
+      "base": "Quality",
+      "overrides": {
+        "validation.testCoverage": 90,
+        "validation.security": "comprehensive",
+        "safetyLimits.requireConfirmFor": ["all"]
+      }
+    },
+
+    "RapidPrototype": {
+      "base": "Speed",
+      "overrides": {
+        "parallelism.maxAgents": 25,
+        "agents.autoActivate": ["wizard-agent"]
+      }
+    },
+
+    "SecureEnterprise": {
+      "base": "Quality",
+      "overrides": {
+        "validation.security": "enterprise",
+        "validation.testCoverage": 95,
+        "agents.priority": ["security-auditor", "quality-super"]
+      }
+    }
+  },
+
+  "shortcuts": {
+    "/turbo": "Speed",
+    "/safe": "Quality",
+    "/think": "Architect",
+    "/auto": "Autonomous",
+    "/explore": "Brainstorm",
+    "/teach": "Mentor",
+    "/ultra": "UltraThink",
+    "/deep": "UltraThink"
+  }
+}

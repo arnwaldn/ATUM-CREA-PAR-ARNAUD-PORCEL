@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Property Sequence -->
+        <record id="seq_realestate_property" model="ir.sequence">
+            <field name="name">Real Estate Property</field>
+            <field name="code">realestate.property</field>
+            <field name="prefix">PROP-</field>
+            <field name="padding">5</field>
+        </record>
+
+        <!-- Mandate Sequence -->
+        <record id="seq_realestate_mandate" model="ir.sequence">
+            <field name="name">Real Estate Mandate</field>
+            <field name="code">realestate.mandate</field>
+            <field name="prefix">MAN-%(year)s-</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Visit Sequence -->
+        <record id="seq_realestate_visit" model="ir.sequence">
+            <field name="name">Real Estate Visit</field>
+            <field name="code">realestate.visit</field>
+            <field name="prefix">VIS-</field>
+            <field name="padding">5</field>
+        </record>
+
+        <!-- Offer Sequence -->
+        <record id="seq_realestate_offer" model="ir.sequence">
+            <field name="name">Real Estate Offer</field>
+            <field name="code">realestate.offer</field>
+            <field name="prefix">OFF-%(year)s-</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Lease Sequence -->
+        <record id="seq_realestate_lease" model="ir.sequence">
+            <field name="name">Real Estate Lease</field>
+            <field name="code">realestate.lease</field>
+            <field name="prefix">LEASE-%(year)s-</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

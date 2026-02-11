@@ -1,0 +1,576 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/hook-registry.json",
+  "version": "29.4",
+  "description": "Hook execution order, dependencies, and configuration for ATUM CREA v29.4 WAKE INTEGRATION (51 hooks)",
+  "generated": "2026-01-26",
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "id": "autonomy-gate",
+        "script": "autonomy-gate.js",
+        "priority": 0,
+        "description": "Auto-approve actions based on tiered trust system",
+        "depends": [],
+        "timeout": 2000,
+        "tools": ["*"],
+        "critical": true,
+        "version": "29.0"
+      },
+      {
+        "id": "memory-first-protocol",
+        "script": "memory-first-blocking.cjs",
+        "priority": 1,
+        "description": "Recall relevant memories before execution",
+        "depends": [],
+        "blocks": ["pre-edit-check"],
+        "timeout": 5000,
+        "tools": ["Write", "Edit"],
+        "critical": true
+      },
+      {
+        "id": "pre-edit-check",
+        "script": "pre-edit-check.js",
+        "priority": 2,
+        "description": "Validate before file changes",
+        "depends": ["memory-first-protocol"],
+        "timeout": 3000,
+        "tools": ["Write", "Edit"]
+      },
+      {
+        "id": "knowledge-auto-load",
+        "script": "knowledge-auto-load.js",
+        "priority": 3,
+        "description": "Auto-load relevant knowledge files",
+        "depends": [],
+        "parallel": true,
+        "timeout": 2000,
+        "tools": ["*"]
+      },
+      {
+        "id": "mcp-auto-router",
+        "script": "mcp-auto-router.js",
+        "priority": 4,
+        "description": "Select optimal MCPs based on intent",
+        "depends": ["knowledge-auto-load"],
+        "timeout": 2000,
+        "tools": ["*"]
+      },
+      {
+        "id": "agent-auto-router",
+        "script": "agent-auto-router.js",
+        "priority": 5,
+        "description": "Route to appropriate agents",
+        "depends": ["mcp-auto-router"],
+        "timeout": 2000,
+        "tools": ["*"]
+      },
+      {
+        "id": "workflow-auto-router",
+        "script": "workflow-auto-router.js",
+        "priority": 6,
+        "description": "Select workflow based on task type",
+        "depends": ["agent-auto-router"],
+        "timeout": 2000,
+        "tools": ["*"]
+      },
+      {
+        "id": "mode-enforcer",
+        "script": "mode-enforcer.js",
+        "priority": 7,
+        "description": "Apply behavioral mode constraints",
+        "depends": [],
+        "timeout": 1000,
+        "tools": ["*"]
+      },
+      {
+        "id": "innovation-monitor",
+        "script": "innovation-monitor.js",
+        "priority": 8,
+        "description": "Monitor for novel patterns",
+        "depends": [],
+        "parallel": true,
+        "timeout": 1000,
+        "tools": ["*"]
+      },
+      {
+        "id": "security-sandbox-gate",
+        "script": "security-sandbox-gate.cjs",
+        "priority": 9,
+        "description": "Validate security for sensitive operations",
+        "depends": [],
+        "timeout": 2000,
+        "tools": ["Bash"],
+        "critical": true
+      },
+      {
+        "id": "exploit-validator-pre",
+        "script": "exploit-validator-hook.cjs",
+        "priority": 10,
+        "description": "Validate bash/browser commands for exploits",
+        "depends": ["security-sandbox-gate"],
+        "timeout": 2000,
+        "tools": ["Bash"]
+      },
+      {
+        "id": "self-modification-gate",
+        "script": "self-modification-gate.cjs",
+        "priority": 11,
+        "description": "Gate for safe self-modification operations",
+        "depends": [],
+        "timeout": 2000,
+        "tools": ["Write", "Edit"],
+        "critical": true
+      },
+      {
+        "id": "pre-deploy-validator",
+        "script": "pre-deploy.js",
+        "priority": 12,
+        "description": "Validate before deployment operations",
+        "depends": [],
+        "timeout": 3000,
+        "tools": ["Bash"]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "id": "outcome-learner",
+        "script": "outcome-learner.js",
+        "priority": 0,
+        "description": "Learn from tool success/failure for better selection",
+        "depends": [],
+        "timeout": 2000,
+        "tools": ["*"],
+        "version": "29.0"
+      },
+      {
+        "id": "workflow-checkpoint",
+        "script": "workflow-checkpoint.js",
+        "priority": 0,
+        "description": "Auto-checkpoint at workflow milestones",
+        "depends": [],
+        "parallel": true,
+        "timeout": 3000,
+        "tools": ["*"],
+        "version": "29.0"
+      },
+      {
+        "id": "activity-tracker",
+        "script": "activity-tracker.cjs",
+        "priority": 1,
+        "description": "Track session activity metrics",
+        "depends": [],
+        "timeout": 1000,
+        "tools": ["*"]
+      },
+      {
+        "id": "vibe-monitor",
+        "script": "vibe-monitor.cjs",
+        "priority": 2,
+        "description": "Real-time vibe-coding flow state monitoring",
+        "depends": ["activity-tracker"],
+        "timeout": 2000,
+        "tools": ["*"],
+        "critical": false
+      },
+      {
+        "id": "post-edit-learn",
+        "script": "post-edit-learn.js",
+        "priority": 2,
+        "description": "Learn from successful edits",
+        "depends": ["activity-tracker"],
+        "timeout": 3000,
+        "tools": ["Write", "Edit"]
+      },
+      {
+        "id": "auto-retain",
+        "script": "auto-retain.js",
+        "priority": 3,
+        "description": "Auto-retain patterns from bash operations",
+        "depends": ["activity-tracker"],
+        "timeout": 3000,
+        "tools": ["Bash"]
+      },
+      {
+        "id": "self-healing-hook",
+        "script": "self-healing-hook.js",
+        "priority": 4,
+        "description": "Auto-fix on validation failures",
+        "depends": ["post-edit-learn", "auto-retain"],
+        "timeout": 5000,
+        "tools": ["*"]
+      },
+      {
+        "id": "context-monitor",
+        "script": "context-monitor.js",
+        "priority": 5,
+        "description": "Track context usage",
+        "depends": [],
+        "parallel": true,
+        "timeout": 1000,
+        "tools": ["*"]
+      },
+      {
+        "id": "anti-hallucination",
+        "script": "anti-hallucination.js",
+        "priority": 6,
+        "description": "Verify factual accuracy",
+        "depends": ["self-healing-hook"],
+        "timeout": 2000,
+        "tools": ["Write", "Edit"]
+      },
+      {
+        "id": "auto-sync-hindsight",
+        "script": "auto-sync-hindsight.js",
+        "priority": 7,
+        "description": "Async queue sync to Hindsight (deferred after auto-retain)",
+        "depends": ["auto-retain", "skill-auto-retain"],
+        "waitFor": ["auto-retain"],
+        "deduplication": true,
+        "timeout": 5000,
+        "tools": ["*"]
+      },
+      {
+        "id": "auto-rollback",
+        "script": "auto-rollback.js",
+        "priority": 8,
+        "description": "Rollback on critical failures",
+        "depends": ["self-healing-hook"],
+        "timeout": 3000,
+        "tools": ["Write", "Edit", "Bash"],
+        "critical": true
+      },
+      {
+        "id": "auto-upgrade-trigger",
+        "script": "auto-upgrade-trigger.js",
+        "priority": 9,
+        "description": "Check for system improvements",
+        "depends": [],
+        "parallel": true,
+        "timeout": 2000,
+        "tools": ["*"]
+      },
+      {
+        "id": "reputation-tracker",
+        "script": "reputation-tracker.cjs",
+        "priority": 10,
+        "description": "Track agent reputation scores",
+        "depends": ["activity-tracker"],
+        "timeout": 1000,
+        "tools": ["*"]
+      },
+      {
+        "id": "skill-auto-retain",
+        "script": "skill-auto-retain.cjs",
+        "priority": 5,
+        "description": "Auto-save learned skills to local library (before Hindsight sync)",
+        "depends": ["auto-retain"],
+        "timeout": 2000,
+        "tools": ["*"],
+        "note": "Local skill-library.json, separate from Hindsight banks"
+      },
+      {
+        "id": "outcome-validator",
+        "script": "outcome-validator.cjs",
+        "priority": 12,
+        "description": "Validate task outcomes",
+        "depends": ["self-healing-hook"],
+        "timeout": 2000,
+        "tools": ["*"]
+      },
+      {
+        "id": "rate-limit-monitor",
+        "script": "rate-limit-monitor.js",
+        "priority": 13,
+        "description": "Track API rate limits per provider (RPM/TPM)",
+        "depends": ["activity-tracker"],
+        "parallel": true,
+        "timeout": 2000,
+        "tools": ["*"]
+      },
+      {
+        "id": "cost-monitor",
+        "script": "cost-monitor.js",
+        "priority": 14,
+        "description": "Track LLM costs and budget alerts",
+        "depends": ["activity-tracker"],
+        "parallel": true,
+        "timeout": 2000,
+        "tools": ["*"]
+      }
+    ],
+
+    "Stop": [
+      {
+        "id": "stop-validator",
+        "script": "stop-validator.cjs",
+        "priority": 1,
+        "description": "Validate task completion before stopping",
+        "depends": [],
+        "timeout": 3000,
+        "critical": true
+      },
+      {
+        "id": "session-end-notification",
+        "script": "session-end.js",
+        "priority": 2,
+        "description": "Handle session end cleanup and notifications",
+        "depends": ["stop-validator"],
+        "timeout": 2000
+      }
+    ],
+
+    "PermissionRequest": [
+      {
+        "id": "permission-auto-router",
+        "script": "permission-auto-router.cjs",
+        "priority": 1,
+        "description": "Auto-route permission requests",
+        "depends": [],
+        "timeout": 2000
+      }
+    ],
+
+    "UserPromptSubmit": [
+      {
+        "id": "browser-intent-detector",
+        "script": "browser-intent-detector.js",
+        "priority": 0,
+        "description": "Detect browser intent and inject MCP instructions (v29.1 BROWSER AUTONOMY)",
+        "depends": [],
+        "timeout": 1000,
+        "critical": false,
+        "version": "29.1"
+      },
+      {
+        "id": "smart-context-loader",
+        "script": "smart-context-loader.js",
+        "priority": 1,
+        "description": "Inject relevant context on user prompt submit (v28.0 ZERO SATURATION)",
+        "depends": [],
+        "timeout": 5000,
+        "critical": true
+      },
+      {
+        "id": "codebase-context-hook",
+        "script": "codebase-context-hook.cjs",
+        "priority": 2,
+        "description": "Inject codebase-specific context",
+        "depends": ["smart-context-loader"],
+        "timeout": 3000
+      }
+    ],
+
+    "PreCompact": [
+      {
+        "id": "pre-compact",
+        "script": "pre-compact.js",
+        "priority": 1,
+        "description": "Save state before context saturation (v28.0 ZERO SATURATION)",
+        "depends": [],
+        "timeout": 10000,
+        "critical": true
+      },
+      {
+        "id": "output-compressor",
+        "script": "output-compressor.cjs",
+        "priority": 2,
+        "description": "Compress outputs before handoff",
+        "depends": ["pre-compact"],
+        "timeout": 5000
+      }
+    ],
+
+    "SessionStart": [
+      {
+        "id": "session-start",
+        "script": "session-start.js",
+        "priority": 1,
+        "description": "Load context at session start (claude-mem inspired)",
+        "depends": [],
+        "timeout": 5000
+      },
+      {
+        "id": "start-hindsight-auto",
+        "script": "start-hindsight-auto.js",
+        "priority": 2,
+        "description": "Auto-start Hindsight connection",
+        "depends": ["session-start"],
+        "timeout": 3000
+      },
+      {
+        "id": "capability-advertiser",
+        "script": "capability-advertiser.cjs",
+        "priority": 3,
+        "description": "Advertise system capabilities at session start",
+        "depends": [],
+        "timeout": 2000
+      }
+    ],
+
+    "SessionEnd": [
+      {
+        "id": "session-processor",
+        "script": "session-processor.js",
+        "priority": 1,
+        "description": "Process and analyze session before end",
+        "depends": [],
+        "timeout": 5000
+      },
+      {
+        "id": "session-serializer",
+        "script": "session-serializer.cjs",
+        "priority": 2,
+        "description": "Serialize session state for handoff",
+        "depends": ["session-processor"],
+        "timeout": 3000
+      }
+    ],
+
+    "Infrastructure": [
+      {
+        "id": "template-auto-router",
+        "script": "template-auto-router.js",
+        "priority": 1,
+        "description": "Route to appropriate templates based on intent",
+        "depends": [],
+        "timeout": 2000,
+        "tools": ["*"]
+      },
+      {
+        "id": "large-file-reader",
+        "script": "large-file-reader.js",
+        "priority": 2,
+        "description": "Handle large file reading with chunking",
+        "depends": [],
+        "timeout": 10000,
+        "tools": ["Read"]
+      },
+      {
+        "id": "mcp-auth-validator",
+        "script": "mcp-auth-validator.js",
+        "priority": 3,
+        "description": "Validate MCP authentication",
+        "depends": [],
+        "timeout": 3000
+      },
+      {
+        "id": "proposal-evaluator",
+        "script": "proposal-evaluator.cjs",
+        "priority": 4,
+        "description": "Evaluate and score proposals",
+        "depends": [],
+        "timeout": 3000
+      },
+      {
+        "id": "notification-hook",
+        "script": "notification-hook.js",
+        "priority": 5,
+        "description": "Handle notifications (distinct from session-end)",
+        "depends": [],
+        "timeout": 2000
+      }
+    ],
+
+    "Legacy": [
+      {
+        "id": "memory-first-legacy",
+        "script": "memory-first.js",
+        "priority": 99,
+        "description": "Legacy fallback for memory-first-blocking.cjs",
+        "depends": [],
+        "deprecated": true,
+        "note": "Use memory-first-blocking.cjs instead"
+      },
+      {
+        "id": "start-hindsight-static",
+        "script": "start-hindsight.js",
+        "priority": 99,
+        "description": "Static Hindsight config (no execution)",
+        "depends": [],
+        "deprecated": true,
+        "note": "Config only, superseded by start-hindsight-auto.js"
+      },
+      {
+        "id": "enforce-v25-rules-legacy",
+        "script": "enforce-v25-rules.js",
+        "priority": 99,
+        "description": "Legacy v25 rules (superseded by v26.1)",
+        "depends": [],
+        "deprecated": true,
+        "note": "Keep for backwards compatibility, not executed"
+      }
+    ]
+  },
+
+  "parallelGroups": {
+    "monitoring": ["context-monitor", "innovation-monitor", "auto-upgrade-trigger", "vibe-monitor", "rate-limit-monitor", "cost-monitor"],
+    "learning": ["post-edit-learn", "auto-retain", "skill-auto-retain"],
+    "validation": ["anti-hallucination", "outcome-validator"],
+    "notifications": ["session-end-notification", "notification-hook"],
+    "context-injection": ["smart-context-loader", "codebase-context-hook"],
+    "session-lifecycle": ["session-start", "start-hindsight-auto", "capability-advertiser"],
+    "saturation-prevention": ["pre-compact", "output-compressor"],
+    "infrastructure": ["template-auto-router", "large-file-reader", "mcp-auth-validator"]
+  },
+
+  "conflictResolution": {
+    "auto-rollback_vs_auto-retain": {
+      "description": "Rollback takes precedence over retention",
+      "winner": "auto-rollback",
+      "condition": "on_critical_failure"
+    },
+    "self-healing_vs_auto-rollback": {
+      "description": "Try self-healing first, rollback if fails 3x",
+      "winner": "self-healing-hook",
+      "maxRetries": 3,
+      "fallback": "auto-rollback"
+    },
+    "auto-retain_vs_auto-sync": {
+      "description": "auto-retain writes direct, auto-sync handles queue dedup",
+      "priority": "auto-retain",
+      "note": "auto-sync skips items already saved by auto-retain"
+    },
+    "memory-first_vs_memory-blocking": {
+      "description": "memory-first-blocking.cjs is the active PreToolUse guard",
+      "active": "memory-first-blocking",
+      "note": "memory-first.js is legacy fallback, not registered"
+    }
+  },
+
+  "executionOrder": {
+    "PreToolUse": [
+      "memory-first-protocol",
+      "pre-edit-check",
+      ["knowledge-auto-load", "mode-enforcer", "innovation-monitor"],
+      "mcp-auto-router",
+      "agent-auto-router",
+      "workflow-auto-router",
+      ["security-sandbox-gate", "self-modification-gate"],
+      ["exploit-validator-pre", "pre-deploy-validator"]
+    ],
+    "PostToolUse": [
+      "activity-tracker",
+      "vibe-monitor",
+      ["post-edit-learn", "context-monitor", "rate-limit-monitor", "cost-monitor"],
+      "auto-retain",
+      "skill-auto-retain",
+      "self-healing-hook",
+      "anti-hallucination",
+      "auto-sync-hindsight",
+      "auto-rollback",
+      ["auto-upgrade-trigger", "reputation-tracker"],
+      "outcome-validator"
+    ],
+    "note": "Arrays indicate parallel execution groups"
+  },
+
+  "globalConfig": {
+    "maxConcurrentHooks": 5,
+    "defaultTimeout": 3000,
+    "retryOnTimeout": false,
+    "logLevel": "info",
+    "metricsEnabled": true
+  }
+}

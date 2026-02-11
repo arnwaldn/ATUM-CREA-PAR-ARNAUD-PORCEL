@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_association_root"
+              name="Association"
+              web_icon="association/static/description/icon.png"
+              sequence="50"/>
+
+    <!-- Members Menu -->
+    <menuitem id="menu_association_members"
+              name="Members"
+              parent="menu_association_root"
+              sequence="10"/>
+
+    <menuitem id="menu_association_member_list"
+              name="Members"
+              parent="menu_association_members"
+              action="action_association_member"
+              sequence="10"/>
+
+    <menuitem id="menu_association_membership_list"
+              name="Memberships"
+              parent="menu_association_members"
+              action="action_association_membership"
+              sequence="20"/>
+
+    <menuitem id="menu_association_prospect"
+              name="Prospects"
+              parent="menu_association_members"
+              action="action_association_member_prospect"
+              sequence="30"/>
+
+    <!-- Events Menu -->
+    <menuitem id="menu_association_events"
+              name="Events"
+              parent="menu_association_root"
+              sequence="20"/>
+
+    <menuitem id="menu_association_event_list"
+              name="Events"
+              parent="menu_association_events"
+              action="action_association_event"
+              sequence="10"/>
+
+    <menuitem id="menu_association_event_registration"
+              name="Registrations"
+              parent="menu_association_events"
+              action="action_association_event_registration"
+              sequence="20"/>
+
+    <!-- Activities Menu -->
+    <menuitem id="menu_association_activities"
+              name="Activities"
+              parent="menu_association_root"
+              sequence="30"/>
+
+    <menuitem id="menu_association_activity_list"
+              name="Activities"
+              parent="menu_association_activities"
+              action="action_association_activity"
+              sequence="10"/>
+
+    <menuitem id="menu_association_activity_session"
+              name="Sessions"
+              parent="menu_association_activities"
+              action="action_association_activity_session"
+              sequence="20"/>
+
+    <!-- Donations Menu -->
+    <menuitem id="menu_association_donations"
+              name="Donations"
+              parent="menu_association_root"
+              sequence="40"/>
+
+    <menuitem id="menu_association_donation_list"
+              name="Donations"
+              parent="menu_association_donations"
+              action="action_association_donation"
+              sequence="10"/>
+
+    <menuitem id="menu_association_donation_campaign"
+              name="Campaigns"
+              parent="menu_association_donations"
+              action="action_association_donation_campaign"
+              sequence="20"/>
+
+    <menuitem id="menu_association_tax_receipt"
+              name="Tax Receipts"
+              parent="menu_association_donations"
+              action="action_association_tax_receipt"
+              sequence="30"/>
+
+    <!-- Resources Menu -->
+    <menuitem id="menu_association_resources"
+              name="Resources"
+              parent="menu_association_root"
+              sequence="50"/>
+
+    <menuitem id="menu_association_resource_list"
+              name="Resources"
+              parent="menu_association_resources"
+              action="action_association_resource"
+              sequence="10"/>
+
+    <menuitem id="menu_association_resource_booking"
+              name="Bookings"
+              parent="menu_association_resources"
+              action="action_association_resource_booking"
+              sequence="20"/>
+
+    <menuitem id="menu_association_venue"
+              name="Venues"
+              parent="menu_association_resources"
+              action="action_association_venue"
+              sequence="30"/>
+
+    <!-- Reporting Menu -->
+    <menuitem id="menu_association_reporting"
+              name="Reporting"
+              parent="menu_association_root"
+              sequence="80"/>
+
+    <menuitem id="menu_association_report_members"
+              name="Member Statistics"
+              parent="menu_association_reporting"
+              action="action_association_member_report"
+              sequence="10"/>
+
+    <menuitem id="menu_association_report_donations"
+              name="Donation Analysis"
+              parent="menu_association_reporting"
+              action="action_association_donation_report"
+              sequence="20"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_association_config"
+              name="Configuration"
+              parent="menu_association_root"
+              groups="association.group_association_admin"
+              sequence="90"/>
+
+    <menuitem id="menu_association_config_member_type"
+              name="Member Types"
+              parent="menu_association_config"
+              action="action_association_member_type"
+              sequence="10"/>
+
+    <menuitem id="menu_association_config_event_type"
+              name="Event Types"
+              parent="menu_association_config"
+              action="action_association_event_type"
+              sequence="20"/>
+
+    <menuitem id="menu_association_config_activity_type"
+              name="Activity Types"
+              parent="menu_association_config"
+              action="action_association_activity_type"
+              sequence="30"/>
+
+    <menuitem id="menu_association_config_skills"
+              name="Skills"
+              parent="menu_association_config"
+              action="action_association_skill"
+              sequence="40"/>
+
+    <menuitem id="menu_association_config_interests"
+              name="Interests"
+              parent="menu_association_config"
+              action="action_association_interest"
+              sequence="50"/>
+
+    <!-- Additional Actions for Menu Items -->
+    <record id="action_association_membership" model="ir.actions.act_window">
+        <field name="name">Memberships</field>
+        <field name="res_model">association.membership</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_association_member_prospect" model="ir.actions.act_window">
+        <field name="name">Prospects</field>
+        <field name="res_model">association.member</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('state', '=', 'prospect')]</field>
+    </record>
+
+    <record id="action_association_event_registration" model="ir.actions.act_window">
+        <field name="name">Event Registrations</field>
+        <field name="res_model">association.event.registration</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_association_skill" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">association.skill</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="action_association_interest" model="ir.actions.act_window">
+        <field name="name">Interests</field>
+        <field name="res_model">association.interest</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- Reporting Actions (Pivot Views) -->
+    <record id="action_association_member_report" model="ir.actions.act_window">
+        <field name="name">Member Statistics</field>
+        <field name="res_model">association.member</field>
+        <field name="view_mode">pivot,graph,tree</field>
+    </record>
+
+    <record id="action_association_donation_report" model="ir.actions.act_window">
+        <field name="name">Donation Analysis</field>
+        <field name="res_model">association.donation</field>
+        <field name="view_mode">pivot,graph,tree</field>
+    </record>
+</odoo>

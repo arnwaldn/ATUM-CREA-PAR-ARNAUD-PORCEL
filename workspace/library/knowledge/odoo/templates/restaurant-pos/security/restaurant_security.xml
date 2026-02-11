@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Security Groups -->
+    <record id="module_category_restaurant" model="ir.module.category">
+        <field name="name">Restaurant</field>
+        <field name="description">Restaurant and POS Management</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <record id="group_restaurant_waiter" model="res.groups">
+        <field name="name">Waiter</field>
+        <field name="category_id" ref="module_category_restaurant"/>
+        <field name="comment">Can take orders, manage tables, process payments</field>
+    </record>
+
+    <record id="group_restaurant_kitchen" model="res.groups">
+        <field name="name">Kitchen Staff</field>
+        <field name="category_id" ref="module_category_restaurant"/>
+        <field name="comment">Can view and manage kitchen orders</field>
+    </record>
+
+    <record id="group_restaurant_host" model="res.groups">
+        <field name="name">Host/Hostess</field>
+        <field name="category_id" ref="module_category_restaurant"/>
+        <field name="implied_ids" eval="[(4, ref('group_restaurant_waiter'))]"/>
+        <field name="comment">Can manage reservations and table assignments</field>
+    </record>
+
+    <record id="group_restaurant_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_restaurant"/>
+        <field name="implied_ids" eval="[(4, ref('group_restaurant_host')), (4, ref('group_restaurant_kitchen'))]"/>
+        <field name="comment">Full access to all restaurant features</field>
+    </record>
+
+    <!-- Record Rules -->
+    <!-- Multi-company rule for floors -->
+    <record id="rule_restaurant_floor_company" model="ir.rule">
+        <field name="name">Floor: Multi-Company</field>
+        <field name="model_id" ref="model_restaurant_floor"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Multi-company rule for tables -->
+    <record id="rule_restaurant_table_company" model="ir.rule">
+        <field name="name">Table: Multi-Company</field>
+        <field name="model_id" ref="model_restaurant_table"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Multi-company rule for menu items -->
+    <record id="rule_restaurant_menu_item_company" model="ir.rule">
+        <field name="name">Menu Item: Multi-Company</field>
+        <field name="model_id" ref="model_restaurant_menu_item"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Multi-company rule for orders -->
+    <record id="rule_restaurant_order_company" model="ir.rule">
+        <field name="name">Order: Multi-Company</field>
+        <field name="model_id" ref="model_restaurant_order"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Multi-company rule for reservations -->
+    <record id="rule_restaurant_reservation_company" model="ir.rule">
+        <field name="name">Reservation: Multi-Company</field>
+        <field name="model_id" ref="model_restaurant_reservation"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Multi-company rule for staff -->
+    <record id="rule_restaurant_staff_company" model="ir.rule">
+        <field name="name">Staff: Multi-Company</field>
+        <field name="model_id" ref="model_restaurant_staff"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

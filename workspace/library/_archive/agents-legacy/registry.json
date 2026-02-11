@@ -1,0 +1,4382 @@
+{
+  "$schema": "https://ultra-create.dev/schemas/agent-registry.json",
+  "version": "28.6",
+  "generated": "2026-01-25",
+  "totalAgents": 172,
+  "categories": 34,
+  "agents": [
+    {
+      "id": "tree-of-thoughts",
+      "name": "Tree of Thoughts",
+      "category": "advanced",
+      "path": "agents/advanced/tree-of-thoughts.md",
+      "description": "Multi-branch reasoning pour décisions complexes (+37% qualité)",
+      "capabilities": [
+        "reasoning",
+        "decision-making",
+        "multi-branch-analysis"
+      ],
+      "triggers": [
+        "décision complexe",
+        "plusieurs options",
+        "analyser alternatives",
+        "comparer approches"
+      ],
+      "mcps": [
+        "sequential-thinking"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "complexity > 7/10",
+        "integration": "queen-v18"
+      }
+    },
+    {
+      "id": "self-reflection-loop",
+      "name": "Self Reflection Loop",
+      "category": "advanced",
+      "path": "agents/advanced/self-reflection-loop.md",
+      "description": "Amélioration itérative par auto-réflexion (+45% qualité)",
+      "capabilities": [
+        "self-improvement",
+        "iterative-refinement",
+        "quality-boost"
+      ],
+      "triggers": [
+        "améliorer",
+        "raffiner",
+        "optimiser output",
+        "revoir"
+      ],
+      "mcps": [],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "post-execution",
+        "integration": "always"
+      }
+    },
+    {
+      "id": "corrective-rag",
+      "name": "Corrective RAG",
+      "category": "advanced",
+      "path": "agents/advanced/corrective-rag.md",
+      "description": "Correction automatique des résultats RAG",
+      "capabilities": [
+        "rag-correction",
+        "fact-checking",
+        "source-validation"
+      ],
+      "triggers": [
+        "vérifier RAG",
+        "corriger contexte",
+        "valider sources"
+      ],
+      "mcps": [
+        "hindsight",
+        "context7"
+      ],
+      "priority": "medium",
+      "autoTrigger": {
+        "condition": "rag-retrieval",
+        "integration": "rag-pipeline"
+      }
+    },
+    {
+      "id": "reasoning-agent",
+      "name": "Reasoning Agent",
+      "category": "advanced",
+      "path": "agents/advanced/reasoning-agent.md",
+      "description": "Raisonnement structuré pour intent ambigus",
+      "capabilities": [
+        "structured-reasoning",
+        "chain-of-thought",
+        "logic"
+      ],
+      "triggers": [
+        "raisonnement",
+        "logique",
+        "expliquer pourquoi"
+      ],
+      "mcps": [
+        "sequential-thinking"
+      ],
+      "priority": "medium",
+      "autoTrigger": {
+        "condition": "confidence 50-70%",
+        "integration": "intent-parser"
+      }
+    },
+    {
+      "id": "workflow-generator",
+      "name": "Workflow Generator",
+      "category": "advanced",
+      "path": "agents/advanced/workflow-generator.md",
+      "description": "Génération automatique de workflows",
+      "capabilities": [
+        "workflow-creation",
+        "process-automation",
+        "pipeline-design"
+      ],
+      "triggers": [
+        "créer workflow",
+        "automatiser process",
+        "pipeline"
+      ],
+      "mcps": [
+        "mermaid"
+      ],
+      "priority": "low",
+      "autoTrigger": null
+    },
+    {
+      "id": "llm-integration-expert",
+      "name": "LLM Integration Expert",
+      "category": "ai-ml",
+      "path": "agents/ai-ml/llm-integration-expert.md",
+      "description": "Intégration de modèles LLM dans applications",
+      "capabilities": [
+        "llm-integration",
+        "api-design",
+        "prompt-engineering"
+      ],
+      "triggers": [
+        "intégrer LLM",
+        "API Claude",
+        "OpenAI",
+        "ollama",
+        "gemma",
+        "gemma-3",
+        "local LLM"
+      ],
+      "mcps": [
+        "context7",
+        "e2b"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "ml-engineer",
+      "name": "ML Engineer",
+      "category": "ai-ml",
+      "path": "agents/ai-ml/ml-engineer.md",
+      "description": "Développement de modèles ML",
+      "capabilities": [
+        "ml-development",
+        "model-training",
+        "feature-engineering"
+      ],
+      "triggers": [
+        "machine learning",
+        "entraîner modèle",
+        "ML"
+      ],
+      "mcps": [
+        "e2b"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "mlops-engineer",
+      "name": "MLOps Engineer",
+      "category": "ai-ml",
+      "path": "agents/ai-ml/mlops-engineer.md",
+      "description": "DevOps pour ML - déploiement et monitoring",
+      "capabilities": [
+        "mlops",
+        "model-deployment",
+        "monitoring"
+      ],
+      "triggers": [
+        "déployer modèle",
+        "MLOps",
+        "pipeline ML"
+      ],
+      "mcps": [
+        "github",
+        "supabase"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "prompt-engineer",
+      "name": "Prompt Engineer",
+      "category": "ai-ml",
+      "path": "agents/ai-ml/prompt-engineer.md",
+      "description": "Conception et optimisation de prompts",
+      "capabilities": [
+        "prompt-design",
+        "prompt-optimization",
+        "llm-tuning"
+      ],
+      "triggers": [
+        "créer prompt",
+        "optimiser prompt",
+        "prompt engineering"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "pytorch-expert",
+      "name": "PyTorch Expert",
+      "category": "ai-ml",
+      "path": "agents/ai-ml/pytorch-expert.md",
+      "description": "Expert PyTorch pour deep learning",
+      "capabilities": [
+        "pytorch",
+        "deep-learning",
+        "neural-networks"
+      ],
+      "triggers": [
+        "PyTorch",
+        "deep learning",
+        "réseau de neurones"
+      ],
+      "mcps": [
+        "e2b",
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "tensorflow-expert",
+      "name": "TensorFlow Expert",
+      "category": "ai-ml",
+      "path": "agents/ai-ml/tensorflow-expert.md",
+      "description": "Expert TensorFlow pour ML",
+      "capabilities": [
+        "tensorflow",
+        "keras",
+        "ml-models"
+      ],
+      "triggers": [
+        "TensorFlow",
+        "Keras",
+        "TF"
+      ],
+      "mcps": [
+        "e2b",
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "code-reviewer",
+      "name": "Code Reviewer",
+      "category": "analysis",
+      "path": "agents/analysis/code-reviewer.md",
+      "description": "Review de code approfondie",
+      "capabilities": [
+        "code-review",
+        "best-practices",
+        "quality-check"
+      ],
+      "triggers": [
+        "review code",
+        "vérifier code",
+        "analyser code"
+      ],
+      "mcps": [
+        "github"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "tech-scout",
+      "name": "Tech Scout",
+      "category": "analysis",
+      "path": "agents/analysis/tech-scout.md",
+      "description": "Veille technologique et évaluation",
+      "capabilities": [
+        "tech-analysis",
+        "tool-evaluation",
+        "trend-analysis"
+      ],
+      "triggers": [
+        "veille techno",
+        "évaluer outil",
+        "comparer technologies"
+      ],
+      "mcps": [
+        "firecrawl",
+        "exa"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "ci-cd-engineer",
+      "name": "CI/CD Engineer",
+      "category": "automation",
+      "path": "agents/automation/ci-cd-engineer.md",
+      "description": "Configuration pipelines CI/CD",
+      "capabilities": [
+        "ci-cd",
+        "github-actions",
+        "deployment-automation"
+      ],
+      "triggers": [
+        "CI/CD",
+        "GitHub Actions",
+        "pipeline déploiement"
+      ],
+      "mcps": [
+        "github"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "email-agent",
+      "name": "Email Agent",
+      "category": "automation",
+      "path": "agents/automation/email-agent.md",
+      "description": "Automatisation email (Gmail)",
+      "capabilities": [
+        "email-automation",
+        "gmail",
+        "email-drafting"
+      ],
+      "triggers": [
+        "email",
+        "Gmail",
+        "envoyer mail"
+      ],
+      "mcps": [],
+      "priority": "low"
+    },
+    {
+      "id": "test-automation",
+      "name": "Test Automation",
+      "category": "automation",
+      "path": "agents/automation/test-automation.md",
+      "description": "Automatisation des tests",
+      "capabilities": [
+        "test-automation",
+        "e2e-tests",
+        "unit-tests"
+      ],
+      "triggers": [
+        "automatiser tests",
+        "tests E2E",
+        "Playwright"
+      ],
+      "mcps": [
+        "playwright"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "browser-agent",
+      "name": "Browser Agent",
+      "category": "browser",
+      "path": "agents/browser/browser-agent.md",
+      "description": "Automatisation navigateur avec accès Chrome utilisateur (v26.1)",
+      "capabilities": [
+        "browser-automation",
+        "web-interaction",
+        "form-filling",
+        "user-chrome-connection",
+        "live-session-access",
+        "cookie-management",
+        "multi-tab-control"
+      ],
+      "triggers": [
+        "automatiser navigateur",
+        "remplir formulaire",
+        "cliquer",
+        "chrome",
+        "accéder mon compte"
+      ],
+      "mcps": [
+        "playwright",
+        "puppeteer"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "web-scraper",
+      "name": "Web Scraper",
+      "category": "browser",
+      "path": "agents/browser/web-scraper.md",
+      "description": "Extraction de données web",
+      "capabilities": [
+        "web-scraping",
+        "data-extraction",
+        "crawling"
+      ],
+      "triggers": [
+        "scraper",
+        "extraire données",
+        "crawler"
+      ],
+      "mcps": [
+        "firecrawl",
+        "puppeteer"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "aws-architect",
+      "name": "AWS Architect",
+      "category": "cloud",
+      "path": "agents/cloud/aws-architect.md",
+      "description": "Architecture cloud AWS",
+      "capabilities": [
+        "aws",
+        "cloud-architecture",
+        "serverless"
+      ],
+      "triggers": [
+        "AWS",
+        "Lambda",
+        "S3",
+        "cloud Amazon"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "kubernetes-expert",
+      "name": "Kubernetes Expert",
+      "category": "cloud",
+      "path": "agents/cloud/kubernetes-expert.md",
+      "description": "Orchestration conteneurs K8s",
+      "capabilities": [
+        "kubernetes",
+        "k8s",
+        "container-orchestration"
+      ],
+      "triggers": [
+        "Kubernetes",
+        "K8s",
+        "pods",
+        "helm"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "technical-writer",
+      "name": "Technical Writer",
+      "category": "content",
+      "path": "agents/content/technical-writer.md",
+      "description": "Rédaction documentation technique",
+      "capabilities": [
+        "documentation",
+        "technical-writing",
+        "api-docs"
+      ],
+      "triggers": [
+        "documenter",
+        "README",
+        "documentation API"
+      ],
+      "mcps": [
+        "notion"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "autonomous-executor",
+      "name": "Autonomous Executor",
+      "category": "core",
+      "path": "agents/core/autonomous-executor.md",
+      "description": "Exécution autonome de tâches",
+      "capabilities": [
+        "task-execution",
+        "autonomous-operation",
+        "self-driven"
+      ],
+      "triggers": [
+        "exécuter",
+        "faire automatiquement",
+        "autonome"
+      ],
+      "mcps": [],
+      "priority": "high"
+    },
+    {
+      "id": "backend-developer",
+      "name": "Backend Developer",
+      "category": "core",
+      "path": "agents/core/backend-developer.md",
+      "description": "Développement backend/API",
+      "capabilities": [
+        "backend",
+        "api",
+        "database",
+        "server"
+      ],
+      "triggers": [
+        "backend",
+        "API",
+        "serveur",
+        "base de données"
+      ],
+      "mcps": [
+        "supabase",
+        "postgres",
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "frontend-developer",
+      "name": "Frontend Developer",
+      "category": "core",
+      "path": "agents/core/frontend-developer.md",
+      "description": "Développement frontend/UI",
+      "capabilities": [
+        "frontend",
+        "ui",
+        "react",
+        "nextjs"
+      ],
+      "triggers": [
+        "frontend",
+        "interface",
+        "React",
+        "Next.js"
+      ],
+      "mcps": [
+        "shadcn",
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "full-stack-generator",
+      "name": "Full Stack Generator",
+      "category": "core",
+      "path": "agents/core/full-stack-generator.md",
+      "description": "Génération apps full-stack complètes",
+      "capabilities": [
+        "fullstack",
+        "app-generation",
+        "end-to-end"
+      ],
+      "triggers": [
+        "full-stack",
+        "application complète",
+        "créer app"
+      ],
+      "mcps": [
+        "shadcn",
+        "supabase",
+        "context7",
+        "github"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "requirement-interpreter",
+      "name": "Requirement Interpreter",
+      "category": "core",
+      "path": "agents/core/requirement-interpreter.md",
+      "description": "Interprétation des besoins utilisateur",
+      "capabilities": [
+        "requirement-analysis",
+        "specification",
+        "user-needs"
+      ],
+      "triggers": [
+        "analyser besoins",
+        "spécifications",
+        "requirements"
+      ],
+      "mcps": [],
+      "priority": "high"
+    },
+    {
+      "id": "self-improver",
+      "name": "Self Improver",
+      "category": "core",
+      "path": "agents/core/self-improver.md",
+      "description": "Auto-amélioration continue",
+      "capabilities": [
+        "self-improvement",
+        "learning",
+        "adaptation"
+      ],
+      "triggers": [
+        "améliorer",
+        "apprendre",
+        "s'adapter"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "tester",
+      "name": "Tester",
+      "category": "core",
+      "path": "agents/core/tester.md",
+      "description": "Tests unitaires et intégration",
+      "capabilities": [
+        "testing",
+        "unit-tests",
+        "integration-tests"
+      ],
+      "triggers": [
+        "tester",
+        "tests",
+        "vérifier"
+      ],
+      "mcps": [],
+      "priority": "high"
+    },
+    {
+      "id": "ui-designer",
+      "name": "UI Designer",
+      "category": "core",
+      "path": "agents/core/ui-designer.md",
+      "description": "Design d'interfaces utilisateur",
+      "capabilities": [
+        "ui-design",
+        "ux",
+        "component-design"
+      ],
+      "triggers": [
+        "design UI",
+        "interface",
+        "composants"
+      ],
+      "mcps": [
+        "shadcn",
+        "figma"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "data-modeler",
+      "name": "Data Modeler",
+      "category": "data",
+      "path": "agents/data/data-modeler.md",
+      "description": "Modélisation de données",
+      "capabilities": [
+        "data-modeling",
+        "schema-design",
+        "database-design"
+      ],
+      "triggers": [
+        "modéliser données",
+        "schema",
+        "ERD"
+      ],
+      "mcps": [
+        "postgres",
+        "supabase"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "one-click-deployer",
+      "name": "One Click Deployer",
+      "category": "deploy",
+      "path": "agents/deploy/one-click-deployer.md",
+      "description": "Déploiement en un clic",
+      "capabilities": [
+        "deployment",
+        "one-click",
+        "production"
+      ],
+      "triggers": [
+        "déployer",
+        "mettre en prod",
+        "publish"
+      ],
+      "mcps": [
+        "supabase",
+        "github"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "tauri-expert",
+      "name": "Tauri Expert",
+      "category": "desktop",
+      "path": "agents/desktop/tauri-expert.md",
+      "description": "Apps desktop avec Tauri",
+      "capabilities": [
+        "tauri",
+        "desktop-apps",
+        "cross-platform"
+      ],
+      "triggers": [
+        "Tauri",
+        "app desktop",
+        "application bureau"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "deployer",
+      "name": "Deployer",
+      "category": "devops",
+      "path": "agents/devops/deployer.md",
+      "description": "Déploiement multi-plateformes",
+      "capabilities": [
+        "deployment",
+        "devops",
+        "infrastructure"
+      ],
+      "triggers": [
+        "déployer",
+        "DevOps",
+        "infrastructure"
+      ],
+      "mcps": [
+        "github",
+        "supabase"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "game-architect",
+      "name": "Game Architect",
+      "category": "game",
+      "path": "agents/game/game-architect.md",
+      "description": "Architecture et orchestration jeux",
+      "capabilities": [
+        "game-architecture",
+        "game-design",
+        "engine-selection"
+      ],
+      "triggers": [
+        "jeu",
+        "game",
+        "architecture jeu"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "phaser-expert",
+      "name": "Phaser Expert",
+      "category": "game",
+      "path": "agents/game/phaser-expert.md",
+      "description": "Jeux 2D web avec Phaser",
+      "capabilities": [
+        "phaser",
+        "2d-games",
+        "web-games"
+      ],
+      "triggers": [
+        "Phaser",
+        "jeu 2D",
+        "game web"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "threejs-game-expert",
+      "name": "Three.js Game Expert",
+      "category": "game",
+      "path": "agents/game/threejs-game-expert.md",
+      "description": "Jeux 3D web avec Three.js",
+      "capabilities": [
+        "threejs",
+        "3d-games",
+        "webgl"
+      ],
+      "triggers": [
+        "Three.js",
+        "jeu 3D",
+        "WebGL"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "godot-expert",
+      "name": "Godot Expert",
+      "category": "game",
+      "path": "agents/game/godot-expert.md",
+      "description": "Jeux avec Godot Engine",
+      "capabilities": [
+        "godot",
+        "gdscript",
+        "game-engine"
+      ],
+      "triggers": [
+        "Godot",
+        "GDScript",
+        "game engine"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "unity-expert",
+      "name": "Unity Expert",
+      "category": "game",
+      "path": "agents/game/unity-expert.md",
+      "description": "Jeux avec Unity",
+      "capabilities": [
+        "unity",
+        "c-sharp",
+        "game-development"
+      ],
+      "triggers": [
+        "Unity",
+        "C#",
+        "jeu Unity"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "networking-expert",
+      "name": "Networking Expert",
+      "category": "game",
+      "path": "agents/game/networking-expert.md",
+      "description": "Multijoueur et networking",
+      "capabilities": [
+        "multiplayer",
+        "networking",
+        "websockets"
+      ],
+      "triggers": [
+        "multijoueur",
+        "multiplayer",
+        "réseau"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "audio-expert",
+      "name": "Audio Expert",
+      "category": "game",
+      "path": "agents/game/audio-expert.md",
+      "description": "Sound design pour jeux",
+      "capabilities": [
+        "audio",
+        "sound-design",
+        "game-audio"
+      ],
+      "triggers": [
+        "audio",
+        "son",
+        "musique jeu"
+      ],
+      "mcps": [],
+      "priority": "low"
+    },
+    {
+      "id": "procgen-expert",
+      "name": "Procgen Expert",
+      "category": "game",
+      "path": "agents/game/procgen-expert.md",
+      "description": "Génération procédurale",
+      "capabilities": [
+        "procedural-generation",
+        "random-generation",
+        "pcg"
+      ],
+      "triggers": [
+        "procédural",
+        "génération aléatoire",
+        "PCG"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "context7-expert",
+      "name": "Context7 Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/context7-expert.md",
+      "description": "Expert MCP Context7 pour docs",
+      "capabilities": [
+        "context7",
+        "documentation",
+        "library-docs"
+      ],
+      "triggers": [
+        "documentation framework",
+        "docs",
+        "Context7"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "firecrawl-expert",
+      "name": "Firecrawl Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/firecrawl-expert.md",
+      "description": "Expert scraping avec Firecrawl",
+      "capabilities": [
+        "firecrawl",
+        "web-scraping",
+        "crawling"
+      ],
+      "triggers": [
+        "scraper avancé",
+        "Firecrawl",
+        "crawler"
+      ],
+      "mcps": [
+        "firecrawl"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "automation-expert",
+      "name": "Automation Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/automation-expert.md",
+      "description": "Expert automatisation MCPs",
+      "capabilities": [
+        "automation",
+        "mcp-orchestration",
+        "workflow"
+      ],
+      "triggers": [
+        "automatiser",
+        "orchestrer MCPs"
+      ],
+      "mcps": [
+        "playwright",
+        "puppeteer",
+        "desktop-commander"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "cloud-deploy-expert",
+      "name": "Cloud Deploy Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/cloud-deploy-expert.md",
+      "description": "Expert déploiement cloud",
+      "capabilities": [
+        "cloud-deployment",
+        "supabase",
+        "vercel"
+      ],
+      "triggers": [
+        "déployer cloud",
+        "Supabase",
+        "Vercel"
+      ],
+      "mcps": [
+        "supabase",
+        "github"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "graphrag-expert",
+      "name": "GraphRAG Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/graphrag-expert.md",
+      "description": "Expert RAG avec graphes",
+      "capabilities": [
+        "graphrag",
+        "knowledge-graph",
+        "rag"
+      ],
+      "triggers": [
+        "GraphRAG",
+        "knowledge graph",
+        "RAG avancé"
+      ],
+      "mcps": [
+        "memory",
+        "hindsight"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "magic-ui-expert",
+      "name": "Magic UI Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/magic-ui-expert.md",
+      "description": "Expert composants UI magiques",
+      "capabilities": [
+        "magic-ui",
+        "animations",
+        "ui-effects"
+      ],
+      "triggers": [
+        "Magic UI",
+        "animations",
+        "effets UI"
+      ],
+      "mcps": [
+        "shadcn"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "security-scanner-expert",
+      "name": "Security Scanner Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/security-scanner-expert.md",
+      "description": "Expert scan sécurité",
+      "capabilities": [
+        "security-scanning",
+        "vulnerability-detection",
+        "audit"
+      ],
+      "triggers": [
+        "scan sécurité",
+        "vulnérabilités",
+        "audit sécurité"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "vercel-expert",
+      "name": "Vercel Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/vercel-expert.md",
+      "description": "Expert Vercel platform - Blob, KV, Cron, Edge, Déploiement",
+      "capabilities": [
+        "vercel-blob",
+        "vercel-kv",
+        "vercel-cron",
+        "vercel-edge",
+        "vercel-deploy",
+        "rate-limiting",
+        "file-upload"
+      ],
+      "triggers": [
+        "vercel blob",
+        "kv cache",
+        "cron job vercel",
+        "déployer vercel",
+        "rate limiting vercel",
+        "edge function",
+        "stockage fichiers vercel",
+        "cache edge"
+      ],
+      "nlTriggers": {
+        "fr": [
+          "utilise vercel blob",
+          "configure le cache KV",
+          "crée un cron job vercel",
+          "déploie sur vercel",
+          "logs vercel",
+          "rate limiting avec vercel"
+        ],
+        "en": [
+          "use vercel blob",
+          "setup KV cache",
+          "create vercel cron",
+          "deploy to vercel",
+          "vercel logs",
+          "rate limiting with vercel"
+        ]
+      },
+      "mcps": [
+        "context7",
+        "desktop-commander",
+        "github",
+        "supabase"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "intent matches vercel|blob|kv|cron.*vercel",
+        "integration": "mcp-router"
+      }
+    },
+    {
+      "id": "episodic-memory",
+      "name": "Episodic Memory",
+      "category": "memory",
+      "path": "agents/memory/episodic-memory.md",
+      "description": "Gestion mémoire épisodique",
+      "capabilities": [
+        "episodic-memory",
+        "context-retention",
+        "session-memory"
+      ],
+      "triggers": [
+        "mémoire session",
+        "contexte",
+        "historique"
+      ],
+      "mcps": [
+        "hindsight",
+        "memory"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "semantic-consolidator",
+      "name": "Semantic Consolidator",
+      "category": "memory",
+      "path": "agents/memory/semantic-consolidator.md",
+      "description": "Consolidation mémoire sémantique",
+      "capabilities": [
+        "semantic-memory",
+        "knowledge-consolidation",
+        "learning"
+      ],
+      "triggers": [
+        "consolider",
+        "apprentissage",
+        "mémoire long terme"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "pm-agent",
+      "name": "PM Agent",
+      "category": "meta",
+      "path": "agents/meta/pm-agent.md",
+      "description": "Project Manager - Orchestration PDCA",
+      "capabilities": [
+        "project-management",
+        "pdca",
+        "orchestration"
+      ],
+      "triggers": [
+        "gérer projet",
+        "planifier",
+        "orchestrer"
+      ],
+      "mcps": [],
+      "priority": "high"
+    },
+    {
+      "id": "confidence-checker",
+      "name": "Confidence Checker",
+      "category": "meta",
+      "path": "agents/meta/confidence-checker.md",
+      "description": "Évaluation confiance pré-exécution",
+      "capabilities": [
+        "confidence-evaluation",
+        "pre-check",
+        "risk-assessment"
+      ],
+      "triggers": [
+        "vérifier confiance",
+        "évaluer risque"
+      ],
+      "mcps": [],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "pre-execution",
+        "integration": "always"
+      }
+    },
+    {
+      "id": "self-checker",
+      "name": "Self Checker",
+      "category": "meta",
+      "path": "agents/meta/self-checker.md",
+      "description": "Validation post-exécution",
+      "capabilities": [
+        "post-validation",
+        "quality-check",
+        "self-assessment"
+      ],
+      "triggers": [
+        "valider",
+        "vérifier résultat"
+      ],
+      "mcps": [],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "post-execution",
+        "integration": "always"
+      }
+    },
+    {
+      "id": "token-optimizer",
+      "name": "Token Optimizer",
+      "category": "meta",
+      "path": "agents/meta/token-optimizer.md",
+      "description": "Optimisation tokens 30-60%",
+      "capabilities": [
+        "token-optimization",
+        "cost-reduction",
+        "efficiency"
+      ],
+      "triggers": [
+        "optimiser tokens",
+        "réduire coûts",
+        "/optimize"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "wizard-agent",
+      "name": "Wizard Agent",
+      "category": "meta",
+      "path": "agents/meta/wizard-agent.md",
+      "description": "Questions interactives pour clarification",
+      "capabilities": [
+        "interactive-questions",
+        "clarification",
+        "user-guidance"
+      ],
+      "triggers": [
+        "clarifier",
+        "questions",
+        "wizard"
+      ],
+      "mcps": [],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "confidence < 70%",
+        "integration": "intent-parser"
+      }
+    },
+    {
+      "id": "intent-parser",
+      "name": "Intent Parser",
+      "category": "meta",
+      "path": "agents/meta/intent-parser.md",
+      "description": "Détection et parsing d'intent NL v2.0",
+      "capabilities": [
+        "intent-detection",
+        "nl-parsing",
+        "routing"
+      ],
+      "triggers": [],
+      "mcps": [],
+      "priority": "critical",
+      "autoTrigger": {
+        "condition": "always",
+        "integration": "entry-point"
+      }
+    },
+    {
+      "id": "mcp-router",
+      "name": "MCP Router",
+      "category": "meta",
+      "path": "agents/meta/mcp-router.md",
+      "description": "Sélection intelligente et routage des MCPs par intent",
+      "capabilities": [
+        "mcp-selection",
+        "mcp-routing",
+        "fallback-management",
+        "intent-analysis"
+      ],
+      "triggers": [
+        "sélectionner MCP",
+        "router MCP",
+        "MCP optimal"
+      ],
+      "mcps": [
+        "hindsight",
+        "context7",
+        "firecrawl",
+        "supabase"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "mcp-selection-needed",
+        "integration": "intent-parser"
+      }
+    },
+    {
+      "id": "auto-upgrade-agent",
+      "name": "Auto-Upgrade Agent",
+      "category": "meta",
+      "path": "agents/meta/auto-upgrade-agent.md",
+      "description": "Agent auto-amélioration 7 phases avec 22 patterns (CMP, Darwin Gödel, RISE, Self-Navigating)",
+      "capabilities": [
+        "session_analysis",
+        "weakness_detection",
+        "solution_research",
+        "improvement_proposal",
+        "self-evolution",
+        "innovation_tracking"
+      ],
+      "triggers": [
+        "/autoupgrade",
+        "améliorer système",
+        "upgrade ultra-create",
+        "analyser sessions",
+        "auto-amélioration",
+        "suggestions upgrade"
+      ],
+      "mcps": [
+        "hindsight",
+        "exa",
+        "github",
+        "context7",
+        "sequential-thinking",
+        "firecrawl"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "sessions_count > 10 AND errors_recurring > 5",
+        "enabled": false
+      },
+      "secondaryAgents": [
+        "deep-researcher",
+        "self-reflection-loop",
+        "confidence-checker",
+        "self-checker",
+        "tree-of-thoughts",
+        "pm-agent",
+        "self-improver"
+      ],
+      "phases": [
+        "VEILLE",
+        "PARSE",
+        "DIAGNOSE",
+        "RESEARCH",
+        "SYNTHESIZE",
+        "PROPOSE",
+        "LEARN"
+      ],
+      "patterns": 22,
+      "version": "1.0.0"
+    },
+    {
+      "id": "innovation-monitor",
+      "name": "Innovation Monitor",
+      "category": "meta",
+      "path": "agents/meta/innovation-monitor.md",
+      "description": "Veille continue 8 sources (ArXiv, GitHub, Anthropic, OpenAI, HuggingFace, ProductHunt, HN, Twitter)",
+      "capabilities": [
+        "innovation_tracking",
+        "competitor_monitoring",
+        "trend_detection",
+        "paper_scanning",
+        "repo_discovery"
+      ],
+      "triggers": [
+        "/autoupgrade --veille",
+        "veille innovation",
+        "surveiller concurrents",
+        "nouvelles tendances"
+      ],
+      "mcps": [
+        "exa",
+        "firecrawl",
+        "github",
+        "hindsight"
+      ],
+      "priority": "medium",
+      "autoTrigger": {
+        "condition": "scheduled_daily",
+        "enabled": true
+      },
+      "sources": [
+        "arxiv",
+        "github-trending",
+        "anthropic-blog",
+        "openai-blog",
+        "huggingface",
+        "producthunt",
+        "hackernews",
+        "twitter"
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "id": "expo-expert",
+      "name": "Expo Expert",
+      "category": "mobile",
+      "path": "agents/mobile/expo-expert.md",
+      "description": "Apps React Native avec Expo",
+      "capabilities": [
+        "expo",
+        "react-native",
+        "mobile-apps"
+      ],
+      "triggers": [
+        "Expo",
+        "React Native",
+        "app mobile"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "flutter-dart-expert",
+      "name": "Flutter/Dart Expert",
+      "category": "mobile",
+      "path": "agents/mobile/flutter-dart-expert.md",
+      "description": "Apps Flutter avec Dart",
+      "capabilities": [
+        "flutter",
+        "dart",
+        "cross-platform-mobile"
+      ],
+      "triggers": [
+        "Flutter",
+        "Dart",
+        "app Flutter"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "swift-ios-expert",
+      "name": "Swift iOS Expert",
+      "category": "mobile",
+      "path": "agents/mobile/swift-ios-expert.md",
+      "description": "Apps iOS natives avec Swift",
+      "capabilities": [
+        "swift",
+        "ios",
+        "swiftui"
+      ],
+      "triggers": [
+        "iOS",
+        "Swift",
+        "iPhone app"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "kotlin-android-expert",
+      "name": "Kotlin Android Expert",
+      "category": "mobile",
+      "path": "agents/mobile/kotlin-android-expert.md",
+      "description": "Apps Android natives avec Kotlin",
+      "capabilities": [
+        "kotlin",
+        "android",
+        "jetpack-compose"
+      ],
+      "triggers": [
+        "Android",
+        "Kotlin",
+        "app Android"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "odoo-orm-expert",
+      "name": "Odoo ORM Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-orm-expert.md",
+      "description": "Expert ORM Odoo",
+      "capabilities": [
+        "odoo-orm",
+        "models",
+        "odoo-development"
+      ],
+      "triggers": [
+        "Odoo ORM",
+        "modèles Odoo"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "odoo-accounting-expert",
+      "name": "Odoo Accounting Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-accounting-expert.md",
+      "description": "Module comptabilité Odoo",
+      "capabilities": [
+        "odoo-accounting",
+        "finance",
+        "invoicing"
+      ],
+      "triggers": [
+        "comptabilité Odoo",
+        "factures Odoo"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "odoo-manufacturing-expert",
+      "name": "Odoo Manufacturing Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-manufacturing-expert.md",
+      "description": "Module fabrication Odoo",
+      "capabilities": [
+        "odoo-manufacturing",
+        "mrp",
+        "production"
+      ],
+      "triggers": [
+        "fabrication Odoo",
+        "MRP"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "odoo-retail-pos-expert",
+      "name": "Odoo Retail POS Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-retail-pos-expert.md",
+      "description": "Module Point de Vente Odoo",
+      "capabilities": [
+        "odoo-pos",
+        "retail",
+        "point-of-sale"
+      ],
+      "triggers": [
+        "POS Odoo",
+        "caisse Odoo"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "odoo-hospitality-expert",
+      "name": "Odoo Hospitality Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-hospitality-expert.md",
+      "description": "Module hôtellerie Odoo",
+      "capabilities": [
+        "odoo-hospitality",
+        "hotel",
+        "reservations"
+      ],
+      "triggers": [
+        "hôtellerie Odoo",
+        "réservations hôtel"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "odoo-integration-expert",
+      "name": "Odoo Integration Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-integration-expert.md",
+      "description": "Intégrations Odoo",
+      "capabilities": [
+        "odoo-integration",
+        "api",
+        "connectors"
+      ],
+      "triggers": [
+        "intégration Odoo",
+        "API Odoo"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "odoo-education-expert",
+      "name": "Odoo Education Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-education-expert.md",
+      "description": "Module éducation Odoo",
+      "capabilities": [
+        "odoo-education",
+        "school",
+        "students"
+      ],
+      "triggers": [
+        "éducation Odoo",
+        "école Odoo"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "odoo-events-expert",
+      "name": "Odoo Events Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-events-expert.md",
+      "description": "Module événements Odoo",
+      "capabilities": [
+        "odoo-events",
+        "event-management",
+        "ticketing"
+      ],
+      "triggers": [
+        "événements Odoo",
+        "billetterie Odoo"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "odoo-food-beverage-expert",
+      "name": "Odoo Food & Beverage Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-food-beverage-expert.md",
+      "description": "Module F&B Odoo",
+      "capabilities": [
+        "odoo-fnb",
+        "restaurant",
+        "food-service"
+      ],
+      "triggers": [
+        "restaurant Odoo",
+        "F&B Odoo"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "odoo-healthcare-expert",
+      "name": "Odoo Healthcare Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-healthcare-expert.md",
+      "description": "Module santé Odoo",
+      "capabilities": [
+        "odoo-healthcare",
+        "medical",
+        "patients"
+      ],
+      "triggers": [
+        "santé Odoo",
+        "médical Odoo"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "odoo-realestate-expert",
+      "name": "Odoo Real Estate Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-realestate-expert.md",
+      "description": "Module immobilier Odoo",
+      "capabilities": [
+        "odoo-realestate",
+        "property",
+        "rentals"
+      ],
+      "triggers": [
+        "immobilier Odoo",
+        "propriétés Odoo"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "odoo-field-service-expert",
+      "name": "Odoo Field Service Expert",
+      "category": "odoo",
+      "path": "agents/odoo/odoo-field-service-expert.md",
+      "description": "Module interventions terrain Odoo",
+      "capabilities": [
+        "odoo-field-service",
+        "interventions",
+        "mobile-workers"
+      ],
+      "triggers": [
+        "interventions Odoo",
+        "field service"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "queen-v18",
+      "name": "Queen v18",
+      "category": "orchestration",
+      "path": "agents/orchestration/queen-v18.md",
+      "description": "Orchestrateur central - 25 agents parallèles",
+      "capabilities": [
+        "orchestration",
+        "multi-agent",
+        "task-management"
+      ],
+      "triggers": [],
+      "mcps": [
+        "hindsight",
+        "memory"
+      ],
+      "priority": "critical",
+      "autoTrigger": {
+        "condition": "complex-task",
+        "integration": "system"
+      }
+    },
+    {
+      "id": "parallel-executor-v18",
+      "name": "Parallel Executor v18",
+      "category": "orchestration",
+      "path": "agents/orchestration/parallel-executor-v18.md",
+      "description": "Exécution parallèle 10x speedup",
+      "capabilities": [
+        "parallel-execution",
+        "git-worktree",
+        "speedup"
+      ],
+      "triggers": [
+        "/parallel",
+        "exécuter en parallèle"
+      ],
+      "mcps": [
+        "git"
+      ],
+      "priority": "critical",
+      "autoTrigger": {
+        "condition": "parallel-requested",
+        "integration": "task-decomposer"
+      }
+    },
+    {
+      "id": "task-decomposer",
+      "name": "Task Decomposer",
+      "category": "orchestration",
+      "path": "agents/orchestration/task-decomposer.md",
+      "description": "Décomposition de tâches en sous-tâches",
+      "capabilities": [
+        "task-decomposition",
+        "planning",
+        "subtasks"
+      ],
+      "triggers": [
+        "décomposer tâche",
+        "diviser en étapes"
+      ],
+      "mcps": [],
+      "priority": "high"
+    },
+    {
+      "id": "checkpoint-manager",
+      "name": "Checkpoint Manager",
+      "category": "orchestration",
+      "path": "agents/orchestration/checkpoint-manager.md",
+      "description": "Gestion des checkpoints et rollback",
+      "capabilities": [
+        "checkpointing",
+        "rollback",
+        "state-management"
+      ],
+      "triggers": [
+        "checkpoint",
+        "rollback",
+        "sauvegarder état"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "memory-bridge",
+      "name": "Memory Bridge",
+      "category": "orchestration",
+      "path": "agents/orchestration/memory-bridge.md",
+      "description": "Pont mémoire Neo4j + SQLite + MCP",
+      "capabilities": [
+        "memory-management",
+        "cross-storage",
+        "persistence"
+      ],
+      "triggers": [
+        "mémoire persistante",
+        "synchroniser mémoire"
+      ],
+      "mcps": [
+        "hindsight",
+        "memory"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "priority-queue",
+      "name": "Priority Queue",
+      "category": "orchestration",
+      "path": "agents/orchestration/priority-queue.md",
+      "description": "File de priorité P0-P4",
+      "capabilities": [
+        "task-prioritization",
+        "queue-management",
+        "scheduling"
+      ],
+      "triggers": [
+        "prioriser",
+        "file d'attente"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "codeact-agent",
+      "name": "CodeAct Agent",
+      "category": "patterns",
+      "path": "agents/patterns/codeact-agent.md",
+      "description": "Pattern CodeAct pour exécution code",
+      "capabilities": [
+        "code-execution",
+        "codeact",
+        "action-generation"
+      ],
+      "triggers": [
+        "exécuter code",
+        "CodeAct"
+      ],
+      "mcps": [
+        "e2b"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "react-agent",
+      "name": "ReAct Agent",
+      "category": "patterns",
+      "path": "agents/patterns/react-agent.md",
+      "description": "Pattern ReAct (Reasoning + Acting)",
+      "capabilities": [
+        "react-pattern",
+        "reasoning",
+        "action"
+      ],
+      "triggers": [
+        "ReAct",
+        "raisonner et agir"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "reflection-agent",
+      "name": "Reflection Agent",
+      "category": "patterns",
+      "path": "agents/patterns/reflection-agent.md",
+      "description": "Pattern Reflection pour auto-évaluation",
+      "capabilities": [
+        "reflection",
+        "self-evaluation",
+        "improvement"
+      ],
+      "triggers": [
+        "réfléchir",
+        "auto-évaluer"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "auto-validator",
+      "name": "Auto Validator",
+      "category": "quality",
+      "path": "agents/quality/auto-validator.md",
+      "description": "Validation automatique du code",
+      "capabilities": [
+        "code-validation",
+        "linting",
+        "type-checking"
+      ],
+      "triggers": [
+        "valider code",
+        "lint",
+        "vérifier types"
+      ],
+      "mcps": [],
+      "priority": "high"
+    },
+    {
+      "id": "security-auditor",
+      "name": "Security Auditor",
+      "category": "quality",
+      "path": "agents/quality/security-auditor.md",
+      "description": "Audit de sécurité du code",
+      "capabilities": [
+        "security-audit",
+        "vulnerability-check",
+        "owasp"
+      ],
+      "triggers": [
+        "audit sécurité",
+        "vulnérabilités",
+        "OWASP"
+      ],
+      "mcps": [],
+      "priority": "high"
+    },
+    {
+      "id": "self-healer",
+      "name": "Self Healer",
+      "category": "quality",
+      "path": "agents/quality/self-healer.md",
+      "description": "Auto-correction des erreurs",
+      "capabilities": [
+        "self-healing",
+        "error-correction",
+        "auto-fix"
+      ],
+      "triggers": [
+        "corriger erreur",
+        "auto-fix",
+        "réparer"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "error-detected",
+        "integration": "self-checker"
+      }
+    },
+    {
+      "id": "validation-pipeline",
+      "name": "Validation Pipeline",
+      "category": "quality",
+      "path": "agents/quality/validation-pipeline.md",
+      "description": "Pipeline de validation complet",
+      "capabilities": [
+        "validation-pipeline",
+        "ci-validation",
+        "quality-gates"
+      ],
+      "triggers": [
+        "pipeline validation",
+        "quality gates"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "deep-researcher",
+      "name": "Deep Researcher",
+      "category": "research",
+      "path": "agents/research/deep-researcher.md",
+      "description": "Recherche approfondie multi-sources",
+      "capabilities": [
+        "deep-research",
+        "multi-source",
+        "analysis"
+      ],
+      "triggers": [
+        "/deep-research",
+        "recherche approfondie",
+        "analyser en profondeur"
+      ],
+      "mcps": [
+        "firecrawl",
+        "exa"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "arxiv-researcher",
+      "name": "ArXiv Researcher",
+      "category": "research",
+      "path": "agents/research/arxiv-researcher.md",
+      "description": "Recherche papers ArXiv",
+      "capabilities": [
+        "arxiv",
+        "papers",
+        "academic-research"
+      ],
+      "triggers": [
+        "/papers",
+        "ArXiv",
+        "papers scientifiques"
+      ],
+      "mcps": [
+        "firecrawl"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "pdf-researcher",
+      "name": "PDF Researcher",
+      "category": "research",
+      "path": "agents/research/pdf-researcher.md",
+      "description": "Analyse et extraction PDF",
+      "capabilities": [
+        "pdf-analysis",
+        "document-extraction",
+        "pdf-qa"
+      ],
+      "triggers": [
+        "/learn-pdf",
+        "analyser PDF",
+        "PDF"
+      ],
+      "mcps": [
+        "desktop-commander"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "video-researcher",
+      "name": "Video Researcher",
+      "category": "research",
+      "path": "agents/research/video-researcher.md",
+      "description": "Apprentissage depuis vidéos YouTube",
+      "capabilities": [
+        "video-analysis",
+        "youtube",
+        "transcript"
+      ],
+      "triggers": [
+        "/learn-video",
+        "YouTube",
+        "vidéo"
+      ],
+      "mcps": [
+        "firecrawl"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "penetration-tester",
+      "name": "Penetration Tester",
+      "category": "security",
+      "path": "agents/security/penetration-tester.md",
+      "description": "Tests de pénétration (autorisés)",
+      "capabilities": [
+        "pentest",
+        "security-testing",
+        "vulnerability-testing"
+      ],
+      "triggers": [
+        "pentest",
+        "test intrusion",
+        "sécurité"
+      ],
+      "mcps": [],
+      "priority": "low"
+    },
+    {
+      "id": "debugger",
+      "name": "Debugger",
+      "category": "specialized",
+      "path": "agents/specialized/debugger.md",
+      "description": "Debugging systématique",
+      "capabilities": [
+        "debugging",
+        "error-analysis",
+        "troubleshooting"
+      ],
+      "triggers": [
+        "/debug",
+        "debugger",
+        "erreur",
+        "bug"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "database-architect",
+      "name": "Database Architect",
+      "category": "specialized",
+      "path": "agents/specialized/database-architect.md",
+      "description": "Architecture base de données",
+      "capabilities": [
+        "database-design",
+        "schema",
+        "optimization"
+      ],
+      "triggers": [
+        "architecture BDD",
+        "schema DB",
+        "optimiser requêtes"
+      ],
+      "mcps": [
+        "postgres",
+        "supabase"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "api-designer",
+      "name": "API Designer",
+      "category": "specialized",
+      "path": "agents/specialized/api-designer.md",
+      "description": "Design d'APIs REST/GraphQL",
+      "capabilities": [
+        "api-design",
+        "rest",
+        "graphql",
+        "openapi"
+      ],
+      "triggers": [
+        "design API",
+        "REST",
+        "GraphQL",
+        "OpenAPI"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "seo-expert",
+      "name": "SEO Expert",
+      "category": "specialized",
+      "path": "agents/specialized/seo-expert.md",
+      "description": "Optimisation SEO",
+      "capabilities": [
+        "seo",
+        "search-optimization",
+        "meta-tags"
+      ],
+      "triggers": [
+        "SEO",
+        "référencement",
+        "optimiser recherche"
+      ],
+      "mcps": [
+        "firecrawl"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "accessibility-auditor",
+      "name": "Accessibility Auditor",
+      "category": "specialized",
+      "path": "agents/specialized/accessibility-auditor.md",
+      "description": "Audit accessibilité (a11y)",
+      "capabilities": [
+        "accessibility",
+        "a11y",
+        "wcag"
+      ],
+      "triggers": [
+        "accessibilité",
+        "a11y",
+        "WCAG"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "payment-expert",
+      "name": "Payment Expert",
+      "category": "specialized",
+      "path": "agents/specialized/payment-expert.md",
+      "description": "Intégration paiements (Stripe)",
+      "capabilities": [
+        "payments",
+        "stripe",
+        "billing"
+      ],
+      "triggers": [
+        "paiements",
+        "Stripe",
+        "facturation"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "refactoring-expert",
+      "name": "Refactoring Expert",
+      "category": "specialized",
+      "path": "agents/specialized/refactoring-expert.md",
+      "description": "Refactoring de code",
+      "capabilities": [
+        "refactoring",
+        "code-improvement",
+        "cleanup"
+      ],
+      "triggers": [
+        "/refactor",
+        "refactoriser",
+        "nettoyer code"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "migration-expert",
+      "name": "Migration Expert",
+      "category": "specialized",
+      "path": "agents/specialized/migration-expert.md",
+      "description": "Migration frameworks/versions",
+      "capabilities": [
+        "migration",
+        "upgrade",
+        "version-migration"
+      ],
+      "triggers": [
+        "/migrate",
+        "migrer",
+        "upgrade version"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "documentation-generator",
+      "name": "Documentation Generator",
+      "category": "specialized",
+      "path": "agents/specialized/documentation-generator.md",
+      "description": "Génération documentation",
+      "capabilities": [
+        "documentation",
+        "jsdoc",
+        "readme"
+      ],
+      "triggers": [
+        "/docs",
+        "documenter",
+        "générer docs"
+      ],
+      "mcps": [
+        "notion"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "mql5-expert",
+      "name": "MQL5 Expert",
+      "category": "specialized",
+      "path": "agents/specialized/mql5-expert.md",
+      "description": "Trading MQL5 (EAs, indicators)",
+      "capabilities": [
+        "mql5",
+        "trading",
+        "expert-advisors",
+        "metatrader"
+      ],
+      "triggers": [
+        "/mql5",
+        "MQL5",
+        "trading",
+        "EA",
+        "MetaTrader"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "odoo-expert",
+      "name": "Odoo Expert",
+      "category": "specialized",
+      "path": "agents/specialized/odoo-expert.md",
+      "description": "Développement Odoo général",
+      "capabilities": [
+        "odoo",
+        "erp",
+        "odoo-modules"
+      ],
+      "triggers": [
+        "/odoo",
+        "Odoo",
+        "ERP"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "integration-expert",
+      "name": "Integration Expert",
+      "category": "specialized",
+      "path": "agents/specialized/integration-expert.md",
+      "description": "Intégrations tierces",
+      "capabilities": [
+        "integration",
+        "third-party",
+        "api-integration"
+      ],
+      "triggers": [
+        "intégrer",
+        "connecter",
+        "API tierce"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "hospitality-expert",
+      "name": "Hospitality Expert",
+      "category": "specialized",
+      "path": "agents/specialized/hospitality-expert.md",
+      "description": "Systèmes hôtellerie",
+      "capabilities": [
+        "hospitality",
+        "pms",
+        "booking"
+      ],
+      "triggers": [
+        "hôtellerie",
+        "réservation hôtel",
+        "PMS"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "electron-ipc-expert",
+      "name": "Electron IPC Expert",
+      "category": "specialized",
+      "path": "agents/specialized/electron-ipc-expert.md",
+      "description": "Communication IPC Electron",
+      "capabilities": [
+        "electron",
+        "ipc",
+        "desktop-apps"
+      ],
+      "triggers": [
+        "Electron",
+        "IPC",
+        "app Electron"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "windows-scripting-expert",
+      "name": "Windows Scripting Expert",
+      "category": "specialized",
+      "path": "agents/specialized/windows-scripting-expert.md",
+      "description": "Scripts Windows (PowerShell, Batch)",
+      "capabilities": [
+        "windows",
+        "powershell",
+        "batch",
+        "scripting"
+      ],
+      "triggers": [
+        "PowerShell",
+        "script Windows",
+        "Batch"
+      ],
+      "mcps": [
+        "desktop-commander"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "blockchain-expert",
+      "name": "Blockchain Expert",
+      "category": "specialized",
+      "path": "agents/specialized/blockchain-expert.md",
+      "description": "Développement blockchain/Web3",
+      "capabilities": [
+        "blockchain",
+        "web3",
+        "smart-contracts",
+        "solidity"
+      ],
+      "triggers": [
+        "blockchain",
+        "Web3",
+        "smart contract",
+        "Solidity"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "graphql-expert",
+      "name": "GraphQL Expert",
+      "category": "specialized",
+      "path": "agents/specialized/graphql-expert.md",
+      "description": "APIs GraphQL",
+      "capabilities": [
+        "graphql",
+        "apollo",
+        "schema-design"
+      ],
+      "triggers": [
+        "GraphQL",
+        "Apollo",
+        "schema GraphQL"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "performance-optimizer",
+      "name": "Performance Optimizer",
+      "category": "specialized",
+      "path": "agents/specialized/performance-optimizer.md",
+      "description": "Optimisation performances",
+      "capabilities": [
+        "performance",
+        "optimization",
+        "profiling"
+      ],
+      "triggers": [
+        "/optimize",
+        "optimiser performances",
+        "profiler"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "fullstack-super",
+      "name": "Fullstack Super",
+      "category": "super-agents",
+      "path": "agents/super-agents/fullstack-super.md",
+      "description": "Super-agent full-stack complet",
+      "capabilities": [
+        "fullstack",
+        "end-to-end",
+        "complete-apps"
+      ],
+      "triggers": [
+        "créer app complète",
+        "full-stack",
+        "SaaS",
+        "application web"
+      ],
+      "mcps": [
+        "shadcn",
+        "supabase",
+        "context7",
+        "github",
+        "stripe"
+      ],
+      "priority": "critical",
+      "autoTrigger": {
+        "condition": "fullstack-project",
+        "integration": "intent-parser"
+      }
+    },
+    {
+      "id": "backend-super",
+      "name": "Backend Super",
+      "category": "super-agents",
+      "path": "agents/super-agents/backend-super.md",
+      "description": "Super-agent backend/API",
+      "capabilities": [
+        "backend",
+        "api",
+        "database",
+        "auth"
+      ],
+      "triggers": [
+        "créer API",
+        "backend complet",
+        "serveur"
+      ],
+      "mcps": [
+        "supabase",
+        "postgres",
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "ui-super",
+      "name": "UI Super",
+      "category": "super-agents",
+      "path": "agents/super-agents/ui-super.md",
+      "description": "Super-agent UI/UX complet",
+      "capabilities": [
+        "ui",
+        "ux",
+        "design-system",
+        "components"
+      ],
+      "triggers": [
+        "créer interface",
+        "design UI",
+        "composants"
+      ],
+      "mcps": [
+        "shadcn",
+        "figma",
+        "context7"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "deploy-super",
+      "name": "Deploy Super",
+      "category": "super-agents",
+      "path": "agents/super-agents/deploy-super.md",
+      "description": "Super-agent déploiement",
+      "capabilities": [
+        "deployment",
+        "ci-cd",
+        "production"
+      ],
+      "triggers": [
+        "/deploy",
+        "déployer",
+        "mettre en production"
+      ],
+      "mcps": [
+        "supabase",
+        "github"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "quality-super",
+      "name": "Quality Super",
+      "category": "super-agents",
+      "path": "agents/super-agents/quality-super.md",
+      "description": "Super-agent qualité complète",
+      "capabilities": [
+        "quality",
+        "testing",
+        "security",
+        "validation"
+      ],
+      "triggers": [
+        "qualité complète",
+        "audit complet",
+        "tests complets"
+      ],
+      "mcps": [
+        "playwright"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "research-super",
+      "name": "Research Super",
+      "category": "super-agents",
+      "path": "agents/super-agents/research-super.md",
+      "description": "Super-agent recherche complète",
+      "capabilities": [
+        "research",
+        "analysis",
+        "deep-dive"
+      ],
+      "triggers": [
+        "/research",
+        "recherche complète",
+        "analyser sujet"
+      ],
+      "mcps": [
+        "firecrawl",
+        "exa",
+        "hindsight"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "swarm-coordinator",
+      "name": "Swarm Coordinator",
+      "category": "swarm",
+      "path": "agents/swarm/swarm-coordinator.md",
+      "description": "Coordination d'essaims d'agents",
+      "capabilities": [
+        "swarm-coordination",
+        "multi-agent",
+        "load-balancing"
+      ],
+      "triggers": [
+        "coordonner agents",
+        "swarm"
+      ],
+      "mcps": [],
+      "priority": "high"
+    },
+    {
+      "id": "worker-protocol",
+      "name": "Worker Protocol",
+      "category": "swarm",
+      "path": "agents/swarm/worker-protocol.md",
+      "description": "Protocole de communication workers",
+      "capabilities": [
+        "worker-protocol",
+        "messaging",
+        "task-distribution"
+      ],
+      "triggers": [],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "coding-team",
+      "name": "Coding Team",
+      "category": "teams",
+      "path": "agents/teams/coding-team.md",
+      "description": "Équipe de codage multimodale",
+      "capabilities": [
+        "team-coding",
+        "multimodal",
+        "collaboration"
+      ],
+      "triggers": [
+        "/code-team",
+        "équipe code",
+        "coding team"
+      ],
+      "mcps": [
+        "figma",
+        "shadcn",
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "services-agency",
+      "name": "Services Agency",
+      "category": "teams",
+      "path": "agents/teams/services-agency.md",
+      "description": "Agence de services CrewAI",
+      "capabilities": [
+        "agency",
+        "services",
+        "crewai"
+      ],
+      "triggers": [
+        "/agency",
+        "agence",
+        "services team"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "auto-test-generator",
+      "name": "Auto Test Generator",
+      "category": "testing",
+      "path": "agents/testing/auto-test-generator.md",
+      "description": "Génération automatique de tests",
+      "capabilities": [
+        "test-generation",
+        "unit-tests",
+        "e2e-tests"
+      ],
+      "triggers": [
+        "générer tests",
+        "créer tests",
+        "auto-tests"
+      ],
+      "mcps": [
+        "playwright"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "figma-interpreter",
+      "name": "Figma Interpreter",
+      "category": "visual",
+      "path": "agents/visual/figma-interpreter.md",
+      "description": "Interprétation designs Figma",
+      "capabilities": [
+        "figma",
+        "design-to-code",
+        "ui-interpretation"
+      ],
+      "triggers": [
+        "Figma",
+        "design vers code",
+        "interpréter design"
+      ],
+      "mcps": [
+        "figma",
+        "shadcn"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "screenshot-analyzer",
+      "name": "Screenshot Analyzer",
+      "category": "visual",
+      "path": "agents/visual/screenshot-analyzer.md",
+      "description": "Analyse de screenshots",
+      "capabilities": [
+        "screenshot-analysis",
+        "visual-qa",
+        "ui-comparison"
+      ],
+      "triggers": [
+        "analyser screenshot",
+        "comparer visuellement"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "visual-diff-engine",
+      "name": "Visual Diff Engine",
+      "category": "visual",
+      "path": "agents/visual/visual-diff-engine.md",
+      "description": "Comparaison visuelle de pages",
+      "capabilities": [
+        "visual-diff",
+        "regression-testing",
+        "pixel-comparison"
+      ],
+      "triggers": [
+        "diff visuel",
+        "régression visuelle"
+      ],
+      "mcps": [
+        "playwright"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "ui-critic",
+      "name": "UI Critic",
+      "category": "visual",
+      "path": "agents/visual/ui-critic.md",
+      "description": "Critique et feedback UI",
+      "capabilities": [
+        "ui-feedback",
+        "design-critique",
+        "ux-review"
+      ],
+      "triggers": [
+        "critiquer UI",
+        "feedback design"
+      ],
+      "mcps": [],
+      "priority": "low"
+    },
+    {
+      "id": "design-strategist",
+      "name": "Design Strategist",
+      "category": "visual",
+      "path": "agents/visual/design-strategist.md",
+      "description": "Stratégie design",
+      "capabilities": [
+        "design-strategy",
+        "branding",
+        "visual-identity"
+      ],
+      "triggers": [
+        "stratégie design",
+        "branding",
+        "identité visuelle"
+      ],
+      "mcps": [
+        "figma"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "ui-ux-team",
+      "name": "UI/UX Team",
+      "category": "visual",
+      "path": "agents/visual/ui-ux-team.md",
+      "description": "Équipe UI/UX complète",
+      "capabilities": [
+        "ui-team",
+        "ux-team",
+        "design-team"
+      ],
+      "triggers": [
+        "/uiux",
+        "équipe UI/UX",
+        "team design"
+      ],
+      "mcps": [
+        "figma",
+        "shadcn"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "3d-artist",
+      "name": "3D Artist",
+      "category": "visual",
+      "path": "agents/visual/3d-artist.md",
+      "description": "Création 3D (Blender, Three.js)",
+      "capabilities": [
+        "3d",
+        "blender",
+        "modeling"
+      ],
+      "triggers": [
+        "/3d",
+        "Blender",
+        "3D",
+        "modélisation"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "nextjs-expert",
+      "name": "Next.js Expert",
+      "category": "web",
+      "path": "agents/web/nextjs-expert.md",
+      "description": "Expert Next.js 15",
+      "capabilities": [
+        "nextjs",
+        "react",
+        "ssr",
+        "app-router"
+      ],
+      "triggers": [
+        "Next.js",
+        "Next 15",
+        "App Router"
+      ],
+      "mcps": [
+        "context7",
+        "shadcn"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "webxr-expert",
+      "name": "WebXR Expert",
+      "category": "xr",
+      "path": "agents/xr/webxr-expert.md",
+      "description": "Expériences VR/AR web",
+      "capabilities": [
+        "webxr",
+        "vr",
+        "ar",
+        "aframe"
+      ],
+      "triggers": [
+        "WebXR",
+        "VR",
+        "AR",
+        "A-Frame"
+      ],
+      "mcps": [
+        "context7"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "vibe-master-orchestrator",
+      "name": "VIBE-MASTER Orchestrator",
+      "category": "engine",
+      "path": "agents/engine/vibe-master-orchestrator.md",
+      "description": "Pipeline autonome unifié v26.0 - Self-healing, monitoring, orchestration",
+      "capabilities": [
+        "orchestration",
+        "self-healing",
+        "pipeline",
+        "autonomous",
+        "vibe-coding"
+      ],
+      "triggers": [
+        "create",
+        "créer",
+        "project",
+        "projet",
+        "autonomous",
+        "autonome",
+        "vibe"
+      ],
+      "mcps": [
+        "hindsight",
+        "context7"
+      ],
+      "priority": "critical",
+      "autoTrigger": {
+        "condition": "project-creation",
+        "integration": "entry-point"
+      }
+    },
+    {
+      "id": "flowbite-expert",
+      "name": "Flowbite Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/flowbite-expert.md",
+      "description": "Expert en composants Flowbite (450+) et dashboards enterprise",
+      "capabilities": [
+        "flowbite",
+        "dashboard",
+        "admin-panel",
+        "data-tables",
+        "charts"
+      ],
+      "triggers": [
+        "flowbite",
+        "dashboard complet",
+        "admin panel",
+        "data table",
+        "analytics dashboard"
+      ],
+      "mcps": [
+        "context7",
+        "shadcn",
+        "firecrawl"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "dashboard-ui",
+        "integration": "ui-pipeline"
+      }
+    },
+    {
+      "id": "daisyui-expert",
+      "name": "DaisyUI Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/daisyui-expert.md",
+      "description": "Expert en composants DaisyUI (65+) et systèmes de thèmes (29 themes)",
+      "capabilities": [
+        "daisyui",
+        "themes",
+        "semantic-components",
+        "rapid-prototyping"
+      ],
+      "triggers": [
+        "daisyui",
+        "theme",
+        "composants simples",
+        "landing page rapide",
+        "multiple themes"
+      ],
+      "mcps": [
+        "context7",
+        "shadcn"
+      ],
+      "priority": "medium",
+      "autoTrigger": {
+        "condition": "theme-required",
+        "integration": "ui-pipeline"
+      }
+    },
+    {
+      "id": "docling-expert",
+      "name": "Docling Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/docling-expert.md",
+      "description": "Expert en parsing avancé de documents multi-formats via Docling MCP (IBM Research)",
+      "capabilities": [
+        "pdf-parsing",
+        "document-conversion",
+        "table-extraction",
+        "formula-recognition",
+        "ocr-processing",
+        "audio-transcription",
+        "image-extraction",
+        "batch-processing"
+      ],
+      "triggers": [
+        "docling",
+        "parse pdf",
+        "extract table",
+        "document extraction",
+        "pdf structure",
+        "ocr document",
+        "convert docx",
+        "convert pptx",
+        "convert xlsx",
+        "transcribe audio",
+        "extract formulas",
+        "pdf layout"
+      ],
+      "mcps": [
+        "docling",
+        "hindsight",
+        "desktop-commander"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "document-parsing",
+        "integration": "research-pipeline"
+      }
+    },
+    {
+      "id": "airtable-expert",
+      "name": "Airtable Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/airtable-expert.md",
+      "description": "Expert Airtable - bases, tables, records, automations, API",
+      "capabilities": [
+        "airtable-crud",
+        "schema-design",
+        "records-management",
+        "formulas",
+        "linked-records",
+        "views",
+        "automations"
+      ],
+      "triggers": [
+        "airtable",
+        "base airtable",
+        "airtable api",
+        "airtable records",
+        "airtable schema",
+        "airtable table",
+        "airtable view",
+        "airtable automation"
+      ],
+      "mcps": [
+        "airtable",
+        "supabase",
+        "notion"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "intent matches airtable",
+        "integration": "mcp-router"
+      }
+    },
+    {
+      "id": "make-automation-expert",
+      "name": "Make Automation Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/make-automation-expert.md",
+      "description": "Expert Make (ex-Integromat) - scenarios, modules, webhooks, automations",
+      "capabilities": [
+        "scenario-design",
+        "module-configuration",
+        "webhook-handling",
+        "data-mapping",
+        "error-handling",
+        "scheduling"
+      ],
+      "triggers": [
+        "make",
+        "make.com",
+        "integromat",
+        "make scenario",
+        "make automation",
+        "make webhook",
+        "make module",
+        "scenario automation"
+      ],
+      "mcps": [
+        "make",
+        "airtable",
+        "notion",
+        "github"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "intent matches make|integromat",
+        "integration": "mcp-router"
+      }
+    },
+    {
+      "id": "lovable-analyst",
+      "name": "Lovable Analyst",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/lovable-analyst.md",
+      "description": "Analyste projets Lovable - debugging, review, optimisation code genere",
+      "capabilities": [
+        "project-analysis",
+        "code-review",
+        "debugging",
+        "optimization-suggestions",
+        "architecture-review",
+        "best-practices"
+      ],
+      "triggers": [
+        "lovable",
+        "lovable project",
+        "lovable.dev",
+        "debug lovable",
+        "analyse lovable",
+        "lovable code",
+        "lovable app",
+        "lovable issue"
+      ],
+      "mcps": [
+        "lovable",
+        "firecrawl",
+        "github"
+      ],
+      "priority": "medium",
+      "autoTrigger": {
+        "condition": "intent matches lovable",
+        "integration": "mcp-router"
+      }
+    },
+    {
+      "id": "notion-expert",
+      "name": "Notion Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/notion-expert.md",
+      "description": "Expert Notion - databases, pages, blocks, relations, API + connaissance limitations (vues)",
+      "capabilities": [
+        "database-crud",
+        "page-crud",
+        "block-management",
+        "properties",
+        "relations",
+        "search",
+        "comments",
+        "api-limitations"
+      ],
+      "triggers": [
+        "notion",
+        "notion database",
+        "notion api",
+        "notion page",
+        "notion block",
+        "notion relation",
+        "notion formula",
+        "notion property",
+        "notion workspace",
+        "notion search"
+      ],
+      "mcps": [
+        "notion",
+        "e2b",
+        "supabase"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "intent matches notion",
+        "integration": "mcp-router"
+      }
+    },
+    {
+      "id": "e2b-desktop-expert",
+      "name": "E2B Desktop Expert",
+      "category": "mcp-specialists",
+      "path": "agents/mcp-specialists/e2b-desktop-expert.md",
+      "description": "Expert automatisation desktop via E2B Sandbox - Vision-Action Loop pour operations UI-only",
+      "capabilities": [
+        "screen-capture",
+        "mouse-control",
+        "keyboard-control",
+        "vision-analysis",
+        "vision-action-loop",
+        "browser-automation",
+        "file-operations",
+        "code-execution"
+      ],
+      "triggers": [
+        "e2b desktop",
+        "computer use",
+        "vision action",
+        "screen capture",
+        "mouse click",
+        "keyboard type",
+        "desktop automation",
+        "ui automation",
+        "click on",
+        "automate ui"
+      ],
+      "mcps": [
+        "e2b",
+        "desktop-commander",
+        "playwright"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "api-not-available AND ui-automation-needed",
+        "integration": "api-first-protocol"
+      }
+    },
+    {
+      "id": "boilerplate-expert",
+      "name": "Boilerplate Expert",
+      "category": "specialized",
+      "path": "agents/specialized/boilerplate-expert.md",
+      "description": "Expert en sélection de boilerplates SaaS (195+) et patterns infrastructure",
+      "capabilities": [
+        "boilerplate",
+        "starter",
+        "infrastructure",
+        "devops",
+        "microservices"
+      ],
+      "triggers": [
+        "boilerplate",
+        "starter",
+        "template infrastructure",
+        "devops setup",
+        "docker",
+        "kubernetes",
+        "terraform"
+      ],
+      "mcps": [
+        "github",
+        "firecrawl",
+        "desktop-commander"
+      ],
+      "priority": "medium",
+      "autoTrigger": {
+        "condition": "new-project-setup",
+        "integration": "scaffold-pipeline"
+      }
+    },
+    {
+      "id": "n8n-workflow-expert",
+      "name": "n8n Workflow Expert",
+      "category": "automation",
+      "path": "agents/automation/n8n-workflow-expert.md",
+      "description": "Expert en automatisation n8n (400+ intégrations) et workflows",
+      "capabilities": [
+        "n8n",
+        "workflow-automation",
+        "integrations",
+        "webhooks",
+        "self-hosted"
+      ],
+      "triggers": [
+        "n8n",
+        "workflow automation",
+        "automatisation",
+        "integrations",
+        "webhook"
+      ],
+      "mcps": [
+        "desktop-commander",
+        "github",
+        "notion"
+      ],
+      "priority": "medium",
+      "autoTrigger": {
+        "condition": "automation-required",
+        "integration": "automation-pipeline"
+      }
+    },
+    {
+      "id": "autonomous-agent-expert",
+      "name": "Autonomous Agent Expert",
+      "category": "automation",
+      "path": "agents/automation/autonomous-agent-expert.md",
+      "description": "Expert en création d'agents IA autonomes (Phidata, LangGraph, CrewAI, multi-agents)",
+      "capabilities": [
+        "autonomous-agents",
+        "multi-agent-systems",
+        "phidata",
+        "langgraph",
+        "crewai",
+        "self-healing-agents"
+      ],
+      "triggers": [
+        "agent autonome",
+        "autonomous agent",
+        "multi-agent",
+        "crewai",
+        "langgraph",
+        "phidata",
+        "agentic"
+      ],
+      "mcps": [
+        "e2b",
+        "github",
+        "firecrawl",
+        "hindsight"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "autonomous-agent-creation",
+        "integration": "ai-pipeline"
+      }
+    },
+    {
+      "id": "stripe-payment-expert",
+      "name": "Stripe Payment Expert",
+      "category": "specialized",
+      "path": "agents/specialized/stripe-payment-expert.md",
+      "description": "Expert en intégration paiements Stripe (Checkout, Webhooks, Subscriptions, Connect)",
+      "capabilities": [
+        "stripe-integration",
+        "payment-processing",
+        "webhook-handling",
+        "subscription-billing",
+        "stripe-connect",
+        "pci-compliance"
+      ],
+      "triggers": [
+        "stripe",
+        "payment",
+        "checkout",
+        "subscription stripe",
+        "webhook",
+        "invoice",
+        "billing",
+        "paiement",
+        "connect platform"
+      ],
+      "mcps": [
+        "stripe",
+        "supabase",
+        "github"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "stripe-keyword-detected",
+        "integration": "payment-pipeline"
+      }
+    },
+    {
+      "id": "ucp-commerce-expert",
+      "name": "UCP Commerce Expert",
+      "category": "specialized",
+      "path": "agents/specialized/ucp-commerce-expert.md",
+      "description": "Expert Universal Commerce Protocol pour commerce agentique autonome (Google/Shopify standard)",
+      "capabilities": [
+        "ucp-integration",
+        "checkout-sessions",
+        "identity-linking",
+        "order-management",
+        "payment-handlers",
+        "commerce-discovery"
+      ],
+      "triggers": [
+        "ucp",
+        "universal commerce",
+        "agentic commerce",
+        "checkout session",
+        "commerce agent",
+        "autonomous commerce",
+        "payment handler"
+      ],
+      "mcps": [
+        "context7",
+        "supabase",
+        "github"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "ucp-keyword-detected",
+        "integration": "agentic-commerce"
+      }
+    },
+    {
+      "id": "analytics-architect",
+      "name": "Analytics Architect",
+      "category": "data",
+      "path": "agents/data/analytics-architect.md",
+      "description": "Architecte data analytics et business intelligence",
+      "capabilities": [
+        "data-analytics",
+        "bi-dashboards",
+        "metrics-design",
+        "data-visualization"
+      ],
+      "triggers": [
+        "analytics",
+        "dashboard",
+        "metrics",
+        "KPI",
+        "business intelligence",
+        "data viz"
+      ],
+      "mcps": [
+        "supabase",
+        "postgres"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "data-engineer",
+      "name": "Data Engineer",
+      "category": "data",
+      "path": "agents/data/data-engineer.md",
+      "description": "Expert pipelines data et ETL",
+      "capabilities": [
+        "data-pipelines",
+        "etl",
+        "data-warehouse",
+        "streaming"
+      ],
+      "triggers": [
+        "data pipeline",
+        "ETL",
+        "data warehouse",
+        "data lake",
+        "streaming data"
+      ],
+      "mcps": [
+        "supabase",
+        "postgres",
+        "e2b"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "vector-db-expert",
+      "name": "Vector Database Expert",
+      "category": "data",
+      "path": "agents/ai-ml/vector-db-expert.md",
+      "description": "Expert bases vectorielles et embeddings",
+      "capabilities": [
+        "vector-databases",
+        "embeddings",
+        "semantic-search",
+        "rag-storage"
+      ],
+      "triggers": [
+        "vector database",
+        "embeddings",
+        "pinecone",
+        "qdrant",
+        "weaviate",
+        "chromadb",
+        "semantic search"
+      ],
+      "mcps": [
+        "hindsight",
+        "supabase"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "exploit-validator",
+      "name": "Exploit Validator",
+      "category": "security",
+      "path": "agents/security/exploit-validator.md",
+      "description": "Validation exploits et tests penetration",
+      "capabilities": [
+        "exploit-testing",
+        "vulnerability-validation",
+        "pentest"
+      ],
+      "triggers": [
+        "exploit",
+        "pentest",
+        "vulnerability test",
+        "security exploit"
+      ],
+      "mcps": [
+        "e2b",
+        "desktop-commander"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "strix-coordinator",
+      "name": "Strix Coordinator",
+      "category": "security",
+      "path": "agents/security/strix-coordinator.md",
+      "description": "Orchestrateur tests securite avances",
+      "capabilities": [
+        "security-orchestration",
+        "threat-modeling",
+        "security-pipeline"
+      ],
+      "triggers": [
+        "security audit",
+        "threat model",
+        "security test suite"
+      ],
+      "mcps": [
+        "github",
+        "e2b"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "payload-engineer",
+      "name": "Payload Engineer",
+      "category": "security",
+      "path": "agents/security/payload-engineer.md",
+      "description": "Creation payloads tests securite (CTF, defensive)",
+      "capabilities": [
+        "payload-creation",
+        "ctf",
+        "defensive-security"
+      ],
+      "triggers": [
+        "CTF",
+        "security payload",
+        "defensive testing"
+      ],
+      "mcps": [
+        "e2b"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "flow-recovery",
+      "name": "Flow Recovery",
+      "category": "engine",
+      "path": "agents/meta/flow-recovery.md",
+      "description": "Recuperation etat flow et vibe-state",
+      "capabilities": [
+        "flow-recovery",
+        "state-restoration",
+        "session-continuity"
+      ],
+      "triggers": [
+        "recover flow",
+        "restore state",
+        "session recovery"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "vibe-state-detector",
+      "name": "Vibe State Detector",
+      "category": "engine",
+      "path": "agents/meta/vibe-state-detector.md",
+      "description": "Detection temps reel de letat de flow",
+      "capabilities": [
+        "flow-detection",
+        "productivity-metrics",
+        "state-monitoring"
+      ],
+      "triggers": [
+        "flow state",
+        "productivity",
+        "vibe check"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "vibe-analytics",
+      "name": "Vibe Analytics",
+      "category": "engine",
+      "path": "agents/meta/vibe-analytics.md",
+      "description": "Analyse metriques de productivite et flow",
+      "capabilities": [
+        "productivity-analytics",
+        "flow-metrics",
+        "session-analysis"
+      ],
+      "triggers": [
+        "productivity analytics",
+        "session metrics",
+        "flow analysis"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "llmops-specialist",
+      "name": "LLMOps Specialist",
+      "category": "ai-ml",
+      "path": "agents/ai-ml/llmops-specialist.md",
+      "description": "Operations et deployment LLMs en production",
+      "capabilities": [
+        "llm-deployment",
+        "model-serving",
+        "llm-monitoring",
+        "prompt-caching"
+      ],
+      "triggers": [
+        "LLMOps",
+        "deploy LLM",
+        "model serving",
+        "LLM production"
+      ],
+      "mcps": [
+        "e2b",
+        "github"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "paddleocr-expert",
+      "name": "PaddleOCR Expert",
+      "category": "ai-ml",
+      "path": "agents/mcp-specialists/paddleocr-expert.md",
+      "description": "Expert OCR et extraction texte documents",
+      "capabilities": [
+        "ocr",
+        "document-extraction",
+        "text-recognition"
+      ],
+      "triggers": [
+        "OCR",
+        "text extraction",
+        "document scan",
+        "paddle"
+      ],
+      "mcps": [
+        "docling",
+        "e2b"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "session-manager",
+      "name": "Session Manager",
+      "category": "orchestration",
+      "path": "agents/orchestration/session-manager.md",
+      "description": "Gestion cycle de vie sessions",
+      "capabilities": [
+        "session-lifecycle",
+        "state-persistence",
+        "context-management"
+      ],
+      "triggers": [
+        "session",
+        "context save",
+        "session state"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "message-protocol",
+      "name": "Message Protocol",
+      "category": "orchestration",
+      "path": "agents/swarm/message-protocol.md",
+      "description": "Protocole communication inter-agents",
+      "capabilities": [
+        "inter-agent-communication",
+        "message-routing",
+        "protocol-design"
+      ],
+      "triggers": [
+        "agent communication",
+        "message protocol"
+      ],
+      "mcps": [],
+      "priority": "low"
+    },
+    {
+      "id": "outcome-verifier",
+      "name": "Outcome Verifier",
+      "category": "quality",
+      "path": "agents/quality/outcome-verifier.md",
+      "description": "Verification resultats et qualite outputs",
+      "capabilities": [
+        "result-verification",
+        "output-validation",
+        "quality-assurance"
+      ],
+      "triggers": [
+        "verify result",
+        "check output",
+        "validate outcome"
+      ],
+      "mcps": [],
+      "priority": "medium"
+    },
+    {
+      "id": "proposal-broker",
+      "name": "Proposal Broker",
+      "category": "meta",
+      "path": "agents/orchestration/proposal-broker.md",
+      "description": "Courtier propositions auto-upgrade",
+      "capabilities": [
+        "proposal-management",
+        "upgrade-coordination",
+        "change-management"
+      ],
+      "triggers": [
+        "propose upgrade",
+        "system improvement"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "reputation-manager",
+      "name": "Reputation Manager",
+      "category": "meta",
+      "path": "agents/meta/reputation-manager.md",
+      "description": "Gestion reputation agents et patterns",
+      "capabilities": [
+        "reputation-tracking",
+        "agent-scoring",
+        "pattern-rating"
+      ],
+      "triggers": [
+        "agent reputation",
+        "pattern score"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "skill-librarian",
+      "name": "Skill Librarian",
+      "category": "meta",
+      "path": "agents/patterns/skill-librarian.md",
+      "description": "Catalogage et indexation des skills",
+      "capabilities": [
+        "skill-cataloging",
+        "capability-indexing",
+        "knowledge-organization"
+      ],
+      "triggers": [
+        "list skills",
+        "find capability",
+        "skill catalog"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "priority": "low"
+    },
+    {
+      "id": "skill-docx",
+      "name": "Docx (Community Skill)",
+      "category": "community-skills",
+      "path": "skills/community/docx/SKILL.md",
+      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (.docx files) for: (1) Creating new documents, (2) Modifying or editing content, (3) Working with tracked changes, (4) Adding comments, or any other document tasks",
+      "capabilities": [
+        "docx",
+        "community-skill"
+      ],
+      "triggers": [
+        "docx",
+        ".docx",
+        "creating",
+        "edit",
+        "extract"
+      ],
+      "mcps": [],
+      "priority": "medium",
+      "isSkill": true,
+      "skillMetadata": {
+        "license": "Proprietary. LICENSE.txt has complete terms",
+        "source": "community",
+        "importedAt": "2026-01-25T10:58:12.800Z"
+      }
+    },
+    {
+      "id": "skill-mcp-builder",
+      "name": "Mcp-builder (Community Skill)",
+      "category": "community-skills",
+      "path": "skills/community/mcp-builder/SKILL.md",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
+      "capabilities": [
+        "mcp-builder",
+        "community-skill"
+      ],
+      "triggers": [
+        "mcp-builder",
+        "creating",
+        "build"
+      ],
+      "mcps": [],
+      "priority": "medium",
+      "isSkill": true,
+      "skillMetadata": {
+        "license": "Complete terms in LICENSE.txt",
+        "source": "community",
+        "importedAt": "2026-01-25T10:58:12.808Z"
+      }
+    },
+    {
+      "id": "skill-pdf",
+      "name": "Pdf (Community Skill)",
+      "category": "community-skills",
+      "path": "skills/community/pdf/SKILL.md",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale.",
+      "capabilities": [
+        "pdf",
+        "community-skill"
+      ],
+      "triggers": [
+        "pdf",
+        "creating",
+        "analyze",
+        "extract",
+        "merging"
+      ],
+      "mcps": [],
+      "priority": "medium",
+      "isSkill": true,
+      "skillMetadata": {
+        "license": "Proprietary. LICENSE.txt has complete terms",
+        "source": "community",
+        "importedAt": "2026-01-25T10:58:12.813Z"
+      }
+    },
+    {
+      "id": "skill-pptx",
+      "name": "Pptx (Community Skill)",
+      "category": "community-skills",
+      "path": "skills/community/pptx/SKILL.md",
+      "description": "Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts, (4) Adding comments or speaker notes, or any other presentation tasks",
+      "capabilities": [
+        "pptx",
+        "community-skill"
+      ],
+      "triggers": [
+        "pptx",
+        ".pptx",
+        "creating",
+        "edit"
+      ],
+      "mcps": [],
+      "priority": "medium",
+      "isSkill": true,
+      "skillMetadata": {
+        "license": "Proprietary. LICENSE.txt has complete terms",
+        "source": "community",
+        "importedAt": "2026-01-25T10:58:12.818Z"
+      }
+    },
+    {
+      "id": "skill-skill-creator",
+      "name": "Skill-creator (Community Skill)",
+      "category": "community-skills",
+      "path": "skills/community/skill-creator/SKILL.md",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.",
+      "capabilities": [
+        "skill-creator",
+        "community-skill"
+      ],
+      "triggers": [
+        "skill-creator",
+        "creating"
+      ],
+      "mcps": [],
+      "priority": "medium",
+      "isSkill": true,
+      "skillMetadata": {
+        "license": "Complete terms in LICENSE.txt",
+        "source": "community",
+        "importedAt": "2026-01-25T10:58:12.823Z"
+      }
+    },
+    {
+      "id": "skill-web-artifacts-builder",
+      "name": "Web-artifacts-builder (Community Skill)",
+      "category": "community-skills",
+      "path": "skills/community/web-artifacts-builder/SKILL.md",
+      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "capabilities": [
+        "web-artifacts-builder",
+        "community-skill"
+      ],
+      "triggers": [
+        "web-artifacts-builder",
+        "creating"
+      ],
+      "mcps": [],
+      "priority": "medium",
+      "isSkill": true,
+      "skillMetadata": {
+        "license": "Complete terms in LICENSE.txt",
+        "source": "community",
+        "importedAt": "2026-01-25T10:58:12.827Z"
+      }
+    },
+    {
+      "id": "skill-webapp-testing",
+      "name": "Webapp-testing (Community Skill)",
+      "category": "community-skills",
+      "path": "skills/community/webapp-testing/SKILL.md",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+      "capabilities": [
+        "webapp-testing",
+        "community-skill"
+      ],
+      "triggers": [
+        "webapp-testing",
+        "test"
+      ],
+      "mcps": [],
+      "priority": "medium",
+      "isSkill": true,
+      "skillMetadata": {
+        "license": "Complete terms in LICENSE.txt",
+        "source": "community",
+        "importedAt": "2026-01-25T10:58:12.831Z"
+      }
+    },
+    {
+      "id": "skill-xlsx",
+      "name": "Xlsx (Community Skill)",
+      "category": "community-skills",
+      "path": "skills/community/xlsx/SKILL.md",
+      "description": "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv, etc) for: (1) Creating new spreadsheets with formulas and formatting, (2) Reading or analyzing data, (3) Modify existing spreadsheets while preserving formulas, (4) Data analysis and visualization in spreadsheets, or (5) Recalculating formulas",
+      "capabilities": [
+        "xlsx",
+        "community-skill"
+      ],
+      "triggers": [
+        "xlsx",
+        ".xlsx",
+        ".xls",
+        "creating",
+        "edit",
+        "analyzing"
+      ],
+      "mcps": [],
+      "priority": "medium",
+      "isSkill": true,
+      "skillMetadata": {
+        "license": "Proprietary. LICENSE.txt has complete terms",
+        "source": "community",
+        "importedAt": "2026-01-25T10:58:12.835Z"
+      }
+    },
+    {
+      "id": "spec-architect",
+      "name": "Spec Architect",
+      "category": "sdd",
+      "path": "agents/sdd/spec-architect.md",
+      "description": "Expert Spec-Driven Development - specifications executables (+30-50% fiabilite code)",
+      "capabilities": [
+        "sdd",
+        "specification",
+        "requirements",
+        "task-breakdown",
+        "acceptance-criteria",
+        "constitution-design",
+        "technical-planning"
+      ],
+      "triggers": [
+        "spec",
+        "specification",
+        "SDD",
+        "requirements",
+        "plan technique",
+        "task breakdown",
+        "acceptance criteria",
+        "constitution projet"
+      ],
+      "mcps": [
+        "hindsight",
+        "context7"
+      ],
+      "priority": "high",
+      "autoTrigger": {
+        "condition": "new-complex-feature OR multi-developer-project",
+        "integration": "wizard-agent"
+      }
+    }
+  ],
+  "categoryIndex": {
+    "advanced": [
+      "tree-of-thoughts",
+      "self-reflection-loop",
+      "corrective-rag",
+      "reasoning-agent",
+      "workflow-generator"
+    ],
+    "ai-ml": [
+      "llm-integration-expert",
+      "ml-engineer",
+      "mlops-engineer",
+      "prompt-engineer",
+      "pytorch-expert",
+      "tensorflow-expert",
+      "llmops-specialist",
+      "paddleocr-expert"
+    ],
+    "analysis": [
+      "code-reviewer",
+      "tech-scout"
+    ],
+    "automation": [
+      "ci-cd-engineer",
+      "email-agent",
+      "test-automation",
+      "n8n-workflow-expert",
+      "autonomous-agent-expert"
+    ],
+    "browser": [
+      "browser-agent",
+      "web-scraper"
+    ],
+    "cloud": [
+      "aws-architect",
+      "kubernetes-expert"
+    ],
+    "content": [
+      "technical-writer"
+    ],
+    "core": [
+      "autonomous-executor",
+      "backend-developer",
+      "frontend-developer",
+      "full-stack-generator",
+      "requirement-interpreter",
+      "self-improver",
+      "tester",
+      "ui-designer"
+    ],
+    "data": [
+      "data-modeler",
+      "analytics-architect",
+      "data-engineer",
+      "vector-db-expert"
+    ],
+    "deploy": [
+      "one-click-deployer"
+    ],
+    "desktop": [
+      "tauri-expert"
+    ],
+    "devops": [
+      "deployer"
+    ],
+    "engine": [
+      "vibe-master-orchestrator",
+      "flow-recovery",
+      "vibe-state-detector",
+      "vibe-analytics"
+    ],
+    "game": [
+      "game-architect",
+      "phaser-expert",
+      "threejs-game-expert",
+      "godot-expert",
+      "unity-expert",
+      "networking-expert",
+      "audio-expert",
+      "procgen-expert"
+    ],
+    "mcp-specialists": [
+      "context7-expert",
+      "firecrawl-expert",
+      "automation-expert",
+      "cloud-deploy-expert",
+      "graphrag-expert",
+      "magic-ui-expert",
+      "security-scanner-expert",
+      "vercel-expert",
+      "flowbite-expert",
+      "daisyui-expert",
+      "docling-expert",
+      "airtable-expert",
+      "make-automation-expert",
+      "lovable-analyst",
+      "notion-expert",
+      "e2b-desktop-expert"
+    ],
+    "memory": [
+      "episodic-memory",
+      "semantic-consolidator"
+    ],
+    "meta": [
+      "pm-agent",
+      "confidence-checker",
+      "self-checker",
+      "token-optimizer",
+      "wizard-agent",
+      "intent-parser",
+      "mcp-router",
+      "auto-upgrade-agent",
+      "innovation-monitor",
+      "proposal-broker",
+      "reputation-manager",
+      "skill-librarian"
+    ],
+    "mobile": [
+      "expo-expert",
+      "flutter-dart-expert",
+      "swift-ios-expert",
+      "kotlin-android-expert"
+    ],
+    "odoo": [
+      "odoo-orm-expert",
+      "odoo-accounting-expert",
+      "odoo-manufacturing-expert",
+      "odoo-retail-pos-expert",
+      "odoo-hospitality-expert",
+      "odoo-integration-expert",
+      "odoo-education-expert",
+      "odoo-events-expert",
+      "odoo-food-beverage-expert",
+      "odoo-healthcare-expert",
+      "odoo-realestate-expert",
+      "odoo-field-service-expert"
+    ],
+    "orchestration": [
+      "queen-v18",
+      "parallel-executor-v18",
+      "task-decomposer",
+      "checkpoint-manager",
+      "memory-bridge",
+      "priority-queue",
+      "session-manager",
+      "message-protocol"
+    ],
+    "patterns": [
+      "codeact-agent",
+      "react-agent",
+      "reflection-agent"
+    ],
+    "quality": [
+      "auto-validator",
+      "security-auditor",
+      "self-healer",
+      "validation-pipeline",
+      "outcome-verifier"
+    ],
+    "research": [
+      "deep-researcher",
+      "arxiv-researcher",
+      "pdf-researcher",
+      "video-researcher"
+    ],
+    "security": [
+      "penetration-tester",
+      "exploit-validator",
+      "strix-coordinator",
+      "payload-engineer"
+    ],
+    "sdd": [
+      "spec-architect"
+    ],
+    "specialized": [
+      "debugger",
+      "database-architect",
+      "api-designer",
+      "seo-expert",
+      "accessibility-auditor",
+      "payment-expert",
+      "stripe-payment-expert",
+      "ucp-commerce-expert",
+      "refactoring-expert",
+      "migration-expert",
+      "documentation-generator",
+      "mql5-expert",
+      "odoo-expert",
+      "integration-expert",
+      "hospitality-expert",
+      "electron-ipc-expert",
+      "windows-scripting-expert",
+      "blockchain-expert",
+      "graphql-expert",
+      "performance-optimizer",
+      "boilerplate-expert"
+    ],
+    "super-agents": [
+      "fullstack-super",
+      "backend-super",
+      "ui-super",
+      "deploy-super",
+      "quality-super",
+      "research-super"
+    ],
+    "swarm": [
+      "swarm-coordinator",
+      "worker-protocol"
+    ],
+    "teams": [
+      "coding-team",
+      "services-agency"
+    ],
+    "testing": [
+      "auto-test-generator"
+    ],
+    "visual": [
+      "figma-interpreter",
+      "screenshot-analyzer",
+      "visual-diff-engine",
+      "ui-critic",
+      "design-strategist",
+      "ui-ux-team",
+      "3d-artist"
+    ],
+    "web": [
+      "nextjs-expert"
+    ],
+    "xr": [
+      "webxr-expert"
+    ]
+  },
+  "autoTriggerAgents": [
+    {
+      "agent": "intent-parser",
+      "condition": "always",
+      "priority": 1
+    },
+    {
+      "agent": "vibe-master-orchestrator",
+      "condition": "project-creation",
+      "priority": 2
+    },
+    {
+      "agent": "confidence-checker",
+      "condition": "pre-execution",
+      "priority": 3
+    },
+    {
+      "agent": "wizard-agent",
+      "condition": "confidence < 70%",
+      "priority": 4
+    },
+    {
+      "agent": "tree-of-thoughts",
+      "condition": "complexity > 7/10",
+      "priority": 5
+    },
+    {
+      "agent": "self-checker",
+      "condition": "post-execution",
+      "priority": 6
+    },
+    {
+      "agent": "self-reflection-loop",
+      "condition": "post-execution",
+      "priority": 7
+    },
+    {
+      "agent": "self-healer",
+      "condition": "error-detected",
+      "priority": 8
+    },
+    {
+      "agent": "auto-upgrade-agent",
+      "condition": "sessions_count > 10 AND errors_recurring > 5",
+      "priority": 9,
+      "enabled": false
+    },
+    {
+      "agent": "innovation-monitor",
+      "condition": "scheduled_daily",
+      "priority": 10,
+      "enabled": true
+    }
+  ],
+  "mcpAgentMapping": {
+    "context7": [
+      "context7-expert",
+      "nextjs-expert",
+      "phaser-expert",
+      "threejs-game-expert",
+      "auto-upgrade-agent"
+    ],
+    "shadcn": [
+      "ui-designer",
+      "ui-super",
+      "figma-interpreter",
+      "frontend-developer"
+    ],
+    "supabase": [
+      "backend-developer",
+      "backend-super",
+      "fullstack-super",
+      "cloud-deploy-expert"
+    ],
+    "firecrawl": [
+      "firecrawl-expert",
+      "web-scraper",
+      "deep-researcher",
+      "research-super",
+      "auto-upgrade-agent",
+      "innovation-monitor"
+    ],
+    "figma": [
+      "figma-interpreter",
+      "ui-designer",
+      "design-strategist",
+      "ui-ux-team"
+    ],
+    "github": [
+      "ci-cd-engineer",
+      "deployer",
+      "deploy-super",
+      "auto-upgrade-agent",
+      "innovation-monitor"
+    ],
+    "hindsight": [
+      "debugger",
+      "self-healer",
+      "memory-bridge",
+      "research-super",
+      "auto-upgrade-agent",
+      "innovation-monitor"
+    ],
+    "playwright": [
+      "browser-agent",
+      "test-automation",
+      "visual-diff-engine",
+      "quality-super"
+    ],
+    "e2b": [
+      "pytorch-expert",
+      "tensorflow-expert",
+      "ml-engineer",
+      "codeact-agent"
+    ],
+    "exa": [
+      "deep-researcher",
+      "research-super",
+      "auto-upgrade-agent",
+      "innovation-monitor"
+    ],
+    "sequential-thinking": [
+      "tree-of-thoughts",
+      "reasoning-agent",
+      "auto-upgrade-agent"
+    ],
+    "docling": [
+      "docling-expert",
+      "deep-researcher",
+      "pdf-researcher",
+      "arxiv-researcher",
+      "research-super"
+    ],
+    "airtable": [
+      "airtable-expert",
+      "backend-developer",
+      "database-architect"
+    ],
+    "make": [
+      "make-automation-expert",
+      "n8n-workflow-expert",
+      "automation-expert"
+    ],
+    "lovable": [
+      "lovable-analyst",
+      "debugger",
+      "code-reviewer",
+      "frontend-developer"
+    ]
+  }
+}

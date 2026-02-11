@@ -1,0 +1,93 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/model-routing.json",
+  "version": "27.0",
+  "description": "Configuration du routage intelligent des modeles Claude - ATUM CREA v27.0",
+  "lastUpdated": "2026-01-02",
+
+  "routing_rules": {
+    "simple_tasks": {
+      "model": "claude-haiku-4-5-20251001",
+      "description": "Taches simples et rapides - cout minimal",
+      "triggers": [
+        "file_read",
+        "simple_search",
+        "format_conversion",
+        "basic_validation",
+        "status_check",
+        "list_files",
+        "get_metadata",
+        "simple_transform"
+      ],
+      "max_tokens": 1000,
+      "temperature": 0.3,
+      "estimated_cost_per_1k": 0.00025
+    },
+
+    "standard_tasks": {
+      "model": "claude-sonnet-4-20250514",
+      "description": "Taches standard de developpement",
+      "triggers": [
+        "code_generation",
+        "code_review",
+        "bug_fix",
+        "documentation",
+        "test_writing",
+        "api_integration"
+      ],
+      "max_tokens": 8000,
+      "temperature": 0.7,
+      "estimated_cost_per_1k": 0.003
+    },
+
+    "complex_tasks": {
+      "model": "claude-sonnet-4-20250514",
+      "description": "Taches complexes necessitant reflexion approfondie",
+      "triggers": [
+        "architecture_design",
+        "complex_analysis",
+        "multi_step_reasoning",
+        "system_design",
+        "performance_optimization"
+      ],
+      "max_tokens": 16000,
+      "temperature": 0.7,
+      "extended_thinking": true,
+      "estimated_cost_per_1k": 0.003
+    },
+
+    "critical_tasks": {
+      "model": "claude-opus-4-5-20251101",
+      "description": "Taches critiques haute precision",
+      "triggers": [
+        "security_audit",
+        "production_deployment",
+        "major_refactoring",
+        "incident_response",
+        "compliance_review"
+      ],
+      "max_tokens": 32000,
+      "temperature": 0.5,
+      "extended_thinking": true,
+      "estimated_cost_per_1k": 0.015
+    }
+  },
+
+  "cost_optimization": {
+    "prefer_haiku": true,
+    "cache_responses": true,
+    "cache_ttl_seconds": 3600,
+    "batch_similar_requests": true,
+    "deduplication": true
+  },
+
+  "fallback_chain": [
+    "claude-sonnet-4-20250514",
+    "claude-haiku-4-5-20251001"
+  ],
+
+  "monitoring": {
+    "track_usage": true,
+    "alert_threshold_daily_tokens": 1000000,
+    "report_frequency": "daily"
+  }
+}

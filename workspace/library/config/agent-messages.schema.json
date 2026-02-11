@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "27.16",
+  "name": "Agent Message Protocol Schema",
+  "description": "Structured role-based communication between agents (Camel Pattern)",
+  "source_pattern": "Camel (awesome-ai-agents)",
+
+  "message_schema": {
+    "type": "object",
+    "required": ["id", "type", "from", "to", "content", "timestamp"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^msg_[a-z0-9]+$",
+        "description": "Unique message identifier"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["request", "response", "broadcast", "handoff", "status", "error"],
+        "description": "Type of message"
+      },
+      "from": {
+        "$ref": "#/definitions/agent_ref",
+        "description": "Sender agent"
+      },
+      "to": {
+        "$ref": "#/definitions/agent_ref",
+        "description": "Receiver agent (null for broadcast)"
+      },
+      "content": {
+        "type": "object",
+        "description": "Message payload"
+      },
+      "context": {
+        "$ref": "#/definitions/context",
+        "description": "Shared context"
+      },
+      "priority": {
+        "type": "string",
+        "enum": ["low", "normal", "high", "critical"],
+        "default": "normal"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "reply_to": {
+        "type": "string",
+        "description": "ID of message being replied to"
+      },
+      "thread_id": {
+        "type": "string",
+        "description": "Conversation thread identifier"
+      },
+      "ttl": {
+        "type": "integer",
+        "description": "Time to live in seconds",
+        "default": 3600
+      }
+    }
+  },
+
+  "definitions": {
+    "agent_ref": {
+      "type": "object",
+      "required": ["id", "role"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Agent ID from registry"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["orchestrator", "worker", "specialist", "validator", "observer"],
+          "description": "Agent role in conversation"
+        },
+        "capabilities": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Relevant capabilities for this task"
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "type": "object",
+          "properties": {
+            "path": { "type": "string" },
+            "type": { "type": "string" },
+            "phase": { "type": "string" }
+          }
+        },
+        "task": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "description": { "type": "string" },
+            "status": { "type": "string" },
+            "progress": { "type": "number" }
+          }
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "timeout_ms": { "type": "integer" },
+            "max_retries": { "type": "integer" },
+            "quality_threshold": { "type": "number" }
+          }
+        },
+        "memory": {
+          "type": "object",
+          "properties": {
+            "hindsight_context": { "type": "array", "items": { "type": "string" } },
+            "local_cache": { "type": "object" }
+          }
+        }
+      }
+    }
+  },
+
+  "message_types": {
+    "request": {
+      "description": "Request work from another agent",
+      "content_schema": {
+        "action": { "type": "string", "required": true },
+        "parameters": { "type": "object" },
+        "expected_output": { "type": "object" }
+      },
+      "example": {
+        "id": "msg_abc123",
+        "type": "request",
+        "from": { "id": "queen-v18", "role": "orchestrator" },
+        "to": { "id": "frontend-developer", "role": "worker" },
+        "content": {
+          "action": "create-component",
+          "parameters": {
+            "name": "LoginForm",
+            "type": "functional",
+            "styling": "tailwind"
+          },
+          "expected_output": {
+            "file_path": "string",
+            "component_code": "code"
+          }
+        },
+        "priority": "high",
+        "timestamp": "2026-01-11T12:00:00Z"
+      }
+    },
+    "response": {
+      "description": "Response to a request",
+      "content_schema": {
+        "status": { "type": "string", "enum": ["success", "partial", "failed"] },
+        "result": { "type": "object" },
+        "errors": { "type": "array" },
+        "metrics": { "type": "object" }
+      },
+      "example": {
+        "id": "msg_xyz789",
+        "type": "response",
+        "from": { "id": "frontend-developer", "role": "worker" },
+        "to": { "id": "queen-v18", "role": "orchestrator" },
+        "reply_to": "msg_abc123",
+        "content": {
+          "status": "success",
+          "result": {
+            "file_path": "src/components/LoginForm.tsx",
+            "lines": 45
+          },
+          "metrics": {
+            "time_ms": 2500,
+            "tokens_used": 1200
+          }
+        },
+        "timestamp": "2026-01-11T12:00:03Z"
+      }
+    },
+    "handoff": {
+      "description": "Transfer task to another agent",
+      "content_schema": {
+        "reason": { "type": "string" },
+        "partial_result": { "type": "object" },
+        "recommended_agent": { "type": "string" },
+        "context_transfer": { "type": "object" }
+      },
+      "example": {
+        "id": "msg_hand456",
+        "type": "handoff",
+        "from": { "id": "frontend-developer", "role": "worker" },
+        "to": { "id": "database-architect", "role": "specialist" },
+        "content": {
+          "reason": "Need database schema before continuing",
+          "partial_result": {
+            "component_skeleton": "created"
+          },
+          "context_transfer": {
+            "entities_needed": ["User", "Session"]
+          }
+        },
+        "timestamp": "2026-01-11T12:01:00Z"
+      }
+    },
+    "broadcast": {
+      "description": "Message to all agents in swarm",
+      "content_schema": {
+        "announcement": { "type": "string" },
+        "data": { "type": "object" }
+      }
+    },
+    "status": {
+      "description": "Status update",
+      "content_schema": {
+        "phase": { "type": "string" },
+        "progress": { "type": "number" },
+        "eta_seconds": { "type": "integer" },
+        "blockers": { "type": "array" }
+      }
+    },
+    "error": {
+      "description": "Error notification",
+      "content_schema": {
+        "error_type": { "type": "string" },
+        "message": { "type": "string" },
+        "stack": { "type": "string" },
+        "recoverable": { "type": "boolean" },
+        "suggested_action": { "type": "string" }
+      }
+    }
+  },
+
+  "conversation_patterns": {
+    "request_response": {
+      "description": "Simple request-response pattern",
+      "flow": ["request", "response"]
+    },
+    "delegation": {
+      "description": "Orchestrator delegates to worker",
+      "flow": ["request", "status", "status", "response"]
+    },
+    "handoff_chain": {
+      "description": "Task passed between specialists",
+      "flow": ["request", "handoff", "request", "response", "response"]
+    },
+    "broadcast_gather": {
+      "description": "Broadcast query, gather responses",
+      "flow": ["broadcast", "response", "response", "response"]
+    }
+  },
+
+  "routing_rules": {
+    "by_capability": {
+      "description": "Route to agent with matching capability",
+      "example": "find agent with 'database-design' capability"
+    },
+    "by_role": {
+      "description": "Route to agent with specific role",
+      "example": "route validation to 'validator' role"
+    },
+    "by_load": {
+      "description": "Route to least busy agent",
+      "example": "distribute among available workers"
+    },
+    "by_priority": {
+      "description": "Route based on message priority",
+      "example": "critical goes to senior agents"
+    }
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/browser-config.json",
+  "version": "29.3",
+  "description": "ATUM CREA v29.3 NATIVE MESSAGING - Browser automation configuration",
+  "created": "2026-01-26",
+  "updated": "2026-01-26",
+
+  "preferredMethod": "auto",
+  "fallbackChain": ["native", "extension", "debug", "playwright"],
+  "preferNativeMessaging": true,
+  "autoStartBroker": true,
+
+  "methods": {
+    "native": {
+      "name": "Native Messaging",
+      "description": "Real Chrome control via Native Messaging extension (v29.3)",
+      "priority": 0,
+      "pipe": "\\\\.\\pipe\\opencode-browser",
+      "extensionDir": "~/.opencode-browser/extension",
+      "requiresSetup": true,
+      "setupScript": "scripts/engines/opencode-browser-windows/install-windows.cjs",
+      "pros": ["Real Chrome with sessions", "Cookies preserved", "Logins preserved", "Works with Chrome already open"],
+      "cons": ["Requires extension installation", "Requires broker running"]
+    },
+
+    "extension": {
+      "name": "Chrome Native Messaging",
+      "description": "Secure browser control via Claude in Chrome extension",
+      "port": 9223,
+      "extensionId": "fcoeoabgfenejglbffodgkkbkcdhcgfn",
+      "manifestName": "com.anthropic.claude_code_browser_extension",
+      "requiresSetup": true,
+      "setupScript": "scripts/setup/enable-chrome-native-messaging.ps1",
+      "pros": ["No debug port exposure", "Uses normal Chrome profile", "More secure"],
+      "cons": ["Requires extension installation", "Requires manifest setup"]
+    },
+
+    "debug": {
+      "name": "Chrome Debug Protocol",
+      "description": "Direct Chrome control via remote debugging port",
+      "port": 9222,
+      "mcp": "puppeteer",
+      "requiresSetup": true,
+      "setupScript": "scripts/setup/enable-chrome-debugging.ps1",
+      "shortcut": "Chrome-Debug.lnk",
+      "pros": ["Full Puppeteer API", "Well documented"],
+      "cons": ["Requires separate Chrome profile", "Port exposure"]
+    },
+
+    "playwright": {
+      "name": "Playwright Isolated",
+      "description": "Isolated browser instances via Playwright",
+      "mcp": "playwright",
+      "requiresSetup": false,
+      "pros": ["No setup required", "Isolated sessions", "Cross-browser"],
+      "cons": ["No access to user sessions", "Fresh state each time"]
+    }
+  },
+
+  "autoDetection": {
+    "enabled": true,
+    "checkOrder": ["native", "extension", "debug", "playwright"],
+    "cacheResults": true,
+    "cacheTTL": 60000,
+    "checks": {
+      "native": {
+        "type": "pipe",
+        "pipe": "\\\\.\\pipe\\opencode-browser",
+        "timeout": 1000,
+        "configFile": "~/.opencode-browser/config.json"
+      },
+      "extension": {
+        "type": "port",
+        "port": 9223,
+        "timeout": 1000
+      },
+      "debug": {
+        "type": "http",
+        "url": "http://localhost:9222/json/version",
+        "timeout": 1000
+      },
+      "playwright": {
+        "type": "always",
+        "available": true
+      }
+    }
+  },
+
+  "sessionManagement": {
+    "persistSessions": true,
+    "sessionTimeout": 3600000,
+    "maxConcurrentTabs": 10,
+    "tabSwitchDelay": 100
+  },
+
+  "security": {
+    "confirmNewDomains": true,
+    "blockedDomains": [],
+    "trustedDomains": [
+      "localhost",
+      "127.0.0.1",
+      "*.local",
+      "*.test",
+      "github.com",
+      "gitlab.com",
+      "stackoverflow.com",
+      "docs.google.com",
+      "mail.google.com"
+    ],
+    "sensitiveActions": {
+      "requireConfirmation": [
+        "form_submit",
+        "payment",
+        "login",
+        "delete",
+        "publish"
+      ]
+    }
+  },
+
+  "capabilities": {
+    "native": {
+      "navigate": true,
+      "screenshot": true,
+      "click": true,
+      "fill": true,
+      "evaluate": true,
+      "getTabs": true,
+      "switchTab": true,
+      "closeTab": true,
+      "cookies": true,
+      "localStorage": true,
+      "query": true,
+      "scroll": true,
+      "waitFor": true,
+      "downloads": true,
+      "sessionAccess": true
+    },
+    "extension": {
+      "navigate": true,
+      "screenshot": true,
+      "click": true,
+      "fill": true,
+      "evaluate": true,
+      "getTabs": true,
+      "switchTab": true,
+      "closeTab": true,
+      "cookies": true,
+      "localStorage": true
+    },
+    "debug": {
+      "navigate": true,
+      "screenshot": true,
+      "click": true,
+      "fill": true,
+      "evaluate": true,
+      "getTabs": true,
+      "switchTab": true,
+      "closeTab": true,
+      "cookies": true,
+      "localStorage": true,
+      "network": true,
+      "performance": true
+    },
+    "playwright": {
+      "navigate": true,
+      "screenshot": true,
+      "click": true,
+      "fill": true,
+      "evaluate": true,
+      "getTabs": false,
+      "switchTab": false,
+      "closeTab": true,
+      "cookies": true,
+      "localStorage": true,
+      "network": true,
+      "video": true
+    }
+  },
+
+  "defaults": {
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "userAgent": null,
+    "timeout": 30000,
+    "waitForNavigation": "networkidle",
+    "screenshotFormat": "png",
+    "screenshotQuality": 90
+  }
+}

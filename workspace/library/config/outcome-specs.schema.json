@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "27.17",
+  "name": "Outcome Specification Schema",
+  "description": "Formalized success criteria for task verification (AEX Settlement Pattern)",
+  "source_pattern": "Agent Exchange (AEX) - Outcome Verification (adapted)",
+
+  "outcome_spec": {
+    "type": "object",
+    "required": ["taskId", "successCriteria"],
+    "properties": {
+      "taskId": {
+        "type": "string",
+        "description": "Unique identifier for the task"
+      },
+      "taskType": {
+        "type": "string",
+        "enum": [
+          "component_creation",
+          "api_development",
+          "database_design",
+          "testing",
+          "debugging",
+          "refactoring",
+          "documentation",
+          "deployment",
+          "general"
+        ]
+      },
+      "successCriteria": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["criterion", "verificationMethod"],
+          "properties": {
+            "criterion": {
+              "type": "string",
+              "description": "What must be true for success"
+            },
+            "verificationMethod": {
+              "type": "string",
+              "enum": ["automated", "manual", "hybrid"],
+              "description": "How to verify this criterion"
+            },
+            "automatedCheck": {
+              "type": "string",
+              "description": "Command or check to run for automated verification"
+            },
+            "weight": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 1,
+              "description": "Importance weight for this criterion"
+            },
+            "required": {
+              "type": "boolean",
+              "default": true,
+              "description": "Is this criterion mandatory for success"
+            }
+          }
+        },
+        "minItems": 1
+      },
+      "qualityMetrics": {
+        "type": "object",
+        "properties": {
+          "minTestCoverage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "maxLintErrors": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "maxTypeErrors": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "maxComplexity": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "performanceThreshold": {
+            "type": "object",
+            "properties": {
+              "metric": { "type": "string" },
+              "maxValue": { "type": "number" },
+              "unit": { "type": "string" }
+            }
+          }
+        }
+      },
+      "timeout": {
+        "type": "integer",
+        "description": "Maximum time for task completion in seconds"
+      },
+      "rollbackOnFailure": {
+        "type": "boolean",
+        "default": true
+      }
+    }
+  },
+
+  "verification_result": {
+    "type": "object",
+    "required": ["taskId", "passed", "timestamp"],
+    "properties": {
+      "taskId": { "type": "string" },
+      "passed": { "type": "boolean" },
+      "timestamp": { "type": "string", "format": "date-time" },
+      "criteriaResults": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "criterion": { "type": "string" },
+            "passed": { "type": "boolean" },
+            "details": { "type": "string" },
+            "evidence": { "type": "string" }
+          }
+        }
+      },
+      "qualityScore": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "failureReasons": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "recommendations": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    }
+  },
+
+  "default_specs_by_task_type": {
+    "component_creation": {
+      "successCriteria": [
+        { "criterion": "Component renders without errors", "verificationMethod": "automated", "automatedCheck": "npm run build" },
+        { "criterion": "No TypeScript errors", "verificationMethod": "automated", "automatedCheck": "npx tsc --noEmit" },
+        { "criterion": "Follows component conventions", "verificationMethod": "automated", "automatedCheck": "npm run lint" }
+      ],
+      "qualityMetrics": {
+        "maxLintErrors": 0,
+        "maxTypeErrors": 0
+      }
+    },
+    "api_development": {
+      "successCriteria": [
+        { "criterion": "API endpoint responds", "verificationMethod": "automated" },
+        { "criterion": "Returns expected status codes", "verificationMethod": "automated" },
+        { "criterion": "Validates input correctly", "verificationMethod": "automated" }
+      ],
+      "qualityMetrics": {
+        "maxLintErrors": 0
+      }
+    },
+    "testing": {
+      "successCriteria": [
+        { "criterion": "All tests pass", "verificationMethod": "automated", "automatedCheck": "npm test" },
+        { "criterion": "No skipped tests", "verificationMethod": "automated" }
+      ],
+      "qualityMetrics": {
+        "minTestCoverage": 80
+      }
+    },
+    "debugging": {
+      "successCriteria": [
+        { "criterion": "Bug is fixed", "verificationMethod": "manual" },
+        { "criterion": "No regression introduced", "verificationMethod": "automated", "automatedCheck": "npm test" },
+        { "criterion": "Root cause documented", "verificationMethod": "manual" }
+      ]
+    },
+    "refactoring": {
+      "successCriteria": [
+        { "criterion": "Tests still pass", "verificationMethod": "automated", "automatedCheck": "npm test" },
+        { "criterion": "No functionality change", "verificationMethod": "manual" },
+        { "criterion": "Code quality improved", "verificationMethod": "automated", "automatedCheck": "npm run lint" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "27.17",
+  "name": "Agent Reputation System Configuration",
+  "description": "Persistent reputation tracking inspired by Agent Exchange (AEX)",
+  "source_pattern": "Agent Exchange (AEX) - Trust/Reputation System",
+
+  "tracking": {
+    "enabled": true,
+    "metrics": ["success_rate", "quality_score", "completion_time", "task_count"],
+    "persistence": {
+      "storage": "knowledge/reputation-data.json",
+      "backup_interval_hours": 24,
+      "max_history_days": 90
+    }
+  },
+
+  "scoring": {
+    "success_weight": 0.4,
+    "quality_weight": 0.3,
+    "speed_weight": 0.2,
+    "experience_weight": 0.1,
+    "formula": "success*0.4 + quality*0.3 + speed*0.2 + experience*0.1"
+  },
+
+  "decay": {
+    "enabled": true,
+    "decay_factor": 0.95,
+    "decay_period_days": 7,
+    "min_score": 10,
+    "max_score": 100
+  },
+
+  "thresholds": {
+    "min_tasks_for_ranking": 3,
+    "poor_performance": 40,
+    "average_performance": 60,
+    "good_performance": 80,
+    "excellent_performance": 95
+  },
+
+  "task_types": [
+    "component_creation",
+    "api_development",
+    "database_design",
+    "testing",
+    "debugging",
+    "refactoring",
+    "documentation",
+    "deployment",
+    "research",
+    "analysis"
+  ],
+
+  "reputation_schema": {
+    "type": "object",
+    "required": ["agentId", "metrics", "lastUpdated"],
+    "properties": {
+      "agentId": { "type": "string" },
+      "metrics": {
+        "type": "object",
+        "properties": {
+          "totalTasks": { "type": "integer", "minimum": 0 },
+          "successCount": { "type": "integer", "minimum": 0 },
+          "failureCount": { "type": "integer", "minimum": 0 },
+          "avgQualityScore": { "type": "number", "minimum": 0, "maximum": 100 },
+          "avgCompletionTime": { "type": "number", "minimum": 0 }
+        }
+      },
+      "byTaskType": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "count": { "type": "integer" },
+            "successRate": { "type": "number" },
+            "avgQuality": { "type": "number" }
+          }
+        }
+      },
+      "reputationScore": { "type": "number", "minimum": 0, "maximum": 100 },
+      "lastUpdated": { "type": "string", "format": "date-time" },
+      "trend": { "type": "string", "enum": ["improving", "stable", "declining"] }
+    }
+  },
+
+  "integration": {
+    "use_in_agent_selection": true,
+    "weight_in_selection": 0.3,
+    "fallback_score": 50,
+    "require_min_reputation": false
+  },
+
+  "hooks": {
+    "post_task_complete": "reputation-tracker.cjs",
+    "triggers": ["Write", "Edit", "Bash"]
+  }
+}

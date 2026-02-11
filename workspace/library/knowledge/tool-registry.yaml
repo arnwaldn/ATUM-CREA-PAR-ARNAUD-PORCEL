@@ -1,0 +1,1442 @@
+# ULTRA-CREATE TOOL REGISTRY v24.1
+# Conscience complete des outils disponibles sur ce systeme
+# Unity Enhancement v24.1 - 6 templates, 9 agents, 37 knowledge docs + ITPP-Labs Patterns
+
+version: "24.1"
+last_updated: "2025-12-27"
+
+# ============================================================================
+# OUTILS 3D / GAME DEVELOPMENT
+# ============================================================================
+3d_game:
+  blender:
+    name: "Blender"
+    version: "5.0"
+    path: "C:\\Program Files\\Blender Foundation\\Blender 5.0"
+    mcp: "blender"
+    status: "configured"
+    capabilities:
+      - modeling_3d
+      - animation
+      - rendering
+      - sculpting
+      - texturing
+      - video_editing
+      - python_scripting
+    use_when:
+      - "3D assets"
+      - "animations"
+      - "renders"
+      - "game assets"
+      - "modeles 3D"
+      - "sculpting"
+    file_types: [".blend", ".fbx", ".obj", ".gltf", ".glb"]
+
+  unity:
+    name: "Unity Hub"
+    path: "C:\\Program Files\\Unity Hub"
+    mcp: "unity"
+    status: "configured"
+    versions:
+      - "2022.3"
+      - "6000.0"
+      - "6000.3"
+      - "6000.4"
+      - "6000.5"
+    capabilities:
+      - game_development
+      - 2d_games
+      - 3d_games
+      - vr_ar
+      - mobile_games
+      - simulations
+      - csharp_scripting
+    use_when:
+      - "jeux"
+      - "games"
+      - "VR"
+      - "AR"
+      - "simulations"
+      - "apps interactives"
+      - "Unity"
+    file_types: [".unity", ".prefab", ".asset", ".cs"]
+
+  godot:
+    name: "Godot Engine"
+    mcp: "godot"
+    status: "configured"
+    capabilities:
+      - game_development
+      - 2d_games
+      - 3d_games
+      - gdscript
+      - open_source
+    use_when:
+      - "jeux indie"
+      - "2D games"
+      - "open source games"
+      - "Godot"
+      - "GDScript"
+    file_types: [".tscn", ".tres", ".gd"]
+
+# ============================================================================
+# TRADING / FINANCE
+# ============================================================================
+trading:
+  metatrader5:
+    name: "MetaTrader 5"
+    path: "C:\\Program Files\\FTMO MT5"
+    mcp: null  # Pas de MCP, utiliser Python/MQL5
+    status: "installed"
+    capabilities:
+      - forex_trading
+      - backtesting
+      - expert_advisors
+      - indicators
+      - market_data
+      - algo_trading
+    use_when:
+      - "trading"
+      - "forex"
+      - "backtests"
+      - "EAs"
+      - "Expert Advisors"
+      - "indicateurs MT5"
+      - "MQL5"
+    file_types: [".mq5", ".ex5", ".mqh"]
+
+  trading_brain:
+    name: "Trading Brain"
+    path: "C:\\Trading Brain Production"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - trading_signals
+      - portfolio_analysis
+      - market_analysis
+    use_when:
+      - "signals trading"
+      - "portfolio"
+      - "Trading Brain"
+
+# ============================================================================
+# IA LOCALE
+# ============================================================================
+ai_local:
+  ollama:
+    name: "Ollama"
+    version: "0.13.5"
+    mcp: "ollama"
+    status: "configured"
+    host: "http://localhost:11434"
+    capabilities:
+      - text_generation
+      - code_generation
+      - embeddings
+      - local_llm
+      - offline_ai
+    models_available:
+      - llama3
+      - codellama
+      - mistral
+      - phi
+      - gemma
+    use_when:
+      - "offline AI"
+      - "IA locale"
+      - "embeddings locaux"
+      - "RAG local"
+      - "privacy"
+      - "LLM local"
+      - "Ollama"
+
+# ============================================================================
+# MULTIMEDIA
+# ============================================================================
+multimedia:
+  ffmpeg:
+    name: "FFmpeg"
+    version: "8.0.1"
+    mcp: "ffmpeg-ai"
+    status: "configured"
+    capabilities:
+      - video_conversion
+      - audio_conversion
+      - video_editing
+      - frame_extraction
+      - compression
+      - streaming
+      - format_detection
+    use_when:
+      - "video"
+      - "audio"
+      - "conversion"
+      - "compression"
+      - "streaming"
+      - "extraction frames"
+      - "FFmpeg"
+    file_types: [".mp4", ".mkv", ".avi", ".mov", ".mp3", ".wav", ".flac"]
+
+  imagemagick:
+    name: "ImageMagick"
+    version: "7.1.2"
+    mcp: "imagemagick"
+    status: "configured"
+    capabilities:
+      - image_resize
+      - image_crop
+      - format_conversion
+      - effects
+      - batch_processing
+      - thumbnails
+      - watermarks
+    use_when:
+      - "images"
+      - "thumbnails"
+      - "batch processing"
+      - "conversion images"
+      - "resize"
+      - "crop"
+      - "ImageMagick"
+    file_types: [".jpg", ".png", ".gif", ".webp", ".svg", ".tiff", ".bmp"]
+
+# ============================================================================
+# DATABASES
+# ============================================================================
+databases:
+  postgresql:
+    name: "PostgreSQL"
+    mcp: "postgres"
+    status: "configured"
+    capabilities:
+      - sql_queries
+      - transactions
+      - json_support
+      - full_text_search
+      - extensions
+    use_when:
+      - "SQL"
+      - "PostgreSQL"
+      - "database relationnelle"
+      - "Supabase local"
+
+  mongodb:
+    name: "MongoDB"
+    mcp: "mongodb"
+    status: "configured"
+    uri: "mongodb://localhost:27017"
+    capabilities:
+      - nosql
+      - documents
+      - aggregation
+      - flexible_schema
+      - json_storage
+    use_when:
+      - "NoSQL"
+      - "documents"
+      - "MongoDB"
+      - "flexible schema"
+
+  sql_server:
+    name: "SQL Server"
+    path: "C:\\Program Files\\Microsoft SQL Server"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - enterprise_sql
+      - reporting
+      - integration_services
+    use_when:
+      - "enterprise SQL"
+      - "SQL Server"
+      - "SSMS"
+      - ".NET backend"
+
+# ============================================================================
+# DEVELOPMENT TOOLS
+# ============================================================================
+development:
+  python:
+    name: "Python"
+    versions: ["3.14", "3.11"]
+    mcp: null  # Via E2B ou Bash
+    status: "installed"
+    capabilities:
+      - scripting
+      - machine_learning
+      - data_science
+      - automation
+      - web_frameworks
+    use_when:
+      - "Python"
+      - "ML"
+      - "machine learning"
+      - "data science"
+      - "automation"
+      - "scripts"
+
+  nodejs:
+    name: "Node.js"
+    version: "22.x"
+    mcp: null  # Via Bash
+    status: "installed"
+    capabilities:
+      - javascript_runtime
+      - npm_packages
+      - backend_dev
+      - cli_tools
+    use_when:
+      - "JavaScript"
+      - "Node.js"
+      - "npm"
+      - "backend JS"
+
+  rust:
+    name: "Rust"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - systems_programming
+      - performance
+      - wasm
+      - cli_tools
+    use_when:
+      - "Rust"
+      - "performance critique"
+      - "systemes"
+      - "CLI tools"
+      - "WebAssembly"
+
+  go:
+    name: "Go"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - backend_dev
+      - cli_tools
+      - concurrency
+      - microservices
+    use_when:
+      - "Go"
+      - "Golang"
+      - "microservices"
+      - "haute concurrence"
+
+  java:
+    name: "Java"
+    version: "21"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - enterprise_dev
+      - android
+      - spring_boot
+    use_when:
+      - "Java"
+      - "Spring"
+      - "enterprise"
+      - "Android native"
+
+# ============================================================================
+# DEVOPS / CLOUD
+# ============================================================================
+devops:
+  docker:
+    name: "Docker"
+    mcp: null  # Via Bash
+    status: "installed"
+    capabilities:
+      - containers
+      - compose
+      - images
+      - orchestration
+    use_when:
+      - "Docker"
+      - "conteneurisation"
+      - "containers"
+      - "isolation"
+
+  kubernetes:
+    name: "Kubernetes"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - orchestration
+      - scaling
+      - deployment
+    use_when:
+      - "Kubernetes"
+      - "k8s"
+      - "orchestration"
+
+  terraform:
+    name: "Terraform"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - infrastructure_as_code
+      - multi_cloud
+      - state_management
+    use_when:
+      - "Terraform"
+      - "infrastructure as code"
+      - "IaC"
+      - "multi-cloud"
+
+cloud_cli:
+  aws:
+    name: "AWS CLI"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - s3
+      - ec2
+      - lambda
+      - iam
+    use_when:
+      - "AWS"
+      - "S3"
+      - "Lambda"
+      - "Amazon cloud"
+
+  azure:
+    name: "Azure CLI"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - azure_services
+      - devops
+    use_when:
+      - "Azure"
+      - "Microsoft cloud"
+
+  gcloud:
+    name: "Google Cloud CLI"
+    mcp: null
+    status: "installed"
+    capabilities:
+      - gcp_services
+      - firebase
+    use_when:
+      - "Google Cloud"
+      - "GCP"
+      - "Firebase"
+
+# ============================================================================
+# ODOO ERP
+# ============================================================================
+odoo:
+  odoo_erp:
+    name: "Odoo"
+    version: "18.0"
+    mcp: null  # Via Python/XML
+    status: "configured"
+    capabilities:
+      - erp_development
+      - module_creation
+      - orm_operations
+      - view_xml
+      - security_acl
+      - api_integration
+      - pos_retail
+      - field_service
+      - manufacturing
+      - accounting
+      - healthcare
+      - hospitality
+      - it_asset_management
+    use_when:
+      - "Odoo"
+      - "ERP"
+      - "module Odoo"
+      - "POS"
+      - "gestion commerciale"
+      - "field service"
+      - "gestion parc informatique"
+      - "IT asset management"
+      - "CRM Odoo"
+      - "comptabilité Odoo"
+    file_types: [".py", ".xml", ".csv", ".po"]
+    agents:
+      - odoo-expert
+      - odoo-field-service-expert
+      - odoo-accounting-expert
+      - odoo-manufacturing-expert
+      - odoo-healthcare-expert
+      - odoo-hospitality-expert
+      - odoo-retail-pos-expert
+      - odoo-education-expert
+      - odoo-events-expert
+      - odoo-food-beverage-expert
+      - odoo-integration-expert
+      - odoo-orm-expert
+      - odoo-realestate-expert
+
+# ============================================================================
+# PROJECT TYPE MAPPING (Selection automatique)
+# ============================================================================
+project_mapping:
+  # Jeux Web (v23.0)
+  "jeu 2D":
+    primary: [phaser]
+    template: game-web
+    mcps: [context7]
+    agent: phaser-expert
+    knowledge:
+      - "knowledge/gaming/patterns/*"
+      - "knowledge/gaming/physics/*"
+      - "knowledge/gaming/genres/*"
+      - "knowledge/gaming/references/phaser-best-practices.md"
+
+  "jeu 2D web":
+    primary: [phaser]
+    template: game-web
+    mcps: [context7]
+    agent: phaser-expert
+
+  "jeu 3D web":
+    primary: [three.js, cannon-es, howler]
+    template: game-3d-web
+    mcps: [context7]
+    agent: threejs-game-expert
+    knowledge:
+      - "knowledge/gaming/rendering/*"
+      - "knowledge/gaming/patterns/*"
+      - "knowledge/gaming/physics/*"
+
+  "3D game":
+    primary: [three.js, cannon-es]
+    template: game-3d-web
+    mcps: [context7]
+    agent: threejs-game-expert
+
+  "racing game":
+    primary: [three.js, cannon-es]
+    template: game-3d-web
+    mcps: [context7]
+    agent: threejs-game-expert
+
+  "jeu multiplayer":
+    primary: [phaser, colyseus]
+    template: game-multiplayer
+    mcps: [context7]
+    agent: networking-expert
+    knowledge:
+      - "knowledge/gaming/multiplayer/*"
+      - "knowledge/gaming/patterns/state-machine.md"
+      - "knowledge/gaming/patterns/event-bus.md"
+
+  "multiplayer game":
+    primary: [phaser, colyseus]
+    template: game-multiplayer
+    mcps: [context7]
+    agent: networking-expert
+
+  "online game":
+    primary: [phaser, colyseus]
+    template: game-multiplayer
+    mcps: [context7]
+    agent: networking-expert
+
+  "roguelike":
+    primary: [phaser, rot.js]
+    template: game-roguelike
+    mcps: [context7]
+    agent: procgen-expert
+    knowledge:
+      - "knowledge/gaming/genres/roguelike.md"
+      - "knowledge/gaming/procedural/*"
+      - "knowledge/gaming/patterns/entity-component-system.md"
+
+  "dungeon crawler":
+    primary: [phaser, rot.js]
+    template: game-roguelike
+    mcps: [context7]
+    agent: procgen-expert
+
+  "procedural game":
+    primary: [phaser, rot.js]
+    template: game-roguelike
+    mcps: [context7]
+    agent: procgen-expert
+
+  "puzzle game":
+    primary: [phaser]
+    template: game-puzzle
+    mcps: [context7]
+    agent: phaser-expert
+
+  "2048":
+    primary: [phaser]
+    template: game-puzzle
+    mcps: [context7]
+
+  "match-3":
+    primary: [phaser]
+    template: game-puzzle
+    mcps: [context7]
+
+  # Stylized & Post-Processing (v24.1)
+  "jeu stylise":
+    primary: [phaser, three.js]
+    template: game-web
+    mcps: [context7]
+    agent: threejs-game-expert
+    knowledge:
+      - "knowledge/gaming/rendering/shader-techniques.md"
+      - "knowledge/gaming/genres/*"
+      - "knowledge/gaming/patterns/*"
+
+  "stylized game":
+    primary: [three.js, phaser]
+    template: game-3d-web
+    mcps: [context7]
+    agent: threejs-game-expert
+    knowledge:
+      - "knowledge/gaming/rendering/shader-techniques.md"
+
+  "toon game":
+    primary: [three.js]
+    template: game-3d-web
+    mcps: [context7]
+    agent: threejs-game-expert
+    knowledge:
+      - "knowledge/gaming/rendering/shader-techniques.md"
+
+  "cel shading":
+    primary: [three.js]
+    template: game-3d-web
+    mcps: [context7]
+    knowledge:
+      - "knowledge/gaming/rendering/shader-techniques.md"
+
+  "post-processing":
+    primary: [three.js]
+    mcps: [context7]
+    knowledge:
+      - "knowledge/gaming/rendering/shader-techniques.md"
+      - "knowledge/gaming/rendering/render-graph.md"
+
+  "shader effects":
+    primary: [three.js]
+    mcps: [context7]
+    knowledge:
+      - "knowledge/gaming/rendering/shader-techniques.md"
+      - "knowledge/gaming/rendering/global-illumination.md"
+
+  "jeu web":
+    primary: [phaser, three.js]
+    mcps: [context7]
+
+  # Jeux Natifs
+  "jeu 3D":
+    primary: [unity, blender]
+    secondary: [ffmpeg]
+    mcps: [unity, blender]
+    knowledge:
+      - "knowledge/gaming/unity/*"
+      - "knowledge/gaming/rendering/*"
+      - "knowledge/gaming/blender/*"
+
+  "jeu godot":
+    primary: [godot]
+    mcps: [context7, godot]
+    agent: godot-expert
+
+  "godot game":
+    primary: [godot]
+    mcps: [context7, godot]
+    agent: godot-expert
+
+  # Unity Native Games (v23.1)
+  "jeu Unity":
+    primary: [unity, blender]
+    template: unity-game
+    mcps: [context7, unity, blender]
+    agent: unity-expert
+    knowledge:
+      - "knowledge/gaming/unity/*"
+      - "knowledge/gaming/rendering/*"
+      - "knowledge/gaming/blender/*"
+      - "knowledge/gaming/patterns/*"
+
+  "Unity game":
+    primary: [unity, blender]
+    template: unity-game
+    mcps: [context7, unity, blender]
+    agent: unity-expert
+
+  "jeu VR":
+    primary: [unity]
+    template: unity-game
+    mcps: [context7, unity]
+    agent: unity-expert
+
+  "VR game":
+    primary: [unity]
+    template: unity-game
+    mcps: [context7, unity]
+    agent: unity-expert
+
+  "jeu AR":
+    primary: [unity]
+    template: unity-game
+    mcps: [context7, unity]
+    agent: unity-expert
+
+  "jeu console":
+    primary: [unity]
+    template: unity-game
+    mcps: [context7, unity]
+    agent: unity-expert
+
+  "console game":
+    primary: [unity]
+    template: unity-game
+    mcps: [context7, unity]
+    agent: unity-expert
+
+  "jeu Quest":
+    primary: [unity]
+    template: unity-game
+    mcps: [context7, unity]
+    agent: unity-expert
+
+  "AAA game":
+    primary: [unity, blender]
+    template: unity-game
+    mcps: [context7, unity, blender]
+    agent: unity-expert
+
+  # Applications
+  "SaaS":
+    primary: [nextjs, supabase, stripe]
+    mcps: [context7, shadcn, supabase]
+
+  "landing page":
+    primary: [nextjs, tailwindcss]
+    mcps: [context7, shadcn]
+
+  "mobile":
+    primary: [expo, react-native]
+    mcps: [context7]
+
+  "desktop":
+    primary: [tauri, electron]
+    mcps: [context7, desktop-commander]
+
+  # Trading
+  "EA MT5":
+    primary: [metatrader5, python]
+    mcps: [hindsight]
+
+  "indicateur MT5":
+    primary: [metatrader5]
+    mcps: [hindsight]
+
+  "analyse trading":
+    primary: [python, trading_brain]
+    mcps: [hindsight, e2b]
+
+  # 3D / Multimedia
+  "assets 3D":
+    primary: [blender]
+    mcps: [blender]
+    knowledge:
+      - "knowledge/gaming/blender/*"
+      - "knowledge/gaming/rendering/*"
+      - "knowledge/gaming/resources/*"
+
+  "traitement video":
+    primary: [ffmpeg]
+    mcps: [ffmpeg-ai, desktop-commander]
+
+  "traitement images":
+    primary: [imagemagick]
+    mcps: [imagemagick]
+
+  # IA
+  "RAG local":
+    primary: [ollama, python]
+    mcps: [ollama, postgres]
+
+  "chatbot":
+    primary: [nextjs, ollama]
+    mcps: [context7, ollama]
+
+  "embeddings":
+    primary: [ollama, python]
+    mcps: [ollama]
+
+  # Data
+  "data analysis":
+    primary: [python, postgresql]
+    mcps: [postgres, e2b]
+
+  "ETL":
+    primary: [python, postgresql]
+    mcps: [postgres]
+
+  # Odoo ERP (v24.1)
+  "module Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/*"
+      - "agents/specialized/odoo-expert.md"
+
+  "Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/*"
+
+  "ERP Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+
+  "gestion parc informatique":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-field-service-expert
+    knowledge:
+      - "agents/odoo/odoo-field-service-expert.md"
+      - "knowledge/odoo/*"
+
+  "IT asset management":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-field-service-expert
+    knowledge:
+      - "agents/odoo/odoo-field-service-expert.md"
+
+  "gestion licences logiciels":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-field-service-expert
+    knowledge:
+      - "agents/odoo/odoo-field-service-expert.md"
+
+  "field service Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-field-service-expert
+    knowledge:
+      - "agents/odoo/odoo-field-service-expert.md"
+
+  "interventions terrain":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-field-service-expert
+
+  "POS Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-retail-pos-expert
+    knowledge:
+      - "agents/odoo/odoo-retail-pos-expert.md"
+
+  "comptabilité Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-accounting-expert
+
+  "manufacturing Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-manufacturing-expert
+
+  "healthcare Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-healthcare-expert
+
+  "hospitality Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-hospitality-expert
+
+  "hôtellerie Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-hospitality-expert
+
+  # Odoo Advanced Patterns (v24.1)
+  "controller Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-8"
+
+  "wizard Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-9"
+
+  "report QWeb":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-10"
+
+  "rapport Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-10"
+
+  "mail.thread":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-11"
+
+  "notifications Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-11"
+
+  "useService OWL":
+    primary: [python, javascript]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-owl-frontend-guide.md#section-9"
+
+  "frontend Odoo":
+    primary: [python, javascript]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-owl-frontend-guide.md#section-9"
+
+  "check_access_rights":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-security-guide.md#section-5"
+
+  "sécurité Odoo avancée":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-security-guide.md#section-5"
+
+  "ir.rule dynamique":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-security-guide.md#section-5"
+
+  # Section 12: Importable Modules (XML-only, Server Actions)
+  "server action odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-12"
+
+  "importable module":
+    primary: [xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-12"
+
+  "base.automation":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-12"
+
+  "automated action odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-v19-complete-guide.md#section-12"
+
+  # JSON-2 API (Official External API)
+  "json-2 api":
+    primary: [python]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-api-integration.md#section-5"
+
+  "api externe odoo":
+    primary: [python]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-api-integration.md#section-5"
+
+  # Odoo Deployment Patterns (v24.1 - Yenthe666)
+  "déploiement Odoo":
+    primary: [bash, docker]
+    mcps: [context7, hindsight, desktop-commander]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md"
+
+  "installation Odoo":
+    primary: [bash]
+    mcps: [context7, hindsight, desktop-commander]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md#section-4"
+
+  "serveur dédié Odoo":
+    primary: [bash]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md#section-4"
+
+  "multi-arch Odoo":
+    primary: [bash]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md#section-4-v24.1"
+
+  "ARM Odoo":
+    primary: [bash]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md#section-4-v24.1"
+
+  "Raspberry Pi Odoo":
+    primary: [bash]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md#section-4-v24.1"
+
+  "pgvector Odoo":
+    primary: [bash, postgresql]
+    mcps: [context7, hindsight, postgres]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md#section-4-v24.1"
+
+  "Ubuntu 24.04 Odoo":
+    primary: [bash]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md#section-4-v24.1"
+
+  "wkhtmltopdf Odoo":
+    primary: [bash]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md#section-4-v24.1"
+
+  "Docker Odoo":
+    primary: [docker, yaml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md#section-1"
+
+  "Odoo production":
+    primary: [bash, docker, nginx]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-deployment-guide.md"
+
+  # SaaS Odoo (v24.1 - it-projects-llc/odoo-saas-tools)
+  "SaaS Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md"
+
+  "multi-tenant Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-1"
+
+  "OAuth Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-2"
+
+  "subscription billing Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-3"
+
+  "abonnement récurrent Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-3"
+
+  "backup S3 Odoo":
+    primary: [python, bash]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-4"
+
+  "backup cloud Odoo":
+    primary: [python, bash]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-4"
+
+  "Route53 Odoo":
+    primary: [python, bash]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-5"
+
+  "Mailgun Odoo":
+    primary: [python]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-5"
+
+  "tenant provisioning Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-6"
+
+  "client portal SaaS Odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-saas-guide.md#section-6"
+
+  # OCA Server-Tools Patterns (v24.1 - OCA/server-tools)
+  "audit trail odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-1"
+
+  "auditlog odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-1"
+
+  "change tracking odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-1"
+
+  "exception management odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-2"
+
+  "base_exception odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-2"
+
+  "database cleanup odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-3"
+
+  "fuzzy search odoo":
+    primary: [python, postgresql]
+    mcps: [context7, hindsight, postgres]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-4"
+
+  "pg_trgm odoo":
+    primary: [python, postgresql]
+    mcps: [context7, hindsight, postgres]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-4"
+
+  "time window odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-5"
+
+  "session database odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-6"
+
+  "multi-tenancy header odoo":
+    primary: [python, nginx]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-6"
+
+  "dbfilter header odoo":
+    primary: [python, nginx]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-6"
+
+  "sentry odoo":
+    primary: [python]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-7"
+
+  "scheduler error odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-7"
+
+  "module analysis odoo":
+    primary: [python]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-oca-server-tools-guide.md#section-8"
+
+  # ITPP-Labs Patterns (v24.1 - itpp-labs/misc-addons)
+  "large object storage odoo":
+    primary: [python, postgresql]
+    mcps: [context7, hindsight, postgres]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-1"
+
+  "lobject postgresql odoo":
+    primary: [python, postgresql]
+    mcps: [context7, hindsight, postgres]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-1"
+
+  "url attachment odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-1"
+
+  "lazy loading attachment odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-1"
+
+  "white label odoo":
+    primary: [python, xml, javascript]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-2"
+
+  "debranding odoo":
+    primary: [python, xml, javascript]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-2"
+
+  "website dependent odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-3"
+
+  "multi-site odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-3"
+
+  "external id sync odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-integration-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-4"
+
+  "search_or_create odoo":
+    primary: [python]
+    mcps: [context7, hindsight]
+    agent: odoo-orm-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-4"
+
+  "upsert odoo":
+    primary: [python]
+    mcps: [context7, hindsight]
+    agent: odoo-orm-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-4"
+
+  "pre-commit advanced odoo":
+    primary: [yaml, python]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-5"
+
+  "pylint graduated odoo":
+    primary: [python]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md#section-5"
+
+  "itpp-labs odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md"
+
+  "misc-addons odoo":
+    primary: [python, xml]
+    mcps: [context7, hindsight]
+    agent: odoo-expert
+    knowledge:
+      - "knowledge/odoo/odoo-itpp-patterns-guide.md"
+
+# ============================================================================
+# MCPS ACTIFS (51+ configures)
+# ============================================================================
+active_mcps:
+  core:
+    - hindsight       # Memoire persistante
+    - memory          # Graphe connaissances
+    - context7        # Docs framework
+    - sequential-thinking  # Architecture
+
+  development:
+    - github          # Git/repos
+    - git             # Operations git
+    - supabase        # Backend/DB
+    - postgres        # SQL direct
+
+  ui_design:
+    - shadcn          # Composants UI
+    - figma           # Design
+    - mermaid         # Diagrammes
+
+  browser:
+    - playwright      # Browser automation
+    - puppeteer       # Browser automation
+    - firecrawl       # Web scraping
+
+  desktop:
+    - desktop-commander    # Fichiers/process
+    - desktop-automation   # Automation desktop
+    - filesystem          # Fichiers
+
+  cloud:
+    - fetch           # HTTP requests
+    - notion          # Notion API
+
+  research:
+    - exa             # Web search
+
+  code_execution:
+    - e2b             # Python sandbox
+
+  3d_game:
+    - blender         # 3D modeling
+    - unity           # Game dev
+    - godot           # Game dev
+
+  multimedia:
+    - ffmpeg-ai       # Video/audio
+    - imagemagick     # Images
+    - video-editor    # Video editing
+    - remotion        # Video creation
+
+  ai_local:
+    - ollama          # LLM local
+
+  databases:
+    - mongodb         # NoSQL
+
+# ============================================================================
+# PLUGINS EXTERNES CLAUDE CODE
+# ============================================================================
+external_plugins:
+  safety_net:
+    name: "Safety Net"
+    author: "kenryu42"
+    type: "claude-code-plugin"
+    status: "recommended"
+    marketplace: "cc-marketplace"
+    installation: "/plugin install safety-net@cc-marketplace"
+    protections:
+      - destructive_bash      # rm -rf /, rm -rf ~
+      - git_force_push        # git push --force
+      - shell_wrappers        # sh -c "rm -rf /"
+      - dangerous_oneliners   # python -c, ruby -e, node -e
+    use_when:
+      - "sécurité bash"
+      - "protection commandes"
+      - "bloquer rm -rf"
+      - "sécurité git"
+      - "protéger système"
+      - "commandes destructives"
+      - "safety net"
+    mode_strict: "SAFETY_NET_STRICT=1"
+    complementary_to:
+      - "anti-hallucination.js"   # Qualité code
+      - "pre-edit-check.js"       # Fichiers sensibles

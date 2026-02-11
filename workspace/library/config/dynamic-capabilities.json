@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "27.17",
+  "name": "Dynamic Capability State",
+  "description": "Runtime capability updates for agents (AEX Provider Registry Pattern)",
+  "source_pattern": "Agent Exchange (AEX) - Dynamic Provider Registry",
+  "lastUpdated": "2026-01-11T00:00:00Z",
+
+  "agents": {},
+
+  "capability_schema": {
+    "type": "object",
+    "properties": {
+      "agentId": {
+        "type": "string"
+      },
+      "availability": {
+        "type": "string",
+        "enum": ["available", "busy", "offline"],
+        "default": "available"
+      },
+      "currentTask": {
+        "type": "string",
+        "description": "Current task ID if busy"
+      },
+      "dynamicCapabilities": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 100 },
+            "experience": { "type": "integer", "minimum": 0 },
+            "lastUsed": { "type": "string", "format": "date-time" }
+          }
+        }
+      },
+      "specializations": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Self-declared areas of expertise"
+      },
+      "lastHeartbeat": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "sessionTasks": {
+        "type": "integer",
+        "description": "Tasks completed this session"
+      }
+    }
+  },
+
+  "update_rules": {
+    "availability": {
+      "auto_busy_on_task_start": true,
+      "auto_available_on_task_end": true,
+      "offline_after_inactive_minutes": 30
+    },
+    "capabilities": {
+      "add_on_success": true,
+      "confidence_increase_on_success": 5,
+      "confidence_decrease_on_failure": 10,
+      "min_confidence_to_advertise": 30
+    },
+    "experience": {
+      "increment_on_task_complete": 1,
+      "decay_enabled": false
+    }
+  },
+
+  "discovery": {
+    "prefer_available_agents": true,
+    "availability_weight": 0.2,
+    "confidence_weight": 0.3,
+    "experience_weight": 0.2,
+    "static_capability_weight": 0.3
+  },
+
+  "heartbeat": {
+    "interval_seconds": 60,
+    "timeout_seconds": 180,
+    "mark_offline_on_timeout": true
+  }
+}

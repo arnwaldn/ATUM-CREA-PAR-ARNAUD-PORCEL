@@ -1,0 +1,140 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/template-sources.json",
+  "version": "1.0",
+  "description": "External template sources for ATUM CREA v28.1",
+  "lastUpdated": "2026-01-13",
+
+  "sources": [
+    {
+      "id": "clone-wars",
+      "name": "Clone Wars Collection",
+      "description": "100+ open-source clones of popular applications",
+      "repository": "https://github.com/GorvGoyl/Clone-Wars",
+      "type": "curated-list",
+      "enabled": true,
+      "syncDate": "2026-01-13",
+      "knowledgeFile": "knowledge/clone-wars-catalog.md",
+      "categories": [
+        "social",
+        "streaming",
+        "ecommerce",
+        "productivity",
+        "communication",
+        "developer-tools",
+        "design",
+        "learning",
+        "storage",
+        "analytics",
+        "games"
+      ],
+      "stats": {
+        "totalClones": 300,
+        "activeCategories": 20,
+        "topStacks": ["React", "Next.js", "Firebase", "MERN", "Flutter", "TypeScript"]
+      }
+    }
+  ],
+
+  "nlPatterns": {
+    "description": "Patterns to detect clone/inspiration requests",
+    "patterns": [
+      {
+        "regex": "comme\\s+(\\w+)",
+        "description": "French: comme Airbnb",
+        "language": "fr"
+      },
+      {
+        "regex": "clone\\s+(?:de\\s+)?(\\w+)",
+        "description": "Clone de Netflix",
+        "language": "fr"
+      },
+      {
+        "regex": "style\\s+(\\w+)",
+        "description": "Style Spotify",
+        "language": "multi"
+      },
+      {
+        "regex": "(\\w+)\\s+like",
+        "description": "Airbnb like",
+        "language": "en"
+      },
+      {
+        "regex": "inspired?\\s+by\\s+(\\w+)",
+        "description": "Inspired by Discord",
+        "language": "en"
+      },
+      {
+        "regex": "similar\\s+to\\s+(\\w+)",
+        "description": "Similar to Trello",
+        "language": "en"
+      },
+      {
+        "regex": "copie\\s+(?:de\\s+)?(\\w+)",
+        "description": "Copie de Twitter",
+        "language": "fr"
+      }
+    ]
+  },
+
+  "categoryMapping": {
+    "social": {
+      "apps": ["facebook", "instagram", "twitter", "x", "whatsapp", "discord", "slack", "telegram", "snapchat", "tiktok", "reddit", "mastodon", "clubhouse"],
+      "internalCategory": "web",
+      "agents": ["fullstack-super", "ui-designer", "database-architect"],
+      "mcps": ["supabase", "shadcn", "context7"]
+    },
+    "streaming": {
+      "apps": ["netflix", "youtube", "spotify", "twitch", "disney", "hulu", "prime", "vimeo"],
+      "internalCategory": "web",
+      "agents": ["fullstack-super", "frontend-developer", "performance-optimizer"],
+      "mcps": ["supabase", "shadcn"]
+    },
+    "ecommerce": {
+      "apps": ["airbnb", "amazon", "uber", "ubereats", "nike", "shopify"],
+      "internalCategory": "web",
+      "agents": ["fullstack-super", "payment-expert", "database-architect"],
+      "mcps": ["supabase", "shadcn", "context7"]
+    },
+    "productivity": {
+      "apps": ["notion", "trello", "jira", "todoist", "calendly", "airtable", "retool", "linear"],
+      "internalCategory": "web",
+      "agents": ["fullstack-super", "ui-designer", "backend-developer"],
+      "mcps": ["supabase", "shadcn"]
+    },
+    "communication": {
+      "apps": ["intercom", "zendesk", "typeform", "googleforms"],
+      "internalCategory": "web",
+      "agents": ["fullstack-super", "backend-developer"],
+      "mcps": ["supabase"]
+    },
+    "developer-tools": {
+      "apps": ["postman", "zapier", "github", "gitlab"],
+      "internalCategory": "api",
+      "agents": ["backend-developer", "api-designer"],
+      "mcps": ["context7", "github"]
+    },
+    "storage": {
+      "apps": ["googledrive", "dropbox", "nextcloud", "googlephotos"],
+      "internalCategory": "web",
+      "agents": ["fullstack-super", "backend-developer", "database-architect"],
+      "mcps": ["supabase"]
+    },
+    "analytics": {
+      "apps": ["googleanalytics", "plausible", "matomo", "mixpanel"],
+      "internalCategory": "api",
+      "agents": ["backend-developer", "database-architect"],
+      "mcps": ["supabase", "postgres"]
+    },
+    "games": {
+      "apps": ["2048", "tetris", "chess", "wordle"],
+      "internalCategory": "game-web",
+      "agents": ["game-architect", "phaser-expert", "frontend-developer"],
+      "mcps": ["shadcn"]
+    }
+  },
+
+  "fallbackBehavior": {
+    "unknownApp": "Use closest category match or fallback to web-saas template",
+    "noMatch": "Log to Hindsight for future learning, use generic template"
+  }
+}

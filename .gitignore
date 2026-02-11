@@ -1,0 +1,38 @@
+# Credentials (never commit real tokens)
+.credentials.json
+*.credentials.json
+.env
+!.env.example
+
+# Node modules
+node_modules/
+.next/
+dist/
+build/
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary files
+*.tmp
+*.log
+nul
+
+# Debug logs
+.claude/debug/
+
+# File history (too large and not needed for backup)
+.claude/file-history/
+
+# Conversation history
+.halo-dev/temp/conversations/
+.halo-dev/temp/logs/
+
+# Git nested repos
+workspace/everything-claude-code/.git/
+workspace/hello-halo/.git/
+workspace/test-pipeline/.git/
+workspace/library/_archive/*/.git/
+.claude/plugins/**/.git/

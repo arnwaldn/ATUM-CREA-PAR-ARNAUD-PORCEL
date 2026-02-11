@@ -1,0 +1,34 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+# Skill
+access_fsm_skill_technician,fsm.skill.technician,model_fsm_skill,group_fsm_technician,1,0,0,0
+access_fsm_skill_manager,fsm.skill.manager,model_fsm_skill,group_fsm_manager,1,1,1,1
+# Intervention Type
+access_fsm_intervention_type_technician,fsm.intervention.type.technician,model_fsm_intervention_type,group_fsm_technician,1,0,0,0
+access_fsm_intervention_type_manager,fsm.intervention.type.manager,model_fsm_intervention_type,group_fsm_manager,1,1,1,1
+# Technician
+access_fsm_technician_technician,fsm.technician.technician,model_fsm_technician,group_fsm_technician,1,0,0,0
+access_fsm_technician_dispatcher,fsm.technician.dispatcher,model_fsm_technician,group_fsm_dispatcher,1,1,0,0
+access_fsm_technician_manager,fsm.technician.manager,model_fsm_technician,group_fsm_manager,1,1,1,1
+# Technician Certification
+access_fsm_technician_certification_technician,fsm.technician.certification.technician,model_fsm_technician_certification,group_fsm_technician,1,0,0,0
+access_fsm_technician_certification_manager,fsm.technician.certification.manager,model_fsm_technician_certification,group_fsm_manager,1,1,1,1
+# Equipment Type
+access_fsm_equipment_type_technician,fsm.equipment.type.technician,model_fsm_equipment_type,group_fsm_technician,1,0,0,0
+access_fsm_equipment_type_manager,fsm.equipment.type.manager,model_fsm_equipment_type,group_fsm_manager,1,1,1,1
+# Equipment
+access_fsm_equipment_technician,fsm.equipment.technician,model_fsm_equipment,group_fsm_technician,1,1,0,0
+access_fsm_equipment_dispatcher,fsm.equipment.dispatcher,model_fsm_equipment,group_fsm_dispatcher,1,1,1,0
+access_fsm_equipment_manager,fsm.equipment.manager,model_fsm_equipment,group_fsm_manager,1,1,1,1
+# Intervention
+access_fsm_intervention_technician,fsm.intervention.technician,model_fsm_intervention,group_fsm_technician,1,1,0,0
+access_fsm_intervention_dispatcher,fsm.intervention.dispatcher,model_fsm_intervention,group_fsm_dispatcher,1,1,1,0
+access_fsm_intervention_manager,fsm.intervention.manager,model_fsm_intervention,group_fsm_manager,1,1,1,1
+# Intervention Part
+access_fsm_intervention_part_technician,fsm.intervention.part.technician,model_fsm_intervention_part,group_fsm_technician,1,1,1,1
+access_fsm_intervention_part_manager,fsm.intervention.part.manager,model_fsm_intervention_part,group_fsm_manager,1,1,1,1
+# Intervention Time
+access_fsm_intervention_time_technician,fsm.intervention.time.technician,model_fsm_intervention_time,group_fsm_technician,1,1,1,1
+access_fsm_intervention_time_manager,fsm.intervention.time.manager,model_fsm_intervention_time,group_fsm_manager,1,1,1,1
+# Contract
+access_fsm_contract_dispatcher,fsm.contract.dispatcher,model_fsm_contract,group_fsm_dispatcher,1,0,0,0
+access_fsm_contract_manager,fsm.contract.manager,model_fsm_contract,group_fsm_manager,1,1,1,1

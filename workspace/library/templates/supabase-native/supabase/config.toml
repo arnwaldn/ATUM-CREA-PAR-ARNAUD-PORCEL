@@ -1,0 +1,75 @@
+# Supabase CLI Configuration for supabase-native template
+# See: https://supabase.com/docs/reference/cli/config
+
+[project]
+id = "your-project-ref"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "authenticative"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://127.0.0.1"
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000/auth/callback"]
+jwt_expiry = 3600
+enable_signup = true
+enable_anonymous_sign_ins = false
+minimum_password_length = 8
+
+[auth.external.google]
+enabled = false
+client_id = ""
+secret = ""
+redirect_uri = ""
+url = ""
+
+[auth.external.github]
+enabled = false
+client_id = ""
+secret = ""
+redirect_uri = ""
+url = ""
+
+[auth.mfa]
+enabled = true
+max_enrolled_factors = 10
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[auth.mfa.phone]
+enroll_enabled = false
+verify_enabled = false
+
+[auth.sessions]
+timebox = "24h"
+inactivity_timeout = "8h"
+
+[realtime]
+enabled = true
+ip_limit = 100
+channel_limit = 100
+
+[edge_runtime]
+enabled = true
+policy = "oneshot"
+inspector_port = 8083

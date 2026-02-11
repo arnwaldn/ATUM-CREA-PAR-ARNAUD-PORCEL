@@ -1,0 +1,142 @@
+{
+  "version": "1.0.0",
+  "description": "Politiques de decay memoire pour ULTRA-CREATE",
+
+  "policies": {
+    "aggressive": {
+      "description": "Pour donnees haute frequence et temporaires",
+      "max_age_days": 7,
+      "compress_after_days": 1,
+      "min_access_count": 0,
+      "min_confidence": 0.0,
+      "apply_to": ["cache", "temp_data", "debug_logs"],
+      "actions": {
+        "compress": true,
+        "summarize": false,
+        "archive": false,
+        "delete": true
+      }
+    },
+
+    "standard": {
+      "description": "Politique par defaut pour la plupart des memories",
+      "max_age_days": 90,
+      "compress_after_days": 30,
+      "min_access_count": 1,
+      "min_confidence": 0.5,
+      "apply_to": ["fact", "task", "context"],
+      "actions": {
+        "compress": true,
+        "summarize": true,
+        "archive": true,
+        "delete": false
+      },
+      "retention_boost": {
+        "high_access_count": {
+          "threshold": 10,
+          "multiplier": 2.0
+        },
+        "high_confidence": {
+          "threshold": 0.9,
+          "multiplier": 1.5
+        },
+        "recent_access": {
+          "days": 7,
+          "multiplier": 1.5
+        }
+      }
+    },
+
+    "persistent": {
+      "description": "Pour connaissances critiques et skills appris",
+      "max_age_days": null,
+      "compress_after_days": 180,
+      "min_access_count": null,
+      "min_confidence": null,
+      "apply_to": ["skill", "preference", "core_knowledge"],
+      "actions": {
+        "compress": true,
+        "summarize": true,
+        "archive": false,
+        "delete": false
+      }
+    },
+
+    "session": {
+      "description": "Pour donnees de session active",
+      "max_age_days": 1,
+      "compress_after_days": null,
+      "min_access_count": null,
+      "min_confidence": null,
+      "apply_to": ["agent_state", "active_context"],
+      "actions": {
+        "compress": false,
+        "summarize": false,
+        "archive": false,
+        "delete": true
+      }
+    }
+  },
+
+  "triggers": {
+    "memory_count_threshold": 10000,
+    "storage_size_mb": 500,
+    "manual_cleanup": true,
+    "scheduled": {
+      "enabled": true,
+      "cron": "0 3 * * *",
+      "timezone": "UTC"
+    }
+  },
+
+  "compression": {
+    "algorithm": "gzip",
+    "level": 6,
+    "min_size_bytes": 1024,
+    "preserve_metadata": true
+  },
+
+  "summarization": {
+    "enabled": true,
+    "model": "claude-haiku-4-5-20251001",
+    "max_input_tokens": 4000,
+    "max_output_tokens": 500,
+    "batch_size": 10,
+    "preserve_key_facts": true
+  },
+
+  "archive": {
+    "enabled": true,
+    "destination": "C:\\Claude-Code-Creation\\data\\archive",
+    "format": "jsonl.gz",
+    "retention_days": 365
+  },
+
+  "monitoring": {
+    "log_decay_actions": true,
+    "alert_on_mass_deletion": {
+      "enabled": true,
+      "threshold_count": 100
+    },
+    "metrics": {
+      "track_decay_rate": true,
+      "track_compression_ratio": true,
+      "track_storage_saved": true
+    }
+  },
+
+  "exceptions": {
+    "never_delete": [
+      "preference:*",
+      "skill:*",
+      "core:*"
+    ],
+    "always_compress": [
+      "task:*",
+      "context:*"
+    ],
+    "manual_review_required": [
+      "fact:confidence<0.5"
+    ]
+  }
+}

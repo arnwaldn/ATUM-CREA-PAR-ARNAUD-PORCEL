@@ -1,0 +1,18 @@
+# Smolagents - HuggingFace Lightweight Agents
+# ULTRA-CREATE v27.4
+
+# Core
+smolagents[toolkit]>=1.0.0
+
+# Environment
+python-dotenv>=1.0.0
+
+# Optional: For advanced demos
+numpy>=1.26.0
+pandas>=2.2.0
+
+# Optional: For web browsing agent
+playwright>=1.40.0
+
+# Optional: LiteLLM for multi-provider support
+litellm>=1.50.0

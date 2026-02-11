@@ -1,0 +1,187 @@
+{
+  "version": "1.0.0",
+  "description": "Protocole de communication inter-agents ULTRA-CREATE",
+
+  "messageFormat": {
+    "id": {
+      "type": "uuid",
+      "description": "Identifiant unique du message",
+      "required": true,
+      "auto_generate": true
+    },
+    "from": {
+      "type": "string",
+      "description": "ID de l'agent emetteur",
+      "required": true
+    },
+    "to": {
+      "type": "string|array",
+      "description": "ID de l'agent destinataire ou 'broadcast'",
+      "required": true
+    },
+    "type": {
+      "type": "enum",
+      "values": ["request", "response", "event", "error", "handoff"],
+      "required": true
+    },
+    "priority": {
+      "type": "enum",
+      "values": ["low", "normal", "high", "critical"],
+      "default": "normal"
+    },
+    "payload": {
+      "type": "object",
+      "description": "Contenu du message",
+      "required": true
+    },
+    "context": {
+      "task_id": {"type": "string", "description": "ID de la tache courante"},
+      "session_id": {"type": "string", "description": "ID de la session"},
+      "parent_message_id": {"type": "string|null", "description": "ID du message parent"},
+      "trace_id": {"type": "string", "description": "ID pour le tracing distribue"}
+    },
+    "metadata": {
+      "timestamp": {"type": "ISO8601", "auto": true},
+      "ttl_ms": {"type": "integer", "default": 30000},
+      "retry_count": {"type": "integer", "default": 0},
+      "version": {"type": "string", "default": "1.0.0"}
+    }
+  },
+
+  "messageTypes": {
+    "request": {
+      "description": "Demande d'action ou d'information",
+      "requires_response": true,
+      "timeout_ms": 30000
+    },
+    "response": {
+      "description": "Reponse a une requete",
+      "requires_response": false,
+      "must_reference": "parent_message_id"
+    },
+    "event": {
+      "description": "Notification d'evenement",
+      "requires_response": false,
+      "broadcast_allowed": true
+    },
+    "error": {
+      "description": "Signalement d'erreur",
+      "requires_response": false,
+      "must_include": ["error_code", "error_message"]
+    },
+    "handoff": {
+      "description": "Transfert de tache a un autre agent",
+      "requires_response": true,
+      "must_include": ["task_state", "context"]
+    }
+  },
+
+  "routing": {
+    "default_timeout_ms": 30000,
+    "max_retries": 3,
+    "retry_backoff_ms": [1000, 2000, 5000],
+    "dead_letter_queue": true,
+    "load_balancing": "round_robin",
+    "circuit_breaker": {
+      "enabled": true,
+      "failure_threshold": 5,
+      "reset_timeout_ms": 60000
+    }
+  },
+
+  "priorityHandling": {
+    "critical": {
+      "timeout_ms": 60000,
+      "max_retries": 5,
+      "preempt": true
+    },
+    "high": {
+      "timeout_ms": 45000,
+      "max_retries": 3,
+      "preempt": false
+    },
+    "normal": {
+      "timeout_ms": 30000,
+      "max_retries": 3,
+      "preempt": false
+    },
+    "low": {
+      "timeout_ms": 120000,
+      "max_retries": 2,
+      "preempt": false,
+      "batch_allowed": true
+    }
+  },
+
+  "errorCodes": {
+    "TIMEOUT": {"code": 1001, "description": "Request timeout", "retryable": true},
+    "AGENT_UNAVAILABLE": {"code": 1002, "description": "Target agent not available", "retryable": true},
+    "INVALID_MESSAGE": {"code": 1003, "description": "Malformed message", "retryable": false},
+    "UNAUTHORIZED": {"code": 1004, "description": "Agent not authorized", "retryable": false},
+    "TASK_FAILED": {"code": 2001, "description": "Task execution failed", "retryable": true},
+    "RESOURCE_EXHAUSTED": {"code": 2002, "description": "Resources exhausted", "retryable": true},
+    "INTERNAL_ERROR": {"code": 5000, "description": "Internal agent error", "retryable": true}
+  },
+
+  "agentCapabilities": {
+    "core": {
+      "agents": ["orchestrator", "memory-manager", "error-handler"],
+      "always_available": true,
+      "priority_override": true
+    },
+    "memory-manager": {
+      "capabilities": ["retain", "recall", "reflect"],
+      "hindsight_banks": {
+        "trading": "ultra-trading-memory",
+        "development": "ultra-dev-memory",
+        "user_preferences": "ultra-user-memory"
+      },
+      "auto_retain": true,
+      "reflect_on_session_end": true
+    },
+    "specialists": {
+      "agents": ["code-generator", "code-reviewer", "test-generator", "debugger"],
+      "on_demand": true,
+      "max_concurrent": 5
+    },
+    "super_agents": {
+      "agents": ["fullstack-super", "ui-super", "backend-super", "research-super"],
+      "on_demand": true,
+      "max_concurrent": 2,
+      "resource_intensive": true
+    }
+  },
+
+  "handoffProtocol": {
+    "required_fields": ["task_id", "task_state", "context", "reason"],
+    "state_preservation": true,
+    "acknowledgment_required": true,
+    "rollback_on_failure": true
+  },
+
+  "monitoring": {
+    "log_all_messages": false,
+    "log_errors": true,
+    "metrics": {
+      "message_count": true,
+      "latency_histogram": true,
+      "error_rate": true,
+      "agent_utilization": true
+    },
+    "alerts": {
+      "error_rate_threshold": 0.05,
+      "latency_p99_threshold_ms": 5000
+    }
+  },
+
+  "security": {
+    "validate_sender": true,
+    "validate_payload_schema": true,
+    "max_payload_size_bytes": 1048576,
+    "rate_limiting": {
+      "enabled": true,
+      "requests_per_minute": 100,
+      "burst": 20
+    }
+  }
+}

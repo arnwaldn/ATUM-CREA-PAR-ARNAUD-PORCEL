@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Contract Form View -->
+    <record id="view_fsm_contract_form" model="ir.ui.view">
+        <field name="name">fsm.contract.form</field>
+        <field name="model">fsm.contract</field>
+        <field name="arch" type="xml">
+            <form string="Service Contract">
+                <header>
+                    <button name="action_activate" type="object" string="Activate"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_renew" type="object" string="Renew"
+                            class="oe_highlight" invisible="state != 'expired'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('cancelled', 'expired')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,expired"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_interventions" type="object"
+                                class="oe_stat_button" icon="fa-wrench">
+                            <field name="intervention_count" widget="statinfo"
+                                   string="Interventions"/>
+                        </button>
+                        <button name="action_view_equipment" type="object"
+                                class="oe_stat_button" icon="fa-cogs">
+                            <field name="equipment_count" widget="statinfo"
+                                   string="Equipment"/>
+                        </button>
+                        <button name="action_view_invoices" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="invoice_count" widget="statinfo"
+                                   string="Invoices"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Contract">
+                            <field name="contract_type"/>
+                            <field name="coverage_level"/>
+                            <field name="partner_id"/>
+                            <field name="contact_id" domain="[('parent_id', '=', partner_id)]"/>
+                        </group>
+                        <group string="Period">
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="auto_renewal"/>
+                            <field name="renewal_reminder_days" invisible="not auto_renewal"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Pricing">
+                            <field name="recurring_amount"/>
+                            <field name="billing_frequency"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Interventions">
+                            <field name="interventions_included"/>
+                            <field name="interventions_used"/>
+                            <field name="interventions_remaining"/>
+                            <field name="extra_intervention_price"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="SLA">
+                            <field name="sla_response_hours"/>
+                            <field name="sla_resolution_hours"/>
+                            <field name="priority_support"/>
+                        </group>
+                        <group string="Coverage">
+                            <field name="parts_covered"/>
+                            <field name="labor_covered"/>
+                            <field name="travel_covered"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Equipment" name="equipment">
+                            <field name="equipment_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="equipment_type_id"/>
+                                    <field name="serial_number"/>
+                                    <field name="next_maintenance"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Terms" name="terms">
+                            <field name="terms"/>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Contract Tree View -->
+    <record id="view_fsm_contract_tree" model="ir.ui.view">
+        <field name="name">fsm.contract.tree</field>
+        <field name="model">fsm.contract</field>
+        <field name="arch" type="xml">
+            <tree string="Contracts" decoration-danger="state == 'expired'"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-warning="days_until_expiry &lt; 30 and days_until_expiry &gt;= 0">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contract_type"/>
+                <field name="coverage_level" widget="badge"
+                       decoration-info="coverage_level == 'basic'"
+                       decoration-warning="coverage_level == 'standard'"
+                       decoration-success="coverage_level == 'premium'"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="recurring_amount"/>
+                <field name="interventions_remaining"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'active'"
+                       decoration-danger="state == 'expired'"/>
+                <field name="days_until_expiry" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Contract Kanban View -->
+    <record id="view_fsm_contract_kanban" model="ir.ui.view">
+        <field name="name">fsm.contract.kanban</field>
+        <field name="model">fsm.contract</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="coverage_level"/>
+                <field name="end_date"/>
+                <field name="recurring_amount"/>
+                <field name="state"/>
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <span t-attf-class="badge #{record.coverage_level.raw_value == 'premium' ? 'text-bg-success' : record.coverage_level.raw_value == 'standard' ? 'text-bg-warning' : 'text-bg-info'}">
+                                    <field name="coverage_level"/>
+                                </span>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div><i class="fa fa-building"/> <field name="partner_id"/></div>
+                                <div><i class="fa fa-calendar"/> Expires: <field name="end_date"/></div>
+                                <div><strong><field name="recurring_amount"/></strong></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Contract Search View -->
+    <record id="view_fsm_contract_search" model="ir.ui.view">
+        <field name="name">fsm.contract.search</field>
+        <field name="model">fsm.contract</field>
+        <field name="arch" type="xml">
+            <search string="Search Contracts">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <separator/>
+                <filter name="filter_active" string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="filter_expiring" string="Expiring Soon"
+                        domain="[('end_date', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%%Y-%%m-%%d')),
+                                 ('end_date', '&gt;=', context_today().strftime('%%Y-%%m-%%d')),
+                                 ('state', '=', 'active')]"/>
+                <filter name="filter_expired" string="Expired"
+                        domain="[('state', '=', 'expired')]"/>
+                <separator/>
+                <filter name="filter_premium" string="Premium"
+                        domain="[('coverage_level', '=', 'premium')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_customer" string="Customer"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="groupby_type" string="Type"
+                            context="{'group_by': 'contract_type'}"/>
+                    <filter name="groupby_coverage" string="Coverage"
+                            context="{'group_by': 'coverage_level'}"/>
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_fsm_contract" model="ir.actions.act_window">
+        <field name="name">Contracts</field>
+        <field name="res_model">fsm.contract</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_fsm_contract_search"/>
+        <field name="context">{'search_default_filter_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first service contract
+            </p>
+        </field>
+    </record>
+
+    <record id="action_fsm_contract_expiring" model="ir.actions.act_window">
+        <field name="name">Expiring Contracts</field>
+        <field name="res_model">fsm.contract</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{'search_default_filter_expiring': 1}</field>
+    </record>
+</odoo>

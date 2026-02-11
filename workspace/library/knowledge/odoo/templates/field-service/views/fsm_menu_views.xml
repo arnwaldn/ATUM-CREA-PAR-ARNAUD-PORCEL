@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_fsm_root"
+              name="Field Service"
+              web_icon="field_service,static/description/icon.png"
+              sequence="45"/>
+
+    <!-- Operations Menu -->
+    <menuitem id="menu_fsm_operations"
+              name="Operations"
+              parent="menu_fsm_root"
+              sequence="10"/>
+
+    <menuitem id="menu_fsm_intervention"
+              name="Interventions"
+              parent="menu_fsm_operations"
+              action="action_fsm_intervention"
+              sequence="10"/>
+
+    <menuitem id="menu_fsm_intervention_today"
+              name="Today"
+              parent="menu_fsm_operations"
+              action="action_fsm_intervention_today"
+              sequence="20"/>
+
+    <menuitem id="menu_fsm_intervention_unassigned"
+              name="Unassigned"
+              parent="menu_fsm_operations"
+              action="action_fsm_intervention_unassigned"
+              sequence="30"/>
+
+    <!-- Scheduling Menu -->
+    <menuitem id="menu_fsm_scheduling"
+              name="Scheduling"
+              parent="menu_fsm_root"
+              sequence="20"
+              groups="field_service.group_fsm_dispatcher"/>
+
+    <menuitem id="menu_fsm_calendar"
+              name="Calendar"
+              parent="menu_fsm_scheduling"
+              action="action_fsm_intervention"
+              sequence="10"/>
+
+    <!-- Resources Menu -->
+    <menuitem id="menu_fsm_resources"
+              name="Resources"
+              parent="menu_fsm_root"
+              sequence="30"/>
+
+    <menuitem id="menu_fsm_technician"
+              name="Technicians"
+              parent="menu_fsm_resources"
+              action="action_fsm_technician"
+              sequence="10"/>
+
+    <menuitem id="menu_fsm_equipment"
+              name="Equipment"
+              parent="menu_fsm_resources"
+              action="action_fsm_equipment"
+              sequence="20"/>
+
+    <menuitem id="menu_fsm_equipment_maintenance"
+              name="Maintenance Required"
+              parent="menu_fsm_resources"
+              action="action_fsm_equipment_maintenance"
+              sequence="30"/>
+
+    <!-- Contracts Menu -->
+    <menuitem id="menu_fsm_contracts"
+              name="Contracts"
+              parent="menu_fsm_root"
+              sequence="40"
+              groups="field_service.group_fsm_dispatcher"/>
+
+    <menuitem id="menu_fsm_contract"
+              name="Service Contracts"
+              parent="menu_fsm_contracts"
+              action="action_fsm_contract"
+              sequence="10"/>
+
+    <menuitem id="menu_fsm_contract_expiring"
+              name="Expiring Soon"
+              parent="menu_fsm_contracts"
+              action="action_fsm_contract_expiring"
+              sequence="20"/>
+
+    <!-- Reporting Menu -->
+    <menuitem id="menu_fsm_reporting"
+              name="Reporting"
+              parent="menu_fsm_root"
+              sequence="50"
+              groups="field_service.group_fsm_manager"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_fsm_configuration"
+              name="Configuration"
+              parent="menu_fsm_root"
+              sequence="100"
+              groups="field_service.group_fsm_manager"/>
+
+    <menuitem id="menu_fsm_config_types"
+              name="Types"
+              parent="menu_fsm_configuration"
+              sequence="10"/>
+
+    <menuitem id="menu_fsm_intervention_type"
+              name="Intervention Types"
+              parent="menu_fsm_config_types"
+              action="action_fsm_intervention_type"
+              sequence="10"/>
+
+    <menuitem id="menu_fsm_equipment_type"
+              name="Equipment Types"
+              parent="menu_fsm_config_types"
+              action="action_fsm_equipment_type"
+              sequence="20"/>
+
+    <menuitem id="menu_fsm_skill"
+              name="Skills"
+              parent="menu_fsm_configuration"
+              action="action_fsm_skill"
+              sequence="20"/>
+</odoo>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu Category Form View -->
+    <record id="view_restaurant_menu_category_form" model="ir.ui.view">
+        <field name="name">restaurant.menu.category.form</field>
+        <field name="model">restaurant.menu.category</field>
+        <field name="arch" type="xml">
+            <form string="Menu Category">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Category Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="parent_id"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="available_time"/>
+                            <field name="color" widget="color_picker"/>
+                            <field name="item_count"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu Category Tree View -->
+    <record id="view_restaurant_menu_category_tree" model="ir.ui.view">
+        <field name="name">restaurant.menu.category.tree</field>
+        <field name="model">restaurant.menu.category</field>
+        <field name="arch" type="xml">
+            <tree string="Menu Categories">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="parent_id"/>
+                <field name="available_time"/>
+                <field name="item_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Menu Item Form View -->
+    <record id="view_restaurant_menu_item_form" model="ir.ui.view">
+        <field name="name">restaurant.menu.item.form</field>
+        <field name="model">restaurant.menu.item</field>
+        <field name="arch" type="xml">
+            <form string="Menu Item">
+                <sheet>
+                    <field name="available" invisible="1"/>
+                    <widget name="web_ribbon" title="Unavailable" bg_color="text-bg-danger"
+                            invisible="available"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Item Name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Details">
+                            <field name="code"/>
+                            <field name="category_id"/>
+                            <field name="description"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group string="Pricing">
+                            <field name="price"/>
+                            <field name="cost"/>
+                            <field name="margin"/>
+                            <field name="tax_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Preparation">
+                            <field name="preparation_time"/>
+                            <field name="kitchen_printer_id"/>
+                            <field name="available_time"/>
+                        </group>
+                        <group string="Dietary">
+                            <field name="is_vegetarian"/>
+                            <field name="is_vegan"/>
+                            <field name="is_gluten_free"/>
+                            <field name="is_spicy"/>
+                            <field name="spicy_level" invisible="not is_spicy"/>
+                            <field name="allergens"/>
+                            <field name="calories"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Options" name="options">
+                            <field name="option_ids">
+                                <tree editable="bottom">
+                                    <field name="option_type_id"/>
+                                    <field name="name"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="price_extra"/>
+                                    <field name="is_default"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Ingredients" name="ingredients">
+                            <field name="ingredient_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="is_optional"/>
+                                    <field name="extra_price"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu Item Tree View -->
+    <record id="view_restaurant_menu_item_tree" model="ir.ui.view">
+        <field name="name">restaurant.menu.item.tree</field>
+        <field name="model">restaurant.menu.item</field>
+        <field name="arch" type="xml">
+            <tree string="Menu Items" decoration-muted="not available">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="price"/>
+                <field name="cost"/>
+                <field name="margin" widget="progressbar"/>
+                <field name="preparation_time"/>
+                <field name="is_vegetarian" widget="boolean"/>
+                <field name="is_vegan" widget="boolean"/>
+                <field name="available" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Menu Item Kanban View -->
+    <record id="view_restaurant_menu_item_kanban" model="ir.ui.view">
+        <field name="name">restaurant.menu.item.kanban</field>
+        <field name="model">restaurant.menu.item</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="category_id">
+                <field name="name"/>
+                <field name="price"/>
+                <field name="image"/>
+                <field name="available"/>
+                <field name="is_vegetarian"/>
+                <field name="is_vegan"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click #{!record.available.raw_value ? 'opacity-50' : ''}">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('restaurant.menu.item', 'image', record.id.raw_value)"
+                                     alt="Menu Item" class="o_image_64_cover"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="o_kanban_tags_section">
+                                    <span t-if="record.is_vegetarian.raw_value"
+                                          class="badge text-bg-success">V</span>
+                                    <span t-if="record.is_vegan.raw_value"
+                                          class="badge text-bg-info">VG</span>
+                                </div>
+                                <div class="mt-2">
+                                    <strong><field name="price" widget="monetary"/></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Menu Item Search View -->
+    <record id="view_restaurant_menu_item_search" model="ir.ui.view">
+        <field name="name">restaurant.menu.item.search</field>
+        <field name="model">restaurant.menu.item</field>
+        <field name="arch" type="xml">
+            <search string="Search Menu Items">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category_id"/>
+                <separator/>
+                <filter name="filter_available" string="Available"
+                        domain="[('available', '=', True)]"/>
+                <filter name="filter_unavailable" string="Unavailable"
+                        domain="[('available', '=', False)]"/>
+                <separator/>
+                <filter name="filter_vegetarian" string="Vegetarian"
+                        domain="[('is_vegetarian', '=', True)]"/>
+                <filter name="filter_vegan" string="Vegan"
+                        domain="[('is_vegan', '=', True)]"/>
+                <filter name="filter_gluten_free" string="Gluten Free"
+                        domain="[('is_gluten_free', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_category" string="Category"
+                            context="{'group_by': 'category_id'}"/>
+                    <filter name="groupby_time" string="Available Time"
+                            context="{'group_by': 'available_time'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_restaurant_menu_category" model="ir.actions.act_window">
+        <field name="name">Menu Categories</field>
+        <field name="res_model">restaurant.menu.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_restaurant_menu_item" model="ir.actions.act_window">
+        <field name="name">Menu Items</field>
+        <field name="res_model">restaurant.menu.item</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_restaurant_menu_item_search"/>
+        <field name="context">{'search_default_filter_available': 1}</field>
+    </record>
+</odoo>

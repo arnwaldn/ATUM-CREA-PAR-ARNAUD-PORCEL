@@ -1,0 +1,23 @@
+name: {{APP_NAME}}
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      config: {type: string, default: "configs/training.yaml"}
+      epochs: {type: int, default: 50}
+      lr: {type: float, default: 0.001}
+    command: "python -m src.models.train --config {config}"
+
+  evaluate:
+    parameters:
+      model_path: string
+      data_path: string
+    command: "python -m src.models.evaluate --model {model_path} --data {data_path}"
+
+  serve:
+    parameters:
+      model_uri: string
+      port: {type: int, default: 8000}
+    command: "MODEL_URI={model_uri} uvicorn src.serving.api:app --host 0.0.0.0 --port {port}"

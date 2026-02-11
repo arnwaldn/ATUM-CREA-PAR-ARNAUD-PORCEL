@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # API Gateway
+  api-gateway:
+    build: ./services/api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - USER_SERVICE_URL=http://user-service:3001
+      - ORDER_SERVICE_URL=http://order-service:3002
+      - NOTIFICATION_SERVICE_URL=http://notification-service:3003
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - user-service
+      - order-service
+      - notification-service
+      - redis
+    networks:
+      - microservices-network
+
+  # User Service
+  user-service:
+    build: ./services/user-service
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@users-db:5432/users
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - users-db
+      - redis
+    networks:
+      - microservices-network
+
+  # Order Service
+  order-service:
+    build: ./services/order-service
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@orders-db:5432/orders
+      - USER_SERVICE_URL=http://user-service:3001
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - orders-db
+      - redis
+    networks:
+      - microservices-network
+
+  # Notification Service
+  notification-service:
+    build: ./services/notification-service
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+      - SMTP_HOST=smtp.example.com
+      - SMTP_PORT=587
+    depends_on:
+      - redis
+    networks:
+      - microservices-network
+
+  # Databases
+  users-db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=users
+    volumes:
+      - users-db-data:/var/lib/postgresql/data
+    networks:
+      - microservices-network
+
+  orders-db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=orders
+    volumes:
+      - orders-db-data:/var/lib/postgresql/data
+    networks:
+      - microservices-network
+
+  # Redis (Cache & Pub/Sub)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:
+    driver: bridge
+
+volumes:
+  users-db-data:
+  orders-db-data:
+  redis-data:

@@ -1,0 +1,478 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "28.5",
+  "description": "Mapping between intents/keywords and knowledge files to auto-load (NOCODE INTEGRATION)",
+
+  "mappings": {
+    "stack-technology": {
+      "keywords": ["saas", "startup", "product", "web", "app", "next.js", "react", "typescript"],
+      "files": [
+        "knowledge/stack-2025.md",
+        "knowledge/web-vitals-guide.md"
+      ],
+      "priority": "high",
+      "autoLoad": true
+    },
+
+    "ai-llm": {
+      "keywords": ["ai", "llm", "claude", "gpt", "prompt", "anthropic", "openai"],
+      "files": [
+        "knowledge/anthropic-best-practices-2025.md"
+      ],
+      "priority": "high",
+      "autoLoad": true
+    },
+
+    "workflow-methodology": {
+      "keywords": ["workflow", "process", "methodology", "vibe", "no-code", "autonome"],
+      "files": [
+        "knowledge/vibe-coding-methodology.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true
+    },
+
+    "memory-patterns": {
+      "keywords": ["memory", "hindsight", "pattern", "learn", "remember", "recall"],
+      "files": [
+        "knowledge/memory-bank-patterns.md"
+      ],
+      "priority": "high",
+      "autoLoad": true
+    },
+
+    "error-debugging": {
+      "keywords": ["error", "bug", "fix", "debug", "issue", "problem", "crash"],
+      "files": [
+        "knowledge/memory-bank-patterns.md",
+        "knowledge/always-rules-guide.md"
+      ],
+      "priority": "critical",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "errors",
+        "topK": 5
+      }
+    },
+
+    "security": {
+      "keywords": ["security", "audit", "vulnerability", "owasp", "injection", "xss"],
+      "files": [
+        "knowledge/always-rules-guide.md"
+      ],
+      "priority": "critical",
+      "autoLoad": true
+    },
+
+    "game-development": {
+      "keywords": ["game", "phaser", "three.js", "unity", "godot", "player", "level"],
+      "files": [],
+      "priority": "medium",
+      "autoLoad": false,
+      "context7Required": ["phaser", "three.js"]
+    },
+
+    "mobile-development": {
+      "keywords": ["mobile", "expo", "react native", "ios", "android", "swift", "kotlin"],
+      "files": [
+        "knowledge/stack-2025.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "context7Required": ["expo", "react-native"]
+    },
+
+    "database": {
+      "keywords": ["database", "sql", "postgres", "supabase", "prisma", "schema", "migration"],
+      "files": [
+        "knowledge/stack-2025.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "context7Required": ["prisma", "supabase"]
+    },
+
+    "deployment": {
+      "keywords": ["deploy", "vercel", "cloudflare", "production", "ci/cd", "docker"],
+      "files": [
+        "knowledge/stack-2025.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true
+    },
+
+    "trading": {
+      "keywords": ["trading", "mql5", "metatrader", "forex", "crypto", "strategy"],
+      "files": [],
+      "priority": "low",
+      "autoLoad": false,
+      "hindsightRecall": {
+        "bank": "trading-brain",
+        "topK": 5
+      }
+    },
+
+    "research": {
+      "keywords": ["research", "arxiv", "paper", "academic", "scientific", "deep research", "recherche approfondie", "firecrawl agent", "compare", "analyze", "best practices"],
+      "files": [
+        "knowledge/research-patterns.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "research",
+        "topK": 10
+      }
+    },
+
+    "documentation": {
+      "keywords": ["docs", "documentation", "readme", "guide", "tutorial"],
+      "files": [
+        "knowledge/vibe-coding-methodology.md"
+      ],
+      "priority": "low",
+      "autoLoad": false
+    },
+
+    "chrome-automation": {
+      "keywords": ["chrome", "puppeteer", "browser automation", "cookies", "session", "login to", "access my"],
+      "files": [
+        "knowledge/chrome-workflows-guide.md",
+        "knowledge/puppeteer-vs-playwright.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "chrome workflows puppeteer",
+        "topK": 3
+      }
+    },
+
+    "ui-libraries-extended": {
+      "keywords": ["flowbite", "daisyui", "dashboard", "admin panel", "theme", "semantic components"],
+      "files": [
+        "knowledge/ui-libraries-extended.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "context7Required": ["flowbite", "daisyui"]
+    },
+
+    "boilerplate": {
+      "keywords": ["boilerplate", "starter", "template", "scaffold", "infrastructure", "devops", "docker", "kubernetes", "terraform"],
+      "files": [
+        "knowledge/boilerplate-catalog.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "infrastructure boilerplate starter",
+        "topK": 3
+      }
+    },
+
+    "workflow-automation": {
+      "keywords": ["n8n", "workflow", "automation", "zapier", "make", "integrations", "webhook"],
+      "files": [],
+      "priority": "medium",
+      "autoLoad": false,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "workflow automation n8n",
+        "topK": 3
+      }
+    },
+
+    "autonomous-agents": {
+      "keywords": ["agent autonome", "autonomous agent", "multi-agent", "crewai", "langgraph", "phidata", "agentic", "self-healing agent", "mixture of agents"],
+      "files": [
+        "knowledge/autonomous-agents-guide.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "autonomous agents multi-agent phidata crewai",
+        "topK": 5
+      },
+      "context7Required": ["phidata", "langgraph", "crewai"]
+    },
+
+    "consciousness-version-history": {
+      "keywords": ["version", "changelog", "nouveautes", "nouveautés", "v27", "v26", "v25", "v24", "mise à jour", "update", "what's new"],
+      "files": [
+        "knowledge/version-history.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "description": "Consciousness Index - Version history and changelogs"
+    },
+
+    "consciousness-agents-reference": {
+      "keywords": ["quel agent", "list agents", "agents disponibles", "available agents", "combien d'agents", "how many agents", "agent pour"],
+      "files": [
+        "knowledge/reference/agents-detailed.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "description": "Consciousness Index - Complete agents reference (157 agents)"
+    },
+
+    "consciousness-templates-reference": {
+      "keywords": ["quel template", "list templates", "templates disponibles", "available templates", "combien de templates", "how many templates"],
+      "files": [
+        "knowledge/reference/templates-detailed.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "description": "Consciousness Index - Complete templates reference (159 templates)"
+    },
+
+    "consciousness-hooks-reference": {
+      "keywords": ["quel hook", "list hooks", "hooks disponibles", "available hooks", "pre-tool", "post-tool"],
+      "files": [
+        "knowledge/reference/hooks-detailed.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "description": "Consciousness Index - Complete hooks reference (27 hooks)"
+    },
+
+    "consciousness-mcps-reference": {
+      "keywords": ["quel mcp", "list mcps", "mcps disponibles", "available mcps", "combien de mcps", "how many mcps", "mcp pour"],
+      "files": [
+        "knowledge/reference/mcps-detailed.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "description": "Consciousness Index - Complete MCPs reference (54 MCPs configured)"
+    },
+
+    "consciousness-modes-reference": {
+      "keywords": ["quel mode", "list modes", "modes disponibles", "available modes", "ultra think", "speed mode", "quality mode"],
+      "files": [
+        "knowledge/reference/modes-detailed.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "description": "Consciousness Index - Complete behavioral modes reference (8 modes)"
+    },
+
+    "document-parsing": {
+      "keywords": ["docling", "parse pdf", "extract table", "document extraction", "pdf structure", "ocr document", "convert docx", "convert pptx", "convert xlsx", "transcribe audio", "extract formulas", "pdf layout"],
+      "files": [
+        "knowledge/docling-patterns.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "description": "Document parsing avancé via Docling MCP (IBM Research)"
+    },
+
+    "stripe-payments": {
+      "keywords": ["stripe", "payment", "checkout", "subscription", "webhook", "invoice", "customer", "payment_intent", "setup_intent", "billing", "recurring", "pci", "card", "refund", "dispute", "connect", "platform"],
+      "files": [
+        "knowledge/stripe-patterns.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "stripe payment checkout webhook subscription",
+        "topK": 5
+      },
+      "mcpRequired": ["stripe"],
+      "description": "Stripe payment integration patterns (Agent Toolkit, MCP, Webhooks)"
+    },
+
+    "stream-middleware": {
+      "keywords": ["stream", "tee", "middleware", "fire-and-forget", "async logging", "non-intrusive", "stream wrapping"],
+      "files": [
+        "knowledge/stream-patterns.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "description": "Stream wrapping patterns for non-intrusive middleware"
+    },
+
+    "token-metering": {
+      "keywords": ["token metering", "llm billing", "usage tracking", "ai billing", "token count", "cost tracking", "metering"],
+      "files": [
+        "knowledge/token-metering-patterns.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "description": "Token metering patterns for LLM billing via Stripe"
+    },
+
+    "clone-inspiration": {
+      "keywords": ["comme", "clone", "like", "inspire", "copie", "similaire", "similar to", "style", "airbnb", "netflix", "spotify", "discord", "twitter", "instagram", "trello", "notion", "slack", "uber", "tiktok", "reddit", "youtube", "amazon", "pinterest", "whatsapp"],
+      "files": [
+        "knowledge/clone-wars-catalog.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "description": "Clone-Wars catalog - 100+ open-source clones of popular apps",
+      "nlPatterns": [
+        "comme\\s+(\\w+)",
+        "clone\\s+(?:de\\s+)?(\\w+)",
+        "style\\s+(\\w+)",
+        "(\\w+)\\s+like",
+        "inspired?\\s+by\\s+(\\w+)"
+      ],
+      "sourceConfig": "config/template-sources.json"
+    },
+
+    "airtable-database": {
+      "keywords": ["airtable", "base airtable", "airtable api", "airtable records", "airtable schema", "airtable table", "airtable view", "airtable automation"],
+      "files": [
+        "knowledge/airtable-patterns.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "airtable api database records",
+        "topK": 5
+      },
+      "mcpRequired": ["airtable"],
+      "description": "Airtable database patterns et integration MCP"
+    },
+
+    "make-automation": {
+      "keywords": ["make", "make.com", "integromat", "make scenario", "make automation", "make webhook", "make module", "integromat scenario"],
+      "files": [
+        "knowledge/make-patterns.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "make integromat automation scenario webhook",
+        "topK": 5
+      },
+      "mcpRequired": ["make"],
+      "description": "Make (ex-Integromat) automation patterns"
+    },
+
+    "lovable-projects": {
+      "keywords": ["lovable", "lovable project", "lovable.dev", "debug lovable", "analyse lovable", "lovable code", "lovable app"],
+      "files": [
+        "knowledge/lovable-patterns.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "lovable nocode project debugging",
+        "topK": 3
+      },
+      "mcpRequired": ["lovable"],
+      "description": "Lovable project analysis et debugging patterns"
+    },
+
+    "nocode-development": {
+      "keywords": ["nocode", "no-code", "low-code", "citizen developer", "visual builder", "nocode automation", "nocode database"],
+      "files": [
+        "knowledge/airtable-patterns.md",
+        "knowledge/make-patterns.md",
+        "knowledge/lovable-patterns.md"
+      ],
+      "priority": "medium",
+      "autoLoad": true,
+      "description": "Patterns pour developpement nocode complet"
+    },
+
+    "notion-automation": {
+      "keywords": ["notion", "notion database", "notion api", "notion page", "notion view", "notion block", "notion relation", "notion formula"],
+      "files": [
+        "knowledge/notion-patterns.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "notion database api views relations",
+        "topK": 5
+      },
+      "mcpRequired": ["notion"],
+      "agents": ["notion-expert", "e2b-desktop-expert"],
+      "mcpProfile": "notion-development",
+      "description": "Notion database patterns - API-First Protocol with E2B fallback for views"
+    },
+
+    "desktop-automation": {
+      "keywords": ["e2b desktop", "computer use", "vision action", "ui automation", "screen capture", "mouse click", "keyboard type", "desktop automation"],
+      "files": [
+        "knowledge/desktop-computer-use-patterns.md"
+      ],
+      "priority": "high",
+      "autoLoad": true,
+      "hindsightRecall": {
+        "bank": "patterns",
+        "query": "e2b desktop vision action loop ui automation",
+        "topK": 3
+      },
+      "mcpRequired": ["e2b"],
+      "agents": ["e2b-desktop-expert"],
+      "mcpProfile": "automation",
+      "description": "E2B Desktop automation - Vision-Action Loop for UI-only operations"
+    }
+  },
+
+  "globalRules": {
+    "alwaysRecall": {
+      "banks": ["errors", "patterns"],
+      "topK": 3,
+      "description": "Always recall from errors and patterns banks before any action"
+    },
+
+    "frameworkDetection": {
+      "enabled": true,
+      "action": "context7_lookup",
+      "patterns": [
+        "import.*from ['\"]react",
+        "import.*from ['\"]next",
+        "import.*from ['\"]vue",
+        "import.*from ['\"]angular",
+        "import.*from ['\"]svelte",
+        "from (django|flask|fastapi)",
+        "use (Laravel|Symfony)"
+      ]
+    }
+  },
+
+  "hindsightBanks": {
+    "ultra-dev-memory": {
+      "usage": "General patterns, solutions, architecture decisions",
+      "autoRecall": true,
+      "topK": 5
+    },
+    "errors": {
+      "usage": "Resolved errors and their solutions",
+      "autoRecall": true,
+      "topK": 3
+    },
+    "patterns": {
+      "usage": "Reusable code patterns and templates",
+      "autoRecall": true,
+      "topK": 5
+    },
+    "documents": {
+      "usage": "Analyzed PDFs and documents",
+      "autoRecall": false,
+      "topK": 3
+    },
+    "research": {
+      "usage": "ArXiv papers and research findings",
+      "autoRecall": false,
+      "topK": 5
+    },
+    "trading-brain": {
+      "usage": "Trading strategies and patterns",
+      "autoRecall": false,
+      "topK": 5
+    }
+  }
+}

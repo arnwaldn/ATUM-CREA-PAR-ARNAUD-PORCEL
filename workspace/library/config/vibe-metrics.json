@@ -1,0 +1,244 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/vibe-metrics.json",
+  "version": "1.0.0",
+  "description": "Vibe-coding flow state detection and metrics configuration",
+  "generated": "2026-01-12",
+
+  "vibeIndicators": {
+    "positive": {
+      "token_efficiency": {
+        "description": "Ratio of output tokens to input tokens",
+        "threshold": 3.0,
+        "weight": 0.20,
+        "measurement": "output_tokens / input_tokens",
+        "ideal": ">= 3.0"
+      },
+      "zero_loops": {
+        "description": "No repeated searches or operations",
+        "maxRepeats": 1,
+        "weight": 0.25,
+        "measurement": "count(same_operation) <= 1",
+        "ideal": "0 repeated operations"
+      },
+      "forward_progress": {
+        "description": "New meaningful content each turn",
+        "newContentRatio": 0.7,
+        "weight": 0.25,
+        "measurement": "new_content / total_content >= 0.7",
+        "ideal": "70%+ new content per turn"
+      },
+      "no_clarifications": {
+        "description": "No confusion or clarification questions",
+        "maxQuestions": 0,
+        "weight": 0.15,
+        "measurement": "clarification_questions == 0",
+        "ideal": "0 clarifications needed"
+      },
+      "high_confidence": {
+        "description": "High confidence on decisions",
+        "minConfidence": 80,
+        "weight": 0.15,
+        "measurement": "avg(confidence_scores) >= 80",
+        "ideal": "80%+ confidence"
+      }
+    },
+
+    "negative": {
+      "repeated_search": {
+        "description": "Same search query executed multiple times",
+        "maxSameQuery": 2,
+        "severity": "high",
+        "vibeImpact": -15,
+        "recoveryAction": "stop_searching_ask_clarification"
+      },
+      "error_loop": {
+        "description": "Same error encountered multiple times",
+        "maxSameError": 3,
+        "severity": "critical",
+        "vibeImpact": -25,
+        "recoveryAction": "recall_error_patterns_or_escalate"
+      },
+      "confusion_markers": {
+        "description": "Language indicating confusion or uncertainty",
+        "patterns": [
+          "I'm not sure",
+          "unclear",
+          "confused",
+          "don't understand",
+          "what do you mean",
+          "could you clarify"
+        ],
+        "severity": "medium",
+        "vibeImpact": -10,
+        "recoveryAction": "simplify_approach"
+      },
+      "backtracking": {
+        "description": "Undoing previous work",
+        "undoCount": 1,
+        "severity": "high",
+        "vibeImpact": -15,
+        "recoveryAction": "stop_and_reassess"
+      },
+      "stalled": {
+        "description": "No meaningful output for multiple turns",
+        "emptyTurns": 3,
+        "severity": "critical",
+        "vibeImpact": -30,
+        "recoveryAction": "full_reset_and_ask_questions"
+      }
+    }
+  },
+
+  "states": {
+    "FLOW": {
+      "minScore": 80,
+      "maxScore": 100,
+      "color": "#00FF00",
+      "emoji": "🟢",
+      "description": "Optimal vibe-coding state",
+      "actions": {
+        "intervention": "none",
+        "monitoring": "light",
+        "suggestions": false
+      }
+    },
+    "GOOD": {
+      "minScore": 60,
+      "maxScore": 79,
+      "color": "#FFFF00",
+      "emoji": "🟡",
+      "description": "Good progress, minor friction",
+      "actions": {
+        "intervention": "subtle_guidance",
+        "monitoring": "normal",
+        "suggestions": true
+      }
+    },
+    "STRUGGLING": {
+      "minScore": 40,
+      "maxScore": 59,
+      "color": "#FFA500",
+      "emoji": "🟠",
+      "description": "Encountering obstacles",
+      "actions": {
+        "intervention": "active_recovery",
+        "monitoring": "intensive",
+        "suggestions": true
+      }
+    },
+    "BLOCKED": {
+      "minScore": 0,
+      "maxScore": 39,
+      "color": "#FF0000",
+      "emoji": "🔴",
+      "description": "Significant blockers, needs reset",
+      "actions": {
+        "intervention": "full_recovery",
+        "monitoring": "intensive",
+        "suggestions": true
+      }
+    }
+  },
+
+  "scoring": {
+    "formula": "(positive_score * 0.6) - (negative_penalty * 0.4)",
+    "positiveScoreMax": 100,
+    "negativeScoreMax": 100,
+    "updateFrequency": "per_tool_call",
+    "smoothing": {
+      "enabled": true,
+      "windowSize": 5,
+      "method": "exponential_moving_average"
+    }
+  },
+
+  "recoveryProtocols": {
+    "struggling": {
+      "triggers": ["vibe_score < 60", "negative_indicators >= 2"],
+      "steps": [
+        {
+          "action": "memory_recall",
+          "params": { "bank": "patterns", "query": "current_task", "top_k": 5 }
+        },
+        {
+          "action": "simplify_scope",
+          "description": "Break task into smaller steps"
+        },
+        {
+          "action": "context_reset",
+          "description": "Summarize progress, clear confusion"
+        }
+      ]
+    },
+    "blocked": {
+      "triggers": ["vibe_score < 40", "critical_negative_indicator"],
+      "steps": [
+        {
+          "action": "stop_current_approach",
+          "description": "Do not continue failing strategy"
+        },
+        {
+          "action": "root_cause_analysis",
+          "questions": [
+            "What am I trying to accomplish?",
+            "What information am I missing?",
+            "What assumptions might be wrong?"
+          ]
+        },
+        {
+          "action": "ask_user",
+          "maxQuestions": 3,
+          "questionType": "specific_targeted"
+        },
+        {
+          "action": "propose_alternatives",
+          "count": "2-3 different strategies"
+        },
+        {
+          "action": "persist_blocker",
+          "params": { "bank": "errors", "include_context": true }
+        }
+      ]
+    }
+  },
+
+  "sessionMetrics": {
+    "avg_vibe_score": {
+      "description": "Average vibe score for session",
+      "target": ">= 70"
+    },
+    "time_in_flow": {
+      "description": "Percentage of time in FLOW state",
+      "target": ">= 60%"
+    },
+    "recovery_count": {
+      "description": "Number of recovery protocols triggered",
+      "target": "< 3"
+    },
+    "first_attempt_success": {
+      "description": "Tasks completed on first attempt",
+      "target": ">= 80%"
+    },
+    "vibe_trend": {
+      "description": "7-day vibe score trend",
+      "target": "improving or stable"
+    }
+  },
+
+  "hindsightIntegration": {
+    "bank": "vibe-history",
+    "bankId": "ultra-vibe-memory",
+    "retentionDays": 90,
+    "autoRetain": {
+      "onSessionEnd": true,
+      "onRecovery": true,
+      "onFlowAchieved": true
+    },
+    "queries": [
+      "vibe session {date}",
+      "flow patterns {task_type}",
+      "recovery success {blocker_type}",
+      "best vibe sessions"
+    ]
+  }
+}

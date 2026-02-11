@@ -1,0 +1,23 @@
+# Vision RAG Advanced - Dependencies
+# ULTRA-CREATE v27.3
+
+# Core ML/AI
+cohere>=5.0.0
+google-generativeai>=0.3.0
+
+# Vector Database
+chromadb>=0.4.0
+
+# PDF Processing
+PyMuPDF>=1.23.0
+
+# Image Processing
+Pillow>=10.0.0
+
+# Web Framework
+streamlit>=1.32.0
+
+# Utilities
+numpy>=1.24.0
+tqdm>=4.66.0
+requests>=2.31.0

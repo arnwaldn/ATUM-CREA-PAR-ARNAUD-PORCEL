@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Member Types -->
+        <record id="member_type_regular" model="association.member.type">
+            <field name="name">Regular Member</field>
+            <field name="code">REG</field>
+            <field name="annual_fee">50.00</field>
+            <field name="duration_months">12</field>
+            <field name="sequence">1</field>
+            <field name="benefits">- Access to all events
+- Newsletter subscription
+- Voting rights at general assembly
+- Discounts on activities</field>
+        </record>
+
+        <record id="member_type_student" model="association.member.type">
+            <field name="name">Student Member</field>
+            <field name="code">STU</field>
+            <field name="annual_fee">25.00</field>
+            <field name="duration_months">12</field>
+            <field name="age_max">26</field>
+            <field name="sequence">2</field>
+            <field name="benefits">- Access to all events
+- Newsletter subscription
+- 50% discount on activities</field>
+        </record>
+
+        <record id="member_type_senior" model="association.member.type">
+            <field name="name">Senior Member</field>
+            <field name="code">SEN</field>
+            <field name="annual_fee">35.00</field>
+            <field name="duration_months">12</field>
+            <field name="age_min">65</field>
+            <field name="sequence">3</field>
+            <field name="benefits">- Access to all events
+- Newsletter subscription
+- Voting rights
+- 30% discount on activities</field>
+        </record>
+
+        <record id="member_type_family" model="association.member.type">
+            <field name="name">Family Membership</field>
+            <field name="code">FAM</field>
+            <field name="annual_fee">100.00</field>
+            <field name="duration_months">12</field>
+            <field name="sequence">4</field>
+            <field name="benefits">- Up to 5 family members
+- Access to all events
+- Family activities included
+- Voting rights (2 adults)</field>
+        </record>
+
+        <record id="member_type_honorary" model="association.member.type">
+            <field name="name">Honorary Member</field>
+            <field name="code">HON</field>
+            <field name="annual_fee">0.00</field>
+            <field name="duration_months">0</field>
+            <field name="sequence">10</field>
+            <field name="benefits">- Lifetime membership
+- All privileges
+- Recognition in annual report</field>
+        </record>
+
+        <!-- Event Types -->
+        <record id="event_type_meeting" model="association.event.type">
+            <field name="name">General Meeting</field>
+            <field name="code">MTG</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="event_type_workshop" model="association.event.type">
+            <field name="name">Workshop</field>
+            <field name="code">WKS</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="event_type_conference" model="association.event.type">
+            <field name="name">Conference</field>
+            <field name="code">CNF</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="event_type_social" model="association.event.type">
+            <field name="name">Social Event</field>
+            <field name="code">SOC</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="event_type_fundraiser" model="association.event.type">
+            <field name="name">Fundraiser</field>
+            <field name="code">FND</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- Activity Types -->
+        <record id="activity_type_sports" model="association.activity.type">
+            <field name="name">Sports</field>
+            <field name="code">SPT</field>
+            <field name="category">sports</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="activity_type_arts" model="association.activity.type">
+            <field name="name">Arts &amp; Crafts</field>
+            <field name="code">ART</field>
+            <field name="category">culture</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="activity_type_language" model="association.activity.type">
+            <field name="name">Language Class</field>
+            <field name="code">LNG</field>
+            <field name="category">education</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="activity_type_fitness" model="association.activity.type">
+            <field name="name">Fitness</field>
+            <field name="code">FIT</field>
+            <field name="category">wellness</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- Skills -->
+        <record id="skill_communication" model="association.skill">
+            <field name="name">Communication</field>
+            <field name="category">communication</field>
+        </record>
+
+        <record id="skill_event_planning" model="association.skill">
+            <field name="name">Event Planning</field>
+            <field name="category">administrative</field>
+        </record>
+
+        <record id="skill_photography" model="association.skill">
+            <field name="name">Photography</field>
+            <field name="category">creative</field>
+        </record>
+
+        <record id="skill_social_media" model="association.skill">
+            <field name="name">Social Media</field>
+            <field name="category">communication</field>
+        </record>
+
+        <!-- Interests -->
+        <record id="interest_sports" model="association.interest">
+            <field name="name">Sports</field>
+            <field name="category">sports</field>
+        </record>
+
+        <record id="interest_culture" model="association.interest">
+            <field name="name">Culture</field>
+            <field name="category">culture</field>
+        </record>
+
+        <record id="interest_environment" model="association.interest">
+            <field name="name">Environment</field>
+            <field name="category">environment</field>
+        </record>
+
+        <!-- Cron Jobs -->
+        <record id="ir_cron_membership_expiry" model="ir.cron">
+            <field name="name">Association: Check Membership Expiry</field>
+            <field name="model_id" ref="model_association_membership"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_check_expiry()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

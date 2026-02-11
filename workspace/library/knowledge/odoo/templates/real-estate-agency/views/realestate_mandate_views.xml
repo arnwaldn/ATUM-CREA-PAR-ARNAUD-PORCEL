@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mandate Form View -->
+    <record id="view_realestate_mandate_form" model="ir.ui.view">
+        <field name="name">realestate.mandate.form</field>
+        <field name="model">realestate.mandate</field>
+        <field name="arch" type="xml">
+            <form string="Mandate">
+                <header>
+                    <button name="action_activate" type="object" string="Activate"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_complete" type="object" string="Complete"
+                            invisible="state != 'active'"/>
+                    <button name="action_terminate" type="object" string="Terminate"
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Property">
+                            <field name="property_id"/>
+                            <field name="owner_id"/>
+                            <field name="agent_id"/>
+                        </group>
+                        <group string="Mandate Type">
+                            <field name="mandate_type"/>
+                            <field name="transaction_type"/>
+                            <field name="mandate_signed"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Pricing">
+                            <field name="asking_price"/>
+                            <field name="minimum_price"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Commission">
+                            <field name="commission_type"/>
+                            <field name="commission_percentage"
+                                   invisible="commission_type != 'percentage'"/>
+                            <field name="commission_fixed"
+                                   invisible="commission_type != 'fixed'"/>
+                            <field name="commission_amount"/>
+                            <field name="commission_paid_by"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Dates">
+                            <field name="date_start"/>
+                            <field name="duration_months"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group string="Renewal">
+                            <field name="auto_renew"/>
+                            <field name="renewal_notice_days"/>
+                        </group>
+                    </group>
+                    <group string="Marketing">
+                        <field name="publish_online"/>
+                        <field name="publish_portals"/>
+                        <field name="signage_installed"/>
+                    </group>
+                    <notebook>
+                        <page string="Documents" name="documents">
+                            <field name="document_ids" widget="many2many_binary"/>
+                        </page>
+                        <page string="Results" name="results">
+                            <group>
+                                <field name="visit_count"/>
+                                <field name="offer_count"/>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Mandate Tree View -->
+    <record id="view_realestate_mandate_tree" model="ir.ui.view">
+        <field name="name">realestate.mandate.tree</field>
+        <field name="model">realestate.mandate</field>
+        <field name="arch" type="xml">
+            <tree string="Mandates" decoration-warning="state == 'expired'"
+                  decoration-muted="state == 'terminated'">
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="owner_id"/>
+                <field name="mandate_type"/>
+                <field name="asking_price" sum="Total"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="agent_id"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Mandate Search View -->
+    <record id="view_realestate_mandate_search" model="ir.ui.view">
+        <field name="name">realestate.mandate.search</field>
+        <field name="model">realestate.mandate</field>
+        <field name="arch" type="xml">
+            <search string="Search Mandates">
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="owner_id"/>
+                <separator/>
+                <filter name="filter_active" string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="filter_exclusive" string="Exclusive"
+                        domain="[('mandate_type', '=', 'exclusive')]"/>
+                <separator/>
+                <filter name="filter_expiring" string="Expiring Soon"
+                        domain="[('date_end', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%%Y-%%m-%%d')),
+                                 ('state', '=', 'active')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_type" string="Type"
+                            context="{'group_by': 'mandate_type'}"/>
+                    <filter name="groupby_agent" string="Agent"
+                            context="{'group_by': 'agent_id'}"/>
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Mandate Action -->
+    <record id="action_realestate_mandate" model="ir.actions.act_window">
+        <field name="name">Mandates</field>
+        <field name="res_model">realestate.mandate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_realestate_mandate_search"/>
+        <field name="context">{'search_default_filter_active': 1}</field>
+    </record>
+</odoo>

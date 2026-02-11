@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Visit Wizard Form -->
+    <record id="view_realestate_visit_wizard_form" model="ir.ui.view">
+        <field name="name">realestate.visit.wizard.form</field>
+        <field name="model">realestate.visit.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Schedule Visit">
+                <group>
+                    <field name="property_id"/>
+                </group>
+                <group>
+                    <group string="Visitor">
+                        <field name="create_visitor"/>
+                        <field name="visitor_id" invisible="create_visitor"/>
+                        <field name="visitor_name" invisible="not create_visitor"/>
+                        <field name="visitor_phone" invisible="not create_visitor"/>
+                        <field name="visitor_email" invisible="not create_visitor"/>
+                    </group>
+                    <group string="Schedule">
+                        <field name="date"/>
+                        <field name="time_slot"/>
+                        <field name="duration"/>
+                        <field name="agent_id"/>
+                    </group>
+                </group>
+                <group string="Notes">
+                    <field name="notes" nolabel="1"/>
+                </group>
+                <footer>
+                    <button name="action_schedule_visit" type="object"
+                            string="Schedule Visit" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_realestate_visit_wizard" model="ir.actions.act_window">
+        <field name="name">Schedule Visit</field>
+        <field name="res_model">realestate.visit.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

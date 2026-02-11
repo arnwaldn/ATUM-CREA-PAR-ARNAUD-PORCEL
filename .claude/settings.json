@@ -1,0 +1,164 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"git push\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.error('[ATUM] Review changes before push...')\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Write\" && tool_input.file_path matches \"\\.(md|txt)$\" && !(tool_input.file_path matches \"README\\.md|CLAUDE\\.md|AGENTS\\.md|CONTRIBUTING\\.md\")",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var p=(i.tool_input&&i.tool_input.file_path)||'';if(/\\.(md|txt)$/.test(p)&&!/(README|CLAUDE|AGENTS|CONTRIBUTING)\\.md$/.test(p)){console.error('[ATUM] BLOCKED: Unnecessary doc file');process.exit(1)}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"(vercel deploy|vercel --prod|railway up|supabase db push|supabase functions deploy)\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.error('[ATUM] DEPLOY CHECK: Verify no hardcoded secrets, .env excluded, auth tested.')\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "tool == \"Bash\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var cmd=(i.tool_input&&i.tool_input.command)||'';if(/gh pr create/.test(cmd)){var out=(i.tool_output&&i.tool_output.output)||'';var m=out.match(/https:\\/\\/github\\.com\\/[^\\s]+\\/pull\\/\\d+/);if(m)console.error('[ATUM] PR created: '+m[0])}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\.(ts|tsx|js|jsx)$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var cp=require('child_process');var fs=require('fs');var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var p=i.tool_input&&i.tool_input.file_path;if(p&&fs.existsSync(p)){try{cp.execFileSync('npx',['prettier','--write',p],{stdio:['pipe','pipe','pipe']})}catch(e){}}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\.(ts|tsx|js|jsx)$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var fs=require('fs');var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var p=i.tool_input&&i.tool_input.file_path;if(p&&fs.existsSync(p)){var c=fs.readFileSync(p,'utf8');var lines=c.split('\\n');var matches=[];lines.forEach(function(l,idx){if(/console\\.log/.test(l))matches.push((idx+1)+': '+l.trim())});if(matches.length){console.error('[ATUM] WARNING: console.log found in '+p);matches.slice(0,5).forEach(function(m){console.error(m)})}}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Write\" && tool_input.file_path matches \"\\.(ts|tsx|js|jsx)$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var cp=require('child_process');var fs=require('fs');var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var p=i.tool_input&&i.tool_input.file_path;if(p&&fs.existsSync(p)){try{cp.execFileSync('npx',['prettier','--write',p],{stdio:['pipe','pipe','pipe']})}catch(e){}}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Write\" && tool_input.file_path matches \"\\.(ts|tsx|js|jsx)$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var fs=require('fs');var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var p=i.tool_input&&i.tool_input.file_path;if(p&&fs.existsSync(p)){var c=fs.readFileSync(p,'utf8');var lines=c.split('\\n');var matches=[];lines.forEach(function(l,idx){if(/console\\.log/.test(l))matches.push((idx+1)+': '+l.trim())});if(matches.length){console.error('[ATUM] WARNING: console.log found in '+p);matches.slice(0,5).forEach(function(m){console.error(m)})}}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\.py$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var cp=require('child_process');var fs=require('fs');var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var p=i.tool_input&&i.tool_input.file_path;if(p&&fs.existsSync(p)){try{cp.execFileSync('black',[p],{stdio:['pipe','pipe','pipe']})}catch(e){try{cp.execFileSync('ruff',['format',p],{stdio:['pipe','pipe','pipe']})}catch(e2){}}}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\.py$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var fs=require('fs');var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var p=i.tool_input&&i.tool_input.file_path;if(p&&fs.existsSync(p)){var c=fs.readFileSync(p,'utf8');var lines=c.split('\\n');var matches=[];lines.forEach(function(l,idx){if(/^\\s*print\\(/.test(l))matches.push((idx+1)+': '+l.trim())});if(matches.length){console.error('[ATUM] WARNING: print() found in '+p+' - use logging module instead');matches.slice(0,5).forEach(function(m){console.error(m)})}}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\.go$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var cp=require('child_process');var fs=require('fs');var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var p=i.tool_input&&i.tool_input.file_path;if(p&&fs.existsSync(p)){try{cp.execFileSync('gofmt',['-w',p],{stdio:['pipe','pipe','pipe']})}catch(e){try{cp.execFileSync('goimports',['-w',p],{stdio:['pipe','pipe','pipe']})}catch(e2){}}}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\.(css|scss)$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var cp=require('child_process');var fs=require('fs');var d='';process.stdin.on('data',function(c){d+=c});process.stdin.on('end',function(){var i=JSON.parse(d);var p=i.tool_input&&i.tool_input.file_path;if(p&&fs.existsSync(p)){try{cp.execFileSync('npx',['prettier','--write',p],{stdio:['pipe','pipe','pipe']})}catch(e){}}console.log(d)})\""
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.error('[ATUM] Subagent launched. Project root: ' + process.cwd())\""
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.error('[ATUM] Subagent completed. Check results and memorize patterns if useful.')\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.error('[ATUM CREA] Tache terminee. Pensez a memoriser les patterns appris (Memory MCP).')\""
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var cp=require('child_process');try{var out=cp.execSync('git status --porcelain 2>&1',{encoding:'utf8',timeout:5000});if(out.trim().length>0){console.error('[ATUM] WARNING: Uncommitted changes detected. Consider committing before ending.')}}catch(e){}\""
+          }
+        ]
+      }
+    ]
+  },
+  "autoUpdatesChannel": "latest",
+  "statusLine": {
+    "type": "command",
+    "command": "node \"C:\\Users\\arnau\\.claude\\statusline.js\"",
+    "padding": 0
+  }
+}

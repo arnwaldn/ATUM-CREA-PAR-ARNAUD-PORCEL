@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Skills -->
+        <record id="skill_electrical" model="fsm.skill">
+            <field name="name">Electrical</field>
+            <field name="code">ELEC</field>
+            <field name="category">technical</field>
+            <field name="requires_certification">True</field>
+        </record>
+        <record id="skill_plumbing" model="fsm.skill">
+            <field name="name">Plumbing</field>
+            <field name="code">PLUMB</field>
+            <field name="category">technical</field>
+        </record>
+        <record id="skill_hvac" model="fsm.skill">
+            <field name="name">HVAC</field>
+            <field name="code">HVAC</field>
+            <field name="category">technical</field>
+            <field name="requires_certification">True</field>
+        </record>
+        <record id="skill_it_network" model="fsm.skill">
+            <field name="name">IT/Network</field>
+            <field name="code">IT</field>
+            <field name="category">software</field>
+        </record>
+        <record id="skill_mechanical" model="fsm.skill">
+            <field name="name">Mechanical</field>
+            <field name="code">MECH</field>
+            <field name="category">technical</field>
+        </record>
+        <record id="skill_safety_cert" model="fsm.skill">
+            <field name="name">Safety Certification</field>
+            <field name="code">SAFETY</field>
+            <field name="category">safety</field>
+            <field name="requires_certification">True</field>
+            <field name="certification_validity_months">12</field>
+        </record>
+
+        <!-- Intervention Types -->
+        <record id="intervention_type_repair" model="fsm.intervention.type">
+            <field name="name">Repair</field>
+            <field name="code">REP</field>
+            <field name="default_duration">2.0</field>
+            <field name="default_priority">1</field>
+            <field name="sla_response_hours">24</field>
+            <field name="sla_resolution_hours">48</field>
+            <field name="color">1</field>
+        </record>
+        <record id="intervention_type_maintenance" model="fsm.intervention.type">
+            <field name="name">Preventive Maintenance</field>
+            <field name="code">MAINT</field>
+            <field name="default_duration">1.5</field>
+            <field name="default_priority">0</field>
+            <field name="sla_response_hours">72</field>
+            <field name="sla_resolution_hours">168</field>
+            <field name="color">2</field>
+        </record>
+        <record id="intervention_type_installation" model="fsm.intervention.type">
+            <field name="name">Installation</field>
+            <field name="code">INST</field>
+            <field name="default_duration">4.0</field>
+            <field name="default_priority">1</field>
+            <field name="color">3</field>
+        </record>
+        <record id="intervention_type_emergency" model="fsm.intervention.type">
+            <field name="name">Emergency</field>
+            <field name="code">EMRG</field>
+            <field name="default_duration">2.0</field>
+            <field name="default_priority">3</field>
+            <field name="sla_response_hours">4</field>
+            <field name="sla_resolution_hours">8</field>
+            <field name="color">9</field>
+        </record>
+        <record id="intervention_type_inspection" model="fsm.intervention.type">
+            <field name="name">Inspection</field>
+            <field name="code">INSP</field>
+            <field name="default_duration">1.0</field>
+            <field name="default_priority">0</field>
+            <field name="color">4</field>
+        </record>
+
+        <!-- Equipment Types -->
+        <record id="equipment_type_hvac" model="fsm.equipment.type">
+            <field name="name">HVAC System</field>
+            <field name="code">HVAC</field>
+            <field name="default_maintenance_interval">6</field>
+            <field name="required_skills" eval="[(6, 0, [ref('skill_hvac')])]"/>
+        </record>
+        <record id="equipment_type_boiler" model="fsm.equipment.type">
+            <field name="name">Boiler</field>
+            <field name="code">BOILER</field>
+            <field name="default_maintenance_interval">12</field>
+        </record>
+        <record id="equipment_type_elevator" model="fsm.equipment.type">
+            <field name="name">Elevator</field>
+            <field name="code">ELEV</field>
+            <field name="default_maintenance_interval">3</field>
+            <field name="required_skills" eval="[(6, 0, [ref('skill_electrical'), ref('skill_mechanical')])]"/>
+        </record>
+        <record id="equipment_type_server" model="fsm.equipment.type">
+            <field name="name">Server/IT Equipment</field>
+            <field name="code">SERVER</field>
+            <field name="default_maintenance_interval">6</field>
+            <field name="required_skills" eval="[(6, 0, [ref('skill_it_network')])]"/>
+        </record>
+
+        <!-- Cron for Contract Expiry -->
+        <record id="ir_cron_contract_expiry" model="ir.cron">
+            <field name="name">FSM: Check Contract Expiry</field>
+            <field name="model_id" ref="model_fsm_contract"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_check_expiry()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

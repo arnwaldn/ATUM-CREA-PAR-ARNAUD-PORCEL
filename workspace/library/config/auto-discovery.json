@@ -1,0 +1,1469 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/auto-discovery.json",
+  "version": "28.6",
+  "description": "Auto-Discovery Configuration - ATUM CREA v28.6 with SDD Support",
+  "lastUpdated": "2026-01-25",
+  "agentRouting": {
+    "_description": "Maps intents to recommended agents with priority order",
+    "create_saas": {
+      "primary": [
+        "fullstack-super",
+        "wizard-agent",
+        "pm-agent"
+      ],
+      "secondary": [
+        "stripe-payment-expert",
+        "backend-developer",
+        "database-architect"
+      ],
+      "conditions": {
+        "hasPayments": [
+          "payment-expert",
+          "stripe-payment-expert"
+        ],
+        "hasAuth": [
+          "backend-developer",
+          "security-auditor"
+        ]
+      }
+    },
+    "create_ecommerce": {
+      "primary": [
+        "fullstack-super",
+        "wizard-agent"
+      ],
+      "secondary": [
+        "payment-expert",
+        "stripe-payment-expert",
+        "ui-designer"
+      ],
+      "conditions": {
+        "hasInventory": [
+          "database-architect"
+        ],
+        "hasShipping": [
+          "integration-expert"
+        ]
+      }
+    },
+    "create_game": {
+      "primary": [
+        "game-architect",
+        "wizard-agent"
+      ],
+      "secondary": [
+        "phaser-expert",
+        "threejs-expert",
+        "audio-expert"
+      ],
+      "conditions": {
+        "is2D": [
+          "phaser-expert",
+          "procgen-expert"
+        ],
+        "is3D": [
+          "threejs-expert",
+          "unity-expert"
+        ],
+        "isMultiplayer": [
+          "networking-expert"
+        ],
+        "hasVR": [
+          "webxr-expert"
+        ]
+      }
+    },
+    "create_mobile": {
+      "primary": [
+        "expo-expert",
+        "wizard-agent",
+        "ui-designer"
+      ],
+      "secondary": [
+        "flutter-dart-expert",
+        "swift-ios-expert",
+        "kotlin-android-expert"
+      ],
+      "conditions": {
+        "isIOS": [
+          "swift-ios-expert"
+        ],
+        "isAndroid": [
+          "kotlin-android-expert"
+        ],
+        "isCrossplatform": [
+          "expo-expert",
+          "flutter-dart-expert"
+        ]
+      }
+    },
+    "create_desktop": {
+      "primary": [
+        "electron-ipc-expert",
+        "wizard-agent"
+      ],
+      "secondary": [
+        "ui-designer",
+        "windows-scripting-expert"
+      ],
+      "conditions": {
+        "useTauri": [
+          "tauri-expert"
+        ],
+        "useElectron": [
+          "electron-ipc-expert"
+        ]
+      }
+    },
+    "create_api": {
+      "primary": [
+        "backend-developer",
+        "api-designer",
+        "database-architect"
+      ],
+      "secondary": [
+        "graphql-expert",
+        "security-auditor"
+      ],
+      "conditions": {
+        "isGraphQL": [
+          "graphql-expert"
+        ],
+        "hasRealtime": [
+          "backend-developer"
+        ]
+      }
+    },
+    "debug_error": {
+      "primary": [
+        "debugger",
+        "self-healer"
+      ],
+      "secondary": [
+        "code-reviewer",
+        "performance-optimizer"
+      ],
+      "mcpsRequired": [
+        "hindsight"
+      ],
+      "autoRecall": {
+        "bank": "errors",
+        "top_k": 5
+      }
+    },
+    "review_code": {
+      "primary": [
+        "code-reviewer",
+        "security-auditor",
+        "self-checker"
+      ],
+      "secondary": [
+        "performance-optimizer",
+        "accessibility-auditor"
+      ],
+      "mcpsRequired": [
+        "hindsight"
+      ]
+    },
+    "deploy_app": {
+      "primary": [
+        "deploy-super",
+        "ci-cd-engineer"
+      ],
+      "secondary": [
+        "cloud-deploy-expert",
+        "security-auditor"
+      ],
+      "conditions": {
+        "toVercel": [
+          "vercel-expert"
+        ],
+        "toAWS": [
+          "aws-architect"
+        ],
+        "toSupabase": [
+          "database-architect"
+        ]
+      }
+    },
+    "research_topic": {
+      "primary": [
+        "deep-researcher",
+        "research-super"
+      ],
+      "secondary": [
+        "arxiv-researcher",
+        "pdf-researcher"
+      ],
+      "mcpsRequired": [
+        "exa",
+        "firecrawl",
+        "hindsight"
+      ]
+    },
+    "create_trading_ea": {
+      "primary": [
+        "mql5-expert",
+        "wizard-agent"
+      ],
+      "secondary": [
+        "debugger",
+        "tester"
+      ],
+      "mcpsRequired": [
+        "hindsight"
+      ],
+      "autoRecall": {
+        "bank": "trading-brain",
+        "top_k": 10
+      }
+    },
+    "create_odoo_module": {
+      "primary": [
+        "odoo-expert",
+        "odoo-orm-expert"
+      ],
+      "secondary": [
+        "database-architect",
+        "backend-developer"
+      ],
+      "conditions": {
+        "hasAccounting": [
+          "odoo-accounting-expert"
+        ],
+        "hasInventory": [
+          "odoo-manufacturing-expert"
+        ],
+        "hasPOS": [
+          "odoo-retail-pos-expert"
+        ]
+      }
+    },
+    "implement_feature": {
+      "primary": [
+        "frontend-developer",
+        "backend-developer"
+      ],
+      "secondary": [
+        "ui-designer",
+        "tester"
+      ],
+      "autoRecall": {
+        "bank": "patterns",
+        "top_k": 5
+      }
+    },
+    "refactor_code": {
+      "primary": [
+        "refactoring-expert",
+        "code-reviewer"
+      ],
+      "secondary": [
+        "performance-optimizer",
+        "self-checker"
+      ]
+    },
+    "optimize_performance": {
+      "primary": [
+        "performance-optimizer",
+        "self-checker"
+      ],
+      "secondary": [
+        "seo-expert",
+        "accessibility-auditor"
+      ]
+    },
+    "create_documentation": {
+      "primary": [
+        "documentation-generator",
+        "pm-agent"
+      ],
+      "secondary": [
+        "api-designer"
+      ],
+      "mcpsRequired": [
+        "mermaid"
+      ]
+    },
+    "design_ui": {
+      "primary": [
+        "ui-designer",
+        "figma-interpreter",
+        "design-strategist"
+      ],
+      "secondary": [
+        "ui-critic",
+        "accessibility-auditor"
+      ],
+      "mcpsRequired": [
+        "figma",
+        "shadcn"
+      ]
+    },
+    "analyze_codebase": {
+      "primary": [
+        "tech-scout",
+        "code-reviewer"
+      ],
+      "secondary": [
+        "security-auditor",
+        "documentation-generator"
+      ]
+    },
+    "create_dashboard_flowbite": {
+      "primary": [
+        "flowbite-expert",
+        "wizard-agent",
+        "ui-designer"
+      ],
+      "secondary": [
+        "frontend-developer",
+        "design-strategist"
+      ],
+      "conditions": {
+        "hasCharts": [
+          "chart-expert"
+        ],
+        "hasTables": [
+          "data-table-expert"
+        ],
+        "hasForms": [
+          "form-expert"
+        ]
+      },
+      "mcpsRequired": [
+        "context7",
+        "shadcn"
+      ]
+    },
+    "create_ui_daisyui": {
+      "primary": [
+        "daisyui-expert",
+        "wizard-agent",
+        "ui-designer"
+      ],
+      "secondary": [
+        "frontend-developer",
+        "design-strategist"
+      ],
+      "conditions": {
+        "hasTheme": [
+          "daisyui-expert"
+        ],
+        "hasAnimations": [
+          "ui-designer"
+        ]
+      },
+      "mcpsRequired": [
+        "context7",
+        "shadcn"
+      ]
+    },
+    "setup_infrastructure": {
+      "primary": [
+        "boilerplate-expert",
+        "wizard-agent",
+        "ci-cd-engineer"
+      ],
+      "secondary": [
+        "kubernetes-expert",
+        "aws-architect",
+        "security-auditor"
+      ],
+      "conditions": {
+        "hasDocker": [
+          "ci-cd-engineer"
+        ],
+        "hasKubernetes": [
+          "kubernetes-expert"
+        ],
+        "hasTerraform": [
+          "aws-architect"
+        ],
+        "hasAnsible": [
+          "ci-cd-engineer"
+        ]
+      },
+      "mcpsRequired": [
+        "github",
+        "desktop-commander"
+      ]
+    },
+    "create_n8n_workflow": {
+      "primary": [
+        "n8n-workflow-expert",
+        "wizard-agent",
+        "automation-expert"
+      ],
+      "secondary": [
+        "integration-expert",
+        "backend-developer"
+      ],
+      "conditions": {
+        "hasAI": [
+          "llm-integration-expert"
+        ],
+        "hasWebhooks": [
+          "api-designer"
+        ],
+        "hasDatabase": [
+          "database-architect"
+        ]
+      },
+      "mcpsRequired": [
+        "desktop-commander",
+        "github"
+      ]
+    },
+    "create_autonomous_agent": {
+      "primary": [
+        "autonomous-agent-expert",
+        "wizard-agent",
+        "llm-integration-expert"
+      ],
+      "secondary": [
+        "ml-engineer",
+        "prompt-engineer",
+        "tester"
+      ],
+      "conditions": {
+        "isMultiAgent": [
+          "swarm-coordinator"
+        ],
+        "hasMemory": [
+          "memory-bridge"
+        ],
+        "hasRAG": [
+          "corrective-rag"
+        ]
+      },
+      "mcpsRequired": [
+        "hindsight",
+        "e2b",
+        "github"
+      ],
+      "autoRecall": {
+        "bank": "patterns",
+        "query": "autonomous agent multi-agent phidata langraph crewai",
+        "top_k": 5
+      }
+    },
+    "parse_document": {
+      "primary": [
+        "docling-expert",
+        "pdf-researcher",
+        "documentation-generator"
+      ],
+      "secondary": [
+        "corrective-rag",
+        "ml-engineer"
+      ],
+      "conditions": {
+        "isPDF": [
+          "pdf-researcher"
+        ],
+        "hasTablesFormulas": [
+          "docling-expert"
+        ],
+        "needsOCR": [
+          "screenshot-analyzer"
+        ]
+      },
+      "mcpsRequired": [
+        "docling",
+        "hindsight"
+      ],
+      "autoRecall": {
+        "bank": "documents",
+        "top_k": 5
+      }
+    },
+    "auto_upgrade_system": {
+      "primary": [
+        "auto-upgrade-agent",
+        "innovation-monitor",
+        "self-improver"
+      ],
+      "secondary": [
+        "deep-researcher",
+        "tree-of-thoughts",
+        "confidence-checker"
+      ],
+      "mcpsRequired": [
+        "hindsight",
+        "exa",
+        "firecrawl",
+        "github"
+      ],
+      "autoRecall": {
+        "bank": "patterns",
+        "query": "auto-upgrade improvement optimization pattern",
+        "top_k": 10
+      }
+    },
+    "data_engineering": {
+      "primary": [
+        "data-engineer",
+        "analytics-architect",
+        "database-architect"
+      ],
+      "secondary": [
+        "vector-db-expert",
+        "ml-engineer",
+        "data-modeler"
+      ],
+      "conditions": {
+        "hasETL": [
+          "data-engineer"
+        ],
+        "hasAnalytics": [
+          "analytics-architect"
+        ],
+        "hasVectorDB": [
+          "vector-db-expert"
+        ],
+        "hasWarehouse": [
+          "data-engineer"
+        ]
+      },
+      "mcpsRequired": [
+        "supabase",
+        "postgres"
+      ]
+    },
+    "security_testing": {
+      "primary": [
+        "strix-coordinator",
+        "security-auditor",
+        "penetration-tester"
+      ],
+      "secondary": [
+        "exploit-validator",
+        "payload-engineer",
+        "code-reviewer"
+      ],
+      "conditions": {
+        "isCTF": [
+          "payload-engineer",
+          "exploit-validator"
+        ],
+        "isPentest": [
+          "penetration-tester",
+          "exploit-validator"
+        ],
+        "isThreatModel": [
+          "strix-coordinator"
+        ]
+      },
+      "mcpsRequired": [
+        "e2b",
+        "github"
+      ]
+    },
+    "vibe_management": {
+      "primary": [
+        "vibe-state-detector",
+        "flow-recovery",
+        "session-manager"
+      ],
+      "secondary": [
+        "vibe-analytics",
+        "vibe-master-orchestrator"
+      ],
+      "conditions": {
+        "needsRecovery": [
+          "flow-recovery"
+        ],
+        "needsMetrics": [
+          "vibe-analytics"
+        ],
+        "needsDetection": [
+          "vibe-state-detector"
+        ]
+      },
+      "mcpsRequired": [
+        "hindsight"
+      ]
+    },
+    "llm_operations": {
+      "primary": [
+        "llmops-specialist",
+        "llm-integration-expert",
+        "mlops-engineer"
+      ],
+      "secondary": [
+        "prompt-engineer",
+        "ml-engineer",
+        "pytorch-expert"
+      ],
+      "conditions": {
+        "needsDeployment": [
+          "llmops-specialist"
+        ],
+        "needsMonitoring": [
+          "mlops-engineer"
+        ],
+        "needsIntegration": [
+          "llm-integration-expert"
+        ]
+      },
+      "mcpsRequired": [
+        "e2b",
+        "github"
+      ]
+    },
+    "ocr_processing": {
+      "primary": [
+        "paddleocr-expert",
+        "docling-expert"
+      ],
+      "secondary": [
+        "pdf-researcher",
+        "ml-engineer"
+      ],
+      "conditions": {
+        "hasScannedDocs": [
+          "paddleocr-expert"
+        ],
+        "hasStructuredDocs": [
+          "docling-expert"
+        ]
+      },
+      "mcpsRequired": [
+        "docling",
+        "e2b"
+      ]
+    },
+    "session_management": {
+      "primary": [
+        "session-manager",
+        "memory-bridge"
+      ],
+      "secondary": [
+        "flow-recovery",
+        "checkpoint-manager"
+      ],
+      "mcpsRequired": [
+        "hindsight"
+      ]
+    },
+    "quality_verification": {
+      "primary": [
+        "outcome-verifier",
+        "auto-validator",
+        "self-checker"
+      ],
+      "secondary": [
+        "code-reviewer",
+        "tester"
+      ],
+      "mcpsRequired": [
+        "hindsight"
+      ]
+    },
+    "extract_data": {
+      "primary": [
+        "docling-expert",
+        "ml-engineer"
+      ],
+      "secondary": [
+        "database-architect",
+        "ml-engineer"
+      ],
+      "conditions": {
+        "hasTable": [
+          "docling-expert"
+        ],
+        "hasFormula": [
+          "docling-expert"
+        ],
+        "needsStructure": [
+          "pdf-researcher"
+        ]
+      },
+      "mcpsRequired": [
+        "docling",
+        "e2b"
+      ]
+    }
+  },
+  "templateMatching": {
+    "_description": "Maps keywords to templates with scoring",
+    "keywords": {
+      "saas": {
+        "templates": [
+          "saas"
+        ],
+        "relatedKeywords": [
+          "subscription",
+          "billing",
+          "multi-tenant",
+          "b2b",
+          "stripe"
+        ],
+        "score": 100
+      },
+      "ecommerce": {
+        "templates": [
+          "ecommerce"
+        ],
+        "relatedKeywords": [
+          "shop",
+          "store",
+          "cart",
+          "checkout",
+          "products",
+          "inventory"
+        ],
+        "score": 100
+      },
+      "landing": {
+        "templates": [
+          "landing"
+        ],
+        "relatedKeywords": [
+          "marketing",
+          "homepage",
+          "hero",
+          "cta",
+          "seo"
+        ],
+        "score": 100
+      },
+      "dashboard": {
+        "templates": [
+          "admin-dashboard"
+        ],
+        "relatedKeywords": [
+          "admin",
+          "analytics",
+          "charts",
+          "metrics",
+          "reports"
+        ],
+        "score": 95
+      },
+      "game": {
+        "templates": [
+          "game-web",
+          "game-3d-web",
+          "game-multiplayer"
+        ],
+        "relatedKeywords": [
+          "jeu",
+          "2d",
+          "3d",
+          "phaser",
+          "unity",
+          "godot"
+        ],
+        "score": 90
+      },
+      "mobile": {
+        "templates": [
+          "mobile",
+          "ios-native",
+          "android-native"
+        ],
+        "relatedKeywords": [
+          "app",
+          "ios",
+          "android",
+          "expo",
+          "react native"
+        ],
+        "score": 95
+      },
+      "desktop": {
+        "templates": [
+          "desktop",
+          "electron-app"
+        ],
+        "relatedKeywords": [
+          "tauri",
+          "electron",
+          "windows",
+          "mac",
+          "linux"
+        ],
+        "score": 95
+      },
+      "api": {
+        "templates": [
+          "api"
+        ],
+        "relatedKeywords": [
+          "rest",
+          "graphql",
+          "backend",
+          "hono",
+          "express"
+        ],
+        "score": 90
+      },
+      "chatbot": {
+        "templates": [
+          "rag-chatbot",
+          "streaming-chatbot",
+          "ai-assistant"
+        ],
+        "relatedKeywords": [
+          "chat",
+          "ai",
+          "bot",
+          "rag",
+          "llm",
+          "ollama"
+        ],
+        "score": 95
+      },
+      "blog": {
+        "templates": [
+          "blog"
+        ],
+        "relatedKeywords": [
+          "articles",
+          "posts",
+          "cms",
+          "mdx"
+        ],
+        "score": 85
+      },
+      "portfolio": {
+        "templates": [
+          "portfolio"
+        ],
+        "relatedKeywords": [
+          "cv",
+          "resume",
+          "projects",
+          "showcase"
+        ],
+        "score": 85
+      },
+      "restaurant": {
+        "templates": [
+          "restaurant"
+        ],
+        "relatedKeywords": [
+          "menu",
+          "reservation",
+          "food",
+          "booking"
+        ],
+        "score": 80
+      },
+      "flowbite": {
+        "templates": [
+          "admin-dashboard"
+        ],
+        "relatedKeywords": [
+          "dashboard",
+          "admin",
+          "flowbite",
+          "tailwind",
+          "tables",
+          "charts",
+          "forms"
+        ],
+        "score": 95,
+        "agents": [
+          "flowbite-expert"
+        ]
+      },
+      "daisyui": {
+        "templates": [
+          "landing"
+        ],
+        "relatedKeywords": [
+          "theme",
+          "daisyui",
+          "semantic",
+          "components",
+          "simple ui"
+        ],
+        "score": 90,
+        "agents": [
+          "daisyui-expert"
+        ]
+      },
+      "boilerplate": {
+        "templates": [
+          "microservices"
+        ],
+        "relatedKeywords": [
+          "boilerplate",
+          "starter",
+          "infrastructure",
+          "docker",
+          "kubernetes",
+          "terraform",
+          "devops"
+        ],
+        "score": 85,
+        "agents": [
+          "boilerplate-expert"
+        ]
+      },
+      "n8n": {
+        "templates": [
+          "api"
+        ],
+        "relatedKeywords": [
+          "n8n",
+          "workflow",
+          "automation",
+          "zapier",
+          "integration",
+          "webhook"
+        ],
+        "score": 90,
+        "agents": [
+          "n8n-workflow-expert"
+        ]
+      },
+      "autonomous_agent": {
+        "templates": [
+          "ai-assistant"
+        ],
+        "relatedKeywords": [
+          "autonomous",
+          "agent",
+          "multi-agent",
+          "phidata",
+          "langgraph",
+          "crewai",
+          "self-healing"
+        ],
+        "score": 95,
+        "agents": [
+          "autonomous-agent-expert"
+        ]
+      }
+    },
+    "stackMatching": {
+      "next.js": [
+        "saas",
+        "ecommerce",
+        "landing",
+        "dashboard",
+        "blog"
+      ],
+      "react": [
+        "desktop",
+        "chrome-extension",
+        "admin-dashboard"
+      ],
+      "expo": [
+        "mobile"
+      ],
+      "phaser": [
+        "game-web",
+        "game-puzzle",
+        "game-roguelike"
+      ],
+      "three.js": [
+        "game-3d-web",
+        "webxr-experience"
+      ],
+      "tauri": [
+        "desktop"
+      ],
+      "electron": [
+        "electron-app"
+      ]
+    }
+  },
+  "commandRouting": {
+    "_description": "Maps slash commands to agents and workflows",
+    "/scaffold": {
+      "agents": [
+        "wizard-agent",
+        "fullstack-super"
+      ],
+      "workflow": "template-selection",
+      "requiresTemplate": true
+    },
+    "/create": {
+      "agents": [
+        "wizard-agent",
+        "pm-agent"
+      ],
+      "workflow": "project-creation"
+    },
+    "/debug": {
+      "agents": [
+        "debugger",
+        "self-healer"
+      ],
+      "workflow": "debug-flow",
+      "autoRecall": [
+        "errors"
+      ]
+    },
+    "/review": {
+      "agents": [
+        "code-reviewer",
+        "security-auditor"
+      ],
+      "workflow": "review-flow"
+    },
+    "/review-fix": {
+      "agents": [
+        "code-reviewer",
+        "self-healer"
+      ],
+      "workflow": "review-fix-flow"
+    },
+    "/deploy": {
+      "agents": [
+        "deploy-super",
+        "ci-cd-engineer"
+      ],
+      "workflow": "deploy-flow"
+    },
+    "/test": {
+      "agents": [
+        "tester",
+        "test-automation"
+      ],
+      "workflow": "test-flow"
+    },
+    "/tdd": {
+      "agents": [
+        "tester",
+        "backend-developer"
+      ],
+      "workflow": "tdd-flow"
+    },
+    "/optimize": {
+      "agents": [
+        "performance-optimizer",
+        "token-optimizer"
+      ],
+      "workflow": "optimize-flow"
+    },
+    "/research": {
+      "agents": [
+        "deep-researcher",
+        "research-super"
+      ],
+      "workflow": "research-flow",
+      "mcps": [
+        "exa",
+        "firecrawl"
+      ]
+    },
+    "/deep-research": {
+      "agents": [
+        "deep-researcher"
+      ],
+      "workflow": "deep-research-flow",
+      "mcps": [
+        "firecrawl",
+        "exa"
+      ]
+    },
+    "/game": {
+      "agents": [
+        "game-architect",
+        "phaser-expert"
+      ],
+      "workflow": "game-creation-flow"
+    },
+    "/odoo": {
+      "agents": [
+        "odoo-expert",
+        "odoo-orm-expert"
+      ],
+      "workflow": "odoo-flow"
+    },
+    "/mql5": {
+      "agents": [
+        "mql5-expert"
+      ],
+      "workflow": "trading-flow",
+      "autoRecall": [
+        "trading-brain"
+      ]
+    },
+    "/docs": {
+      "agents": [
+        "documentation-generator"
+      ],
+      "workflow": "docs-flow"
+    },
+    "/uiux": {
+      "agents": [
+        "ui-ux-team",
+        "ui-critic"
+      ],
+      "workflow": "uiux-review-flow"
+    },
+    "/plan": {
+      "agents": [
+        "pm-agent",
+        "tree-of-thoughts"
+      ],
+      "workflow": "planning-flow"
+    },
+    "/workflow": {
+      "agents": [
+        "workflow-generator",
+        "pm-agent"
+      ],
+      "workflow": "workflow-creation"
+    },
+    "/parallel": {
+      "agents": [
+        "parallel-executor-v18",
+        "queen-v18"
+      ],
+      "workflow": "parallel-execution"
+    },
+    "/super": {
+      "agents": [
+        "queen-v18"
+      ],
+      "activatesAll": [
+        "fullstack-super",
+        "backend-super",
+        "ui-super",
+        "deploy-super",
+        "quality-super",
+        "research-super"
+      ]
+    },
+    "/learn": {
+      "agents": [
+        "memory-bridge"
+      ],
+      "mcps": [
+        "hindsight"
+      ],
+      "action": "retain"
+    },
+    "/profile": {
+      "agents": [
+        "tech-scout",
+        "code-reviewer"
+      ],
+      "mcps": [
+        "github"
+      ]
+    },
+    "/flowbite": {
+      "agents": [
+        "flowbite-expert",
+        "ui-designer"
+      ],
+      "workflow": "flowbite-dashboard-flow",
+      "mcps": [
+        "context7",
+        "shadcn"
+      ]
+    },
+    "/daisyui": {
+      "agents": [
+        "daisyui-expert",
+        "ui-designer"
+      ],
+      "workflow": "daisyui-theme-flow",
+      "mcps": [
+        "context7",
+        "shadcn"
+      ]
+    },
+    "/boilerplate": {
+      "agents": [
+        "boilerplate-expert",
+        "ci-cd-engineer"
+      ],
+      "workflow": "infrastructure-setup-flow",
+      "mcps": [
+        "github",
+        "desktop-commander"
+      ]
+    },
+    "/n8n": {
+      "agents": [
+        "n8n-workflow-expert",
+        "automation-expert"
+      ],
+      "workflow": "n8n-workflow-flow",
+      "mcps": [
+        "desktop-commander",
+        "github"
+      ]
+    },
+    "/autonomous": {
+      "agents": [
+        "autonomous-agent-expert",
+        "llm-integration-expert"
+      ],
+      "workflow": "autonomous-agent-flow",
+      "mcps": [
+        "hindsight",
+        "e2b",
+        "github"
+      ],
+      "autoRecall": [
+        "patterns"
+      ]
+    }
+  },
+  "mcpAutoSelection": {
+    "_description": "Automatic MCP selection rules based on context",
+    "rules": [
+      {
+        "condition": "intent.includes('framework') || intent.includes('docs')",
+        "mcps": [
+          "context7"
+        ],
+        "priority": 1
+      },
+      {
+        "condition": "intent.includes('ui') || intent.includes('component')",
+        "mcps": [
+          "shadcn"
+        ],
+        "priority": 1
+      },
+      {
+        "condition": "intent.includes('scrape') || intent.includes('web')",
+        "mcps": [
+          "firecrawl",
+          "exa"
+        ],
+        "priority": 2
+      },
+      {
+        "condition": "intent.includes('database') || intent.includes('supabase')",
+        "mcps": [
+          "supabase",
+          "postgres"
+        ],
+        "priority": 1
+      },
+      {
+        "condition": "intent.includes('github') || intent.includes('repo')",
+        "mcps": [
+          "github"
+        ],
+        "priority": 1
+      },
+      {
+        "condition": "intent.includes('memory') || intent.includes('recall') || intent.includes('pattern')",
+        "mcps": [
+          "hindsight",
+          "memory"
+        ],
+        "priority": 1
+      },
+      {
+        "condition": "intent.includes('diagram') || intent.includes('flowchart')",
+        "mcps": [
+          "mermaid"
+        ],
+        "priority": 1
+      },
+      {
+        "condition": "intent.includes('figma') || intent.includes('design import')",
+        "mcps": [
+          "figma"
+        ],
+        "priority": 1
+      },
+      {
+        "condition": "intent.includes('browser') || intent.includes('automation')",
+        "mcps": [
+          "playwright",
+          "puppeteer"
+        ],
+        "priority": 2
+      },
+      {
+        "condition": "intent.includes('python') || intent.includes('code execution')",
+        "mcps": [
+          "e2b"
+        ],
+        "priority": 2
+      }
+    ]
+  },
+  "priorityOrder": {
+    "_description": "Default priority for agent consultation",
+    "meta": [
+      "pm-agent",
+      "confidence-checker",
+      "wizard-agent",
+      "intent-parser"
+    ],
+    "execution": [
+      "queen-v18",
+      "parallel-executor-v18"
+    ],
+    "quality": [
+      "self-checker",
+      "security-auditor",
+      "auto-validator"
+    ],
+    "memory": [
+      "memory-bridge",
+      "hindsight-recall"
+    ]
+  },
+  "skillRouting": {
+    "_description": "Routes intents to community skills",
+    "rules": [
+      {
+        "skillName": "docx",
+        "triggers": [
+          "docx",
+          ".docx",
+          "creating",
+          "edit",
+          "extract"
+        ],
+        "priority": "medium",
+        "agentId": "skill-docx"
+      },
+      {
+        "skillName": "mcp-builder",
+        "triggers": [
+          "mcp-builder",
+          "creating",
+          "build"
+        ],
+        "priority": "medium",
+        "agentId": "skill-mcp-builder"
+      },
+      {
+        "skillName": "pdf",
+        "triggers": [
+          "pdf",
+          "creating",
+          "analyze",
+          "extract",
+          "merging"
+        ],
+        "priority": "medium",
+        "agentId": "skill-pdf"
+      },
+      {
+        "skillName": "pptx",
+        "triggers": [
+          "pptx",
+          ".pptx",
+          "creating",
+          "edit"
+        ],
+        "priority": "medium",
+        "agentId": "skill-pptx"
+      },
+      {
+        "skillName": "skill-creator",
+        "triggers": [
+          "skill-creator",
+          "creating"
+        ],
+        "priority": "medium",
+        "agentId": "skill-skill-creator"
+      },
+      {
+        "skillName": "web-artifacts-builder",
+        "triggers": [
+          "web-artifacts-builder",
+          "creating"
+        ],
+        "priority": "medium",
+        "agentId": "skill-web-artifacts-builder"
+      },
+      {
+        "skillName": "webapp-testing",
+        "triggers": [
+          "webapp-testing",
+          "test"
+        ],
+        "priority": "medium",
+        "agentId": "skill-webapp-testing"
+      },
+      {
+        "skillName": "xlsx",
+        "triggers": [
+          "xlsx",
+          ".xlsx",
+          ".xls",
+          "creating",
+          "edit",
+          "analyzing"
+        ],
+        "priority": "medium",
+        "agentId": "skill-xlsx"
+      }
+    ]
+  },
+  "sddRouting": {
+    "_description": "Routes Spec-Driven Development intents to spec-architect",
+    "triggers": [
+      "spec",
+      "specification",
+      "SDD",
+      "requirements",
+      "plan technique",
+      "task breakdown",
+      "acceptance criteria",
+      "constitution projet",
+      "specs executables"
+    ],
+    "primaryAgent": "spec-architect",
+    "secondaryAgents": [
+      "wizard-agent",
+      "pm-agent",
+      "tester",
+      "database-architect"
+    ],
+    "workflow": "sdd-workflow",
+    "subcommands": {
+      "init": {
+        "description": "Initialize SDD project with constitution",
+        "output": "specs/constitution.md"
+      },
+      "feature": {
+        "description": "Create feature specification",
+        "output": "specs/NNN-feature/spec.md"
+      },
+      "plan": {
+        "description": "Generate technical plan",
+        "output": "plan.md, data-model.md"
+      },
+      "tasks": {
+        "description": "Break down into executable tasks",
+        "output": "tasks.md"
+      },
+      "implement": {
+        "description": "Execute implementation (RED-GREEN-VERIFY)",
+        "testFirst": true
+      },
+      "verify": {
+        "description": "Validate against specification",
+        "output": "verification-report.md"
+      },
+      "status": {
+        "description": "Show project specs status"
+      }
+    },
+    "templates": [
+      "templates/sdd/constitution-template.md",
+      "templates/sdd/spec-template.md",
+      "templates/sdd/plan-template.md",
+      "templates/sdd/data-model-template.md",
+      "templates/sdd/tasks-template.md",
+      "templates/sdd/verification-template.md"
+    ],
+    "knowledge": [
+      "knowledge/reference/sdd-patterns.md"
+    ],
+    "impact": "+30-50% code reliability"
+  }
+}

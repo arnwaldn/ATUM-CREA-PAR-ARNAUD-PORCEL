@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roguelike</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Courier New', monospace;
+    }
+    #game-container {
+      position: relative;
+    }
+    #ui {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      color: #aaa;
+      font-size: 14px;
+      z-index: 100;
+    }
+    #log {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      max-height: 100px;
+      overflow-y: auto;
+      color: #888;
+      font-size: 12px;
+      background: rgba(0,0,0,0.7);
+      padding: 8px;
+      border-radius: 4px;
+    }
+    #log .combat { color: #ff6b6b; }
+    #log .item { color: #4ecdc4; }
+    #log .info { color: #ffeaa7; }
+  </style>
+</head>
+<body>
+  <div id="ui">
+    <div>HP: <span id="hp">100</span>/<span id="maxHp">100</span></div>
+    <div>Level: <span id="level">1</span></div>
+    <div>Floor: <span id="floor">1</span></div>
+  </div>
+  <div id="game-container"></div>
+  <div id="log"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

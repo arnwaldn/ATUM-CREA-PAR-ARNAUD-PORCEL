@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Technicians -->
+        <record id="technician_john" model="fsm.technician">
+            <field name="name">John Martinez</field>
+            <field name="job_title">Senior Field Technician</field>
+            <field name="work_phone">+1 555-0101</field>
+            <field name="mobile_phone">+1 555-0102</field>
+            <field name="work_email">john.martinez@example.com</field>
+            <field name="availability_status">available</field>
+            <field name="hourly_rate">75.00</field>
+            <field name="overtime_rate">112.50</field>
+        </record>
+
+        <record id="technician_sarah" model="fsm.technician">
+            <field name="name">Sarah Chen</field>
+            <field name="job_title">HVAC Specialist</field>
+            <field name="work_phone">+1 555-0201</field>
+            <field name="mobile_phone">+1 555-0202</field>
+            <field name="work_email">sarah.chen@example.com</field>
+            <field name="availability_status">available</field>
+            <field name="hourly_rate">85.00</field>
+            <field name="overtime_rate">127.50</field>
+        </record>
+
+        <record id="technician_mike" model="fsm.technician">
+            <field name="name">Mike Johnson</field>
+            <field name="job_title">Junior Technician</field>
+            <field name="work_phone">+1 555-0301</field>
+            <field name="mobile_phone">+1 555-0302</field>
+            <field name="work_email">mike.johnson@example.com</field>
+            <field name="availability_status">busy</field>
+            <field name="hourly_rate">55.00</field>
+            <field name="overtime_rate">82.50</field>
+        </record>
+
+        <!-- Demo Technician Skills -->
+        <record id="skill_john_hvac" model="fsm.technician.skill">
+            <field name="technician_id" ref="technician_john"/>
+            <field name="skill_id" ref="skill_hvac"/>
+            <field name="level">expert</field>
+            <field name="certified">True</field>
+            <field name="certification_date" eval="(datetime.today() - relativedelta(months=6)).strftime('%Y-%m-%d')"/>
+            <field name="certification_expiry" eval="(datetime.today() + relativedelta(months=18)).strftime('%Y-%m-%d')"/>
+        </record>
+
+        <record id="skill_john_electrical" model="fsm.technician.skill">
+            <field name="technician_id" ref="technician_john"/>
+            <field name="skill_id" ref="skill_electrical"/>
+            <field name="level">intermediate</field>
+        </record>
+
+        <record id="skill_sarah_hvac" model="fsm.technician.skill">
+            <field name="technician_id" ref="technician_sarah"/>
+            <field name="skill_id" ref="skill_hvac"/>
+            <field name="level">expert</field>
+            <field name="certified">True</field>
+        </record>
+
+        <record id="skill_mike_plumbing" model="fsm.technician.skill">
+            <field name="technician_id" ref="technician_mike"/>
+            <field name="skill_id" ref="skill_plumbing"/>
+            <field name="level">beginner</field>
+        </record>
+
+        <!-- Demo Customers -->
+        <record id="customer_acme" model="res.partner">
+            <field name="name">Acme Corporation</field>
+            <field name="street">100 Business Park Drive</field>
+            <field name="city">San Francisco</field>
+            <field name="zip">94102</field>
+            <field name="phone">+1 555-1000</field>
+            <field name="email">service@acme.example.com</field>
+            <field name="is_company">True</field>
+        </record>
+
+        <record id="customer_techstart" model="res.partner">
+            <field name="name">TechStart Inc</field>
+            <field name="street">250 Innovation Way</field>
+            <field name="city">San Jose</field>
+            <field name="zip">95110</field>
+            <field name="phone">+1 555-2000</field>
+            <field name="email">facilities@techstart.example.com</field>
+            <field name="is_company">True</field>
+        </record>
+
+        <record id="customer_greenleaf" model="res.partner">
+            <field name="name">Greenleaf Office Building</field>
+            <field name="street">500 Oak Street</field>
+            <field name="city">Oakland</field>
+            <field name="zip">94612</field>
+            <field name="phone">+1 555-3000</field>
+            <field name="email">management@greenleaf.example.com</field>
+            <field name="is_company">True</field>
+        </record>
+
+        <!-- Demo Equipment -->
+        <record id="equipment_acme_hvac1" model="fsm.equipment">
+            <field name="partner_id" ref="customer_acme"/>
+            <field name="equipment_type_id" ref="equipment_type_hvac"/>
+            <field name="serial_number">HVAC-2023-001</field>
+            <field name="model">CoolMaster 5000</field>
+            <field name="brand">AirTech</field>
+            <field name="purchase_date" eval="(datetime.today() - relativedelta(years=2)).strftime('%Y-%m-%d')"/>
+            <field name="warranty_end" eval="(datetime.today() + relativedelta(years=3)).strftime('%Y-%m-%d')"/>
+            <field name="location_street">100 Business Park Drive, Floor 3</field>
+            <field name="location_city">San Francisco</field>
+            <field name="location_zip">94102</field>
+            <field name="maintenance_interval">6</field>
+            <field name="last_maintenance" eval="(datetime.today() - relativedelta(months=5)).strftime('%Y-%m-%d')"/>
+        </record>
+
+        <record id="equipment_acme_elevator" model="fsm.equipment">
+            <field name="partner_id" ref="customer_acme"/>
+            <field name="equipment_type_id" ref="equipment_type_elevator"/>
+            <field name="serial_number">ELEV-2020-042</field>
+            <field name="model">Express 3000</field>
+            <field name="brand">Otis</field>
+            <field name="purchase_date" eval="(datetime.today() - relativedelta(years=4)).strftime('%Y-%m-%d')"/>
+            <field name="warranty_end" eval="(datetime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="location_street">100 Business Park Drive</field>
+            <field name="location_city">San Francisco</field>
+            <field name="location_zip">94102</field>
+            <field name="maintenance_interval">3</field>
+        </record>
+
+        <record id="equipment_techstart_server" model="fsm.equipment">
+            <field name="partner_id" ref="customer_techstart"/>
+            <field name="equipment_type_id" ref="equipment_type_server"/>
+            <field name="serial_number">SRV-2024-100</field>
+            <field name="model">PowerEdge R750</field>
+            <field name="brand">Dell</field>
+            <field name="purchase_date" eval="(datetime.today() - relativedelta(months=6)).strftime('%Y-%m-%d')"/>
+            <field name="warranty_end" eval="(datetime.today() + relativedelta(years=4, months=6)).strftime('%Y-%m-%d')"/>
+            <field name="location_street">250 Innovation Way, Server Room</field>
+            <field name="location_city">San Jose</field>
+            <field name="location_zip">95110</field>
+        </record>
+
+        <!-- Demo Contracts -->
+        <record id="contract_acme" model="fsm.contract">
+            <field name="partner_id" ref="customer_acme"/>
+            <field name="contract_type">maintenance</field>
+            <field name="coverage_level">premium</field>
+            <field name="start_date" eval="(datetime.today() - relativedelta(months=6)).strftime('%Y-%m-%d')"/>
+            <field name="end_date" eval="(datetime.today() + relativedelta(months=6)).strftime('%Y-%m-%d')"/>
+            <field name="recurring_amount">2500.00</field>
+            <field name="billing_frequency">monthly</field>
+            <field name="interventions_included">20</field>
+            <field name="sla_response_hours">4</field>
+            <field name="sla_resolution_hours">24</field>
+            <field name="parts_covered">True</field>
+            <field name="labor_covered">True</field>
+            <field name="travel_covered">True</field>
+            <field name="priority_support">True</field>
+            <field name="state">active</field>
+            <field name="equipment_ids" eval="[(6, 0, [ref('equipment_acme_hvac1'), ref('equipment_acme_elevator')])]"/>
+        </record>
+
+        <record id="contract_techstart" model="fsm.contract">
+            <field name="partner_id" ref="customer_techstart"/>
+            <field name="contract_type">support</field>
+            <field name="coverage_level">standard</field>
+            <field name="start_date" eval="(datetime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')"/>
+            <field name="end_date" eval="(datetime.today() + relativedelta(months=9)).strftime('%Y-%m-%d')"/>
+            <field name="recurring_amount">800.00</field>
+            <field name="billing_frequency">monthly</field>
+            <field name="interventions_included">5</field>
+            <field name="sla_response_hours">8</field>
+            <field name="sla_resolution_hours">48</field>
+            <field name="labor_covered">True</field>
+            <field name="state">active</field>
+            <field name="equipment_ids" eval="[(6, 0, [ref('equipment_techstart_server')])]"/>
+        </record>
+
+        <!-- Demo Interventions -->
+        <record id="intervention_repair_hvac" model="fsm.intervention">
+            <field name="partner_id" ref="customer_acme"/>
+            <field name="intervention_type_id" ref="intervention_type_repair"/>
+            <field name="equipment_id" ref="equipment_acme_hvac1"/>
+            <field name="contract_id" ref="contract_acme"/>
+            <field name="technician_id" ref="technician_sarah"/>
+            <field name="priority">2</field>
+            <field name="description">HVAC unit making unusual noise. Cooling efficiency has decreased by approximately 30%.</field>
+            <field name="scheduled_date" eval="(datetime.today() + relativedelta(days=1, hours=9)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration_planned">2.0</field>
+            <field name="location_street">100 Business Park Drive, Floor 3</field>
+            <field name="location_city">San Francisco</field>
+            <field name="location_zip">94102</field>
+            <field name="contact_name">Bob Williams</field>
+            <field name="contact_phone">+1 555-1001</field>
+            <field name="state">scheduled</field>
+        </record>
+
+        <record id="intervention_maintenance_elevator" model="fsm.intervention">
+            <field name="partner_id" ref="customer_acme"/>
+            <field name="intervention_type_id" ref="intervention_type_maintenance"/>
+            <field name="equipment_id" ref="equipment_acme_elevator"/>
+            <field name="contract_id" ref="contract_acme"/>
+            <field name="technician_id" ref="technician_john"/>
+            <field name="priority">0</field>
+            <field name="description">Quarterly preventive maintenance inspection</field>
+            <field name="scheduled_date" eval="(datetime.today() + relativedelta(days=3, hours=8)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration_planned">1.5</field>
+            <field name="location_street">100 Business Park Drive</field>
+            <field name="location_city">San Francisco</field>
+            <field name="location_zip">94102</field>
+            <field name="state">scheduled</field>
+        </record>
+
+        <record id="intervention_emergency" model="fsm.intervention">
+            <field name="partner_id" ref="customer_greenleaf"/>
+            <field name="intervention_type_id" ref="intervention_type_emergency"/>
+            <field name="priority">3</field>
+            <field name="description">Water leak in server room ceiling. Requires immediate attention!</field>
+            <field name="location_street">500 Oak Street, 2nd Floor</field>
+            <field name="location_city">Oakland</field>
+            <field name="location_zip">94612</field>
+            <field name="contact_name">Emergency Manager</field>
+            <field name="contact_phone">+1 555-3001</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="intervention_installation" model="fsm.intervention">
+            <field name="partner_id" ref="customer_techstart"/>
+            <field name="intervention_type_id" ref="intervention_type_installation"/>
+            <field name="technician_id" ref="technician_mike"/>
+            <field name="priority">1</field>
+            <field name="description">Install new network rack and cable management system</field>
+            <field name="scheduled_date" eval="(datetime.today() + relativedelta(days=5, hours=9)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration_planned">4.0</field>
+            <field name="location_street">250 Innovation Way, Server Room</field>
+            <field name="location_city">San Jose</field>
+            <field name="location_zip">95110</field>
+            <field name="contact_name">IT Manager</field>
+            <field name="contact_phone">+1 555-2001</field>
+            <field name="state">scheduled</field>
+        </record>
+
+        <record id="intervention_completed" model="fsm.intervention">
+            <field name="partner_id" ref="customer_acme"/>
+            <field name="intervention_type_id" ref="intervention_type_inspection"/>
+            <field name="equipment_id" ref="equipment_acme_hvac1"/>
+            <field name="contract_id" ref="contract_acme"/>
+            <field name="technician_id" ref="technician_john"/>
+            <field name="priority">0</field>
+            <field name="description">Annual safety inspection</field>
+            <field name="scheduled_date" eval="(datetime.today() - relativedelta(days=7, hours=10)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration_planned">1.0</field>
+            <field name="start_datetime" eval="(datetime.today() - relativedelta(days=7, hours=10)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="end_datetime" eval="(datetime.today() - relativedelta(days=7, hours=9)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="actual_duration">1.0</field>
+            <field name="work_done">&lt;p&gt;Completed annual safety inspection:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Checked all electrical connections&lt;/li&gt;&lt;li&gt;Tested emergency shutoff&lt;/li&gt;&lt;li&gt;Verified refrigerant levels&lt;/li&gt;&lt;li&gt;Cleaned filters and coils&lt;/li&gt;&lt;/ul&gt;</field>
+            <field name="resolution_notes">All systems passed inspection. Recommended filter replacement in 2 months.</field>
+            <field name="location_street">100 Business Park Drive, Floor 3</field>
+            <field name="location_city">San Francisco</field>
+            <field name="location_zip">94102</field>
+            <field name="customer_rating">5</field>
+            <field name="customer_feedback">Excellent service! Very professional and thorough inspection.</field>
+            <field name="state">done</field>
+        </record>
+    </data>
+</odoo>

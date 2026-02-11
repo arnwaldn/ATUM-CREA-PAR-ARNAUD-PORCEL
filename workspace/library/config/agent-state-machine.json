@@ -1,0 +1,264 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/agent-state-machine.json",
+  "version": "1.0.0",
+  "description": "Formal state machine definition for ATUM CREA agents",
+  "generated": "2026-01-12",
+
+  "states": {
+    "IDLE": {
+      "description": "Agent available, not assigned to any task",
+      "color": "#808080",
+      "transitions": {
+        "ACTIVATE": "INITIALIZING",
+        "SHUTDOWN": "OFFLINE"
+      },
+      "timeoutMs": null,
+      "onEnter": ["reset_context", "clear_task"],
+      "onExit": []
+    },
+
+    "INITIALIZING": {
+      "description": "Loading context, connecting MCPs, recalling memory",
+      "color": "#FFA500",
+      "transitions": {
+        "READY": "READY",
+        "FAIL": "ERROR",
+        "TIMEOUT": "ERROR"
+      },
+      "timeoutMs": 10000,
+      "onEnter": [
+        "load_agent_definition",
+        "connect_required_mcps",
+        "recall_relevant_memory",
+        "load_knowledge_context"
+      ],
+      "onExit": ["log_initialization_time"]
+    },
+
+    "READY": {
+      "description": "Initialized successfully, awaiting task assignment",
+      "color": "#00FF00",
+      "transitions": {
+        "ASSIGN_TASK": "EXECUTING",
+        "IDLE_TIMEOUT": "IDLE",
+        "SHUTDOWN": "OFFLINE"
+      },
+      "timeoutMs": 300000,
+      "onEnter": ["notify_orchestrator_ready"],
+      "onExit": []
+    },
+
+    "EXECUTING": {
+      "description": "Actively working on assigned task",
+      "color": "#0000FF",
+      "transitions": {
+        "COMPLETE": "VALIDATING",
+        "BLOCKED": "WAITING",
+        "FAIL": "ERROR",
+        "HANDOFF": "HANDING_OFF",
+        "PAUSE": "PAUSED"
+      },
+      "timeoutMs": 300000,
+      "onEnter": ["start_execution_timer", "log_task_start"],
+      "onExit": ["stop_execution_timer"],
+      "metrics": ["execution_time", "tool_calls", "mcp_calls"]
+    },
+
+    "WAITING": {
+      "description": "Blocked on external dependency or user input",
+      "color": "#FFFF00",
+      "transitions": {
+        "UNBLOCK": "EXECUTING",
+        "TIMEOUT": "ERROR",
+        "CANCEL": "IDLE"
+      },
+      "timeoutMs": 120000,
+      "onEnter": ["log_blocker_reason", "notify_user_if_needed"],
+      "onExit": ["log_wait_duration"],
+      "blockReasons": [
+        "user_input_required",
+        "external_api_pending",
+        "dependency_unavailable",
+        "rate_limited"
+      ]
+    },
+
+    "PAUSED": {
+      "description": "Execution paused by user or system",
+      "color": "#808080",
+      "transitions": {
+        "RESUME": "EXECUTING",
+        "CANCEL": "IDLE"
+      },
+      "timeoutMs": null,
+      "onEnter": ["save_execution_state"],
+      "onExit": ["restore_execution_state"]
+    },
+
+    "VALIDATING": {
+      "description": "Self-check and quality validation",
+      "color": "#9932CC",
+      "transitions": {
+        "PASS": "COMPLETE",
+        "RETRY": "EXECUTING",
+        "FAIL": "ERROR"
+      },
+      "timeoutMs": 30000,
+      "onEnter": ["start_validation"],
+      "onExit": [],
+      "validationSteps": [
+        "self_reflection_loop",
+        "quality_check",
+        "output_verification",
+        "retain_learnings"
+      ],
+      "maxRetries": 3
+    },
+
+    "HANDING_OFF": {
+      "description": "Transferring task to another agent",
+      "color": "#FF69B4",
+      "transitions": {
+        "ACCEPTED": "IDLE",
+        "REJECTED": "EXECUTING"
+      },
+      "timeoutMs": 10000,
+      "onEnter": ["prepare_handoff_context", "notify_target_agent"],
+      "onExit": ["log_handoff_result"],
+      "requiredFields": ["task_id", "task_state", "context", "reason"]
+    },
+
+    "COMPLETE": {
+      "description": "Task finished successfully",
+      "color": "#00FF00",
+      "transitions": {
+        "NEXT_TASK": "READY",
+        "IDLE": "IDLE"
+      },
+      "timeoutMs": 5000,
+      "onEnter": [
+        "retain_patterns",
+        "update_metrics",
+        "report_completion",
+        "update_reputation"
+      ],
+      "onExit": ["cleanup_task_context"]
+    },
+
+    "ERROR": {
+      "description": "Failed state requiring recovery",
+      "color": "#FF0000",
+      "transitions": {
+        "RETRY": "INITIALIZING",
+        "ESCALATE": "ESCALATED",
+        "RECOVER": "IDLE"
+      },
+      "timeoutMs": 60000,
+      "onEnter": [
+        "log_error",
+        "retain_error_to_hindsight",
+        "notify_orchestrator",
+        "attempt_self_healing"
+      ],
+      "onExit": ["clear_error_state"],
+      "maxAutoRetries": 3
+    },
+
+    "ESCALATED": {
+      "description": "Escalated to human or super-agent",
+      "color": "#FF4500",
+      "transitions": {
+        "RESOLVED": "IDLE",
+        "CANCEL": "IDLE"
+      },
+      "timeoutMs": null,
+      "onEnter": ["create_escalation_report", "notify_user"],
+      "onExit": ["log_resolution"]
+    },
+
+    "OFFLINE": {
+      "description": "Agent unavailable/shutdown",
+      "color": "#000000",
+      "transitions": {
+        "ACTIVATE": "INITIALIZING"
+      },
+      "timeoutMs": null,
+      "onEnter": ["cleanup_resources", "disconnect_mcps"],
+      "onExit": []
+    }
+  },
+
+  "globalHooks": {
+    "onAnyEnter": ["log_state_change", "update_dynamic_capabilities"],
+    "onAnyExit": ["record_state_duration"],
+    "onAnyTransition": ["notify_orchestrator", "update_vibe_metrics"]
+  },
+
+  "metrics": {
+    "stateTransitions": {
+      "description": "Count of transitions per state pair",
+      "aggregation": "count"
+    },
+    "stateDuration": {
+      "description": "Time spent in each state",
+      "aggregation": "avg",
+      "unit": "ms"
+    },
+    "errorRate": {
+      "description": "Percentage of tasks ending in ERROR",
+      "aggregation": "percentage"
+    },
+    "completionRate": {
+      "description": "Percentage of tasks reaching COMPLETE",
+      "aggregation": "percentage"
+    },
+    "avgRetries": {
+      "description": "Average retries before completion",
+      "aggregation": "avg"
+    }
+  },
+
+  "errorRecoveryStrategies": {
+    "connection_failed": {
+      "action": "retry_with_backoff",
+      "maxRetries": 3,
+      "backoffMs": [1000, 2000, 5000]
+    },
+    "timeout": {
+      "action": "retry_once",
+      "maxRetries": 1
+    },
+    "validation_failed": {
+      "action": "self_healing",
+      "maxRetries": 3,
+      "fallback": "escalate"
+    },
+    "unknown_error": {
+      "action": "escalate",
+      "maxRetries": 0
+    }
+  },
+
+  "priorities": {
+    "critical": {
+      "timeoutMultiplier": 0.5,
+      "maxConcurrent": 1,
+      "preemptLower": true
+    },
+    "high": {
+      "timeoutMultiplier": 0.75,
+      "maxConcurrent": 3,
+      "preemptLower": false
+    },
+    "normal": {
+      "timeoutMultiplier": 1.0,
+      "maxConcurrent": 5,
+      "preemptLower": false
+    },
+    "low": {
+      "timeoutMultiplier": 2.0,
+      "maxConcurrent": 10,
+      "preemptLower": false
+    }
+  }
+}

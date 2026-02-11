@@ -1,0 +1,248 @@
+{
+  "version": "1.0.0",
+  "description": "Configuration du dashboard de monitoring ULTRA-CREATE",
+
+  "metrics": {
+    "agents": {
+      "active_count": {
+        "type": "gauge",
+        "description": "Nombre d'agents actuellement actifs",
+        "unit": "count",
+        "alert_threshold": 50,
+        "display": {"color": "blue", "chart": "line"}
+      },
+      "task_success_rate": {
+        "type": "percentage",
+        "description": "Taux de succes des taches",
+        "alert_below": 0.9,
+        "display": {"color": "green", "chart": "gauge"}
+      },
+      "avg_response_time_ms": {
+        "type": "histogram",
+        "description": "Temps de reponse moyen",
+        "unit": "milliseconds",
+        "alert_above": 5000,
+        "percentiles": [50, 90, 95, 99],
+        "display": {"color": "orange", "chart": "histogram"}
+      },
+      "error_rate": {
+        "type": "percentage",
+        "description": "Taux d'erreurs",
+        "alert_above": 0.05,
+        "display": {"color": "red", "chart": "line"}
+      },
+      "task_queue_depth": {
+        "type": "gauge",
+        "description": "Taches en attente",
+        "alert_above": 100,
+        "display": {"color": "yellow", "chart": "bar"}
+      }
+    },
+
+    "memory": {
+      "total_entries": {
+        "type": "counter",
+        "description": "Total des entrees memoire",
+        "display": {"color": "purple", "chart": "counter"}
+      },
+      "retrieval_latency_ms": {
+        "type": "histogram",
+        "description": "Latence de recuperation memoire",
+        "unit": "milliseconds",
+        "p99_alert": 100,
+        "display": {"color": "cyan", "chart": "histogram"}
+      },
+      "cache_hit_rate": {
+        "type": "percentage",
+        "description": "Taux de hit cache",
+        "alert_below": 0.7,
+        "display": {"color": "green", "chart": "gauge"}
+      },
+      "deduplication_rate": {
+        "type": "percentage",
+        "description": "Taux de deduplication",
+        "display": {"color": "teal", "chart": "line"}
+      },
+      "layer_distribution": {
+        "type": "distribution",
+        "description": "Distribution par couche memoire",
+        "layers": ["L1_working", "L2_session", "L3_longterm", "L4_procedural"],
+        "display": {"chart": "pie"}
+      }
+    },
+
+    "mcp": {
+      "active_servers": {
+        "type": "gauge",
+        "description": "Serveurs MCP actifs",
+        "display": {"color": "blue", "chart": "counter"}
+      },
+      "request_count": {
+        "type": "counter",
+        "description": "Total des requetes MCP",
+        "display": {"color": "indigo", "chart": "line"}
+      },
+      "error_count": {
+        "type": "counter",
+        "description": "Erreurs MCP",
+        "display": {"color": "red", "chart": "line"}
+      },
+      "avg_latency_ms": {
+        "type": "histogram",
+        "description": "Latence moyenne MCP",
+        "unit": "milliseconds",
+        "display": {"color": "orange", "chart": "histogram"}
+      },
+      "server_health": {
+        "type": "status",
+        "description": "Sante des serveurs par nom",
+        "display": {"chart": "status_grid"}
+      }
+    },
+
+    "cost": {
+      "daily_tokens": {
+        "type": "counter",
+        "description": "Tokens utilises aujourd'hui",
+        "alert_above": 1000000,
+        "display": {"color": "gold", "chart": "line"}
+      },
+      "haiku_percentage": {
+        "type": "percentage",
+        "description": "Pourcentage utilisation Haiku",
+        "target": 0.6,
+        "display": {"color": "green", "chart": "gauge"}
+      },
+      "cached_percentage": {
+        "type": "percentage",
+        "description": "Pourcentage requetes cachees",
+        "target": 0.3,
+        "display": {"color": "cyan", "chart": "gauge"}
+      },
+      "estimated_cost_usd": {
+        "type": "gauge",
+        "description": "Cout estime en USD",
+        "alert_above": 10,
+        "display": {"color": "red", "chart": "counter", "format": "currency"}
+      },
+      "model_distribution": {
+        "type": "distribution",
+        "description": "Distribution par modele",
+        "models": ["haiku", "sonnet", "opus"],
+        "display": {"chart": "pie"}
+      }
+    },
+
+    "performance": {
+      "context_utilization": {
+        "type": "percentage",
+        "description": "Utilisation du context window",
+        "alert_above": 0.85,
+        "display": {"color": "orange", "chart": "gauge"}
+      },
+      "throughput_tasks_per_hour": {
+        "type": "gauge",
+        "description": "Taches completees par heure",
+        "display": {"color": "green", "chart": "line"}
+      },
+      "concurrent_operations": {
+        "type": "gauge",
+        "description": "Operations concurrentes",
+        "alert_above": 10,
+        "display": {"color": "blue", "chart": "line"}
+      }
+    }
+  },
+
+  "alerts": {
+    "channels": ["console", "file"],
+    "log_path": "C:\\Claude-Code-Creation\\logs\\alerts.log",
+    "severity_levels": {
+      "critical": {
+        "notify_immediately": true,
+        "color": "red"
+      },
+      "warning": {
+        "notify_immediately": false,
+        "aggregate_minutes": 5,
+        "color": "yellow"
+      },
+      "info": {
+        "log_only": true,
+        "color": "blue"
+      }
+    },
+    "rules": [
+      {
+        "name": "high_error_rate",
+        "metric": "agents.error_rate",
+        "condition": "> 0.1",
+        "severity": "critical",
+        "message": "Error rate exceeded 10%"
+      },
+      {
+        "name": "slow_response",
+        "metric": "agents.avg_response_time_ms",
+        "condition": "> 10000",
+        "severity": "warning",
+        "message": "Response time > 10s"
+      },
+      {
+        "name": "low_cache_hit",
+        "metric": "memory.cache_hit_rate",
+        "condition": "< 0.5",
+        "severity": "warning",
+        "message": "Cache hit rate below 50%"
+      },
+      {
+        "name": "cost_spike",
+        "metric": "cost.estimated_cost_usd",
+        "condition": "> 20",
+        "severity": "critical",
+        "message": "Daily cost exceeded $20"
+      }
+    ]
+  },
+
+  "dashboards": {
+    "overview": {
+      "title": "ULTRA-CREATE Overview",
+      "refresh_seconds": 30,
+      "panels": [
+        {"metric": "agents.task_success_rate", "size": "large"},
+        {"metric": "agents.active_count", "size": "small"},
+        {"metric": "cost.estimated_cost_usd", "size": "small"},
+        {"metric": "memory.cache_hit_rate", "size": "medium"},
+        {"metric": "mcp.active_servers", "size": "small"}
+      ]
+    },
+    "agents": {
+      "title": "Agent Performance",
+      "refresh_seconds": 10,
+      "panels": [
+        {"metric": "agents.task_success_rate", "size": "large"},
+        {"metric": "agents.avg_response_time_ms", "size": "large"},
+        {"metric": "agents.error_rate", "size": "medium"},
+        {"metric": "agents.task_queue_depth", "size": "medium"}
+      ]
+    },
+    "costs": {
+      "title": "Cost Analysis",
+      "refresh_seconds": 60,
+      "panels": [
+        {"metric": "cost.daily_tokens", "size": "large"},
+        {"metric": "cost.model_distribution", "size": "medium"},
+        {"metric": "cost.haiku_percentage", "size": "small"},
+        {"metric": "cost.cached_percentage", "size": "small"}
+      ]
+    }
+  },
+
+  "export": {
+    "enabled": true,
+    "format": "json",
+    "interval_minutes": 60,
+    "retention_days": 30,
+    "path": "C:\\Claude-Code-Creation\\data\\metrics"
+  }
+}

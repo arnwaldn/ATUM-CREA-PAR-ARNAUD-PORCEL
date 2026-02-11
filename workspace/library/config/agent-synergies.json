@@ -1,0 +1,640 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "28.5",
+  "description": "Agent synergy chains - optimal agent combinations for ATUM CREA (v28.5 NOCODE INTEGRATION)",
+
+  "synergies": {
+    "saas": {
+      "description": "SaaS application development chain",
+      "primary": ["wizard-agent", "pm-agent", "fullstack-super"],
+      "secondary": ["payment-expert", "security-auditor", "auto-validator"],
+      "optional": ["seo-expert", "accessibility-auditor"],
+      "executionOrder": "parallel-primary-then-secondary"
+    },
+
+    "supabase-native": {
+      "description": "Supabase-first SaaS with native auth, MFA, and RLS",
+      "primary": ["wizard-agent", "fullstack-super", "database-architect"],
+      "secondary": ["security-auditor", "backend-developer", "auto-validator"],
+      "optional": ["payment-expert", "performance-optimizer"],
+      "executionOrder": "sequential",
+      "notes": "Uses @supabase/ssr patterns, Row Level Security, and TOTP MFA"
+    },
+
+    "game-2d": {
+      "description": "2D web game development chain",
+      "primary": ["wizard-agent", "game-architect", "phaser-expert"],
+      "secondary": ["audio-expert", "procgen-expert", "tester"],
+      "optional": ["networking-expert"],
+      "executionOrder": "sequential"
+    },
+
+    "game-3d": {
+      "description": "3D web game development chain",
+      "primary": ["wizard-agent", "game-architect", "threejs-game-expert"],
+      "secondary": ["3d-artist", "audio-expert", "performance-optimizer"],
+      "optional": ["webxr-expert", "networking-expert"],
+      "executionOrder": "sequential"
+    },
+
+    "game-native": {
+      "description": "Native game development (Unity/Godot)",
+      "primary": ["wizard-agent", "game-architect", "unity-expert"],
+      "secondary": ["3d-artist", "audio-expert", "networking-expert"],
+      "optional": ["procgen-expert"],
+      "executionOrder": "sequential"
+    },
+
+    "ml-pipeline": {
+      "description": "Machine learning pipeline development",
+      "primary": ["wizard-agent", "ml-engineer", "pytorch-expert"],
+      "secondary": ["mlops-engineer", "auto-validator"],
+      "optional": ["tensorflow-expert"],
+      "executionOrder": "sequential"
+    },
+
+    "api-backend": {
+      "description": "API/Backend development chain",
+      "primary": ["wizard-agent", "backend-super", "database-architect"],
+      "secondary": ["api-designer", "security-auditor", "tester"],
+      "optional": ["graphql-expert", "performance-optimizer"],
+      "executionOrder": "parallel-primary-then-secondary"
+    },
+
+    "frontend-ui": {
+      "description": "Frontend/UI development chain",
+      "primary": ["wizard-agent", "ui-super", "frontend-developer"],
+      "secondary": ["design-strategist", "ui-critic", "accessibility-auditor"],
+      "optional": ["seo-expert", "performance-optimizer"],
+      "executionOrder": "parallel-primary-then-secondary"
+    },
+
+    "mobile-app": {
+      "description": "Mobile application development",
+      "primary": ["wizard-agent", "expo-expert", "ui-designer"],
+      "secondary": ["backend-super", "tester", "auto-validator"],
+      "optional": ["swift-ios-expert", "kotlin-android-expert"],
+      "executionOrder": "sequential"
+    },
+
+    "desktop-app": {
+      "description": "Desktop application development",
+      "primary": ["wizard-agent", "electron-ipc-expert", "frontend-developer"],
+      "secondary": ["ui-designer", "tester", "security-auditor"],
+      "optional": ["performance-optimizer"],
+      "executionOrder": "sequential"
+    },
+
+    "odoo-module": {
+      "description": "Odoo module development",
+      "primary": ["wizard-agent", "odoo-expert", "odoo-orm-expert"],
+      "secondary": ["odoo-integration-expert", "tester", "documentation-generator"],
+      "optional": ["security-auditor"],
+      "executionOrder": "sequential"
+    },
+
+    "trading": {
+      "description": "Trading/MQL5 development",
+      "primary": ["wizard-agent", "mql5-expert"],
+      "secondary": ["ml-engineer", "auto-validator"],
+      "optional": ["performance-optimizer"],
+      "executionOrder": "sequential"
+    },
+
+    "research": {
+      "description": "Research and analysis workflow",
+      "primary": ["deep-researcher", "arxiv-researcher"],
+      "secondary": ["pdf-researcher", "docling-expert", "documentation-generator"],
+      "optional": ["tree-of-thoughts", "reasoning-agent"],
+      "executionOrder": "parallel"
+    },
+
+    "document-processing": {
+      "description": "Document parsing and processing pipeline (PDF, DOCX, PPTX, XLSX, images)",
+      "primary": ["docling-expert", "pdf-researcher", "documentation-generator"],
+      "secondary": ["rag-expert", "ml-engineer", "data-analyst"],
+      "optional": ["vision-expert", "performance-optimizer"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["docling", "hindsight"],
+      "notes": "Uses IBM Docling for advanced document parsing with structure preservation (tables, formulas)"
+    },
+
+    "quality-audit": {
+      "description": "Code quality and security audit",
+      "primary": ["quality-super", "security-auditor", "code-reviewer"],
+      "secondary": ["auto-validator", "performance-optimizer", "accessibility-auditor"],
+      "optional": ["seo-expert"],
+      "executionOrder": "parallel"
+    },
+
+    "deployment": {
+      "description": "Deployment and DevOps workflow",
+      "primary": ["deploy-super", "ci-cd-engineer"],
+      "secondary": ["security-auditor", "auto-validator"],
+      "optional": ["aws-architect", "kubernetes-expert"],
+      "executionOrder": "sequential"
+    },
+
+    "ui-component-library": {
+      "description": "UI-intensive projects with advanced component libraries",
+      "primary": ["wizard-agent", "flowbite-expert", "daisyui-expert", "ui-designer"],
+      "secondary": ["frontend-developer", "design-strategist", "accessibility-auditor"],
+      "optional": ["seo-expert", "performance-optimizer"],
+      "executionOrder": "parallel-primary-then-secondary"
+    },
+
+    "infrastructure-boilerplate": {
+      "description": "Infrastructure setup from boilerplates",
+      "primary": ["wizard-agent", "boilerplate-expert", "ci-cd-engineer"],
+      "secondary": ["kubernetes-expert", "security-auditor", "aws-architect"],
+      "optional": ["performance-optimizer"],
+      "executionOrder": "sequential"
+    },
+
+    "workflow-automation": {
+      "description": "Workflow automation and integrations with n8n",
+      "primary": ["wizard-agent", "n8n-workflow-expert", "automation-expert"],
+      "secondary": ["integration-expert", "backend-developer", "auto-validator"],
+      "optional": ["security-auditor"],
+      "executionOrder": "sequential"
+    },
+
+    "autonomous-agents": {
+      "description": "AI autonomous agents development",
+      "primary": ["wizard-agent", "autonomous-agent-expert", "llm-integration-expert", "ml-engineer"],
+      "secondary": ["prompt-engineer", "auto-validator", "tester"],
+      "optional": ["security-auditor", "performance-optimizer"],
+      "executionOrder": "sequential"
+    },
+
+    "stripe-saas": {
+      "description": "SaaS with Stripe payment integration",
+      "primary": ["wizard-agent", "fullstack-super", "stripe-payment-expert"],
+      "secondary": ["security-auditor", "backend-developer", "database-architect"],
+      "optional": ["seo-expert", "performance-optimizer"],
+      "executionOrder": "sequential",
+      "notes": "Uses Stripe Checkout, Webhooks, Subscriptions patterns from stripe-patterns.md"
+    },
+
+    "agentic-commerce": {
+      "description": "Commerce agentique avec UCP (Universal Commerce Protocol) + Stripe + agents autonomes (Google/Shopify standard)",
+      "primary": ["ucp-commerce-expert", "stripe-payment-expert", "fullstack-super"],
+      "secondary": ["backend-super", "security-auditor", "database-architect"],
+      "optional": ["auto-validator", "tester"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["context7", "supabase", "github"],
+      "knowledgeFiles": ["knowledge/ucp-patterns.md", "knowledge/stripe-patterns.md"],
+      "notes": "UCP (Google + Shopify + 20 partners) pour commerce agentique autonome - checkout, identity linking, order management"
+    },
+
+    "self-improvement": {
+      "description": "Auto-upgrade et auto-amélioration du système ATUM CREA (33 patterns + AEX)",
+      "primary": ["auto-upgrade-agent", "self-improver", "deep-researcher"],
+      "secondary": ["tree-of-thoughts", "self-reflection-loop", "confidence-checker", "innovation-monitor", "reputation-manager"],
+      "optional": ["pm-agent", "self-checker", "self-healer", "proposal-broker", "outcome-verifier"],
+      "executionOrder": "sequential",
+      "phases": ["VEILLE", "PARSE", "DIAGNOSE", "RESEARCH", "SYNTHESIZE", "PROPOSE", "LEARN"],
+      "patterns": [
+        "RECON", "MUSE", "Self-Questioning", "AutoDetect", "Agent0-Curriculum", "CMP-Metric",
+        "EvoAgentX", "Context-Engineering", "Self-Navigating", "RISE", "Tree-of-Thoughts",
+        "Self-Reflection", "Verification-First", "OpenAI-Self-Evolving", "Darwin-Gödel",
+        "STOP", "Recursive-Skill-Amp", "Emergence", "Self-Attributing", "Multi-Agent-8x",
+        "ReasoningBank", "Innovation-Monitor"
+      ],
+      "metrics": ["CMP-Score", "Attribution-Score", "Curiosity-Coverage", "Navigation-Efficiency"],
+      "notes": "Activated via /autoupgrade command or automatically based on session metrics for ATUM CREA"
+    },
+
+    "superpowers-integration": {
+      "description": "Superpowers agentic skills framework integration (26k GitHub stars)",
+      "primary": ["wizard-agent", "autonomous-agent-expert", "fullstack-super"],
+      "secondary": ["prompt-engineer", "auto-validator", "tester"],
+      "optional": ["performance-optimizer", "security-auditor"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["context7", "github", "e2b"],
+      "knowledgeFiles": ["knowledge/superpowers-patterns.md"],
+      "notes": "Framework agentic skills de obra/superpowers - essential pour Claude Code users. GitHub Trending Jan 2026."
+    },
+
+    "security-testing": {
+      "description": "Tests de sécurité autonomes (adapté de Strix)",
+      "primary": ["strix-coordinator", "security-scanner-expert", "penetration-tester"],
+      "secondary": ["payload-engineer", "exploit-validator", "security-auditor"],
+      "optional": ["code-reviewer", "documentation-generator"],
+      "executionOrder": "sequential",
+      "phases": ["RECON", "CLASSIFY", "GENERATE", "VALIDATE", "REPORT"],
+      "dagConstraints": {
+        "maxDepth": 3,
+        "maxAgents": 5,
+        "timeout": 300000
+      },
+      "safetyBoundaries": {
+        "allowedTargets": ["localhost", "127.0.0.1", "*.local", "*.test", "*.example"],
+        "blockedActions": ["data_exfiltration", "persistent_backdoor", "dos_attack"]
+      },
+      "notes": "Activated via /security-scan command. Static validation only, no live PoC execution."
+    },
+
+    "data-pipeline": {
+      "description": "Data engineering et analytics pipeline development",
+      "primary": ["data-engineer", "analytics-architect", "database-architect"],
+      "secondary": ["backend-developer", "auto-validator", "performance-optimizer"],
+      "optional": ["ml-engineer", "documentation-generator"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["supabase", "e2b", "context7"],
+      "notes": "ETL/ELT pipelines, Airflow DAGs, dbt transformations, data warehousing"
+    },
+
+    "rag-pipeline": {
+      "description": "RAG et vector search pipeline development",
+      "primary": ["vector-db-expert", "rag-expert", "llmops-specialist"],
+      "secondary": ["ml-engineer", "backend-developer", "auto-validator"],
+      "optional": ["performance-optimizer", "security-auditor"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["supabase", "e2b", "context7"],
+      "notes": "Vector databases, embeddings, semantic search, RAG optimization"
+    },
+
+    "llmops": {
+      "description": "LLM deployment et operations pipeline",
+      "primary": ["llmops-specialist", "mlops-engineer", "deploy-super"],
+      "secondary": ["performance-optimizer", "security-auditor", "auto-validator"],
+      "optional": ["kubernetes-expert", "aws-architect"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["e2b", "context7", "github"],
+      "notes": "LLM gateway, cost optimization, prompt versioning, observability"
+    },
+
+    "web3-blockchain": {
+      "description": "Web3 et blockchain development",
+      "primary": ["wizard-agent", "fullstack-super", "security-auditor"],
+      "secondary": ["backend-developer", "tester", "auto-validator"],
+      "optional": ["performance-optimizer"],
+      "executionOrder": "sequential",
+      "notes": "Smart contracts Solidity, Hardhat, OpenZeppelin, multi-chain deployment"
+    },
+
+    "vibe-optimization": {
+      "description": "Flow state detection and productivity optimization",
+      "primary": ["vibe-state-detector", "flow-recovery", "session-manager"],
+      "secondary": ["vibe-analytics", "vibe-master-orchestrator", "outcome-verifier"],
+      "optional": ["memory-bridge", "checkpoint-manager"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["hindsight"],
+      "notes": "Real-time flow detection, productivity metrics, session continuity"
+    },
+
+    "session-continuity": {
+      "description": "Session state management and handoff",
+      "primary": ["session-manager", "memory-bridge", "flow-recovery"],
+      "secondary": ["checkpoint-manager", "vibe-analytics"],
+      "optional": ["outcome-verifier"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["hindsight"],
+      "notes": "PreCompact handoff, ledger tracking, session recovery"
+    },
+
+    "clone-social": {
+      "description": "Clone of social media apps (Instagram, Twitter, Discord, etc.)",
+      "primary": ["wizard-agent", "fullstack-super", "ui-designer"],
+      "secondary": ["database-architect", "api-designer", "security-auditor"],
+      "optional": ["performance-optimizer", "seo-expert"],
+      "executionOrder": "parallel-primary-then-secondary",
+      "mcpsRequired": ["supabase", "shadcn", "context7"],
+      "knowledgeFiles": ["knowledge/clone-wars-catalog.md"],
+      "notes": "For requests like 'comme Instagram', 'clone Discord', 'Twitter like'"
+    },
+
+    "clone-streaming": {
+      "description": "Clone of streaming apps (Netflix, Spotify, YouTube, etc.)",
+      "primary": ["wizard-agent", "fullstack-super", "frontend-developer"],
+      "secondary": ["backend-developer", "performance-optimizer", "database-architect"],
+      "optional": ["seo-expert"],
+      "executionOrder": "parallel-primary-then-secondary",
+      "mcpsRequired": ["supabase", "shadcn"],
+      "knowledgeFiles": ["knowledge/clone-wars-catalog.md"],
+      "notes": "For requests like 'comme Netflix', 'clone Spotify', 'YouTube like'"
+    },
+
+    "clone-ecommerce": {
+      "description": "Clone of e-commerce/marketplace apps (Airbnb, Amazon, Uber, etc.)",
+      "primary": ["wizard-agent", "fullstack-super", "payment-expert"],
+      "secondary": ["database-architect", "backend-developer", "security-auditor"],
+      "optional": ["seo-expert", "performance-optimizer"],
+      "executionOrder": "parallel-primary-then-secondary",
+      "mcpsRequired": ["supabase", "shadcn", "context7"],
+      "knowledgeFiles": ["knowledge/clone-wars-catalog.md"],
+      "notes": "For requests like 'comme Airbnb', 'clone Amazon', 'Uber like'"
+    },
+
+    "clone-productivity": {
+      "description": "Clone of productivity apps (Notion, Trello, Jira, etc.)",
+      "primary": ["wizard-agent", "fullstack-super", "ui-designer"],
+      "secondary": ["backend-developer", "database-architect", "api-designer"],
+      "optional": ["performance-optimizer"],
+      "executionOrder": "parallel-primary-then-secondary",
+      "mcpsRequired": ["supabase", "shadcn"],
+      "knowledgeFiles": ["knowledge/clone-wars-catalog.md"],
+      "notes": "For requests like 'comme Notion', 'clone Trello', 'Jira like'"
+    },
+
+    "clone-communication": {
+      "description": "Clone of communication apps (Slack, WhatsApp, Intercom, etc.)",
+      "primary": ["wizard-agent", "fullstack-super", "backend-developer"],
+      "secondary": ["database-architect", "ui-designer", "security-auditor"],
+      "optional": ["performance-optimizer"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["supabase", "shadcn"],
+      "knowledgeFiles": ["knowledge/clone-wars-catalog.md"],
+      "notes": "For requests like 'comme Slack', 'clone WhatsApp', 'Intercom like'"
+    },
+
+    "product-launch": {
+      "description": "Product builder toolkit - analytics, email, SEO, monitoring",
+      "primary": ["fullstack-super", "seo-expert", "deploy-super"],
+      "secondary": ["security-auditor", "performance-optimizer", "tester"],
+      "optional": ["accessibility-auditor"],
+      "executionOrder": "sequential",
+      "knowledgeFiles": ["knowledge/product-builder-patterns.md", "knowledge/stack-2025.md"],
+      "notes": "Complete toolkit for product launch readiness - Posthog, Resend, Sentry, SEO"
+    },
+
+    "nocode-automation": {
+      "description": "No-code/low-code development avec Airtable, Make et Lovable",
+      "primary": ["wizard-agent", "airtable-expert", "make-automation-expert"],
+      "secondary": ["lovable-analyst", "n8n-workflow-expert", "integration-expert"],
+      "optional": ["automation-expert", "backend-developer"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["airtable", "make", "lovable", "context7"],
+      "knowledgeFiles": ["knowledge/airtable-patterns.md", "knowledge/make-patterns.md", "knowledge/lovable-patterns.md"],
+      "notes": "Synergie pour projets nocode - bases Airtable + scenarios Make + analyse Lovable"
+    },
+
+    "airtable-backend": {
+      "description": "Backend Airtable-first avec integration Make",
+      "primary": ["wizard-agent", "airtable-expert", "backend-developer"],
+      "secondary": ["database-architect", "api-designer", "security-auditor"],
+      "optional": ["make-automation-expert"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["airtable", "supabase", "context7"],
+      "knowledgeFiles": ["knowledge/airtable-patterns.md"],
+      "notes": "Pour projets utilisant Airtable comme backend principal"
+    },
+
+    "lovable-debugging": {
+      "description": "Debug et analyse de projets Lovable",
+      "primary": ["lovable-analyst", "debugger", "code-reviewer"],
+      "secondary": ["frontend-developer", "ui-designer", "auto-validator"],
+      "optional": ["performance-optimizer"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["lovable", "firecrawl", "github"],
+      "knowledgeFiles": ["knowledge/lovable-patterns.md"],
+      "notes": "Pour debugger et ameliorer projets crees avec Lovable"
+    },
+
+    "notion-automation": {
+      "description": "Notion database management + UI automation for views creation",
+      "primary": ["notion-expert", "e2b-desktop-expert", "database-architect"],
+      "secondary": ["make-automation-expert", "backend-developer", "auto-validator"],
+      "optional": ["integration-expert"],
+      "executionOrder": "sequential",
+      "mcpsRequired": ["notion", "e2b", "hindsight"],
+      "knowledgeFiles": ["knowledge/notion-patterns.md"],
+      "notes": "API-First Protocol: Notion API for CRUD, E2B Desktop Vision-Action Loop for views/UI-only operations"
+    }
+  },
+
+  "agentCompatibility": {
+    "highSynergy": [
+      ["fullstack-super", "payment-expert"],
+      ["fullstack-super", "database-architect"],
+      ["database-architect", "security-auditor"],
+      ["game-architect", "phaser-expert"],
+      ["game-architect", "threejs-game-expert"],
+      ["ml-engineer", "pytorch-expert"],
+      ["backend-super", "database-architect"],
+      ["ui-super", "design-strategist"],
+      ["security-auditor", "auto-validator"],
+      ["deep-researcher", "tree-of-thoughts"],
+      ["flowbite-expert", "frontend-developer"],
+      ["daisyui-expert", "ui-designer"],
+      ["boilerplate-expert", "ci-cd-engineer"],
+      ["n8n-workflow-expert", "automation-expert"],
+      ["n8n-workflow-expert", "integration-expert"],
+      ["auto-upgrade-agent", "self-improver"],
+      ["auto-upgrade-agent", "deep-researcher"],
+      ["auto-upgrade-agent", "tree-of-thoughts"],
+      ["auto-upgrade-agent", "self-reflection-loop"],
+      ["innovation-monitor", "deep-researcher"],
+      ["innovation-monitor", "auto-upgrade-agent"],
+      ["self-improver", "self-reflection-loop"],
+      ["docling-expert", "pdf-researcher"],
+      ["docling-expert", "documentation-generator"],
+      ["docling-expert", "rag-expert"],
+      ["autonomous-agent-expert", "llm-integration-expert"],
+      ["autonomous-agent-expert", "prompt-engineer"],
+      ["data-engineer", "analytics-architect"],
+      ["data-engineer", "database-architect"],
+      ["analytics-architect", "database-architect"],
+      ["vector-db-expert", "rag-expert"],
+      ["vector-db-expert", "llmops-specialist"],
+      ["llmops-specialist", "mlops-engineer"],
+      ["llmops-specialist", "ml-engineer"],
+      ["vibe-state-detector", "flow-recovery"],
+      ["vibe-state-detector", "vibe-analytics"],
+      ["flow-recovery", "session-manager"],
+      ["session-manager", "memory-bridge"],
+      ["session-manager", "checkpoint-manager"],
+      ["outcome-verifier", "auto-validator"],
+      ["strix-coordinator", "exploit-validator"],
+      ["strix-coordinator", "payload-engineer"],
+      ["paddleocr-expert", "docling-expert"],
+      ["airtable-expert", "make-automation-expert"],
+      ["airtable-expert", "n8n-workflow-expert"],
+      ["airtable-expert", "backend-developer"],
+      ["make-automation-expert", "n8n-workflow-expert"],
+      ["make-automation-expert", "integration-expert"],
+      ["lovable-analyst", "debugger"],
+      ["lovable-analyst", "frontend-developer"],
+      ["lovable-analyst", "code-reviewer"],
+      ["notion-expert", "e2b-desktop-expert"],
+      ["notion-expert", "database-architect"],
+      ["notion-expert", "make-automation-expert"],
+      ["e2b-desktop-expert", "playwright-expert"],
+      ["e2b-desktop-expert", "browser-automation"]
+    ],
+    "conflicting": [
+      ["speed-optimizer", "quality-super"],
+      ["autonomous-executor", "mentor-mode"]
+    ]
+  },
+
+  "autoActivation": {
+    "rules": [
+      {
+        "condition": "keyword:saas OR keyword:subscription",
+        "activateSynergy": "saas"
+      },
+      {
+        "condition": "keyword:supabase native OR keyword:supabase auth OR keyword:rls OR keyword:row level security OR keyword:mfa supabase",
+        "activateSynergy": "supabase-native"
+      },
+      {
+        "condition": "keyword:game AND keyword:2d",
+        "activateSynergy": "game-2d"
+      },
+      {
+        "condition": "keyword:game AND (keyword:3d OR keyword:three.js)",
+        "activateSynergy": "game-3d"
+      },
+      {
+        "condition": "keyword:unity OR keyword:godot",
+        "activateSynergy": "game-native"
+      },
+      {
+        "condition": "keyword:ml OR keyword:machine learning OR keyword:pytorch",
+        "activateSynergy": "ml-pipeline"
+      },
+      {
+        "condition": "keyword:api OR keyword:backend OR keyword:server",
+        "activateSynergy": "api-backend"
+      },
+      {
+        "condition": "keyword:mobile OR keyword:expo OR keyword:react native",
+        "activateSynergy": "mobile-app"
+      },
+      {
+        "condition": "keyword:odoo",
+        "activateSynergy": "odoo-module"
+      },
+      {
+        "condition": "keyword:trading OR keyword:mql5 OR keyword:metatrader",
+        "activateSynergy": "trading"
+      },
+      {
+        "condition": "keyword:research OR keyword:arxiv OR keyword:paper",
+        "activateSynergy": "research"
+      },
+      {
+        "condition": "keyword:deploy OR keyword:production OR keyword:ci/cd",
+        "activateSynergy": "deployment"
+      },
+      {
+        "condition": "keyword:desktop OR keyword:electron OR keyword:tauri",
+        "activateSynergy": "desktop-app"
+      },
+      {
+        "condition": "keyword:frontend OR keyword:ui OR keyword:interface",
+        "activateSynergy": "frontend-ui"
+      },
+      {
+        "condition": "keyword:audit OR keyword:quality OR keyword:security scan",
+        "activateSynergy": "quality-audit"
+      },
+      {
+        "condition": "keyword:flowbite OR keyword:daisyui OR keyword:dashboard admin",
+        "activateSynergy": "ui-component-library"
+      },
+      {
+        "condition": "keyword:boilerplate OR keyword:starter OR keyword:infrastructure setup",
+        "activateSynergy": "infrastructure-boilerplate"
+      },
+      {
+        "condition": "keyword:n8n OR keyword:workflow automation OR keyword:zapier alternative",
+        "activateSynergy": "workflow-automation"
+      },
+      {
+        "condition": "keyword:autonomous agent OR keyword:ai agent OR keyword:multi-agent",
+        "activateSynergy": "autonomous-agents"
+      },
+      {
+        "condition": "keyword:/autoupgrade OR keyword:auto-upgrade OR keyword:améliorer système OR keyword:upgrade atum-crea OR keyword:analyser sessions OR keyword:self-improvement",
+        "activateSynergy": "self-improvement"
+      },
+      {
+        "condition": "keyword:superpowers OR keyword:agentic skills OR keyword:agent skills OR keyword:obra superpowers OR keyword:skills framework",
+        "activateSynergy": "superpowers-integration"
+      },
+      {
+        "condition": "keyword:parse document OR keyword:extract pdf OR keyword:docling OR keyword:parse pdf OR keyword:table extraction OR keyword:formula extraction",
+        "activateSynergy": "document-processing"
+      },
+      {
+        "condition": "keyword:stripe OR keyword:payment stripe OR keyword:checkout stripe OR keyword:subscription billing OR keyword:webhook stripe OR keyword:paiement",
+        "activateSynergy": "stripe-saas"
+      },
+      {
+        "condition": "keyword:ucp OR keyword:universal commerce OR keyword:agentic commerce OR keyword:commerce agent OR keyword:autonomous commerce OR keyword:checkout session UCP",
+        "activateSynergy": "agentic-commerce"
+      },
+      {
+        "condition": "keyword:data pipeline OR keyword:ETL OR keyword:ELT OR keyword:airflow OR keyword:dbt OR keyword:data warehouse OR keyword:data lake OR keyword:kafka",
+        "activateSynergy": "data-pipeline"
+      },
+      {
+        "condition": "keyword:vector database OR keyword:embeddings OR keyword:semantic search OR keyword:RAG OR keyword:pinecone OR keyword:qdrant OR keyword:pgvector OR keyword:chunking",
+        "activateSynergy": "rag-pipeline"
+      },
+      {
+        "condition": "keyword:LLM deployment OR keyword:LLMOps OR keyword:model serving OR keyword:vLLM OR keyword:LiteLLM OR keyword:prompt versioning OR keyword:LLM gateway",
+        "activateSynergy": "llmops"
+      },
+      {
+        "condition": "keyword:web3 OR keyword:blockchain OR keyword:smart contract OR keyword:solidity OR keyword:hardhat OR keyword:NFT OR keyword:DeFi OR keyword:crypto OR keyword:ethereum",
+        "activateSynergy": "web3-blockchain"
+      },
+      {
+        "condition": "keyword:vibe OR keyword:flow state OR keyword:productivity OR keyword:session recovery",
+        "activateSynergy": "vibe-optimization"
+      },
+      {
+        "condition": "keyword:session OR keyword:handoff OR keyword:context save OR keyword:session continuity",
+        "activateSynergy": "session-continuity"
+      },
+      {
+        "condition": "pattern:comme\\s+(instagram|twitter|facebook|discord|tiktok|reddit|snapchat|mastodon) OR keyword:clone social OR keyword:reseau social",
+        "activateSynergy": "clone-social"
+      },
+      {
+        "condition": "pattern:comme\\s+(netflix|spotify|youtube|twitch|disney|hulu|vimeo) OR keyword:clone streaming OR keyword:streaming video OR keyword:streaming audio",
+        "activateSynergy": "clone-streaming"
+      },
+      {
+        "condition": "pattern:comme\\s+(airbnb|amazon|uber|ubereats|shopify|etsy) OR keyword:clone ecommerce OR keyword:marketplace",
+        "activateSynergy": "clone-ecommerce"
+      },
+      {
+        "condition": "pattern:comme\\s+(notion|trello|jira|todoist|airtable|linear|asana) OR keyword:clone productivity OR keyword:kanban",
+        "activateSynergy": "clone-productivity"
+      },
+      {
+        "condition": "pattern:comme\\s+(slack|whatsapp|telegram|intercom|zendesk) OR keyword:clone communication OR keyword:chat app",
+        "activateSynergy": "clone-communication"
+      },
+      {
+        "condition": "keyword:product launch OR keyword:analytics OR keyword:posthog OR keyword:mixpanel OR keyword:seo OR keyword:monitoring OR keyword:sentry OR keyword:resend OR keyword:email marketing OR keyword:launch checklist",
+        "activateSynergy": "product-launch"
+      },
+      {
+        "condition": "keyword:airtable OR keyword:base airtable OR keyword:airtable records",
+        "activateSynergy": "airtable-backend"
+      },
+      {
+        "condition": "keyword:make OR keyword:make.com OR keyword:integromat OR keyword:scenario make",
+        "activateSynergy": "nocode-automation"
+      },
+      {
+        "condition": "keyword:lovable OR keyword:lovable project OR keyword:debug lovable OR keyword:analyse lovable",
+        "activateSynergy": "lovable-debugging"
+      },
+      {
+        "condition": "keyword:nocode automation OR keyword:no-code workflow OR keyword:airtable make lovable",
+        "activateSynergy": "nocode-automation"
+      },
+      {
+        "condition": "keyword:notion OR keyword:notion database OR keyword:notion view OR keyword:notion automation OR keyword:notion api",
+        "activateSynergy": "notion-automation"
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== MENUS ==================== -->
+
+    <!-- Menu racine -->
+    <menuitem id="menu_{{module_name}}_root"
+              name="{{Module Name}}"
+              sequence="100"
+              web_icon="{{module_name}},static/description/icon.png"/>
+
+    <!-- Sous-menu principal -->
+    <menuitem id="menu_{{module_name}}_main"
+              name="{{Model Name}}"
+              parent="menu_{{module_name}}_root"
+              sequence="10"/>
+
+    <!-- Menu action -->
+    <menuitem id="menu_{{model_name}}"
+              name="Tous les enregistrements"
+              parent="menu_{{module_name}}_main"
+              action="action_{{model_name}}"
+              sequence="10"/>
+
+    <!-- Menu Configuration -->
+    <menuitem id="menu_{{module_name}}_config"
+              name="Configuration"
+              parent="menu_{{module_name}}_root"
+              sequence="100"
+              groups="group_manager"/>
+
+    <!-- Lien vers les paramètres -->
+    <menuitem id="menu_{{module_name}}_settings"
+              name="Paramètres"
+              parent="menu_{{module_name}}_config"
+              action="action_{{module_name}}_config_settings"
+              sequence="10"/>
+
+    <!-- Menu Reporting (optionnel) -->
+    <menuitem id="menu_{{module_name}}_reporting"
+              name="Reporting"
+              parent="menu_{{module_name}}_root"
+              sequence="50"
+              groups="group_manager"/>
+
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Schedule Appointment Wizard -->
+    <record id="view_healthcare_appointment_wizard_form" model="ir.ui.view">
+        <field name="name">healthcare.appointment.wizard.form</field>
+        <field name="model">healthcare.appointment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Schedule Appointment">
+                <group>
+                    <group string="Patient & Practitioner">
+                        <field name="patient_id" options='{"no_create": True}'/>
+                        <field name="practitioner_id" options='{"no_create": True}'/>
+                        <field name="appointment_type"/>
+                    </group>
+                    <group string="Schedule">
+                        <field name="date"/>
+                        <field name="time_slot"/>
+                        <field name="duration" widget="float_time"/>
+                    </group>
+                </group>
+                <separator string="Reason for Visit"/>
+                <field name="reason" placeholder="Describe the reason for this appointment..."/>
+                <footer>
+                    <button name="action_create_appointment" type="object"
+                            string="Schedule Appointment" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_healthcare_appointment_wizard" model="ir.actions.act_window">
+        <field name="name">Schedule Appointment</field>
+        <field name="res_model">healthcare.appointment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Reschedule Wizard -->
+    <record id="view_healthcare_reschedule_wizard_form" model="ir.ui.view">
+        <field name="name">healthcare.reschedule.wizard.form</field>
+        <field name="model">healthcare.reschedule.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reschedule Appointment">
+                <group>
+                    <field name="appointment_id" readonly="1"/>
+                    <field name="new_date"/>
+                    <field name="new_time_slot"/>
+                </group>
+                <separator string="Reason for Rescheduling"/>
+                <field name="reason" placeholder="Why is this appointment being rescheduled?"/>
+                <footer>
+                    <button name="action_reschedule" type="object"
+                            string="Reschedule" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

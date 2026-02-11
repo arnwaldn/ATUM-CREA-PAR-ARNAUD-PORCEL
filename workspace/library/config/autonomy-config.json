@@ -1,0 +1,354 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/autonomy-config.json",
+  "version": "29.4",
+  "description": "ATUM CREA v29.4 WAKE INTEGRATION - Tiered action whitelist with terminal history",
+  "created": "2026-01-26",
+  "updated": "2026-01-26",
+
+  "trustTiers": {
+    "description": "4-tier trust system for action auto-approval",
+
+    "tier0_auto_approve": {
+      "description": "Always auto-approve (zero confirmation)",
+      "confirmationRequired": false,
+      "logAction": false,
+      "actions": {
+        "tools": ["Read", "Glob", "Grep", "WebSearch", "WebFetch"],
+        "bash_patterns": [
+          "git status*",
+          "git log*",
+          "git diff*",
+          "git branch*",
+          "npm list*",
+          "npm outdated*",
+          "npm run lint*",
+          "npm run typecheck*",
+          "node --version",
+          "npm --version",
+          "python --version",
+          "dir *",
+          "ls *",
+          "cat *",
+          "type *",
+          "echo *",
+          "curl -s *",
+          "docker ps*",
+          "docker images*"
+        ],
+        "mcp_operations": [
+          "hindsight_recall",
+          "hindsight_list_banks",
+          "hindsight_stats",
+          "memory_read_graph",
+          "context7_resolve-library-id",
+          "context7_get-library-docs",
+          "playwright_screenshot",
+          "puppeteer_screenshot",
+          "native_screenshot",
+          "native_getTabs",
+          "native_getActiveTab",
+          "native_status",
+          "wake_terminal_history",
+          "wake_terminal_search",
+          "wake_terminal_context",
+          "wake_terminal_stats"
+        ]
+      }
+    },
+
+    "tier1_quiet_approve": {
+      "description": "Log but don't ask (low risk project operations)",
+      "confirmationRequired": false,
+      "logAction": true,
+      "learnFromUsage": true,
+      "actions": {
+        "tools": ["Write", "Edit", "NotebookEdit"],
+        "bash_patterns": [
+          "npm install",
+          "npm run dev*",
+          "npm run build*",
+          "npm run test*",
+          "npm run start*",
+          "pnpm install",
+          "pnpm run *",
+          "yarn install",
+          "yarn run *",
+          "git add *",
+          "git commit *",
+          "git checkout *",
+          "git stash*",
+          "mkdir *",
+          "vitest*",
+          "jest*",
+          "playwright test*",
+          "python *.py",
+          "node *.js",
+          "npx *"
+        ],
+        "mcp_operations": [
+          "hindsight_retain",
+          "memory_write_graph",
+          "playwright_navigate",
+          "playwright_click",
+          "playwright_fill",
+          "puppeteer_navigate",
+          "puppeteer_click",
+          "puppeteer_fill",
+          "native_navigate",
+          "native_scroll",
+          "native_getContent",
+          "native_query",
+          "e2b_run_code",
+          "desktop-commander_execute_command"
+        ],
+        "excludePatterns": [
+          "*.env*",
+          "*.pem",
+          "*.key",
+          "*credentials*",
+          "*secret*",
+          "*password*",
+          "*.sqlite*",
+          "node_modules/*"
+        ]
+      }
+    },
+
+    "tier2_confirm_once": {
+      "description": "Ask once per session, remember approval",
+      "confirmationRequired": true,
+      "confirmOnce": true,
+      "sessionMemory": true,
+      "actions": {
+        "bash_patterns": [
+          "npm install *",
+          "pnpm add *",
+          "yarn add *",
+          "pip install *",
+          "git push origin *",
+          "git merge *",
+          "git rebase *",
+          "rm *",
+          "del *",
+          "Remove-Item *",
+          "docker run *",
+          "docker build *",
+          "docker-compose up*"
+        ],
+        "mcp_operations": [
+          "supabase_*",
+          "github_create_*",
+          "github_update_*",
+          "postgres_execute",
+          "notion_create_*",
+          "e2b_install_packages"
+        ],
+        "domains": {
+          "description": "Browser navigation to new domains requires one-time approval",
+          "excludePatterns": ["localhost", "127.0.0.1", "*.test", "*.local"]
+        }
+      }
+    },
+
+    "tier3_always_confirm": {
+      "description": "Always require explicit user confirmation",
+      "confirmationRequired": true,
+      "confirmOnce": false,
+      "highlightRisk": true,
+      "actions": {
+        "bash_patterns": [
+          "git push * main",
+          "git push * master",
+          "git push --force*",
+          "git reset --hard*",
+          "git clean -f*",
+          "rm -rf *",
+          "rmdir /s *",
+          "Remove-Item -Recurse -Force *",
+          "npm publish*",
+          "docker push*",
+          "kubectl *",
+          "terraform apply*",
+          "vercel --prod*",
+          "netlify deploy --prod*",
+          "firebase deploy*",
+          "aws *",
+          "gcloud *"
+        ],
+        "mcp_operations": [
+          "github_delete_*",
+          "supabase_delete_*",
+          "postgres_drop_*",
+          "vercel_deploy_production",
+          "stripe_create_charge",
+          "stripe_create_subscription"
+        ],
+        "filePatterns": [
+          ".env*",
+          "*.pem",
+          "*.key",
+          "**/secrets/*",
+          "**/credentials/*",
+          "package.json",
+          "package-lock.json",
+          "yarn.lock",
+          "pnpm-lock.yaml"
+        ]
+      }
+    }
+  },
+
+  "browserActions": {
+    "description": "Browser-specific action tiers for v29.1 BROWSER AUTONOMY",
+    "tier0": {
+      "description": "Read-only browser operations - always auto-approve",
+      "actions": ["screenshot", "getCurrentUrl", "getPageTitle", "getPageSource", "getConsole", "getCookies"]
+    },
+    "tier1": {
+      "description": "Navigation and passive interaction - log only",
+      "actions": ["navigate", "scroll", "hover", "waitForSelector", "waitForNavigation", "reload"]
+    },
+    "tier2": {
+      "description": "Active interaction - confirm once per session",
+      "actions": ["click", "fill", "select", "clear", "focus", "press", "drag", "upload"]
+    },
+    "tier3": {
+      "description": "Sensitive actions - always confirm",
+      "actions": ["submit", "login", "logout", "purchase", "delete", "download", "print", "execute"]
+    },
+    "siteOverrides": {
+      "description": "Site-specific tier overrides",
+      "authSites": {
+        "comment": "Sites that bump tier to 3 if action involves auth",
+        "patterns": ["github.com", "gitlab.com", "mail.google.com", "bank*", "*pay*"]
+      },
+      "trustedSites": {
+        "comment": "Sites that can use lower tiers",
+        "patterns": ["localhost", "127.0.0.1", "*.local", "*.test"]
+      }
+    }
+  },
+
+  "nativeBrowserActions": {
+    "description": "Native Messaging browser actions for v29.3 - Real Chrome control with preserved sessions",
+    "priority": 0,
+    "requiresExtension": true,
+    "sessionPreserved": true,
+    "tier0": {
+      "description": "Read-only operations - always auto-approve",
+      "actions": ["screenshot", "getTabs", "getActiveTab", "status", "listClaims"]
+    },
+    "tier1": {
+      "description": "Navigation and content - log only",
+      "actions": ["navigate", "scroll", "getContent", "query", "waitForSelector"]
+    },
+    "tier2": {
+      "description": "Active interaction - confirm once per session",
+      "actions": ["click", "fill", "openTab", "closeTab", "claimTab", "releaseTab"]
+    },
+    "tier3": {
+      "description": "Code execution and sensitive - always confirm",
+      "actions": ["evaluate", "login", "submit", "purchase"]
+    },
+    "advantages": {
+      "sessionPreserved": "User's login sessions, cookies, and auth state are preserved",
+      "realChrome": "Actions execute in user's actual Chrome browser",
+      "extensions": "User's Chrome extensions are available",
+      "history": "User's browsing history and bookmarks accessible"
+    }
+  },
+
+  "userModes": {
+    "description": "Pre-configured autonomy levels",
+    "modes": {
+      "cautious": {
+        "description": "Maximum safety - confirm most actions",
+        "minTier": 2,
+        "overrides": {
+          "tier1_quiet_approve": { "confirmationRequired": true }
+        }
+      },
+      "balanced": {
+        "description": "Default mode - trust common operations",
+        "minTier": 1,
+        "overrides": {}
+      },
+      "autonomous": {
+        "description": "Maximum autonomy - minimal confirmations",
+        "minTier": 0,
+        "overrides": {
+          "tier2_confirm_once": { "confirmOnce": true, "sessionMemory": true }
+        }
+      },
+      "yolo": {
+        "description": "Full autonomy - only tier3 requires confirmation",
+        "minTier": 0,
+        "overrides": {
+          "tier2_confirm_once": { "confirmationRequired": false, "logAction": true }
+        },
+        "warning": "Use only for trusted development environments"
+      }
+    },
+    "default": "balanced"
+  },
+
+  "learning": {
+    "description": "Trust learning configuration",
+    "enabled": true,
+    "hindsightBank": "patterns",
+    "promotionThreshold": 3,
+    "promotionRules": {
+      "tier2_to_tier1": {
+        "requiredApprovals": 3,
+        "timeWindow": "7d",
+        "maxPromotionsPerDay": 5
+      },
+      "tier3_to_tier2": {
+        "requiredApprovals": 5,
+        "timeWindow": "30d",
+        "requiresExplicitConsent": true
+      }
+    },
+    "patternExtraction": {
+      "captureContext": true,
+      "captureOutcome": true,
+      "normalizePatterns": true
+    }
+  },
+
+  "projectOverrides": {
+    "description": "Per-project autonomy settings (path -> settings)",
+    "enabled": true,
+    "configFile": ".ultra-autonomy.json",
+    "examples": {
+      "C:\\Projects\\production-app": {
+        "mode": "cautious",
+        "customRules": []
+      },
+      "C:\\Projects\\playground": {
+        "mode": "yolo",
+        "customRules": []
+      }
+    }
+  },
+
+  "sessionState": {
+    "description": "Session-level approval tracking",
+    "storeApprovals": true,
+    "approvalTTL": "session",
+    "persistToLedger": true
+  },
+
+  "logging": {
+    "enabled": true,
+    "logFile": "logs/autonomy-actions.log",
+    "logLevel": "info",
+    "logFormat": {
+      "timestamp": true,
+      "action": true,
+      "tier": true,
+      "decision": true,
+      "context": true
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "27.17",
+  "name": "Self-Modification Rules",
+  "description": "Safety constraints for BabyElfAGI-style self-modifying agent capabilities",
+  "source_pattern": "BabyElfAGI (awesome-ai-agents)",
+
+  "permissions": {
+    "allowed_paths": [
+      "agents/meta/*",
+      "agents/patterns/*",
+      "agents/specialized/*",
+      "agents/mcp-specialists/*",
+      "config/*.json",
+      "knowledge/*.md",
+      "knowledge/learnings/*.md",
+      "skills/verified/*"
+    ],
+    "require_approval": [
+      "agents/core/*",
+      "agents/orchestration/*",
+      "agents/swarm/*",
+      "agents/registry.json",
+      "templates/manifest.json"
+    ],
+    "forbidden": [
+      "scripts/hooks/*",
+      ".claude/*",
+      "CLAUDE.md",
+      "*.ps1",
+      "*.sh",
+      "node_modules/*",
+      ".git/*",
+      ".env*"
+    ]
+  },
+
+  "constraints": {
+    "max_modifications_per_session": 5,
+    "max_file_size_bytes": 50000,
+    "max_lines_changed_per_file": 100,
+    "require_backup_before_modify": true,
+    "rollback_on_syntax_error": true,
+    "rollback_on_test_failure": true,
+    "cooldown_between_modifications_ms": 5000
+  },
+
+  "validation": {
+    "json_files": {
+      "must_be_valid_json": true,
+      "must_have_version": true,
+      "schema_validation": true
+    },
+    "markdown_files": {
+      "must_have_frontmatter": false,
+      "must_have_h1_title": true,
+      "max_heading_depth": 4
+    },
+    "agent_files": {
+      "required_sections": ["Role", "Capabilities"],
+      "must_reference_registry": true
+    }
+  },
+
+  "triggers": {
+    "pattern_threshold": 3,
+    "confidence_threshold": 80,
+    "time_saved_threshold_minutes": 5,
+    "error_prevention_threshold": 2
+  },
+
+  "modification_types": {
+    "add_pattern": {
+      "description": "Add a new pattern to knowledge base",
+      "target_files": ["knowledge/*.md", "knowledge/learnings/*.md"],
+      "approval_required": false,
+      "auto_backup": true
+    },
+    "update_agent_capability": {
+      "description": "Add new capability to existing agent",
+      "target_files": ["agents/**/*.md"],
+      "approval_required": true,
+      "auto_backup": true
+    },
+    "create_agent": {
+      "description": "Create entirely new agent",
+      "target_files": ["agents/**/*.md"],
+      "approval_required": true,
+      "auto_backup": false
+    },
+    "update_config": {
+      "description": "Modify configuration files",
+      "target_files": ["config/*.json"],
+      "approval_required": false,
+      "auto_backup": true
+    },
+    "add_skill": {
+      "description": "Add verified skill to skill library",
+      "target_files": ["skills/verified/*"],
+      "approval_required": false,
+      "auto_backup": false
+    }
+  },
+
+  "safety_gates": {
+    "pre_modification": [
+      "check_path_allowed",
+      "check_session_limit",
+      "check_cooldown",
+      "create_backup"
+    ],
+    "post_modification": [
+      "validate_syntax",
+      "run_schema_check",
+      "verify_no_secrets",
+      "log_modification"
+    ],
+    "on_failure": [
+      "restore_backup",
+      "log_failure",
+      "increment_failure_count",
+      "notify_if_repeated"
+    ]
+  },
+
+  "logging": {
+    "log_file": "logs/self-modifications.log",
+    "log_format": "json",
+    "include_diff": true,
+    "include_reasoning": true,
+    "retention_days": 30
+  },
+
+  "darwin_godel_integration": {
+    "enabled": true,
+    "pattern_id": 15,
+    "description": "Self-referential improvement via code modification",
+    "principles": [
+      "Modification must improve system capability",
+      "Modification must not break existing functionality",
+      "Modification must be reversible",
+      "Modification must be logged with reasoning"
+    ]
+  }
+}

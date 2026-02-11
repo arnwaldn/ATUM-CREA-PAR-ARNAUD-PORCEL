@@ -1,0 +1,94 @@
+{
+  "$schema": "./config/settings-schema.json",
+  "version": "16.0.0",
+  "name": "ULTRA-CREATE",
+  "description": "Systeme autonome de creation de projets pour Claude Code",
+
+  "paths": {
+    "root": "C:\\Claude-Code-Creation",
+    "agents": "C:\\Claude-Code-Creation\\agents",
+    "config": "C:\\Claude-Code-Creation\\config",
+    "memory": "C:\\Claude-Code-Creation\\memory",
+    "prompts": "C:\\Claude-Code-Creation\\prompts",
+    "scripts": "C:\\Claude-Code-Creation\\scripts",
+    "workflows": "C:\\Claude-Code-Creation\\workflows",
+    "templates": "C:\\Claude-Code-Creation\\templates",
+    "knowledge": "C:\\Claude-Code-Creation\\knowledge",
+    "logs": "C:\\Claude-Code-Creation\\logs",
+    "monitoring": "C:\\Claude-Code-Creation\\monitoring",
+    "data": "C:\\Claude-Code-Creation\\data"
+  },
+
+  "agents": {
+    "core": [
+      "agents/core/orchestrator.md",
+      "agents/core/memory-manager.md",
+      "agents/core/error-handler.md"
+    ],
+    "specialization": "agents/specialization/README.md",
+    "superAgents": [
+      "agents/super-agents/fullstack-super.md",
+      "agents/super-agents/ui-super.md",
+      "agents/super-agents/backend-super.md",
+      "agents/super-agents/research-super.md",
+      "agents/super-agents/deploy-super.md",
+      "agents/super-agents/quality-super.md"
+    ],
+    "protocol": "agents/protocol.json"
+  },
+
+  "mcp": {
+    "configFile": ".mcp.json",
+    "profiles": "config/mcp-profiles.json",
+    "validation": "scripts/validate-mcp.ps1"
+  },
+
+  "memory": {
+    "architecture": "memory/architecture.md",
+    "redisSchema": "memory/redis-schema.json",
+    "decayPolicy": "memory/decay-policy.json"
+  },
+
+  "config": {
+    "modelRouting": "config/model-routing.json",
+    "context7": "config/context7-config.json",
+    "neo4jSchema": "config/neo4j-schema.cypher",
+    "logging": "config/logging.json"
+  },
+
+  "monitoring": {
+    "dashboard": "monitoring/dashboard.json",
+    "costTracker": "monitoring/api-cost-tracker.js"
+  },
+
+  "prompts": {
+    "systemTemplate": "prompts/system-template.md",
+    "agentTemplates": "prompts/agents/"
+  },
+
+  "workflows": {
+    "saas": "workflows/saas-parallel.md",
+    "landing": "workflows/landing-parallel.md",
+    "ecommerce": "workflows/ecommerce-parallel.md",
+    "api": "workflows/api-parallel.md",
+    "mobile": "workflows/mobile-parallel.md"
+  },
+
+  "security": {
+    "secretsFile": ".env.secrets",
+    "gitignorePatterns": [
+      ".env.secrets",
+      "*.key",
+      "*.pem",
+      ".env.local"
+    ]
+  },
+
+  "defaults": {
+    "model": "claude-sonnet-4-20250514",
+    "haiku": "claude-haiku-4-5-20251001",
+    "opus": "claude-opus-4-5-20251101",
+    "maxTokens": 8000,
+    "temperature": 0.7
+  }
+}

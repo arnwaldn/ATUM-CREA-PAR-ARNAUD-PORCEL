@@ -1,0 +1,88 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/logging.json",
+  "version": "27.0",
+  "description": "Configuration de logging pour ATUM CREA v27.0",
+  "lastUpdated": "2026-01-02",
+
+  "level": "info",
+  "format": "json",
+
+  "outputs": [
+    {
+      "type": "file",
+      "path": "C:\\Claude-Code-Creation\\logs\\ultra-create.log",
+      "rotation": {
+        "max_size_mb": 100,
+        "max_files": 10,
+        "compress": true,
+        "date_pattern": "YYYY-MM-DD"
+      }
+    },
+    {
+      "type": "file",
+      "path": "C:\\Claude-Code-Creation\\logs\\errors.log",
+      "level": "error",
+      "rotation": {
+        "max_size_mb": 50,
+        "max_files": 5,
+        "compress": true
+      }
+    },
+    {
+      "type": "console",
+      "colorize": true,
+      "timestamp": true
+    }
+  ],
+
+  "categories": {
+    "agent": {
+      "level": "debug",
+      "file": "logs/agents.log"
+    },
+    "memory": {
+      "level": "info",
+      "file": "logs/memory.log"
+    },
+    "mcp": {
+      "level": "warn",
+      "file": "logs/mcp.log"
+    },
+    "security": {
+      "level": "info",
+      "file": "logs/security.log"
+    },
+    "performance": {
+      "level": "info",
+      "file": "logs/performance.log"
+    }
+  },
+
+  "redact": [
+    "password",
+    "token",
+    "api_key",
+    "secret",
+    "credential",
+    "auth",
+    "bearer"
+  ],
+
+  "metadata": {
+    "include_timestamp": true,
+    "include_level": true,
+    "include_category": true,
+    "include_source": true,
+    "include_session_id": true
+  },
+
+  "alerts": {
+    "enabled": true,
+    "channels": ["console", "file"],
+    "triggers": {
+      "error_rate_threshold": 0.05,
+      "response_time_threshold_ms": 5000,
+      "memory_usage_threshold_mb": 500
+    }
+  }
+}

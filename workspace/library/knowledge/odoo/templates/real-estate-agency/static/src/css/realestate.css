@@ -1,0 +1,202 @@
+/* Real Estate Agency Module Styles */
+
+/* Property Kanban Card */
+.o_realestate_property_kanban .o_kanban_image {
+    width: 128px;
+    height: 96px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.o_realestate_property_kanban .o_kanban_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Property status badges */
+.o_realestate_status_available {
+    background-color: #28a745;
+    color: white;
+}
+
+.o_realestate_status_option {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.o_realestate_status_sold {
+    background-color: #6c757d;
+    color: white;
+}
+
+.o_realestate_status_rented {
+    background-color: #17a2b8;
+    color: white;
+}
+
+/* Energy class badges */
+.o_energy_class {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: white;
+}
+
+.o_energy_class_a { background-color: #00a651; }
+.o_energy_class_b { background-color: #50b848; }
+.o_energy_class_c { background-color: #b3d334; color: #333; }
+.o_energy_class_d { background-color: #fff200; color: #333; }
+.o_energy_class_e { background-color: #f7931d; }
+.o_energy_class_f { background-color: #f15a24; }
+.o_energy_class_g { background-color: #ed1c24; }
+
+/* Price display */
+.o_realestate_price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2196F3;
+}
+
+.o_realestate_price_per_sqm {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* Property features icons */
+.o_realestate_features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.o_realestate_feature_item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.o_realestate_feature_item i {
+    color: #6c757d;
+}
+
+/* Visit calendar colors */
+.fc-event.o_realestate_visit_scheduled {
+    background-color: #6c757d !important;
+    border-color: #5a6268 !important;
+}
+
+.fc-event.o_realestate_visit_confirmed {
+    background-color: #007bff !important;
+    border-color: #0056b3 !important;
+}
+
+.fc-event.o_realestate_visit_completed {
+    background-color: #28a745 !important;
+    border-color: #1e7e34 !important;
+}
+
+/* Offer percentage display */
+.o_realestate_offer_percentage {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.o_realestate_offer_percentage.below {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.o_realestate_offer_percentage.above {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* Lease balance display */
+.o_realestate_balance_positive {
+    color: #28a745;
+}
+
+.o_realestate_balance_negative {
+    color: #dc3545;
+}
+
+/* Property image gallery */
+.o_realestate_image_gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.o_realestate_image_gallery .o_image_thumbnail {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.o_realestate_image_gallery .o_image_thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.o_realestate_image_gallery .o_image_thumbnail:hover img {
+    transform: scale(1.05);
+}
+
+/* Mandate timeline */
+.o_realestate_mandate_timeline {
+    position: relative;
+    padding-left: 20px;
+}
+
+.o_realestate_mandate_timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #dee2e6;
+}
+
+.o_realestate_mandate_timeline .timeline_item {
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.o_realestate_mandate_timeline .timeline_item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #007bff;
+}
+
+/* Print styles */
+@media print {
+    .o_realestate_property_sheet {
+        font-size: 10pt;
+    }
+
+    .o_realestate_property_sheet .no-print {
+        display: none !important;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .o_realestate_features {
+        flex-direction: column;
+    }
+
+    .o_realestate_image_gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

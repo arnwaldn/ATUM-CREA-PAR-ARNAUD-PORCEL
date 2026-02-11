@@ -1,0 +1,91 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/wake-config.json",
+  "version": "29.4",
+  "description": "Wake terminal history integration - Captures terminal activity outside Claude Code",
+  "created": "2026-01-26",
+
+  "enabled": true,
+  "mcpName": "wake-mcp",
+
+  "retention": {
+    "days": 21,
+    "maxOutputMB": 5,
+    "description": "Commands and outputs retained for 21 days, max 5MB per output"
+  },
+
+  "autoShell": false,
+  "autoShellNote": "Set to true to auto-launch wake shell on terminal open (requires shell profile config)",
+
+  "triggers": {
+    "description": "Phrases that trigger wake-mcp routing",
+    "fr": [
+      "historique terminal",
+      "qu'ai fait",
+      "quai fait",
+      "commandes recentes",
+      "tout a l'heure",
+      "avant cette session",
+      "ce que j'ai fait",
+      "commande precedente",
+      "derniere commande",
+      "terminal avant"
+    ],
+    "en": [
+      "terminal history",
+      "what did I do",
+      "recent commands",
+      "earlier today",
+      "before this session",
+      "what I did",
+      "previous command",
+      "last command",
+      "terminal before"
+    ]
+  },
+
+  "integration": {
+    "smartContextLoader": true,
+    "sessionStart": true,
+    "mcpAutoRouter": true,
+    "description": "Which ATUM CREA components integrate with Wake"
+  },
+
+  "complementarity": {
+    "wake": {
+      "focus": "Terminal activity (commands, outputs, errors)",
+      "storage": "SQLite (~/.wake/)",
+      "retention": "21 days",
+      "captures": "What the user DID"
+    },
+    "hindsight": {
+      "focus": "Semantic memory (patterns, learnings, errors)",
+      "storage": "Vector DB",
+      "retention": "Permanent",
+      "captures": "What the user LEARNED"
+    },
+    "verdict": "COMPLEMENTARY - Wake captures 'what', Hindsight retains 'why'"
+  },
+
+  "installation": {
+    "windows": {
+      "method": "cargo",
+      "commands": [
+        "git clone https://github.com/joemckenney/wake",
+        "cd wake && cargo build --release",
+        "copy target\\release\\wake.exe %USERPROFILE%\\.cargo\\bin\\"
+      ]
+    },
+    "unix": {
+      "method": "script",
+      "command": "curl -sSf https://raw.githubusercontent.com/joemckenney/wake/main/install.sh | sh"
+    },
+    "mcp": {
+      "command": "claude mcp add --transport stdio --scope user wake-mcp -- wake-mcp"
+    },
+    "shellHooks": {
+      "powershell": "Add-Content $PROFILE 'Invoke-Expression (wake init pwsh)'",
+      "bash": "echo 'eval \"$(wake init bash)\"' >> ~/.bashrc",
+      "zsh": "echo 'eval \"$(wake init zsh)\"' >> ~/.zshrc"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Practitioners -->
+        <record id="demo_practitioner_1" model="healthcare.practitioner">
+            <field name="name">Dr. Sophie Martin</field>
+            <field name="practitioner_type">doctor</field>
+            <field name="specialty">general</field>
+            <field name="registration_number">MED-2024-001</field>
+            <field name="email">sophie.martin@clinic.example.com</field>
+            <field name="phone">+33 1 23 45 67 89</field>
+            <field name="consultation_fee">50.00</field>
+        </record>
+
+        <record id="demo_practitioner_2" model="healthcare.practitioner">
+            <field name="name">Dr. Jean Dupont</field>
+            <field name="practitioner_type">specialist</field>
+            <field name="specialty">cardiology</field>
+            <field name="registration_number">MED-2024-002</field>
+            <field name="email">jean.dupont@clinic.example.com</field>
+            <field name="phone">+33 1 23 45 67 90</field>
+            <field name="consultation_fee">80.00</field>
+        </record>
+
+        <record id="demo_practitioner_3" model="healthcare.practitioner">
+            <field name="name">Marie Leclerc</field>
+            <field name="practitioner_type">nurse</field>
+            <field name="registration_number">NUR-2024-001</field>
+            <field name="email">marie.leclerc@clinic.example.com</field>
+            <field name="phone">+33 1 23 45 67 91</field>
+        </record>
+
+        <!-- Demo Patients -->
+        <record id="demo_patient_1" model="healthcare.patient">
+            <field name="name">Pierre Durand</field>
+            <field name="birthdate">1985-03-15</field>
+            <field name="gender">male</field>
+            <field name="blood_type">a_positive</field>
+            <field name="phone">+33 6 12 34 56 78</field>
+            <field name="email">pierre.durand@example.com</field>
+            <field name="street">123 Rue de la Paix</field>
+            <field name="city">Paris</field>
+            <field name="zip">75001</field>
+            <field name="emergency_contact_name">Marie Durand</field>
+            <field name="emergency_contact_phone">+33 6 98 76 54 32</field>
+            <field name="emergency_contact_relation">spouse</field>
+            <field name="insurance_provider">Mutuelle Santé Plus</field>
+            <field name="insurance_number">MSP-123456</field>
+        </record>
+
+        <record id="demo_patient_2" model="healthcare.patient">
+            <field name="name">Claire Moreau</field>
+            <field name="birthdate">1990-07-22</field>
+            <field name="gender">female</field>
+            <field name="blood_type">o_negative</field>
+            <field name="phone">+33 6 23 45 67 89</field>
+            <field name="email">claire.moreau@example.com</field>
+            <field name="street">45 Avenue des Champs</field>
+            <field name="city">Lyon</field>
+            <field name="zip">69001</field>
+            <field name="allergy_ids" eval="[(4, ref('allergy_penicillin'))]"/>
+        </record>
+
+        <record id="demo_patient_3" model="healthcare.patient">
+            <field name="name">Michel Bernard</field>
+            <field name="birthdate">1955-11-08</field>
+            <field name="gender">male</field>
+            <field name="blood_type">b_positive</field>
+            <field name="phone">+33 6 34 56 78 90</field>
+            <field name="email">michel.bernard@example.com</field>
+            <field name="chronic_condition_ids" eval="[(4, ref('condition_hypertension')), (4, ref('condition_diabetes_type2'))]"/>
+        </record>
+
+        <!-- Demo Appointments -->
+        <record id="demo_appointment_1" model="healthcare.appointment">
+            <field name="patient_id" ref="demo_patient_1"/>
+            <field name="practitioner_id" ref="demo_practitioner_1"/>
+            <field name="appointment_type">consultation</field>
+            <field name="date_start" eval="(DateTime.now() + timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration">0.5</field>
+            <field name="reason">Annual check-up</field>
+            <field name="state">confirmed</field>
+        </record>
+
+        <record id="demo_appointment_2" model="healthcare.appointment">
+            <field name="patient_id" ref="demo_patient_2"/>
+            <field name="practitioner_id" ref="demo_practitioner_2"/>
+            <field name="appointment_type">consultation</field>
+            <field name="date_start" eval="(DateTime.now() + timedelta(hours=4)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration">1.0</field>
+            <field name="reason">Heart palpitations - referred by GP</field>
+            <field name="state">confirmed</field>
+        </record>
+
+        <record id="demo_appointment_3" model="healthcare.appointment">
+            <field name="patient_id" ref="demo_patient_3"/>
+            <field name="practitioner_id" ref="demo_practitioner_1"/>
+            <field name="appointment_type">follow_up</field>
+            <field name="date_start" eval="(DateTime.now() + timedelta(days=1, hours=3)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration">0.5</field>
+            <field name="reason">Diabetes follow-up</field>
+            <field name="state">draft</field>
+        </record>
+
+        <!-- Demo Consultation (completed) -->
+        <record id="demo_consultation_1" model="healthcare.consultation">
+            <field name="patient_id" ref="demo_patient_3"/>
+            <field name="practitioner_id" ref="demo_practitioner_1"/>
+            <field name="date" eval="(DateTime.now() - timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="reason">Routine diabetes check</field>
+            <field name="chief_complaint">Patient reports occasional dizziness</field>
+            <field name="weight">85.0</field>
+            <field name="height">175.0</field>
+            <field name="blood_pressure_systolic">145</field>
+            <field name="blood_pressure_diastolic">92</field>
+            <field name="heart_rate">78</field>
+            <field name="diagnosis_ids" eval="[(4, ref('condition_hypertension'))]"/>
+            <field name="treatment_plan">&lt;p&gt;Continue current medication. Increase physical activity. Follow low-sodium diet.&lt;/p&gt;</field>
+            <field name="follow_up_required">True</field>
+            <field name="follow_up_notes">Review blood pressure in 30 days</field>
+            <field name="state">done</field>
+            <field name="billable">True</field>
+            <field name="consultation_fee">50.00</field>
+        </record>
+
+        <!-- Demo Prescription -->
+        <record id="demo_prescription_1" model="healthcare.prescription">
+            <field name="patient_id" ref="demo_patient_3"/>
+            <field name="practitioner_id" ref="demo_practitioner_1"/>
+            <field name="consultation_id" ref="demo_consultation_1"/>
+            <field name="date" eval="(DateTime.now() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="validity_days">90</field>
+            <field name="diagnosis">Essential hypertension, Type 2 diabetes</field>
+            <field name="state">dispensed</field>
+            <field name="max_renewals">2</field>
+        </record>
+
+        <record id="demo_prescription_line_1" model="healthcare.prescription.line">
+            <field name="prescription_id" ref="demo_prescription_1"/>
+            <field name="medication_id" ref="medication_lisinopril"/>
+            <field name="dosage">1 tablet</field>
+            <field name="frequency">once_daily</field>
+            <field name="duration">90</field>
+            <field name="duration_unit">days</field>
+            <field name="quantity">90</field>
+            <field name="time_of_day">morning</field>
+        </record>
+
+        <record id="demo_prescription_line_2" model="healthcare.prescription.line">
+            <field name="prescription_id" ref="demo_prescription_1"/>
+            <field name="medication_id" ref="medication_metformin"/>
+            <field name="dosage">1 tablet</field>
+            <field name="frequency">twice_daily</field>
+            <field name="duration">90</field>
+            <field name="duration_unit">days</field>
+            <field name="quantity">180</field>
+            <field name="take_with_food">True</field>
+        </record>
+    </data>
+</odoo>

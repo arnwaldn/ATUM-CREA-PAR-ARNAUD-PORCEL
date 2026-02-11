@@ -1,0 +1,65 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/context7-config.json",
+  "version": "27.0",
+  "description": "Configuration Context7 pour ATUM CREA v27.0",
+  "lastUpdated": "2026-01-02",
+
+  "cache": {
+    "enabled": true,
+    "strategy": "semantic",
+    "ttl_seconds": 3600,
+    "max_entries": 1000,
+    "invalidation": {
+      "on_file_change": true,
+      "on_schema_change": true,
+      "manual_trigger": true
+    }
+  },
+
+  "retrieval": {
+    "top_k": 10,
+    "min_similarity": 0.7,
+    "reranking": true,
+    "hybrid_search": true,
+    "dense_weight": 0.7,
+    "sparse_weight": 0.3
+  },
+
+  "documentation": {
+    "auto_index": true,
+    "sources": [
+      "C:\\Claude-Code-Creation\\docs",
+      "C:\\Claude-Code-Creation\\README.md",
+      "C:\\Claude-Code-Creation\\CLAUDE.md",
+      "C:\\Claude-Code-Creation\\knowledge"
+    ],
+    "exclude_patterns": [
+      "node_modules/**",
+      ".git/**",
+      "*.log",
+      "*.lock"
+    ]
+  },
+
+  "libraries": {
+    "priority": [
+      "nextjs",
+      "react",
+      "typescript",
+      "tailwindcss",
+      "shadcn-ui",
+      "supabase",
+      "prisma",
+      "stripe"
+    ],
+    "auto_fetch": true,
+    "cache_duration_hours": 24
+  },
+
+  "performance": {
+    "max_concurrent_requests": 5,
+    "request_timeout_ms": 10000,
+    "retry_attempts": 3,
+    "batch_size": 10
+  }
+}

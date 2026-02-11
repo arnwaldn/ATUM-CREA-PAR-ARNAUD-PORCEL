@@ -1,0 +1,220 @@
+/* Field Service Management Styles */
+
+/* Priority colors for kanban */
+.o_fsm_kanban_urgent {
+    border-left: 3px solid #dc3545 !important;
+}
+
+.o_fsm_kanban_high {
+    border-left: 3px solid #ffc107 !important;
+}
+
+/* Technician availability badges */
+.o_fsm_status_available {
+    background-color: #28a745;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+.o_fsm_status_busy {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+.o_fsm_status_unavailable {
+    background-color: #dc3545;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+/* Calendar event colors */
+.o_fsm_calendar_draft {
+    background-color: #6c757d !important;
+}
+
+.o_fsm_calendar_scheduled {
+    background-color: #007bff !important;
+}
+
+.o_fsm_calendar_in_progress {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.o_fsm_calendar_done {
+    background-color: #28a745 !important;
+}
+
+/* Intervention state indicators */
+.o_fsm_intervention_header {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.o_fsm_intervention_header.draft {
+    background-color: #e9ecef;
+    border-left: 4px solid #6c757d;
+}
+
+.o_fsm_intervention_header.scheduled {
+    background-color: #cce5ff;
+    border-left: 4px solid #007bff;
+}
+
+.o_fsm_intervention_header.in_progress {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+.o_fsm_intervention_header.done {
+    background-color: #d4edda;
+    border-left: 4px solid #28a745;
+}
+
+/* SLA indicators */
+.o_fsm_sla_ok {
+    color: #28a745;
+}
+
+.o_fsm_sla_warning {
+    color: #ffc107;
+}
+
+.o_fsm_sla_breach {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Equipment maintenance alerts */
+.o_fsm_maintenance_due {
+    background-color: #fff3cd;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ffeeba;
+}
+
+.o_fsm_maintenance_overdue {
+    background-color: #f8d7da;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
+}
+
+/* Contract coverage badges */
+.o_fsm_coverage_basic {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.o_fsm_coverage_standard {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.o_fsm_coverage_premium {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Kanban card improvements */
+.o_fsm_kanban_card {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease;
+}
+
+.o_fsm_kanban_card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Signature pad styling */
+.o_fsm_signature_container {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
+.o_fsm_signature_label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+/* Skill level badges */
+.o_fsm_skill_beginner {
+    background-color: #17a2b8;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+.o_fsm_skill_intermediate {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+.o_fsm_skill_expert {
+    background-color: #28a745;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+/* Parts and time entry tables */
+.o_fsm_parts_table,
+.o_fsm_time_table {
+    margin-top: 10px;
+}
+
+.o_fsm_parts_table .o_data_cell,
+.o_fsm_time_table .o_data_cell {
+    vertical-align: middle;
+}
+
+/* Total amount highlight */
+.o_fsm_total_amount {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #495057;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .o_fsm_kanban_card {
+        margin-bottom: 10px;
+    }
+
+    .o_fsm_signature_container {
+        margin-top: 15px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .o_fsm_intervention_header {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .o_fsm_signature_container {
+        border: 1px solid #000;
+        page-break-inside: avoid;
+    }
+}

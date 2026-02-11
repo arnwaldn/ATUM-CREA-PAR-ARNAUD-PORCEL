@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Owners -->
+        <record id="demo_owner_1" model="realestate.owner">
+            <field name="name">Jean-Pierre Moreau</field>
+            <field name="owner_type">individual</field>
+            <field name="phone">+33 1 23 45 67 89</field>
+            <field name="email">jp.moreau@example.com</field>
+            <field name="street">15 Rue de la République</field>
+            <field name="city">Paris</field>
+            <field name="zip">75001</field>
+            <field name="bank_account">FR76 3000 4000 0100 0000 1234 567</field>
+        </record>
+
+        <record id="demo_owner_2" model="realestate.owner">
+            <field name="name">SCI Les Terrasses</field>
+            <field name="owner_type">company</field>
+            <field name="phone">+33 4 56 78 90 12</field>
+            <field name="email">contact@sciterrasses.com</field>
+            <field name="city">Lyon</field>
+        </record>
+
+        <!-- Demo Properties -->
+        <record id="demo_property_1" model="realestate.property">
+            <field name="title">Charming Parisian Apartment</field>
+            <field name="property_type">apartment</field>
+            <field name="transaction_type">sale</field>
+            <field name="sale_price">650000</field>
+            <field name="city">Paris</field>
+            <field name="zip_code">75007</field>
+            <field name="street">42 Avenue de Breteuil</field>
+            <field name="living_area">85</field>
+            <field name="rooms">4</field>
+            <field name="bedrooms">2</field>
+            <field name="bathrooms">1</field>
+            <field name="floor">4</field>
+            <field name="total_floors">6</field>
+            <field name="construction_year">1920</field>
+            <field name="heating_type">individual_gas</field>
+            <field name="energy_class">d</field>
+            <field name="energy_value">180</field>
+            <field name="balcony">True</field>
+            <field name="elevator">True</field>
+            <field name="cellar">True</field>
+            <field name="condition">good</field>
+            <field name="owner_id" ref="demo_owner_1"/>
+            <field name="state">available</field>
+            <field name="description"><![CDATA[
+<p>Beautiful Haussmannian apartment located in the prestigious 7th arrondissement of Paris.</p>
+<ul>
+<li>High ceilings with original moldings</li>
+<li>Herringbone parquet flooring</li>
+<li>Marble fireplace in living room</li>
+<li>Recently renovated kitchen</li>
+<li>Quiet courtyard view</li>
+</ul>
+            ]]></field>
+        </record>
+
+        <record id="demo_property_2" model="realestate.property">
+            <field name="title">Modern Family House with Garden</field>
+            <field name="property_type">house</field>
+            <field name="transaction_type">sale</field>
+            <field name="sale_price">420000</field>
+            <field name="city">Bordeaux</field>
+            <field name="zip_code">33000</field>
+            <field name="street">8 Rue des Vignes</field>
+            <field name="living_area">145</field>
+            <field name="land_area">500</field>
+            <field name="rooms">6</field>
+            <field name="bedrooms">4</field>
+            <field name="bathrooms">2</field>
+            <field name="construction_year">2015</field>
+            <field name="heating_type">heat_pump</field>
+            <field name="energy_class">b</field>
+            <field name="energy_value">65</field>
+            <field name="garden">True</field>
+            <field name="garden_area">350</field>
+            <field name="garage">True</field>
+            <field name="parking_spaces">2</field>
+            <field name="condition">excellent</field>
+            <field name="owner_id" ref="demo_owner_2"/>
+            <field name="state">available</field>
+        </record>
+
+        <record id="demo_property_3" model="realestate.property">
+            <field name="title">Studio Near University</field>
+            <field name="property_type">studio</field>
+            <field name="transaction_type">rent</field>
+            <field name="rent_price">650</field>
+            <field name="charges">50</field>
+            <field name="city">Lyon</field>
+            <field name="zip_code">69007</field>
+            <field name="street">23 Rue de l'Université</field>
+            <field name="living_area">28</field>
+            <field name="rooms">1</field>
+            <field name="bedrooms">0</field>
+            <field name="bathrooms">1</field>
+            <field name="floor">2</field>
+            <field name="total_floors">4</field>
+            <field name="heating_type">individual_electric</field>
+            <field name="energy_class">c</field>
+            <field name="furnished">True</field>
+            <field name="condition">good</field>
+            <field name="owner_id" ref="demo_owner_2"/>
+            <field name="state">available</field>
+        </record>
+
+        <!-- Demo Tenant -->
+        <record id="demo_tenant_1" model="realestate.tenant">
+            <field name="name">Marie Dupont</field>
+            <field name="phone">+33 6 12 34 56 78</field>
+            <field name="email">marie.dupont@example.com</field>
+            <field name="employer">Tech Company SA</field>
+            <field name="profession">Software Engineer</field>
+            <field name="monthly_income">3500</field>
+            <field name="has_id_copy">True</field>
+            <field name="has_income_proof">True</field>
+        </record>
+
+        <!-- Demo Mandate -->
+        <record id="demo_mandate_1" model="realestate.mandate">
+            <field name="property_id" ref="demo_property_1"/>
+            <field name="owner_id" ref="demo_owner_1"/>
+            <field name="mandate_type">exclusive</field>
+            <field name="transaction_type">sale</field>
+            <field name="asking_price">650000</field>
+            <field name="minimum_price">620000</field>
+            <field name="commission_type">percentage</field>
+            <field name="commission_percentage">5.0</field>
+            <field name="date_start" eval="(DateTime.now() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="duration_months">3</field>
+            <field name="date_end" eval="(DateTime.now() + timedelta(days=60)).strftime('%Y-%m-%d')"/>
+            <field name="mandate_signed">True</field>
+            <field name="publish_online">True</field>
+            <field name="state">active</field>
+        </record>
+
+        <!-- Demo Visit -->
+        <record id="demo_visit_1" model="realestate.visit">
+            <field name="property_id" ref="demo_property_1"/>
+            <field name="visitor_id" ref="demo_tenant_1.partner_id"/>
+            <field name="date" eval="(DateTime.now() + timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="time_start">14.5</field>
+            <field name="duration">0.5</field>
+            <field name="state">confirmed</field>
+        </record>
+    </data>
+</odoo>

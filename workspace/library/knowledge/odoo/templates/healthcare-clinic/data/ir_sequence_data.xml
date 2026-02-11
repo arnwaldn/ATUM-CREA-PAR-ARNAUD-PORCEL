@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Patient Sequence -->
+        <record id="seq_healthcare_patient" model="ir.sequence">
+            <field name="name">Healthcare Patient</field>
+            <field name="code">healthcare.patient</field>
+            <field name="prefix">PAT-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Appointment Sequence -->
+        <record id="seq_healthcare_appointment" model="ir.sequence">
+            <field name="name">Healthcare Appointment</field>
+            <field name="code">healthcare.appointment</field>
+            <field name="prefix">APT-%(year)s-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Consultation Sequence -->
+        <record id="seq_healthcare_consultation" model="ir.sequence">
+            <field name="name">Healthcare Consultation</field>
+            <field name="code">healthcare.consultation</field>
+            <field name="prefix">CONS-%(year)s-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Prescription Sequence -->
+        <record id="seq_healthcare_prescription" model="ir.sequence">
+            <field name="name">Healthcare Prescription</field>
+            <field name="code">healthcare.prescription</field>
+            <field name="prefix">RX-%(year)s-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

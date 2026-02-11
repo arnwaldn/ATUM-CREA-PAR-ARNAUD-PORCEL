@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Kitchen Ticket Template -->
+    <template id="report_kitchen_ticket_document">
+        <t t-call="web.external_layout">
+            <div class="page" style="font-family: monospace;">
+                <div style="text-align: center; border-bottom: 2px dashed #000; padding-bottom: 10px;">
+                    <h2 style="margin: 0;">KITCHEN ORDER</h2>
+                    <h3 style="margin: 5px 0;"><span t-field="doc.name"/></h3>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><strong>Table:</strong></td>
+                            <td t-if="doc.table_id"><span t-field="doc.table_id.name"/></td>
+                            <td t-else=""><span t-field="doc.order_type"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Waiter:</strong></td>
+                            <td><span t-field="doc.waiter_id"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time:</strong></td>
+                            <td><span t-field="doc.order_datetime" t-options='{"widget": "datetime", "format": "HH:mm"}'/></td>
+                        </tr>
+                        <tr t-if="doc.customer_count">
+                            <td><strong>Guests:</strong></td>
+                            <td><span t-field="doc.customer_count"/></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; margin: 15px 0; padding: 10px 0;">
+                    <table style="width: 100%;">
+                        <t t-foreach="doc.line_ids.filtered(lambda l: l.kitchen_state == 'pending')" t-as="line">
+                            <tr style="border-bottom: 1px dotted #ccc;">
+                                <td style="font-size: 1.2em; font-weight: bold; padding: 8px 0;">
+                                    <span t-field="line.quantity"/> x <span t-field="line.item_id"/>
+                                </td>
+                            </tr>
+                            <t t-if="line.option_ids">
+                                <tr>
+                                    <td style="padding-left: 20px; font-style: italic;">
+                                        <t t-foreach="line.option_ids" t-as="option">
+                                            + <span t-field="option.name"/><br/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="line.modifications">
+                                <tr>
+                                    <td style="padding-left: 20px; color: #c00; font-weight: bold;">
+                                        ** <span t-field="line.modifications"/> **
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="line.note">
+                                <tr>
+                                    <td style="padding-left: 20px; font-style: italic;">
+                                        Note: <span t-field="line.note"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </table>
+                </div>
+
+                <t t-if="doc.note">
+                    <div style="margin-top: 10px; padding: 10px; background-color: #fff3cd;">
+                        <strong>ORDER NOTES:</strong><br/>
+                        <span t-field="doc.note"/>
+                    </div>
+                </t>
+
+                <div style="text-align: center; margin-top: 20px; font-size: 0.9em;">
+                    <p>Printed: <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M')"/></p>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_kitchen_ticket">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="restaurant_pos.report_kitchen_ticket_document"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Customer Bill Template -->
+    <template id="report_customer_bill_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2>BILL</h2>
+                    <p>Order: <span t-field="doc.name"/></p>
+                    <p t-if="doc.table_id">Table: <span t-field="doc.table_id.name"/></p>
+                </div>
+
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th class="text-end">Qty</th>
+                            <th class="text-end">Price</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="doc.line_ids" t-as="line">
+                            <tr>
+                                <td>
+                                    <span t-field="line.item_id"/>
+                                    <t t-if="line.option_ids">
+                                        <br/>
+                                        <small class="text-muted">
+                                            <t t-foreach="line.option_ids" t-as="option">
+                                                + <span t-field="option.name"/>
+                                                <t t-if="option.price_extra"> (<span t-field="option.price_extra"/>)</t>
+                                                <br/>
+                                            </t>
+                                        </small>
+                                    </t>
+                                </td>
+                                <td class="text-end"><span t-field="line.quantity"/></td>
+                                <td class="text-end"><span t-field="line.unit_price"/></td>
+                                <td class="text-end"><span t-field="line.subtotal"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <div class="row mt-4">
+                    <div class="col-6 offset-6">
+                        <table class="table table-sm">
+                            <tr>
+                                <td>Subtotal:</td>
+                                <td class="text-end"><span t-field="doc.subtotal"/></td>
+                            </tr>
+                            <tr t-if="doc.discount_amount">
+                                <td>Discount:</td>
+                                <td class="text-end">-<span t-field="doc.discount_amount"/></td>
+                            </tr>
+                            <tr>
+                                <td>Tax:</td>
+                                <td class="text-end"><span t-field="doc.tax_amount"/></td>
+                            </tr>
+                            <tr class="border-top">
+                                <td><strong>TOTAL:</strong></td>
+                                <td class="text-end"><strong><span t-field="doc.total"/></strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <p>Thank you for dining with us!</p>
+                    <p class="small text-muted">
+                        <span t-field="doc.order_datetime" t-options='{"widget": "datetime"}'/><br/>
+                        Server: <span t-field="doc.waiter_id"/>
+                    </p>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_customer_bill">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="restaurant_pos.report_customer_bill_document"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Report Actions -->
+    <record id="action_report_kitchen_ticket" model="ir.actions.report">
+        <field name="name">Kitchen Ticket</field>
+        <field name="model">restaurant.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">restaurant_pos.report_kitchen_ticket</field>
+        <field name="report_file">restaurant_pos.report_kitchen_ticket</field>
+        <field name="print_report_name">'Kitchen - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_restaurant_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_customer_bill" model="ir.actions.report">
+        <field name="name">Customer Bill</field>
+        <field name="model">restaurant.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">restaurant_pos.report_customer_bill</field>
+        <field name="report_file">restaurant_pos.report_customer_bill</field>
+        <field name="print_report_name">'Bill - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_restaurant_order"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

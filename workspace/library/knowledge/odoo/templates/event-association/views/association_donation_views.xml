@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Donation Form View -->
+    <record id="view_association_donation_form" model="ir.ui.view">
+        <field name="name">association.donation.form</field>
+        <field name="model">association.donation</field>
+        <field name="arch" type="xml">
+            <form string="Donation">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_receive" type="object" string="Mark Received"
+                            class="oe_highlight" invisible="state != 'confirmed'"/>
+                    <button name="action_thank" type="object" string="Send Thank You"
+                            invisible="state != 'received' or thanked"/>
+                    <button name="action_generate_receipt" type="object" string="Generate Tax Receipt"
+                            invisible="state != 'received' or tax_receipt_id"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('received', 'cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,received"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_tax_receipt" icon="fa-file-text-o"
+                                invisible="not tax_receipt_id">
+                            <span class="o_stat_text">Tax Receipt</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Donor Information">
+                            <field name="donor_id"/>
+                            <field name="member_id"/>
+                            <field name="is_anonymous"/>
+                            <field name="donor_email" invisible="not is_anonymous"/>
+                        </group>
+                        <group string="Donation Details">
+                            <field name="donation_date"/>
+                            <field name="donation_type"/>
+                            <field name="campaign_id"/>
+                            <field name="designation"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Amount">
+                            <field name="amount"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="payment_method"/>
+                            <field name="payment_reference" invisible="payment_method == 'cash'"/>
+                        </group>
+                        <group string="In-Kind Details" invisible="donation_type != 'in_kind'">
+                            <field name="in_kind_description"/>
+                            <field name="in_kind_value"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Acknowledgment">
+                            <field name="thanked"/>
+                            <field name="thank_date" invisible="not thanked"/>
+                        </group>
+                        <group string="Tax Receipt">
+                            <field name="tax_deductible"/>
+                            <field name="tax_receipt_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Donation Tree View -->
+    <record id="view_association_donation_tree" model="ir.ui.view">
+        <field name="name">association.donation.tree</field>
+        <field name="model">association.donation</field>
+        <field name="arch" type="xml">
+            <tree string="Donations" decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="donation_date"/>
+                <field name="donor_id"/>
+                <field name="donation_type"/>
+                <field name="campaign_id"/>
+                <field name="amount" sum="Total"/>
+                <field name="payment_method"/>
+                <field name="thanked" widget="boolean_toggle"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'confirmed'"
+                       decoration-success="state == 'received'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Donation Kanban View -->
+    <record id="view_association_donation_kanban" model="ir.ui.view">
+        <field name="name">association.donation.kanban</field>
+        <field name="model">association.donation</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="donor_id"/>
+                <field name="amount"/>
+                <field name="donation_date"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div><field name="donor_id"/></div>
+                                <div class="mt-1">
+                                    <strong class="text-success">
+                                        <field name="amount" widget="monetary"/>
+                                    </strong>
+                                </div>
+                                <div class="text-muted">
+                                    <field name="donation_date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Donation Search View -->
+    <record id="view_association_donation_search" model="ir.ui.view">
+        <field name="name">association.donation.search</field>
+        <field name="model">association.donation</field>
+        <field name="arch" type="xml">
+            <search string="Search Donations">
+                <field name="name"/>
+                <field name="donor_id"/>
+                <field name="campaign_id"/>
+                <separator/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_received" string="Received"
+                        domain="[('state', '=', 'received')]"/>
+                <filter name="filter_not_thanked" string="Not Thanked"
+                        domain="[('thanked', '=', False), ('state', '=', 'received')]"/>
+                <filter name="filter_no_receipt" string="No Tax Receipt"
+                        domain="[('tax_deductible', '=', True), ('tax_receipt_id', '=', False), ('state', '=', 'received')]"/>
+                <separator/>
+                <filter name="filter_this_month" string="This Month"
+                        domain="[('donation_date', '>=', (context_today() - relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="filter_this_year" string="This Year"
+                        domain="[('donation_date', '>=', (context_today() - relativedelta(month=1, day=1)).strftime('%%Y-%%m-%%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_donor" string="Donor"
+                            context="{'group_by': 'donor_id'}"/>
+                    <filter name="groupby_campaign" string="Campaign"
+                            context="{'group_by': 'campaign_id'}"/>
+                    <filter name="groupby_type" string="Type"
+                            context="{'group_by': 'donation_type'}"/>
+                    <filter name="groupby_month" string="Month"
+                            context="{'group_by': 'donation_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Donation Campaign Form View -->
+    <record id="view_association_donation_campaign_form" model="ir.ui.view">
+        <field name="name">association.donation.campaign.form</field>
+        <field name="model">association.donation.campaign</field>
+        <field name="arch" type="xml">
+            <form string="Fundraising Campaign">
+                <header>
+                    <button name="action_start" type="object" string="Start"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_close" type="object" string="Close"
+                            class="oe_highlight" invisible="state != 'active'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('closed', 'cancelled')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_donations" type="object"
+                                class="oe_stat_button" icon="fa-gift">
+                            <field name="donation_count" widget="statinfo"
+                                   string="Donations"/>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Campaign Name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Campaign Details">
+                            <field name="goal_amount"/>
+                            <field name="collected_amount"/>
+                            <field name="progress" widget="progressbar"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Schedule">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="responsible_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Donations" name="donations">
+                            <field name="donation_ids">
+                                <tree>
+                                    <field name="donation_date"/>
+                                    <field name="donor_id"/>
+                                    <field name="amount"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Donation Campaign Tree View -->
+    <record id="view_association_donation_campaign_tree" model="ir.ui.view">
+        <field name="name">association.donation.campaign.tree</field>
+        <field name="model">association.donation.campaign</field>
+        <field name="arch" type="xml">
+            <tree string="Fundraising Campaigns">
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="goal_amount"/>
+                <field name="collected_amount"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="donation_count"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'active'"
+                       decoration-muted="state in ('closed', 'cancelled')"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Tax Receipt Form View -->
+    <record id="view_association_tax_receipt_form" model="ir.ui.view">
+        <field name="name">association.tax.receipt.form</field>
+        <field name="model">association.tax.receipt</field>
+        <field name="arch" type="xml">
+            <form string="Tax Receipt">
+                <header>
+                    <button name="action_send" type="object" string="Send to Donor"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('sent', 'cancelled')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Receipt Details">
+                            <field name="donor_id"/>
+                            <field name="fiscal_year"/>
+                            <field name="issue_date"/>
+                        </group>
+                        <group string="Amount">
+                            <field name="total_amount"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Donations" name="donations">
+                            <field name="donation_ids">
+                                <tree>
+                                    <field name="donation_date"/>
+                                    <field name="name"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tax Receipt Tree View -->
+    <record id="view_association_tax_receipt_tree" model="ir.ui.view">
+        <field name="name">association.tax.receipt.tree</field>
+        <field name="model">association.tax.receipt</field>
+        <field name="arch" type="xml">
+            <tree string="Tax Receipts">
+                <field name="name"/>
+                <field name="donor_id"/>
+                <field name="fiscal_year"/>
+                <field name="total_amount"/>
+                <field name="issue_date"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_association_donation" model="ir.actions.act_window">
+        <field name="name">Donations</field>
+        <field name="res_model">association.donation</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_association_donation_search"/>
+    </record>
+
+    <record id="action_association_donation_campaign" model="ir.actions.act_window">
+        <field name="name">Fundraising Campaigns</field>
+        <field name="res_model">association.donation.campaign</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_association_tax_receipt" model="ir.actions.act_window">
+        <field name="name">Tax Receipts</field>
+        <field name="res_model">association.tax.receipt</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

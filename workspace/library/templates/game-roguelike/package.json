@@ -1,0 +1,20 @@
+{
+  "name": "game-roguelike",
+  "version": "1.0.0",
+  "description": "Roguelike Game Template (ECS + Procedural) - ULTRA-CREATE v23.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "phaser": "^3.87.0",
+    "rot-js": "^2.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0"
+  },
+  "keywords": ["game", "roguelike", "ecs", "procedural", "dungeon"]
+}

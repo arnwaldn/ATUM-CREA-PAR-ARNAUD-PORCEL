@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_realestate_root"
+              name="Real Estate"
+              web_icon="real_estate_agency,static/description/icon.png"
+              sequence="100"/>
+
+    <!-- Sales Menu -->
+    <menuitem id="menu_realestate_sales"
+              name="Sales"
+              parent="menu_realestate_root"
+              sequence="10"/>
+
+    <menuitem id="menu_realestate_properties"
+              name="All Properties"
+              parent="menu_realestate_sales"
+              action="action_realestate_property"
+              sequence="10"/>
+
+    <menuitem id="menu_realestate_for_sale"
+              name="For Sale"
+              parent="menu_realestate_sales"
+              action="action_realestate_property_for_sale"
+              sequence="20"/>
+
+    <menuitem id="menu_realestate_mandates"
+              name="Mandates"
+              parent="menu_realestate_sales"
+              action="action_realestate_mandate"
+              sequence="30"/>
+
+    <menuitem id="menu_realestate_offers"
+              name="Offers"
+              parent="menu_realestate_sales"
+              action="action_realestate_offer"
+              sequence="40"/>
+
+    <!-- Rentals Menu -->
+    <menuitem id="menu_realestate_rentals"
+              name="Rentals"
+              parent="menu_realestate_root"
+              sequence="20"/>
+
+    <menuitem id="menu_realestate_for_rent"
+              name="For Rent"
+              parent="menu_realestate_rentals"
+              action="action_realestate_property_for_rent"
+              sequence="10"/>
+
+    <menuitem id="menu_realestate_leases"
+              name="Leases"
+              parent="menu_realestate_rentals"
+              action="action_realestate_lease"
+              sequence="20"/>
+
+    <menuitem id="menu_realestate_tenants"
+              name="Tenants"
+              parent="menu_realestate_rentals"
+              action="action_realestate_tenant"
+              sequence="30"/>
+
+    <!-- Activities Menu -->
+    <menuitem id="menu_realestate_activities"
+              name="Activities"
+              parent="menu_realestate_root"
+              sequence="30"/>
+
+    <menuitem id="menu_realestate_visits"
+              name="All Visits"
+              parent="menu_realestate_activities"
+              action="action_realestate_visit"
+              sequence="10"/>
+
+    <menuitem id="menu_realestate_visits_today"
+              name="Today's Visits"
+              parent="menu_realestate_activities"
+              action="action_realestate_visit_today"
+              sequence="20"/>
+
+    <!-- Contacts Menu -->
+    <menuitem id="menu_realestate_contacts"
+              name="Contacts"
+              parent="menu_realestate_root"
+              sequence="40"/>
+
+    <menuitem id="menu_realestate_owners"
+              name="Owners"
+              parent="menu_realestate_contacts"
+              action="action_realestate_owner"
+              sequence="10"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_realestate_configuration"
+              name="Configuration"
+              parent="menu_realestate_root"
+              groups="group_realestate_manager"
+              sequence="100"/>
+
+    <!-- Reporting Menu -->
+    <menuitem id="menu_realestate_reporting"
+              name="Reporting"
+              parent="menu_realestate_root"
+              groups="group_realestate_manager"
+              sequence="90"/>
+</odoo>

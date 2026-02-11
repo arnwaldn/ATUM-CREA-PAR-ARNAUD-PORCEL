@@ -1,0 +1,203 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/complexity-scoring.json",
+  "version": "1.0.0",
+  "description": "Algorithm for calculating task complexity and auto-trigger decisions",
+  "generated": "2026-01-12",
+
+  "algorithm": "weighted-multi-factor",
+  "maxScore": 10,
+
+  "factors": {
+    "task_decomposition": {
+      "weight": 0.25,
+      "description": "Number of distinct steps required",
+      "scoring": {
+        "single_step": 1,
+        "2-3_steps": 3,
+        "4-6_steps": 5,
+        "7-10_steps": 7,
+        "10+_steps": 10
+      },
+      "detection": {
+        "keywords": {
+          "single_step": ["fix typo", "add comment", "rename"],
+          "complex": ["build", "create", "implement", "develop", "refactor entire"]
+        }
+      }
+    },
+
+    "domain_count": {
+      "weight": 0.15,
+      "description": "Number of different domains involved",
+      "scoring": {
+        "single_domain": 1,
+        "2_domains": 4,
+        "3+_domains": 8
+      },
+      "domains": [
+        "frontend", "backend", "database", "auth", "payments",
+        "deployment", "testing", "security", "mobile", "desktop",
+        "ml", "realtime", "api", "storage", "email"
+      ]
+    },
+
+    "mcp_count": {
+      "weight": 0.15,
+      "description": "Number of MCPs required",
+      "scoring": {
+        "0-1_mcps": 1,
+        "2-3_mcps": 4,
+        "4-5_mcps": 6,
+        "6+_mcps": 8
+      }
+    },
+
+    "integration_depth": {
+      "weight": 0.15,
+      "description": "Level of external integration",
+      "scoring": {
+        "standalone": 1,
+        "single_api": 3,
+        "multi_api": 5,
+        "multi_service": 7,
+        "enterprise": 10
+      },
+      "indicators": {
+        "standalone": ["local", "simple", "basic"],
+        "enterprise": ["saas", "multi-tenant", "b2b", "enterprise"]
+      }
+    },
+
+    "ambiguity": {
+      "weight": 0.15,
+      "description": "Clarity of requirements",
+      "scoring": {
+        "explicit_spec": 1,
+        "clear_description": 3,
+        "general_description": 5,
+        "vague_request": 8,
+        "single_word": 10
+      },
+      "detection": {
+        "explicit_indicators": ["must", "should", "exactly", "specifically"],
+        "vague_indicators": ["something like", "maybe", "not sure", "whatever"]
+      }
+    },
+
+    "risk_level": {
+      "weight": 0.15,
+      "description": "Potential impact of changes",
+      "scoring": {
+        "read_only": 1,
+        "local_changes": 3,
+        "database_changes": 6,
+        "production_deploy": 8,
+        "security_operations": 10
+      },
+      "keywords": {
+        "read_only": ["analyze", "review", "check", "list", "show"],
+        "local_changes": ["create", "add", "modify", "update"],
+        "database_changes": ["migrate", "seed", "schema", "rls"],
+        "production_deploy": ["deploy", "publish", "release", "push to prod"],
+        "security_operations": ["auth", "credentials", "secrets", "permissions"]
+      }
+    }
+  },
+
+  "thresholds": {
+    "simple": {
+      "min": 0,
+      "max": 3,
+      "agents": 1,
+      "validation": "minimal",
+      "autoTriggers": []
+    },
+    "moderate": {
+      "min": 3,
+      "max": 5,
+      "agents": 2,
+      "validation": "standard",
+      "autoTriggers": ["confidence-checker"]
+    },
+    "complex": {
+      "min": 5,
+      "max": 7,
+      "agents": 4,
+      "validation": "thorough",
+      "autoTriggers": ["confidence-checker", "tree-of-thoughts"]
+    },
+    "expert": {
+      "min": 7,
+      "max": 10,
+      "agents": 6,
+      "validation": "comprehensive",
+      "autoTriggers": ["confidence-checker", "tree-of-thoughts", "reasoning-agent", "queen-v18"]
+    }
+  },
+
+  "autoTriggerRules": {
+    "tree-of-thoughts": {
+      "condition": "complexity >= 7 OR (ambiguity >= 7 AND domain_count >= 2)",
+      "description": "Multi-branch reasoning for complex decisions"
+    },
+    "reasoning-agent": {
+      "condition": "confidence < 0.7 AND complexity >= 5",
+      "description": "Structured reasoning when uncertain"
+    },
+    "wizard-agent": {
+      "condition": "ambiguity >= 6 OR confidence < 0.6",
+      "description": "Clarification questions needed"
+    },
+    "queen-v18": {
+      "condition": "complexity >= 8 OR (domain_count >= 3 AND mcp_count >= 4)",
+      "description": "Full orchestration needed"
+    },
+    "self-reflection-loop": {
+      "condition": "risk_level >= 7",
+      "description": "Self-check for high-risk operations"
+    },
+    "pm-agent": {
+      "condition": "task_decomposition >= 7",
+      "description": "Project management for multi-step tasks"
+    }
+  },
+
+  "examples": {
+    "simple": {
+      "intent": "fix the typo in README",
+      "score": 1.5,
+      "breakdown": {
+        "task_decomposition": 1,
+        "domain_count": 1,
+        "mcp_count": 1,
+        "integration_depth": 1,
+        "ambiguity": 1,
+        "risk_level": 3
+      }
+    },
+    "moderate": {
+      "intent": "add a contact form to the landing page",
+      "score": 4.2,
+      "breakdown": {
+        "task_decomposition": 5,
+        "domain_count": 4,
+        "mcp_count": 4,
+        "integration_depth": 3,
+        "ambiguity": 3,
+        "risk_level": 3
+      }
+    },
+    "complex": {
+      "intent": "create a SaaS with Stripe payments and Supabase auth",
+      "score": 7.8,
+      "breakdown": {
+        "task_decomposition": 10,
+        "domain_count": 8,
+        "mcp_count": 8,
+        "integration_depth": 7,
+        "ambiguity": 5,
+        "risk_level": 8
+      }
+    }
+  }
+}

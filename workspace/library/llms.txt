@@ -1,0 +1,324 @@
+# ATUM CREA v24.1 Documentation
+
+> ATUM CREA is a professional-grade autonomous development system capable of creating
+> any project from natural language requests, with results equivalent to a full team of developers.
+
+This file provides an index of ATUM CREA documentation for use by LLMs.
+
+---
+
+## Getting Started
+
+- `/wake` - Activate the complete system
+- `CLAUDE.md` - Main documentation and configuration: knowledge/CLAUDE.md
+- Hybrid Mode: Natural language + 41 slash commands
+
+---
+
+## Core Commands (7)
+
+- `/wake` - Activate the complete ATUM CREA system
+- `/create` - Create a new project from scratch
+- `/scaffold` - Scaffold with production-ready template
+- `/analyze` - Code analysis and review
+- `/debug` - Systematic debugging with Hindsight recall
+- `/refactor` - Code refactoring
+- `/deploy` - Multi-platform deployment (Vercel, Netlify, Railway, Cloudflare)
+
+---
+
+## Development Commands (8)
+
+- `/generate` - Generate code (components, routes, etc.)
+- `/test` - Automated tests (unit, integration, e2e)
+- `/tdd` - Test-Driven Development workflow
+- `/review` - Code review
+- `/review-fix` - Review + automatic fix
+- `/optimize` - Performance optimization (TOON 30-60% token reduction)
+- `/migrate` - Framework/version migration
+- `/parallel` - Parallel execution
+
+---
+
+## Research & Learning Commands (7)
+
+- `/research` - Multi-source research with MCPs
+- `/deep-research` - Deep Firecrawl research
+- `/papers` - ArXiv scientific papers research
+- `/learn` - Save pattern/learning to Hindsight memory
+- `/learn-pdf` - Analyze PDF and save to Hindsight
+- `/learn-video` - Learn from YouTube (tutorials, conferences)
+- `/profile` - Profile analysis
+
+---
+
+## Specialized Commands (9)
+
+- `/odoo` - Odoo development (modules, views, models)
+- `/odoo-module` - Complete Odoo module scaffolding
+- `/odoo-migrate` - Odoo migration between versions
+- `/odoo-audit` - Odoo module audit
+- `/mql5` - MQL5 trading development (EAs, indicators)
+- `/game` - Game development multi-engines (Phaser, Unity, Godot)
+- `/3d` - 3D development (Blender, Unity, Three.js)
+- `/email` - Gmail automation (read, compose, search)
+- `/browser` - Browser automation multi-modes
+
+---
+
+## Documentation & Teams Commands (4)
+
+- `/docs` - Technical documentation generation
+- `/init-docs` - Initialize project documentation
+- `/code-team` - Multimodal vision-to-code team
+- `/agency` - Multi-agent hierarchical analysis
+
+---
+
+## Advanced Commands (6)
+
+- `/turbo` - TURBO Mode - Fast project creation with MCPs synergy
+- `/plan` - Project/feature structured planning
+- `/workflow` - Workflow definition
+- `/uiux` - UI/UX Feedback Team multi-agents
+- `/awake` - Force complete consciousness (alias /wake debug)
+- `/super` - Super-agent mode
+
+---
+
+## Agents (139 specialized agents in 27 categories)
+
+### Meta Agents (6)
+- PM Agent - PDCA orchestration
+- Confidence Checker - Pre-execution evaluation
+- Self-Checker - Post-execution validation
+- Token Optimizer - 30-60% cost reduction
+- Wizard Agent - Interactive questions
+- Intent Parser v2.0 - Natural language detection
+
+### Advanced Reasoning Agents (5)
+- Tree-of-Thoughts - Multi-branch reasoning (+37% decision quality)
+- Self-Reflection Loop - Iterative improvement (+45% output quality)
+- Corrective RAG - Automatic RAG correction
+- Reasoning Agent - Structured reasoning
+- Workflow Generator - Workflow automation
+
+### Core Development Agents (9)
+- Frontend Developer, Backend Developer, Full-Stack Generator
+- UI Designer, Autonomous Executor, Requirement Interpreter
+- Self-Improver, Tester, Intent Parser
+
+### Gaming Agents (8)
+- Game Architect - Orchestration, mode selection
+- Phaser Expert - 2D web games
+- Three.js Expert - 3D web games
+- Godot Expert - Native export GDScript
+- Unity Expert - Unity 6, VR/AR, DOTS
+- Networking Expert - Multiplayer, Colyseus
+- Audio Expert - Sound design
+- Procgen Expert - Procedural generation
+
+### AI/ML Agents (6)
+- LLM Integration Expert, ML Engineer, MLOps Engineer
+- Prompt Engineer, PyTorch Expert, TensorFlow Expert
+
+### Mobile Agents (4)
+- Expo Expert, Swift iOS Expert, Kotlin Android Expert
+- Flutter/Dart Expert - Cross-platform mobile
+
+### XR Agent (1)
+- WebXR Expert
+
+### Odoo Agents (12)
+- odoo-accounting-expert, odoo-education-expert, odoo-events-expert
+- odoo-field-service-expert, odoo-food-beverage-expert, odoo-healthcare-expert
+- odoo-hospitality-expert, odoo-integration-expert, odoo-manufacturing-expert
+- odoo-orm-expert, odoo-realestate-expert, odoo-retail-pos-expert
+
+### Specialized Agents (18)
+- Accessibility Auditor, API Designer, Blockchain Expert
+- Database Architect, Debugger, Documentation Generator
+- Electron IPC Expert, GraphQL Expert, Hospitality Expert
+- Integration Expert, Migration Expert, MQL5 Expert
+- Odoo Expert, Payment Expert, Performance Optimizer
+- Refactoring Expert, SEO Expert, Windows Scripting Expert
+
+### Orchestration Agents (6)
+- Queen v18, Parallel Executor v18, Memory Bridge
+- Checkpoint Manager, Priority Queue, Task Decomposer
+
+### Super-Agents (6)
+- Fullstack Super, Backend Super, UI Super
+- Deploy Super, Quality Super, Research Super
+
+### Visual Agents (7)
+- 3D Artist, Design Strategist, Figma Interpreter
+- Screenshot Analyzer, UI Critic, UI/UX Team, Visual Diff Engine
+
+### Quality Agents (4)
+- Auto Validator, Security Auditor, Self-Healer, Validation Pipeline
+
+### Research Agents (4)
+- Deep Researcher, ArXiv Researcher, PDF Researcher, Video Researcher
+
+### MCP Specialists (7)
+- Automation Expert, Cloud Deploy Expert, Context7 Expert
+- Firecrawl Expert, GraphRAG Expert, Magic UI Expert
+- Security Scanner Expert
+
+---
+
+## Templates (149 production-ready)
+
+### Web Applications (8)
+- saas - Next.js 15, Supabase, Stripe, Clerk
+- landing - Next.js 15, TailwindCSS 4, shadcn/ui
+- ecommerce - Next.js 15, Prisma, Stripe
+- api - Hono, Prisma 6, PostgreSQL
+- rag-chatbot - Next.js 15, Ollama, pgvector
+- pwa - Next.js 15, Service Worker, Workbox
+- websocket-chat - Next.js 15, Socket.io, Redis
+- streaming-chatbot - Next.js 15, OpenAI SDK
+
+### Desktop & Mobile (5)
+- desktop - Tauri 2.0, React, Vite
+- electron-app - Electron 33, React, Vite
+- mobile - Expo SDK 52+, React Native
+- ios-native - SwiftUI, Swift 6, MVVM
+- android-native - Jetpack Compose, Kotlin
+
+### Games (10)
+- game-web - Phaser 3, Vite, TypeScript
+- game-3d-web - Three.js, Cannon-es
+- game-multiplayer - Phaser 3, Colyseus, Docker
+- game-roguelike - Phaser 3, rot.js, ECS
+- game-puzzle - Phaser 3, TypeScript
+- unity-game - Unity 6, C# 12, URP
+- webxr-experience - A-Frame, Three.js, WebXR
+- ai-chess, ai-tic-tac-toe, ai-3d-pygame
+
+### AI Agents (107 templates)
+- Starter agents (16): blog-to-podcast, data-analysis, meme-generator, etc.
+- Advanced single agents (14): consultant, customer-support, journalist, etc.
+- Multi-agent systems (10): domain-research, financial-coach, self-evolving, etc.
+- Agent teams (13): competitor-intel, game-design, legal, recruitment, etc.
+- RAG systems (20): agentic, corrective, hybrid, local variants
+- MCP agents (5): travel-planner, browser, github, multi, notion
+- Voice AI (3): audio-tour, customer-support, rag
+- Chat with X (7): github, gmail, pdf, arxiv, youtube, etc.
+- Memory-based (6): arxiv, travel, stateful, personalized, etc.
+- Fine-tuning (3): gemma, llama, token-optimization
+
+### Sector-specific (16)
+- restaurant, real-estate, medical, wedding, fitness, hotel
+- photography, education, interior-design, portfolio, blog
+- agency, startup, nonprofit, github-profile, admin-dashboard
+
+---
+
+## MCPs (55 configured)
+
+### Core MCPs (always active)
+- Hindsight - Persistent memory (6 banks)
+- Context7 - Up-to-date framework docs
+- shadcn - UI components
+- E2B - Python sandbox execution
+- memory - Knowledge graph
+- GitHub - Repos, issues, PRs
+- Supabase - Backend, DB, Auth
+- Firecrawl - Advanced web scraping
+- Exa - AI web search
+- Desktop Commander - System operations
+- Playwright/Puppeteer - Browser automation
+- Figma - Design import
+- Mermaid - Diagrams
+- PostgreSQL - Database
+- Notion - Documentation
+
+### AI-assisted Development
+- dart-flutter - Dart and Flutter MCP Server for mobile development
+
+---
+
+## Memory System (Hindsight)
+
+### Memory Banks (6)
+- ultra-dev-memory - Code patterns, solutions
+- documents - PDF analyses
+- research - ArXiv papers
+- patterns - Reusable patterns
+- errors - Resolved errors
+- trading-brain - Trading strategies
+
+### Usage
+```javascript
+// Save to memory
+mcp__hindsight__hindsight_retain({bank: 'ultra-dev-memory', content: '...', context: '...'})
+
+// Recall from memory
+mcp__hindsight__hindsight_recall({bank: 'ultra-dev-memory', query: '...', top_k: 5})
+```
+
+---
+
+## Execution Modes (7)
+
+- standard - Balanced default mode
+- speed - Fast execution
+- quality - Quality focus
+- architect - Architecture first
+- autonomous - Complete autonomy
+- brainstorm - Ideation mode
+- mentor - Teaching mode
+
+---
+
+## Active Hooks (9)
+
+- anti-hallucination.js - Hallucination prevention
+- pre-edit-check.js - Pre-edit validation
+- post-edit-learn.js - Post-edit learning
+- enforce-v24-rules.js - v24.1 rules enforcement
+- notification-hook.js - Notification triggers
+- auto-sync-hindsight.js - Auto memory sync
+- start-hindsight-auto.js - Auto Hindsight startup
+- pre-deploy.js - Pre-deployment validation
+- auto-rollback.js - Automatic rollback
+
+---
+
+## Stack 2025
+
+- Frontend: Next.js 15, React 19, TypeScript 5.7, TailwindCSS 4, shadcn/ui
+- Backend: Supabase, Prisma 6, Hono
+- Auth: Clerk (SaaS) | Supabase Auth (simple)
+- Testing: Vitest, Playwright
+- Mobile: Expo SDK 52+, Flutter/Dart
+- Desktop: Tauri 2.0
+- Games: Phaser 3, Three.js, Unity 6, Godot
+
+---
+
+## Key Files
+
+| File | Description |
+|------|-------------|
+| `CLAUDE.md` | Main system documentation |
+| `knowledge/` | 93 knowledge files (gaming, odoo, templates, mql5) |
+| `agents/` | 139 specialized agent definitions |
+| `templates/` | 149 production-ready templates |
+| `scripts/` | 41 automation scripts |
+| `modes/` | 7 execution mode configurations |
+| `.mcp.json` | MCP server configurations |
+
+---
+
+## Resources
+
+- Base Directory: `C:\Claude-Code-Creation\`
+- Knowledge: `knowledge/` - Stack 2025, Anthropic best practices, gaming guides
+- Scripts: `scripts/` - ATUM CREA.ps1, ULTRA-DEPLOY.ps1, ULTRA-TEST.ps1
+
+---
+
+*ATUM CREA v24.1 | 55 MCPs | 139 Agents | 41 Commands + NL | 149 Templates | 9 Hooks | 7 Modes*

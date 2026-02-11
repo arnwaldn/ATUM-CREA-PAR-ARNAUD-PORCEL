@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Intervention Form View -->
+    <record id="view_fsm_intervention_form" model="ir.ui.view">
+        <field name="name">fsm.intervention.form</field>
+        <field name="model">fsm.intervention</field>
+        <field name="arch" type="xml">
+            <form string="Intervention">
+                <header>
+                    <button name="action_schedule" type="object" string="Schedule"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_start" type="object" string="Start"
+                            class="oe_highlight" invisible="state != 'scheduled'"/>
+                    <button name="action_complete" type="object" string="Complete"
+                            class="oe_highlight" invisible="state != 'in_progress'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('done', 'cancelled')"/>
+                    <button name="action_create_invoice" type="object" string="Create Invoice"
+                            invisible="invoice_status != 'to_invoice'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,scheduled,in_progress,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Intervention">
+                            <field name="intervention_type_id"/>
+                            <field name="priority" widget="priority"/>
+                            <field name="description" placeholder="Problem description..."/>
+                        </group>
+                        <group string="Customer">
+                            <field name="partner_id"/>
+                            <field name="contact_name"/>
+                            <field name="contact_phone"/>
+                            <field name="equipment_id" domain="[('partner_id', '=', partner_id)]"/>
+                            <field name="contract_id"/>
+                            <field name="under_contract"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Schedule">
+                            <field name="scheduled_date"/>
+                            <field name="duration_planned" widget="float_time"/>
+                            <field name="scheduled_end"/>
+                            <field name="technician_id"/>
+                        </group>
+                        <group string="Location">
+                            <field name="location_street"/>
+                            <field name="location_city"/>
+                            <field name="location_zip"/>
+                            <field name="location_notes"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Work" name="work" invisible="state not in ('in_progress', 'done')">
+                            <group>
+                                <group string="Execution">
+                                    <field name="start_datetime"/>
+                                    <field name="end_datetime"/>
+                                    <field name="actual_duration" widget="float_time"/>
+                                    <field name="travel_time" widget="float_time"/>
+                                </group>
+                            </group>
+                            <separator string="Work Performed"/>
+                            <field name="work_done"/>
+                            <separator string="Resolution Notes"/>
+                            <field name="resolution_notes"/>
+                        </page>
+                        <page string="Parts" name="parts">
+                            <field name="part_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="subtotal"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="parts_total" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                        <page string="Time" name="time">
+                            <field name="time_ids">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="technician_id"/>
+                                    <field name="duration"/>
+                                    <field name="hourly_rate"/>
+                                    <field name="amount"/>
+                                    <field name="description"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="labor_total" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                        <page string="Billing" name="billing">
+                            <group>
+                                <group>
+                                    <field name="billable"/>
+                                    <field name="total_amount"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="invoice_status"/>
+                                    <field name="invoice_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="SLA" name="sla">
+                            <group>
+                                <group>
+                                    <field name="sla_response_deadline"/>
+                                    <field name="sla_response_met"/>
+                                </group>
+                                <group>
+                                    <field name="sla_resolution_deadline"/>
+                                    <field name="sla_resolution_met"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Feedback" name="feedback" invisible="state != 'done'">
+                            <group>
+                                <group>
+                                    <field name="customer_rating" widget="priority"/>
+                                </group>
+                            </group>
+                            <field name="customer_feedback"/>
+                        </page>
+                        <page string="Signatures" name="signatures" invisible="state != 'done'">
+                            <group>
+                                <group string="Technician Signature">
+                                    <field name="technician_signature" widget="signature"/>
+                                </group>
+                                <group string="Customer Signature">
+                                    <field name="customer_signature" widget="signature"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Intervention Tree View -->
+    <record id="view_fsm_intervention_tree" model="ir.ui.view">
+        <field name="name">fsm.intervention.tree</field>
+        <field name="model">fsm.intervention</field>
+        <field name="arch" type="xml">
+            <tree string="Interventions" decoration-danger="priority == '3'"
+                  decoration-warning="priority == '2'"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-success="state == 'done'">
+                <field name="name"/>
+                <field name="scheduled_date"/>
+                <field name="partner_id"/>
+                <field name="intervention_type_id"/>
+                <field name="equipment_id"/>
+                <field name="technician_id"/>
+                <field name="priority" widget="priority"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-primary="state == 'scheduled'"
+                       decoration-warning="state == 'in_progress'"
+                       decoration-success="state == 'done'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Intervention Calendar View -->
+    <record id="view_fsm_intervention_calendar" model="ir.ui.view">
+        <field name="name">fsm.intervention.calendar</field>
+        <field name="model">fsm.intervention</field>
+        <field name="arch" type="xml">
+            <calendar string="Interventions" date_start="scheduled_date"
+                      date_stop="scheduled_end" color="technician_id" mode="week"
+                      quick_create="0" event_open_popup="1">
+                <field name="partner_id"/>
+                <field name="intervention_type_id"/>
+                <field name="technician_id" filters="1"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Intervention Kanban View -->
+    <record id="view_fsm_intervention_kanban" model="ir.ui.view">
+        <field name="name">fsm.intervention.kanban</field>
+        <field name="model">fsm.intervention</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="scheduled_date"/>
+                <field name="technician_id"/>
+                <field name="priority"/>
+                <field name="state"/>
+                <field name="color"/>
+                <progressbar field="state"
+                             colors='{"draft": "secondary", "scheduled": "primary",
+                                      "in_progress": "warning", "done": "success",
+                                      "cancelled": "danger"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click
+                            #{record.priority.raw_value == '3' ? 'oe_kanban_color_3' : ''}">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <field name="priority" widget="priority"/>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div><i class="fa fa-user"/> <field name="partner_id"/></div>
+                                <div><i class="fa fa-calendar"/> <field name="scheduled_date"/></div>
+                                <div><i class="fa fa-wrench"/> <field name="technician_id"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Intervention Search View -->
+    <record id="view_fsm_intervention_search" model="ir.ui.view">
+        <field name="name">fsm.intervention.search</field>
+        <field name="model">fsm.intervention</field>
+        <field name="arch" type="xml">
+            <search string="Search Interventions">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="technician_id"/>
+                <field name="equipment_id"/>
+                <separator/>
+                <filter name="filter_today" string="Today"
+                        domain="[('scheduled_date', '&gt;=', time.strftime('%%Y-%%m-%%d 00:00:00')),
+                                 ('scheduled_date', '&lt;=', time.strftime('%%Y-%%m-%%d 23:59:59'))]"/>
+                <filter name="filter_this_week" string="This Week"
+                        domain="[('scheduled_date', '&gt;=', (context_today() - relativedelta(weekday=0)).strftime('%%Y-%%m-%%d'))]"/>
+                <separator/>
+                <filter name="filter_urgent" string="Urgent"
+                        domain="[('priority', '=', '3')]"/>
+                <filter name="filter_unassigned" string="Unassigned"
+                        domain="[('technician_id', '=', False)]"/>
+                <separator/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_scheduled" string="Scheduled"
+                        domain="[('state', '=', 'scheduled')]"/>
+                <filter name="filter_in_progress" string="In Progress"
+                        domain="[('state', '=', 'in_progress')]"/>
+                <filter name="filter_to_invoice" string="To Invoice"
+                        domain="[('invoice_status', '=', 'to_invoice')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_technician" string="Technician"
+                            context="{'group_by': 'technician_id'}"/>
+                    <filter name="groupby_customer" string="Customer"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="groupby_type" string="Type"
+                            context="{'group_by': 'intervention_type_id'}"/>
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="groupby_date" string="Date"
+                            context="{'group_by': 'scheduled_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Intervention Actions -->
+    <record id="action_fsm_intervention" model="ir.actions.act_window">
+        <field name="name">Interventions</field>
+        <field name="res_model">fsm.intervention</field>
+        <field name="view_mode">kanban,tree,calendar,form</field>
+        <field name="search_view_id" ref="view_fsm_intervention_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first intervention
+            </p>
+        </field>
+    </record>
+
+    <record id="action_fsm_intervention_today" model="ir.actions.act_window">
+        <field name="name">Today's Interventions</field>
+        <field name="res_model">fsm.intervention</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_filter_today': 1}</field>
+    </record>
+
+    <record id="action_fsm_intervention_unassigned" model="ir.actions.act_window">
+        <field name="name">Unassigned</field>
+        <field name="res_model">fsm.intervention</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_filter_unassigned': 1}</field>
+    </record>
+</odoo>

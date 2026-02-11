@@ -1,0 +1,17 @@
+# Cerebras Ultra-Fast Search
+# ULTRA-CREATE v27.4
+
+# Core - Cerebras SDK
+cerebras-cloud-sdk>=1.0.0
+
+# Environment
+python-dotenv>=1.0.0
+
+# Optional: OpenAI SDK for compatibility mode
+openai>=1.50.0
+
+# Optional: Web search integration (Perplexity-style)
+tavily-python>=0.3.0
+
+# Optional: For structured outputs with Pydantic
+pydantic>=2.0.0

@@ -1,0 +1,152 @@
+{
+  "version": "1.0.0",
+  "description": "Schema Redis pour ULTRA-CREATE Memory Layer 2",
+
+  "memoryTypes": {
+    "fact": {
+      "description": "Verified factual information",
+      "ttl": 7776000,
+      "prefix": "fact:",
+      "fields": {
+        "content": {"type": "string", "required": true},
+        "source": {"type": "string", "required": true},
+        "confidence": {"type": "float", "min": 0, "max": 1, "default": 0.8},
+        "timestamp": {"type": "datetime", "auto": true},
+        "accessed_at": {"type": "datetime", "auto": true},
+        "access_count": {"type": "integer", "default": 0}
+      },
+      "indexes": ["source", "confidence", "timestamp"]
+    },
+
+    "preference": {
+      "description": "User/system preferences",
+      "ttl": null,
+      "prefix": "pref:",
+      "fields": {
+        "key": {"type": "string", "required": true},
+        "value": {"type": "any", "required": true},
+        "context": {"type": "string"},
+        "updated_at": {"type": "datetime", "auto": true}
+      },
+      "indexes": ["key", "context"]
+    },
+
+    "task": {
+      "description": "Task execution records",
+      "ttl": 2592000,
+      "prefix": "task:",
+      "fields": {
+        "task_id": {"type": "string", "required": true},
+        "type": {"type": "string", "required": true},
+        "status": {"type": "enum", "values": ["pending", "in_progress", "completed", "failed"]},
+        "result": {"type": "object"},
+        "agent_id": {"type": "string"},
+        "started_at": {"type": "datetime"},
+        "completed_at": {"type": "datetime"},
+        "duration_ms": {"type": "integer"},
+        "error": {"type": "string"}
+      },
+      "indexes": ["status", "type", "agent_id", "started_at"]
+    },
+
+    "skill": {
+      "description": "Learned procedural skills",
+      "ttl": null,
+      "prefix": "skill:",
+      "fields": {
+        "skill_name": {"type": "string", "required": true},
+        "recipe": {"type": "array", "items": "string"},
+        "success_rate": {"type": "float", "min": 0, "max": 1},
+        "total_uses": {"type": "integer", "default": 0},
+        "last_used": {"type": "datetime"},
+        "improvements": {"type": "array", "items": "string"}
+      },
+      "indexes": ["skill_name", "success_rate"]
+    },
+
+    "context": {
+      "description": "Conversation context chunks",
+      "ttl": 86400,
+      "prefix": "ctx:",
+      "fields": {
+        "session_id": {"type": "string", "required": true},
+        "sequence": {"type": "integer", "required": true},
+        "content": {"type": "string", "required": true},
+        "role": {"type": "enum", "values": ["user", "assistant", "system"]},
+        "timestamp": {"type": "datetime", "auto": true},
+        "tokens": {"type": "integer"}
+      },
+      "indexes": ["session_id", "sequence", "timestamp"]
+    },
+
+    "agent_state": {
+      "description": "Current agent execution state",
+      "ttl": 3600,
+      "prefix": "agent:",
+      "fields": {
+        "agent_id": {"type": "string", "required": true},
+        "status": {"type": "enum", "values": ["idle", "active", "blocked", "error"]},
+        "current_task": {"type": "string"},
+        "last_action": {"type": "string"},
+        "updated_at": {"type": "datetime", "auto": true}
+      },
+      "indexes": ["status", "agent_id"]
+    },
+
+    "cache": {
+      "description": "Response cache entries",
+      "ttl": 3600,
+      "prefix": "cache:",
+      "fields": {
+        "key": {"type": "string", "required": true},
+        "value": {"type": "any", "required": true},
+        "hits": {"type": "integer", "default": 0},
+        "created_at": {"type": "datetime", "auto": true}
+      },
+      "indexes": ["key"]
+    }
+  },
+
+  "indexing": {
+    "dense": {
+      "enabled": true,
+      "model": "text-embedding-3-small",
+      "dimensions": 1536
+    },
+    "sparse": {
+      "enabled": true,
+      "algorithm": "BM25"
+    },
+    "metadata_filtering": true
+  },
+
+  "decay": {
+    "enabled": true,
+    "check_interval": 86400,
+    "min_confidence": 0.3,
+    "min_access_count": 0,
+    "grace_period_hours": 24
+  },
+
+  "limits": {
+    "max_memory_entries": 10000,
+    "max_entry_size_bytes": 1048576,
+    "max_context_entries_per_session": 1000
+  },
+
+  "operations": {
+    "get": {
+      "update_accessed_at": true,
+      "increment_access_count": true
+    },
+    "set": {
+      "validate_schema": true,
+      "auto_timestamp": true
+    },
+    "search": {
+      "default_limit": 10,
+      "max_limit": 100,
+      "min_similarity": 0.7
+    }
+  }
+}

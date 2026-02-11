@@ -1,0 +1,30 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+# Property
+access_realestate_property_user,realestate.property.user,model_realestate_property,group_realestate_user,1,1,1,0
+access_realestate_property_manager,realestate.property.manager,model_realestate_property,group_realestate_manager,1,1,1,1
+# Property Image
+access_realestate_property_image_user,realestate.property.image.user,model_realestate_property_image,group_realestate_user,1,1,1,1
+# Owner
+access_realestate_owner_user,realestate.owner.user,model_realestate_owner,group_realestate_user,1,1,1,0
+access_realestate_owner_manager,realestate.owner.manager,model_realestate_owner,group_realestate_manager,1,1,1,1
+# Tenant
+access_realestate_tenant_user,realestate.tenant.user,model_realestate_tenant,group_realestate_user,1,1,1,0
+access_realestate_tenant_manager,realestate.tenant.manager,model_realestate_tenant,group_realestate_manager,1,1,1,1
+# Mandate
+access_realestate_mandate_user,realestate.mandate.user,model_realestate_mandate,group_realestate_user,1,1,1,0
+access_realestate_mandate_manager,realestate.mandate.manager,model_realestate_mandate,group_realestate_manager,1,1,1,1
+# Visit
+access_realestate_visit_user,realestate.visit.user,model_realestate_visit,group_realestate_user,1,1,1,0
+access_realestate_visit_manager,realestate.visit.manager,model_realestate_visit,group_realestate_manager,1,1,1,1
+# Offer
+access_realestate_offer_user,realestate.offer.user,model_realestate_offer,group_realestate_user,1,1,1,0
+access_realestate_offer_manager,realestate.offer.manager,model_realestate_offer,group_realestate_manager,1,1,1,1
+# Lease
+access_realestate_lease_user,realestate.lease.user,model_realestate_lease,group_realestate_user,1,1,0,0
+access_realestate_lease_manager,realestate.lease.manager,model_realestate_lease,group_realestate_manager,1,1,1,1
+# Lease Payment
+access_realestate_lease_payment_user,realestate.lease.payment.user,model_realestate_lease_payment,group_realestate_user,1,0,0,0
+access_realestate_lease_payment_manager,realestate.lease.payment.manager,model_realestate_lease_payment,group_realestate_manager,1,1,1,1
+# Wizards
+access_realestate_visit_wizard_user,realestate.visit.wizard.user,model_realestate_visit_wizard,group_realestate_user,1,1,1,1
+access_realestate_offer_reject_wizard_user,realestate.offer.reject.wizard.user,model_realestate_offer_reject_wizard,group_realestate_user,1,1,1,1

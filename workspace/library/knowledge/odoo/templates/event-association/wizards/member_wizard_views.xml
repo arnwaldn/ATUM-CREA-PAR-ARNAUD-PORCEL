@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Member Renew Wizard -->
+    <record id="view_member_renew_wizard_form" model="ir.ui.view">
+        <field name="name">association.member.renew.wizard.form</field>
+        <field name="model">association.member.renew.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Renew Memberships">
+                <group>
+                    <field name="member_ids" widget="many2many_tags"/>
+                    <field name="member_type_id"/>
+                    <field name="date_start"/>
+                    <field name="payment_method"/>
+                    <field name="send_confirmation"/>
+                </group>
+                <footer>
+                    <button name="action_renew" type="object" string="Renew"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_member_renew_wizard" model="ir.actions.act_window">
+        <field name="name">Renew Memberships</field>
+        <field name="res_model">association.member.renew.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_association_member"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <!-- Member Import Wizard -->
+    <record id="view_member_import_wizard_form" model="ir.ui.view">
+        <field name="name">association.member.import.wizard.form</field>
+        <field name="model">association.member.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Members">
+                <group>
+                    <group>
+                        <field name="file" filename="filename"/>
+                        <field name="filename" invisible="1"/>
+                        <field name="member_type_id"/>
+                    </group>
+                    <group>
+                        <field name="create_membership"/>
+                        <field name="skip_duplicates"/>
+                    </group>
+                </group>
+                <group string="CSV Format">
+                    <p class="text-muted">
+                        The CSV file should have the following columns:<br/>
+                        <code>name, email, phone, mobile, street, city, zip, birth_date</code>
+                    </p>
+                </group>
+                <footer>
+                    <button name="action_import" type="object" string="Import"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_member_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import Members</field>
+        <field name="res_model">association.member.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Member Merge Wizard -->
+    <record id="view_member_merge_wizard_form" model="ir.ui.view">
+        <field name="name">association.member.merge.wizard.form</field>
+        <field name="model">association.member.merge.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Merge Members">
+                <group>
+                    <field name="member_ids" widget="many2many_tags"/>
+                    <field name="target_member_id" domain="[('id', 'in', member_ids)]"/>
+                </group>
+                <div class="alert alert-warning">
+                    <p><strong>Warning:</strong> This action will:</p>
+                    <ul>
+                        <li>Move all memberships, registrations, and donations to the target member</li>
+                        <li>Archive all other selected members</li>
+                        <li>This action cannot be undone</li>
+                    </ul>
+                </div>
+                <footer>
+                    <button name="action_merge" type="object" string="Merge"
+                            class="btn-danger"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_member_merge_wizard" model="ir.actions.act_window">
+        <field name="name">Merge Members</field>
+        <field name="res_model">association.member.merge.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_association_member"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <!-- Member Communication Wizard -->
+    <record id="view_member_communication_wizard_form" model="ir.ui.view">
+        <field name="name">association.member.communication.wizard.form</field>
+        <field name="model">association.member.communication.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send Communication">
+                <group>
+                    <field name="member_ids" widget="many2many_tags"/>
+                    <field name="template_id"/>
+                    <field name="subject"/>
+                </group>
+                <field name="body"/>
+                <footer>
+                    <button name="action_send" type="object" string="Send"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_member_communication_wizard" model="ir.actions.act_window">
+        <field name="name">Send Communication</field>
+        <field name="res_model">association.member.communication.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_association_member"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <!-- Donation Thank Wizard -->
+    <record id="view_donation_thank_wizard_form" model="ir.ui.view">
+        <field name="name">association.donation.thank.wizard.form</field>
+        <field name="model">association.donation.thank.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send Thank You">
+                <group>
+                    <field name="donation_ids" widget="many2many_tags"/>
+                    <field name="template_id"/>
+                    <field name="subject"/>
+                </group>
+                <field name="body"/>
+                <footer>
+                    <button name="action_send_thank_you" type="object" string="Send"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_donation_thank_wizard" model="ir.actions.act_window">
+        <field name="name">Send Thank You</field>
+        <field name="res_model">association.donation.thank.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_association_donation"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <!-- Tax Receipt Generate Wizard -->
+    <record id="view_tax_receipt_generate_wizard_form" model="ir.ui.view">
+        <field name="name">association.tax.receipt.generate.wizard.form</field>
+        <field name="model">association.tax.receipt.generate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Tax Receipts">
+                <group>
+                    <group>
+                        <field name="fiscal_year"/>
+                        <field name="min_amount"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="donor_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate" type="object" string="Generate"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_tax_receipt_generate_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Tax Receipts</field>
+        <field name="res_model">association.tax.receipt.generate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Donation Record Wizard -->
+    <record id="view_donation_record_wizard_form" model="ir.ui.view">
+        <field name="name">association.donation.record.wizard.form</field>
+        <field name="model">association.donation.record.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Record Donation">
+                <group>
+                    <group string="Donor">
+                        <field name="donor_type" widget="radio"/>
+                        <field name="member_id" invisible="donor_type != 'member'"/>
+                        <field name="donor_id" invisible="donor_type != 'contact'"/>
+                        <field name="donor_name" invisible="donor_type != 'anonymous'"/>
+                        <field name="donor_email" invisible="donor_type != 'anonymous'"/>
+                    </group>
+                    <group string="Donation">
+                        <field name="donation_date"/>
+                        <field name="donation_type" widget="radio"/>
+                        <field name="amount"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="payment_method"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="campaign_id"/>
+                        <field name="tax_deductible"/>
+                    </group>
+                </group>
+                <field name="notes" placeholder="Additional notes..."/>
+                <footer>
+                    <button name="action_record" type="object" string="Record Donation"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_donation_record_wizard" model="ir.actions.act_window">
+        <field name="name">Record Donation</field>
+        <field name="res_model">association.donation.record.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Event Registration Wizard -->
+    <record id="view_event_registration_wizard_form" model="ir.ui.view">
+        <field name="name">association.event.registration.wizard.form</field>
+        <field name="model">association.event.registration.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Event Registration">
+                <group>
+                    <group string="Event">
+                        <field name="event_id"/>
+                        <field name="registration_type" widget="radio"/>
+                    </group>
+                    <group string="Participant">
+                        <field name="member_id" invisible="registration_type != 'member'"/>
+                        <field name="partner_id" invisible="registration_type != 'non_member'"/>
+                        <field name="name" invisible="registration_type != 'non_member' or partner_id"/>
+                        <field name="email" invisible="registration_type != 'non_member' or partner_id"/>
+                        <field name="phone" invisible="registration_type != 'non_member' or partner_id"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="guests"/>
+                        <field name="amount" readonly="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </group>
+                <field name="notes" placeholder="Special requirements..."/>
+                <footer>
+                    <button name="action_register" type="object" string="Register"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_event_registration_wizard" model="ir.actions.act_window">
+        <field name="name">Register for Event</field>
+        <field name="res_model">association.event.registration.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Event Mass Registration Wizard -->
+    <record id="view_event_mass_registration_wizard_form" model="ir.ui.view">
+        <field name="name">association.event.mass.registration.wizard.form</field>
+        <field name="model">association.event.mass.registration.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Mass Registration">
+                <group>
+                    <field name="event_id"/>
+                    <field name="member_ids" widget="many2many_tags"/>
+                    <field name="send_confirmation"/>
+                </group>
+                <footer>
+                    <button name="action_register_all" type="object" string="Register All"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Event Attendance Wizard -->
+    <record id="view_event_attendance_wizard_form" model="ir.ui.view">
+        <field name="name">association.event.attendance.wizard.form</field>
+        <field name="model">association.event.attendance.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Event Attendance">
+                <group>
+                    <field name="event_id" readonly="1"/>
+                </group>
+                <field name="attendance_line_ids">
+                    <tree editable="bottom">
+                        <field name="partner_id" readonly="1"/>
+                        <field name="attended" widget="boolean_toggle"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="action_mark_attendance" type="object" string="Save Attendance"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_event_attendance_wizard" model="ir.actions.act_window">
+        <field name="name">Take Attendance</field>
+        <field name="res_model">association.event.attendance.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_association_event"/>
+        <field name="binding_view_types">form</field>
+    </record>
+
+    <!-- Event Duplicate Wizard -->
+    <record id="view_event_duplicate_wizard_form" model="ir.ui.view">
+        <field name="name">association.event.duplicate.wizard.form</field>
+        <field name="model">association.event.duplicate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Duplicate Event">
+                <group>
+                    <field name="event_id" readonly="1"/>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="copy_registrations"/>
+                </group>
+                <footer>
+                    <button name="action_duplicate" type="object" string="Create Copy"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_event_duplicate_wizard" model="ir.actions.act_window">
+        <field name="name">Duplicate Event</field>
+        <field name="res_model">association.event.duplicate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_association_event"/>
+        <field name="binding_view_types">form</field>
+    </record>
+</odoo>

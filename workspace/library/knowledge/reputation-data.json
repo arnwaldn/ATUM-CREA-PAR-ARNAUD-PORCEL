@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "27.17",
+  "name": "Agent Reputation Data Store",
+  "description": "Persistent storage for agent reputation metrics",
+  "created": "2026-01-11",
+  "lastUpdated": "2026-01-12T16:08:02.862Z",
+  "metadata": {
+    "totalAgentsTracked": 2,
+    "totalTasksRecorded": 1430,
+    "oldestRecord": null,
+    "newestRecord": null
+  },
+  "agents": {
+    "general-agent": {
+      "agentId": "general-agent",
+      "metrics": {
+        "totalTasks": 1429,
+        "successCount": 1429,
+        "failureCount": 0,
+        "avgQualityScore": 70,
+        "avgCompletionTime": 30
+      },
+      "byTaskType": {
+        "debugging": {
+          "count": 53,
+          "successRate": 100,
+          "avgQuality": 70
+        },
+        "general": {
+          "count": 1260,
+          "successRate": 100,
+          "avgQuality": 70
+        },
+        "documentation": {
+          "count": 50,
+          "successRate": 100,
+          "avgQuality": 70
+        },
+        "database_design": {
+          "count": 11,
+          "successRate": 100,
+          "avgQuality": 70
+        },
+        "api_development": {
+          "count": 29,
+          "successRate": 100,
+          "avgQuality": 70
+        },
+        "component_creation": {
+          "count": 4,
+          "successRate": 100,
+          "avgQuality": 70
+        },
+        "testing": {
+          "count": 21,
+          "successRate": 100,
+          "avgQuality": 70
+        },
+        "refactoring": {
+          "count": 1,
+          "successRate": 100,
+          "avgQuality": 70
+        }
+      },
+      "reputationScore": 83,
+      "lastUpdated": "2026-01-12T16:08:02.859Z",
+      "trend": "stable"
+    },
+    "tester": {
+      "agentId": "tester",
+      "metrics": {
+        "totalTasks": 1,
+        "successCount": 1,
+        "failureCount": 0,
+        "avgQualityScore": 70,
+        "avgCompletionTime": 30
+      },
+      "byTaskType": {
+        "testing": {
+          "count": 1,
+          "successRate": 100,
+          "avgQuality": 70
+        }
+      },
+      "reputationScore": 75,
+      "lastUpdated": "2026-01-12T02:39:56.444Z",
+      "trend": "improving"
+    }
+  },
+  "taskHistory": [],
+  "aggregateStats": {
+    "globalSuccessRate": 0,
+    "globalAvgQuality": 0,
+    "topPerformers": [],
+    "improvingAgents": [],
+    "needsAttention": []
+  }
+}

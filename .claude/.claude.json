@@ -1,0 +1,51 @@
+{
+  "cachedStatsigGates": {
+    "tengu_prompt_suggestion": false
+  },
+  "firstStartTime": "2026-02-07T17:20:12.348Z",
+  "sonnet45MigrationComplete": true,
+  "opus45MigrationComplete": true,
+  "thinkingMigrationComplete": true,
+  "userID": "f0dad423ef9b50ac3c763e7354b542eef1d9e3fcda1f154881f4178dfb65d451",
+  "oauthAccount": {
+    "accountUuid": "66f05329-dd9a-4481-9702-d72da9bdb22d",
+    "emailAddress": "arnaud.porcel@gmail.com",
+    "organizationUuid": "f743c4d3-85f4-4776-989d-c687bdfe3a56",
+    "hasExtraUsageEnabled": false,
+    "billingType": "stripe_subscription",
+    "accountCreatedAt": "2025-07-20T06:51:55.380122Z",
+    "subscriptionCreatedAt": "2025-08-05T09:53:03.587644Z",
+    "displayName": "Nano"
+  },
+  "passesEligibilityCache": {
+    "f743c4d3-85f4-4776-989d-c687bdfe3a56": {
+      "eligible": true,
+      "referral_code_details": {
+        "code": "wk3zTB3LoQ",
+        "campaign": "claude_code_guest_pass",
+        "referral_link": "https://claude.ai/referral/wk3zTB3LoQ"
+      },
+      "referrer_reward": null,
+      "remaining_passes": 3,
+      "timestamp": 1770777242829
+    }
+  },
+  "s1mAccessCache": {
+    "f743c4d3-85f4-4776-989d-c687bdfe3a56": {
+      "hasAccess": false,
+      "hasAccessNotAsDefault": false,
+      "timestamp": 1770777242715
+    }
+  },
+  "opusProMigrationComplete": true,
+  "groveConfigCache": {
+    "66f05329-dd9a-4481-9702-d72da9bdb22d": {
+      "grove_enabled": true,
+      "timestamp": 1770558124142
+    }
+  },
+  "clientDataCache": {
+    "data": {},
+    "timestamp": 1770559901935
+  }
+}

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Floors -->
+        <record id="floor_main" model="restaurant.floor">
+            <field name="name">Main Dining</field>
+            <field name="sequence">1</field>
+            <field name="background_color">#f5f5dc</field>
+        </record>
+        <record id="floor_terrace" model="restaurant.floor">
+            <field name="name">Terrace</field>
+            <field name="sequence">2</field>
+            <field name="background_color">#90ee90</field>
+        </record>
+        <record id="floor_bar" model="restaurant.floor">
+            <field name="name">Bar Area</field>
+            <field name="sequence">3</field>
+            <field name="background_color">#deb887</field>
+        </record>
+
+        <!-- Demo Tables -->
+        <record id="table_1" model="restaurant.table">
+            <field name="name">1</field>
+            <field name="floor_id" ref="floor_main"/>
+            <field name="shape_id" ref="shape_square"/>
+            <field name="capacity">4</field>
+            <field name="position_h">10</field>
+            <field name="position_v">10</field>
+        </record>
+        <record id="table_2" model="restaurant.table">
+            <field name="name">2</field>
+            <field name="floor_id" ref="floor_main"/>
+            <field name="shape_id" ref="shape_square"/>
+            <field name="capacity">4</field>
+            <field name="position_h">30</field>
+            <field name="position_v">10</field>
+        </record>
+        <record id="table_3" model="restaurant.table">
+            <field name="name">3</field>
+            <field name="floor_id" ref="floor_main"/>
+            <field name="shape_id" ref="shape_rectangle"/>
+            <field name="capacity">6</field>
+            <field name="position_h">50</field>
+            <field name="position_v">10</field>
+        </record>
+        <record id="table_4" model="restaurant.table">
+            <field name="name">4</field>
+            <field name="floor_id" ref="floor_main"/>
+            <field name="shape_id" ref="shape_round"/>
+            <field name="capacity">8</field>
+            <field name="position_h">10</field>
+            <field name="position_v">40</field>
+        </record>
+        <record id="table_t1" model="restaurant.table">
+            <field name="name">T1</field>
+            <field name="floor_id" ref="floor_terrace"/>
+            <field name="shape_id" ref="shape_round"/>
+            <field name="capacity">4</field>
+        </record>
+        <record id="table_t2" model="restaurant.table">
+            <field name="name">T2</field>
+            <field name="floor_id" ref="floor_terrace"/>
+            <field name="shape_id" ref="shape_round"/>
+            <field name="capacity">4</field>
+        </record>
+        <record id="table_bar_1" model="restaurant.table">
+            <field name="name">B1</field>
+            <field name="floor_id" ref="floor_bar"/>
+            <field name="capacity">2</field>
+            <field name="min_capacity">1</field>
+        </record>
+
+        <!-- Demo Menu Categories -->
+        <record id="category_starters" model="restaurant.menu.category">
+            <field name="name">Starters</field>
+            <field name="code">START</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="category_mains" model="restaurant.menu.category">
+            <field name="name">Main Courses</field>
+            <field name="code">MAIN</field>
+            <field name="sequence">2</field>
+        </record>
+        <record id="category_desserts" model="restaurant.menu.category">
+            <field name="name">Desserts</field>
+            <field name="code">DESS</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="category_drinks" model="restaurant.menu.category">
+            <field name="name">Drinks</field>
+            <field name="code">DRINK</field>
+            <field name="sequence">4</field>
+        </record>
+        <record id="category_wines" model="restaurant.menu.category">
+            <field name="name">Wines</field>
+            <field name="code">WINE</field>
+            <field name="parent_id" ref="category_drinks"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- Demo Menu Items -->
+        <record id="item_soup" model="restaurant.menu.item">
+            <field name="name">Soup of the Day</field>
+            <field name="code">SOUP</field>
+            <field name="category_id" ref="category_starters"/>
+            <field name="price">8.50</field>
+            <field name="cost">2.00</field>
+            <field name="is_vegetarian">True</field>
+            <field name="preparation_time">5</field>
+            <field name="kitchen_printer_id" ref="printer_kitchen"/>
+        </record>
+        <record id="item_salad" model="restaurant.menu.item">
+            <field name="name">Caesar Salad</field>
+            <field name="code">CAESAR</field>
+            <field name="category_id" ref="category_starters"/>
+            <field name="price">12.00</field>
+            <field name="cost">3.50</field>
+            <field name="preparation_time">8</field>
+            <field name="kitchen_printer_id" ref="printer_kitchen"/>
+        </record>
+        <record id="item_steak" model="restaurant.menu.item">
+            <field name="name">Ribeye Steak</field>
+            <field name="code">STEAK</field>
+            <field name="category_id" ref="category_mains"/>
+            <field name="price">32.00</field>
+            <field name="cost">12.00</field>
+            <field name="preparation_time">20</field>
+            <field name="kitchen_printer_id" ref="printer_kitchen"/>
+        </record>
+        <record id="item_salmon" model="restaurant.menu.item">
+            <field name="name">Grilled Salmon</field>
+            <field name="code">SALMON</field>
+            <field name="category_id" ref="category_mains"/>
+            <field name="price">26.00</field>
+            <field name="cost">9.00</field>
+            <field name="is_gluten_free">True</field>
+            <field name="preparation_time">15</field>
+            <field name="kitchen_printer_id" ref="printer_kitchen"/>
+        </record>
+        <record id="item_pasta" model="restaurant.menu.item">
+            <field name="name">Pasta Carbonara</field>
+            <field name="code">CARBO</field>
+            <field name="category_id" ref="category_mains"/>
+            <field name="price">18.00</field>
+            <field name="cost">4.00</field>
+            <field name="preparation_time">12</field>
+            <field name="kitchen_printer_id" ref="printer_kitchen"/>
+        </record>
+        <record id="item_veggie_burger" model="restaurant.menu.item">
+            <field name="name">Veggie Burger</field>
+            <field name="code">VBURG</field>
+            <field name="category_id" ref="category_mains"/>
+            <field name="price">16.00</field>
+            <field name="cost">4.50</field>
+            <field name="is_vegetarian">True</field>
+            <field name="preparation_time">15</field>
+            <field name="kitchen_printer_id" ref="printer_kitchen"/>
+        </record>
+        <record id="item_tiramisu" model="restaurant.menu.item">
+            <field name="name">Tiramisu</field>
+            <field name="code">TIRA</field>
+            <field name="category_id" ref="category_desserts"/>
+            <field name="price">9.00</field>
+            <field name="cost">2.50</field>
+            <field name="is_vegetarian">True</field>
+            <field name="preparation_time">3</field>
+            <field name="kitchen_printer_id" ref="printer_dessert"/>
+        </record>
+        <record id="item_coffee" model="restaurant.menu.item">
+            <field name="name">Espresso</field>
+            <field name="code">ESP</field>
+            <field name="category_id" ref="category_drinks"/>
+            <field name="price">3.50</field>
+            <field name="cost">0.50</field>
+            <field name="is_vegan">True</field>
+            <field name="preparation_time">2</field>
+            <field name="kitchen_printer_id" ref="printer_bar"/>
+        </record>
+        <record id="item_wine_red" model="restaurant.menu.item">
+            <field name="name">House Red Wine (Glass)</field>
+            <field name="code">WRED</field>
+            <field name="category_id" ref="category_wines"/>
+            <field name="price">8.00</field>
+            <field name="cost">2.00</field>
+            <field name="is_vegan">True</field>
+            <field name="preparation_time">1</field>
+            <field name="kitchen_printer_id" ref="printer_bar"/>
+        </record>
+
+        <!-- Demo Menu Options -->
+        <record id="option_steak_rare" model="restaurant.menu.option">
+            <field name="item_id" ref="item_steak"/>
+            <field name="option_type_id" ref="option_type_cooking"/>
+            <field name="name">Rare</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="option_steak_medium" model="restaurant.menu.option">
+            <field name="item_id" ref="item_steak"/>
+            <field name="option_type_id" ref="option_type_cooking"/>
+            <field name="name">Medium</field>
+            <field name="sequence">2</field>
+            <field name="is_default">True</field>
+        </record>
+        <record id="option_steak_well" model="restaurant.menu.option">
+            <field name="item_id" ref="item_steak"/>
+            <field name="option_type_id" ref="option_type_cooking"/>
+            <field name="name">Well Done</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="option_steak_fries" model="restaurant.menu.option">
+            <field name="item_id" ref="item_steak"/>
+            <field name="option_type_id" ref="option_type_side"/>
+            <field name="name">French Fries</field>
+            <field name="is_default">True</field>
+        </record>
+        <record id="option_steak_salad" model="restaurant.menu.option">
+            <field name="item_id" ref="item_steak"/>
+            <field name="option_type_id" ref="option_type_side"/>
+            <field name="name">Side Salad</field>
+            <field name="price_extra">2.00</field>
+        </record>
+
+        <!-- Demo Staff -->
+        <record id="staff_manager" model="restaurant.staff">
+            <field name="name">Marie Laurent</field>
+            <field name="position">manager</field>
+            <field name="phone">+1 555-0100</field>
+            <field name="email">marie@restaurant.example.com</field>
+            <field name="pin">1234</field>
+            <field name="hourly_rate">25.00</field>
+        </record>
+        <record id="staff_waiter_1" model="restaurant.staff">
+            <field name="name">Thomas Dupont</field>
+            <field name="position">waiter</field>
+            <field name="phone">+1 555-0101</field>
+            <field name="pin">2345</field>
+            <field name="hourly_rate">15.00</field>
+        </record>
+        <record id="staff_waiter_2" model="restaurant.staff">
+            <field name="name">Sophie Martin</field>
+            <field name="position">waiter</field>
+            <field name="phone">+1 555-0102</field>
+            <field name="pin">3456</field>
+            <field name="hourly_rate">15.00</field>
+        </record>
+        <record id="staff_chef" model="restaurant.staff">
+            <field name="name">Pierre Bernard</field>
+            <field name="position">chef</field>
+            <field name="phone">+1 555-0110</field>
+            <field name="hourly_rate">22.00</field>
+        </record>
+        <record id="staff_bartender" model="restaurant.staff">
+            <field name="name">Lucas Petit</field>
+            <field name="position">bartender</field>
+            <field name="phone">+1 555-0120</field>
+            <field name="pin">4567</field>
+            <field name="hourly_rate">16.00</field>
+        </record>
+
+        <!-- Demo Reservations -->
+        <record id="reservation_tonight" model="restaurant.reservation">
+            <field name="customer_name">Jean Durand</field>
+            <field name="customer_phone">+1 555-9001</field>
+            <field name="customer_email">jean.durand@email.com</field>
+            <field name="party_size">4</field>
+            <field name="reservation_datetime" eval="(datetime.today().replace(hour=19, minute=30)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration">2.0</field>
+            <field name="table_ids" eval="[(6, 0, [ref('table_3')])]"/>
+            <field name="occasion">birthday</field>
+            <field name="special_requests">Birthday cake at dessert time, please</field>
+            <field name="state">confirmed</field>
+        </record>
+        <record id="reservation_tomorrow" model="restaurant.reservation">
+            <field name="customer_name">Marie Leroy</field>
+            <field name="customer_phone">+1 555-9002</field>
+            <field name="party_size">2</field>
+            <field name="reservation_datetime" eval="(datetime.today().replace(hour=20, minute=0) + relativedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration">1.5</field>
+            <field name="floor_id" ref="floor_terrace"/>
+            <field name="occasion">date</field>
+            <field name="state">confirmed</field>
+        </record>
+        <record id="reservation_business" model="restaurant.reservation">
+            <field name="customer_name">Corporate Solutions Inc</field>
+            <field name="customer_phone">+1 555-9003</field>
+            <field name="customer_email">events@corporate.example.com</field>
+            <field name="party_size">8</field>
+            <field name="reservation_datetime" eval="(datetime.today().replace(hour=12, minute=30) + relativedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="duration">2.0</field>
+            <field name="table_ids" eval="[(6, 0, [ref('table_4')])]"/>
+            <field name="occasion">business</field>
+            <field name="special_requests">Quiet area preferred, separate checks</field>
+            <field name="state">confirmed</field>
+        </record>
+    </data>
+</odoo>

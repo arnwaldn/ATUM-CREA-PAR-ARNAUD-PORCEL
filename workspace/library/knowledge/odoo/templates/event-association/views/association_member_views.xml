@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Member Form View -->
+    <record id="view_association_member_form" model="ir.ui.view">
+        <field name="name">association.member.form</field>
+        <field name="model">association.member</field>
+        <field name="arch" type="xml">
+            <form string="Member">
+                <header>
+                    <button name="action_approve" type="object" string="Approve"
+                            class="oe_highlight" invisible="state != 'pending'"/>
+                    <button name="action_renew_membership" type="object" string="Renew"
+                            class="oe_highlight" invisible="state not in ('active', 'expired')"/>
+                    <button name="action_suspend" type="object" string="Suspend"
+                            invisible="state != 'active'"/>
+                    <button name="action_reactivate" type="object" string="Reactivate"
+                            invisible="state != 'suspended'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('cancelled',)"/>
+                    <button name="action_print_card" type="object" string="Print Card"
+                            icon="fa-id-card" invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="prospect,pending,active"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_memberships" icon="fa-id-card">
+                            <field name="membership_count" widget="statinfo" string="Memberships"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-calendar">
+                            <field name="event_count" widget="statinfo" string="Events"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-users">
+                            <field name="activity_count" widget="statinfo" string="Activities"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-heart">
+                            <field name="volunteer_hours" widget="statinfo" string="Vol. Hours"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-gift">
+                            <field name="total_donations" widget="statinfo" string="Donations"/>
+                        </button>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar"
+                           options="{'preview_image': 'image_128'}"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Member Name"/></h1>
+                        <field name="member_number" readonly="1"/>
+                    </div>
+                    <group>
+                        <group string="Membership">
+                            <field name="member_type_id"/>
+                            <field name="join_date"/>
+                            <field name="membership_start"/>
+                            <field name="membership_end"/>
+                            <field name="is_member_active"/>
+                        </group>
+                        <group string="Contact">
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                            <field name="street"/>
+                            <field name="city"/>
+                            <field name="zip"/>
+                            <field name="country_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Personal">
+                            <field name="birth_date"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="nationality"/>
+                            <field name="occupation"/>
+                        </group>
+                        <group string="Emergency Contact">
+                            <field name="emergency_contact"/>
+                            <field name="emergency_phone"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Skills &amp; Interests" name="skills">
+                            <group>
+                                <group>
+                                    <field name="skill_ids" widget="many2many_tags"/>
+                                </group>
+                                <group>
+                                    <field name="interest_ids" widget="many2many_tags"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Membership History" name="memberships">
+                            <field name="membership_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="member_type_id"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="amount"/>
+                                    <field name="payment_state"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Events" name="events">
+                            <field name="event_registration_ids">
+                                <tree>
+                                    <field name="event_id"/>
+                                    <field name="registration_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Activities" name="activities">
+                            <field name="activity_participation_ids">
+                                <tree>
+                                    <field name="activity_id"/>
+                                    <field name="enrollment_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Volunteering" name="volunteering">
+                            <field name="volunteer_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="event_id"/>
+                                    <field name="activity_id"/>
+                                    <field name="role"/>
+                                    <field name="hours"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Donations" name="donations">
+                            <field name="donation_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="donation_date"/>
+                                    <field name="amount"/>
+                                    <field name="donation_type"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Communication" name="communication">
+                            <group>
+                                <group>
+                                    <field name="newsletter"/>
+                                    <field name="communication_preference"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Member Tree View -->
+    <record id="view_association_member_tree" model="ir.ui.view">
+        <field name="name">association.member.tree</field>
+        <field name="model">association.member</field>
+        <field name="arch" type="xml">
+            <tree string="Members" decoration-muted="state == 'cancelled'"
+                  decoration-warning="state == 'expired'">
+                <field name="member_number"/>
+                <field name="name"/>
+                <field name="member_type_id"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="join_date"/>
+                <field name="membership_end"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'prospect'"
+                       decoration-warning="state == 'pending'"
+                       decoration-success="state == 'active'"
+                       decoration-danger="state in ('expired', 'suspended')"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Member Kanban View -->
+    <record id="view_association_member_kanban" model="ir.ui.view">
+        <field name="name">association.member.kanban</field>
+        <field name="model">association.member</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="member_type_id">
+                <field name="name"/>
+                <field name="image_128"/>
+                <field name="member_number"/>
+                <field name="email"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('association.member', 'image_128', record.id.raw_value)"
+                                     alt="Member" class="o_image_64_cover"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="text-muted"><field name="member_number"/></div>
+                                <div><field name="email"/></div>
+                                <div class="mt-1">
+                                    <span t-attf-class="badge #{record.state.raw_value == 'active' ? 'text-bg-success' : 'text-bg-secondary'}">
+                                        <field name="state"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Member Search View -->
+    <record id="view_association_member_search" model="ir.ui.view">
+        <field name="name">association.member.search</field>
+        <field name="model">association.member</field>
+        <field name="arch" type="xml">
+            <search string="Search Members">
+                <field name="name"/>
+                <field name="member_number"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <separator/>
+                <filter name="filter_active" string="Active Members"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="filter_pending" string="Pending Approval"
+                        domain="[('state', '=', 'pending')]"/>
+                <filter name="filter_expired" string="Expired"
+                        domain="[('state', '=', 'expired')]"/>
+                <separator/>
+                <filter name="filter_newsletter" string="Newsletter Subscribers"
+                        domain="[('newsletter', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_type" string="Member Type"
+                            context="{'group_by': 'member_type_id'}"/>
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="groupby_city" string="City"
+                            context="{'group_by': 'city'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Member Type Tree View -->
+    <record id="view_association_member_type_tree" model="ir.ui.view">
+        <field name="name">association.member.type.tree</field>
+        <field name="model">association.member.type</field>
+        <field name="arch" type="xml">
+            <tree string="Member Types" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="annual_fee"/>
+                <field name="duration_months"/>
+                <field name="age_min"/>
+                <field name="age_max"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_association_member" model="ir.actions.act_window">
+        <field name="name">Members</field>
+        <field name="res_model">association.member</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_association_member_search"/>
+        <field name="context">{'search_default_filter_active': 1}</field>
+    </record>
+
+    <record id="action_association_member_type" model="ir.actions.act_window">
+        <field name="name">Member Types</field>
+        <field name="res_model">association.member.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,377 @@
+/**
+ * Association Management Module - Custom Styles
+ * Odoo v17+
+ */
+
+/* ===== Member Card Styles ===== */
+.o_association_member_card {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.o_association_member_card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.o_member_avatar {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.o_member_status_badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.o_member_status_active {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.o_member_status_pending {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.o_member_status_expired {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.o_member_status_suspended {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* ===== Event Card Styles ===== */
+.o_association_event_card {
+    border-left: 4px solid #007bff;
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+}
+
+.o_event_date_badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 15px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 8px;
+    min-width: 70px;
+}
+
+.o_event_date_badge .day {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.o_event_date_badge .month {
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.o_event_capacity_bar {
+    height: 6px;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.o_event_capacity_fill {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745 0%, #ffc107 70%, #dc3545 100%);
+    transition: width 0.3s ease;
+}
+
+/* ===== Activity Styles ===== */
+.o_activity_schedule {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #f1f3f5;
+    border-radius: 6px;
+}
+
+.o_activity_time {
+    font-weight: 600;
+    color: #495057;
+}
+
+.o_activity_day_badge {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 2px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+/* ===== Donation Styles ===== */
+.o_donation_amount {
+    font-size: 24px;
+    font-weight: 700;
+    color: #28a745;
+}
+
+.o_donation_campaign_progress {
+    position: relative;
+    height: 20px;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.o_donation_campaign_bar {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+    transition: width 0.5s ease;
+}
+
+.o_donation_campaign_goal {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* ===== Kanban View Enhancements ===== */
+.o_kanban_view .o_association_kanban_card {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.o_kanban_view .o_association_kanban_card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.o_kanban_view .o_kanban_image {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ===== Calendar View Styles ===== */
+.o_calendar_view .o_association_event {
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.o_calendar_view .o_event_type_meeting {
+    background-color: #007bff !important;
+}
+
+.o_calendar_view .o_event_type_workshop {
+    background-color: #6f42c1 !important;
+}
+
+.o_calendar_view .o_event_type_conference {
+    background-color: #fd7e14 !important;
+}
+
+.o_calendar_view .o_event_type_social {
+    background-color: #20c997 !important;
+}
+
+.o_calendar_view .o_event_type_fundraiser {
+    background-color: #e83e8c !important;
+}
+
+/* ===== Statistics Dashboard ===== */
+.o_association_stat_card {
+    padding: 20px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.o_association_stat_card .o_stat_value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #212529;
+}
+
+.o_association_stat_card .o_stat_label {
+    font-size: 14px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.o_association_stat_card.o_stat_members {
+    border-left: 4px solid #007bff;
+}
+
+.o_association_stat_card.o_stat_events {
+    border-left: 4px solid #28a745;
+}
+
+.o_association_stat_card.o_stat_donations {
+    border-left: 4px solid #ffc107;
+}
+
+/* ===== Form View Enhancements ===== */
+.o_form_view .o_association_header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    border-radius: 8px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.o_form_view .o_association_section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.o_form_view .o_association_section .o_section_title {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* ===== Resource Booking Calendar ===== */
+.o_booking_calendar {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.o_booking_slot {
+    padding: 8px;
+    margin: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.o_booking_slot.available {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.o_booking_slot.booked {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.o_booking_slot:hover.available {
+    background-color: #c3e6cb;
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    .o_association_member_card,
+    .o_association_event_card {
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+    }
+
+    .o_member_avatar {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .o_donation_campaign_bar {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+    .o_association_stat_card {
+        margin-bottom: 15px;
+    }
+
+    .o_association_stat_card .o_stat_value {
+        font-size: 28px;
+    }
+
+    .o_event_date_badge {
+        min-width: 50px;
+        padding: 8px 10px;
+    }
+
+    .o_event_date_badge .day {
+        font-size: 18px;
+    }
+}
+
+/* ===== Badge Variations ===== */
+.badge-member-regular {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.badge-member-student {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.badge-member-senior {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.badge-member-family {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-member-honorary {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+/* ===== Volunteer Hours Tracker ===== */
+.o_volunteer_hours_display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.o_volunteer_hours_value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #28a745;
+}
+
+.o_volunteer_hours_label {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* ===== Newsletter Subscription Toggle ===== */
+.o_newsletter_toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.o_newsletter_toggle .o_toggle_label {
+    font-size: 14px;
+    color: #495057;
+}

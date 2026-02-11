@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Visit Form View -->
+    <record id="view_realestate_visit_form" model="ir.ui.view">
+        <field name="name">realestate.visit.form</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <form string="Visit">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="oe_highlight" invisible="state != 'scheduled'"/>
+                    <button name="action_complete" type="object" string="Complete"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state not in ('scheduled', 'confirmed')"/>
+                    <button name="action_no_show" type="object" string="No Show"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_create_offer" type="object" string="Create Offer"
+                            invisible="state != 'completed'" class="oe_highlight"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="scheduled,confirmed,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Property">
+                            <field name="property_id"/>
+                            <field name="property_address"/>
+                        </group>
+                        <group string="Visitor">
+                            <field name="visitor_id"/>
+                            <field name="visitor_phone"/>
+                            <field name="visitor_email"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Schedule">
+                            <field name="date"/>
+                            <field name="time_start" widget="float_time"/>
+                            <field name="time_end" widget="float_time"/>
+                            <field name="duration"/>
+                        </group>
+                        <group string="Agent">
+                            <field name="agent_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Feedback" name="feedback" invisible="state not in ('completed', 'no_show')">
+                            <group>
+                                <field name="visitor_interest"/>
+                            </group>
+                            <field name="feedback" placeholder="Visitor feedback..."/>
+                            <field name="agent_notes" placeholder="Agent notes..."/>
+                        </page>
+                        <page string="Follow-up" name="followup">
+                            <group>
+                                <field name="follow_up_date"/>
+                                <field name="follow_up_done"/>
+                            </group>
+                            <button name="action_schedule_follow_up" type="object"
+                                    string="Schedule Follow-up Activity"
+                                    invisible="follow_up_done"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Visit Tree View -->
+    <record id="view_realestate_visit_tree" model="ir.ui.view">
+        <field name="name">realestate.visit.tree</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <tree string="Visits" decoration-warning="state == 'scheduled'"
+                  decoration-success="state == 'completed'"
+                  decoration-danger="state in ('cancelled', 'no_show')">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="time_start" widget="float_time"/>
+                <field name="property_id"/>
+                <field name="visitor_id"/>
+                <field name="agent_id"/>
+                <field name="visitor_interest"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Visit Calendar View -->
+    <record id="view_realestate_visit_calendar" model="ir.ui.view">
+        <field name="name">realestate.visit.calendar</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <calendar string="Visits" date_start="date" color="agent_id" mode="week"
+                      quick_create="0">
+                <field name="property_id"/>
+                <field name="visitor_id"/>
+                <field name="agent_id" filters="1"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Visit Search View -->
+    <record id="view_realestate_visit_search" model="ir.ui.view">
+        <field name="name">realestate.visit.search</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <search string="Search Visits">
+                <field name="property_id"/>
+                <field name="visitor_id"/>
+                <separator/>
+                <filter name="filter_today" string="Today"
+                        domain="[('date', '=', context_today().strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="filter_upcoming" string="Upcoming"
+                        domain="[('date', '&gt;=', context_today().strftime('%%Y-%%m-%%d')),
+                                 ('state', 'in', ['scheduled', 'confirmed'])]"/>
+                <separator/>
+                <filter name="filter_scheduled" string="Scheduled"
+                        domain="[('state', '=', 'scheduled')]"/>
+                <filter name="filter_completed" string="Completed"
+                        domain="[('state', '=', 'completed')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_property" string="Property"
+                            context="{'group_by': 'property_id'}"/>
+                    <filter name="groupby_agent" string="Agent"
+                            context="{'group_by': 'agent_id'}"/>
+                    <filter name="groupby_date" string="Date"
+                            context="{'group_by': 'date'}"/>
+                    <filter name="groupby_interest" string="Interest"
+                            context="{'group_by': 'visitor_interest'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Visit Actions -->
+    <record id="action_realestate_visit" model="ir.actions.act_window">
+        <field name="name">Visits</field>
+        <field name="res_model">realestate.visit</field>
+        <field name="view_mode">calendar,tree,form</field>
+        <field name="search_view_id" ref="view_realestate_visit_search"/>
+    </record>
+
+    <record id="action_realestate_visit_today" model="ir.actions.act_window">
+        <field name="name">Today's Visits</field>
+        <field name="res_model">realestate.visit</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="context">{'search_default_filter_today': 1}</field>
+    </record>
+</odoo>

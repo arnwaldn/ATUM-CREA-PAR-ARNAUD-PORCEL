@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "instanceId": "33db5658-74ba-4652-bead-5681b452457d",
+  "previousInstanceId": "9d385eb1-3a07-496a-b329-15857a5843e9",
+  "startedAt": 1770777232710,
+  "lastCleanExit": false,
+  "processes": [
+    {
+      "id": "262a82be-09d8-4c1a-9f34-a09d789902c2",
+      "pid": 20548,
+      "type": "v2-session",
+      "instanceId": "33db5658-74ba-4652-bead-5681b452457d",
+      "startedAt": 1770777734602,
+      "lastHeartbeat": 1770777734603
+    },
+    {
+      "id": "425803c6-cd83-4c18-9a3b-679e7aa9ea48",
+      "pid": 9668,
+      "type": "v2-session",
+      "instanceId": "33db5658-74ba-4652-bead-5681b452457d",
+      "startedAt": 1770777808215,
+      "lastHeartbeat": 1770777808215
+    }
+  ]
+}

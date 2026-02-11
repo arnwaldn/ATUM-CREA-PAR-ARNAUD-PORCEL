@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Floor Form View -->
+    <record id="view_restaurant_floor_form" model="ir.ui.view">
+        <field name="name">restaurant.floor.form</field>
+        <field name="model">restaurant.floor</field>
+        <field name="arch" type="xml">
+            <form string="Floor">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Floor Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="table_count"/>
+                            <field name="total_capacity"/>
+                        </group>
+                        <group>
+                            <field name="background_color" widget="color"/>
+                            <field name="background_image" widget="image"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tables" name="tables">
+                            <field name="table_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="shape_id"/>
+                                    <field name="capacity"/>
+                                    <field name="min_capacity"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'available'"
+                                           decoration-danger="state == 'occupied'"
+                                           decoration-warning="state == 'reserved'"
+                                           decoration-info="state == 'cleaning'"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Floor Tree View -->
+    <record id="view_restaurant_floor_tree" model="ir.ui.view">
+        <field name="name">restaurant.floor.tree</field>
+        <field name="model">restaurant.floor</field>
+        <field name="arch" type="xml">
+            <tree string="Floors">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="table_count"/>
+                <field name="total_capacity"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Table Form View -->
+    <record id="view_restaurant_table_form" model="ir.ui.view">
+        <field name="name">restaurant.table.form</field>
+        <field name="model">restaurant.table</field>
+        <field name="arch" type="xml">
+            <form string="Table">
+                <header>
+                    <button name="action_set_available" type="object" string="Available"
+                            class="oe_highlight" invisible="state == 'available'"/>
+                    <button name="action_set_occupied" type="object" string="Occupied"
+                            invisible="state == 'occupied'"/>
+                    <button name="action_set_reserved" type="object" string="Reserved"
+                            invisible="state == 'reserved'"/>
+                    <button name="action_set_cleaning" type="object" string="Cleaning"
+                            invisible="state == 'cleaning'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_order" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o"
+                                invisible="state != 'occupied'">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Current Order</span>
+                            </div>
+                        </button>
+                        <button name="action_view_orders" type="object"
+                                class="oe_stat_button" icon="fa-history">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Order History</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Table Number"/></h1>
+                    </div>
+                    <group>
+                        <group string="Details">
+                            <field name="floor_id"/>
+                            <field name="shape_id"/>
+                            <field name="capacity"/>
+                            <field name="min_capacity"/>
+                            <field name="color" widget="color"/>
+                        </group>
+                        <group string="Position">
+                            <field name="position_h"/>
+                            <field name="position_v"/>
+                            <field name="width"/>
+                            <field name="height"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Table Tree View -->
+    <record id="view_restaurant_table_tree" model="ir.ui.view">
+        <field name="name">restaurant.table.tree</field>
+        <field name="model">restaurant.table</field>
+        <field name="arch" type="xml">
+            <tree string="Tables">
+                <field name="name"/>
+                <field name="floor_id"/>
+                <field name="capacity"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'available'"
+                       decoration-danger="state == 'occupied'"
+                       decoration-warning="state == 'reserved'"
+                       decoration-info="state == 'cleaning'"
+                       decoration-muted="state == 'blocked'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Table Kanban View -->
+    <record id="view_restaurant_table_kanban" model="ir.ui.view">
+        <field name="name">restaurant.table.kanban</field>
+        <field name="model">restaurant.table</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="floor_id" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="floor_id"/>
+                <field name="capacity"/>
+                <field name="state"/>
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_restaurant_table_card
+                            #{record.state.raw_value == 'available' ? 'bg-success-subtle' :
+                              record.state.raw_value == 'occupied' ? 'bg-danger-subtle' :
+                              record.state.raw_value == 'reserved' ? 'bg-warning-subtle' : 'bg-secondary-subtle'}">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <i class="fa fa-cutlery"/> Table <field name="name"/>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div><i class="fa fa-users"/> <field name="capacity"/> seats</div>
+                                <div class="mt-2">
+                                    <span t-attf-class="badge #{record.state.raw_value == 'available' ? 'text-bg-success' :
+                                                               record.state.raw_value == 'occupied' ? 'text-bg-danger' :
+                                                               record.state.raw_value == 'reserved' ? 'text-bg-warning' : 'text-bg-secondary'}">
+                                        <field name="state"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Table Search View -->
+    <record id="view_restaurant_table_search" model="ir.ui.view">
+        <field name="name">restaurant.table.search</field>
+        <field name="model">restaurant.table</field>
+        <field name="arch" type="xml">
+            <search string="Search Tables">
+                <field name="name"/>
+                <field name="floor_id"/>
+                <separator/>
+                <filter name="filter_available" string="Available"
+                        domain="[('state', '=', 'available')]"/>
+                <filter name="filter_occupied" string="Occupied"
+                        domain="[('state', '=', 'occupied')]"/>
+                <filter name="filter_reserved" string="Reserved"
+                        domain="[('state', '=', 'reserved')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_floor" string="Floor"
+                            context="{'group_by': 'floor_id'}"/>
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_restaurant_floor" model="ir.actions.act_window">
+        <field name="name">Floors</field>
+        <field name="res_model">restaurant.floor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_restaurant_table" model="ir.actions.act_window">
+        <field name="name">Tables</field>
+        <field name="res_model">restaurant.table</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_restaurant_table_search"/>
+        <field name="context">{'search_default_filter_available': 0}</field>
+    </record>
+</odoo>

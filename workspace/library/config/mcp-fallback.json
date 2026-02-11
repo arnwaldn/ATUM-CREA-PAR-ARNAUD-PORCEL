@@ -1,0 +1,494 @@
+{
+  "$schema": "https://atum-crea.dev/schemas/mcp-fallback.json",
+  "version": "28.5",
+  "description": "Fallback chains for MCP failures - ATUM CREA v28.5 (NOCODE INTEGRATION)",
+
+  "fallbackChains": {
+    "webScraping": {
+      "primary": "mcp__firecrawl__firecrawl_scrape",
+      "fallbacks": [
+        {
+          "mcp": "mcp__puppeteer__puppeteer_navigate",
+          "condition": "firecrawl_unavailable",
+          "note": "Use puppeteer for JS-heavy sites"
+        },
+        {
+          "mcp": "mcp__playwright__browser_navigate",
+          "condition": "puppeteer_fails",
+          "note": "Playwright as final fallback"
+        },
+        {
+          "mcp": "mcp__fetch__fetch",
+          "condition": "all_browsers_fail",
+          "note": "Basic fetch for static content"
+        }
+      ]
+    },
+
+    "webSearch": {
+      "primary": "mcp__exa__web_search_exa",
+      "fallbacks": [
+        {
+          "mcp": "mcp__firecrawl__firecrawl_search",
+          "condition": "exa_unavailable",
+          "note": "Firecrawl search with scrape"
+        },
+        {
+          "mcp": "WebSearch",
+          "condition": "firecrawl_fails",
+          "note": "Native web search tool"
+        }
+      ]
+    },
+
+    "deepResearch": {
+      "primary": "mcp__firecrawl__firecrawl_agent",
+      "fallbacks": [
+        {
+          "mcp": "mcp__firecrawl__firecrawl_search",
+          "condition": "agent_unavailable",
+          "note": "Firecrawl search as fallback"
+        },
+        {
+          "mcp": "mcp__exa__web_search_exa",
+          "condition": "firecrawl_fails",
+          "note": "Exa AI search"
+        },
+        {
+          "mcp": "WebSearch",
+          "condition": "exa_fails",
+          "note": "Native Claude web search (free)"
+        }
+      ],
+      "note": "Deep autonomous research - firecrawl_agent is equivalent to Perplexity"
+    },
+
+    "codeContext": {
+      "primary": "mcp__exa__get_code_context_exa",
+      "fallbacks": [
+        {
+          "mcp": "mcp__context7__get-library-docs",
+          "condition": "exa_unavailable",
+          "note": "Context7 for framework docs"
+        },
+        {
+          "mcp": "mcp__github__search_code",
+          "condition": "context7_no_match",
+          "note": "GitHub code search"
+        }
+      ]
+    },
+
+    "frameworkDocs": {
+      "primary": "mcp__context7__get-library-docs",
+      "fallbacks": [
+        {
+          "mcp": "mcp__exa__get_code_context_exa",
+          "condition": "context7_unavailable",
+          "note": "Exa code context"
+        },
+        {
+          "mcp": "WebFetch",
+          "condition": "exa_fails",
+          "note": "Direct URL fetch if known"
+        }
+      ]
+    },
+
+    "uiComponents": {
+      "primary": "mcp__shadcn__get_component_details",
+      "fallbacks": [
+        {
+          "mcp": "mcp__context7__get-library-docs",
+          "condition": "shadcn_unavailable",
+          "note": "Context7 with shadcn-ui library"
+        }
+      ]
+    },
+
+    "database": {
+      "primary": "mcp__supabase__execute_sql",
+      "fallbacks": [
+        {
+          "mcp": "mcp__postgres__query",
+          "condition": "supabase_unavailable",
+          "note": "Direct postgres connection"
+        }
+      ]
+    },
+
+    "memoryRecall": {
+      "primary": "mcp__hindsight__hindsight_recall",
+      "fallbacks": [
+        {
+          "mcp": "mcp__memory__search_nodes",
+          "condition": "hindsight_unavailable",
+          "note": "Knowledge graph search"
+        }
+      ]
+    },
+
+    "memoryStore": {
+      "primary": "mcp__hindsight__hindsight_retain",
+      "fallbacks": [
+        {
+          "mcp": "mcp__memory__create_entities",
+          "condition": "hindsight_unavailable",
+          "note": "Store in knowledge graph"
+        }
+      ]
+    },
+
+    "browserAutomation": {
+      "primary": "mcp__playwright__browser_navigate",
+      "fallbacks": [
+        {
+          "mcp": "mcp__puppeteer__puppeteer_navigate",
+          "condition": "playwright_unavailable",
+          "note": "Puppeteer automation"
+        }
+      ]
+    },
+
+    "screenshot": {
+      "primary": "mcp__playwright__browser_screenshot",
+      "fallbacks": [
+        {
+          "mcp": "mcp__puppeteer__puppeteer_screenshot",
+          "condition": "playwright_unavailable",
+          "note": "Puppeteer screenshot"
+        },
+        {
+          "mcp": "mcp__desktop-automation__screen_capture",
+          "condition": "browser_unavailable",
+          "note": "Desktop screen capture"
+        }
+      ]
+    },
+
+    "fileOperations": {
+      "primary": "Read",
+      "fallbacks": [
+        {
+          "mcp": "mcp__desktop-commander__read_file",
+          "condition": "read_fails",
+          "note": "Desktop commander read"
+        },
+        {
+          "mcp": "mcp__filesystem__read_text_file",
+          "condition": "dc_unavailable",
+          "note": "Filesystem MCP"
+        }
+      ]
+    },
+
+    "pdfCreation": {
+      "primary": "mcp__desktop-commander__write_pdf",
+      "fallbacks": [],
+      "note": "No fallback - DC is the only PDF creator"
+    },
+
+    "diagrams": {
+      "primary": "mcp__mermaid__generate_mermaid_diagram",
+      "fallbacks": [],
+      "note": "No fallback - Mermaid is specialized"
+    },
+
+    "codeExecution": {
+      "primary": "mcp__e2b__run_code",
+      "fallbacks": [
+        {
+          "mcp": "mcp__desktop-commander__start_process",
+          "condition": "e2b_unavailable",
+          "note": "Local process execution"
+        }
+      ]
+    },
+
+    "chrome-control": {
+      "primary": "mcp__puppeteer__puppeteer_connect_active_tab",
+      "fallbacks": [
+        {
+          "mcp": "mcp__playwright__browser_navigate",
+          "condition": "puppeteer_unavailable",
+          "note": "Playwright for isolated browsing"
+        },
+        {
+          "mcp": "mcp__desktop-commander__start_process",
+          "condition": "browser_unavailable",
+          "note": "Desktop commander as fallback"
+        }
+      ],
+      "note": "Chrome browser control with live session access"
+    },
+
+    "documentParsing": {
+      "primary": "mcp__docling__docling_convert",
+      "fallbacks": [
+        {
+          "mcp": "mcp__desktop-commander__read_file",
+          "condition": "docling_unavailable",
+          "note": "Desktop commander for basic PDF reading"
+        },
+        {
+          "mcp": "mcp__firecrawl__firecrawl_scrape",
+          "condition": "dc_unavailable",
+          "note": "Firecrawl for web documents"
+        }
+      ],
+      "note": "Document parsing with structure preservation - Docling (IBM Research)"
+    },
+
+    "aiInference": {
+      "primary": "mcp__ollama__generate",
+      "fallbacks": [
+        {
+          "mcp": "mcp__openai__chat",
+          "condition": "ollama_unavailable",
+          "note": "OpenAI API fallback"
+        },
+        {
+          "mcp": "mcp__replicate__run",
+          "condition": "openai_fails",
+          "note": "Replicate for model inference"
+        },
+        {
+          "mcp": "mcp__huggingface__inference",
+          "condition": "replicate_fails",
+          "note": "HuggingFace inference API"
+        }
+      ],
+      "note": "AI/ML inference chain - local first (ollama), then cloud"
+    },
+
+    "videoProcessing": {
+      "primary": "mcp__ffmpeg-ai__process",
+      "fallbacks": [
+        {
+          "mcp": "mcp__video-editor__edit",
+          "condition": "ffmpeg_unavailable",
+          "note": "Video editor MCP"
+        },
+        {
+          "mcp": "mcp__remotion__render",
+          "condition": "editor_fails",
+          "note": "Remotion for programmatic video"
+        }
+      ],
+      "note": "Video processing chain"
+    },
+
+    "3dModeling": {
+      "primary": "mcp__blender__execute",
+      "fallbacks": [
+        {
+          "mcp": "mcp__unity__create",
+          "condition": "blender_unavailable",
+          "note": "Unity for game assets"
+        },
+        {
+          "mcp": "mcp__godot__scene",
+          "condition": "unity_fails",
+          "note": "Godot as open-source alternative"
+        }
+      ],
+      "note": "3D modeling and game development chain"
+    },
+
+    "errorTracking": {
+      "primary": "mcp__sentry__capture",
+      "fallbacks": [
+        {
+          "mcp": "mcp__posthog__capture",
+          "condition": "sentry_unavailable",
+          "note": "PostHog for analytics and errors"
+        }
+      ],
+      "note": "Error tracking and monitoring"
+    },
+
+    "emailSending": {
+      "primary": "mcp__resend__send",
+      "fallbacks": [],
+      "note": "Email sending - Resend is primary"
+    },
+
+    "translation": {
+      "primary": "mcp__deepl__translate",
+      "fallbacks": [],
+      "note": "Translation - DeepL is primary"
+    },
+
+    "graphDatabase": {
+      "primary": "mcp__neo4j__query",
+      "fallbacks": [
+        {
+          "mcp": "mcp__mongodb__query",
+          "condition": "neo4j_unavailable",
+          "note": "MongoDB for document-graph hybrid"
+        }
+      ],
+      "note": "Graph and document database chain"
+    },
+
+    "vectorStore": {
+      "primary": "mcp__vectorize__search",
+      "fallbacks": [
+        {
+          "mcp": "mcp__supabase__vector_search",
+          "condition": "vectorize_unavailable",
+          "note": "Supabase pgvector fallback"
+        }
+      ],
+      "note": "Vector search and embeddings"
+    },
+
+    "caching": {
+      "primary": "mcp__upstash__redis",
+      "fallbacks": [
+        {
+          "mcp": "mcp__supabase__kv",
+          "condition": "upstash_unavailable",
+          "note": "Supabase KV fallback"
+        }
+      ],
+      "note": "Redis caching chain"
+    },
+
+    "crossBrowserTest": {
+      "primary": "mcp__octomind__test",
+      "fallbacks": [
+        {
+          "mcp": "mcp__browserstack__run",
+          "condition": "octomind_unavailable",
+          "note": "BrowserStack for cross-browser"
+        },
+        {
+          "mcp": "mcp__playwright__test",
+          "condition": "browserstack_fails",
+          "note": "Playwright for local testing"
+        }
+      ],
+      "note": "Cross-browser and E2E testing chain"
+    },
+
+    "seoAnalysis": {
+      "primary": "mcp__semrush__analyze",
+      "fallbacks": [
+        {
+          "mcp": "mcp__tavily__search",
+          "condition": "semrush_unavailable",
+          "note": "Tavily for SERP data"
+        },
+        {
+          "mcp": "mcp__bright-data__scrape",
+          "condition": "tavily_fails",
+          "note": "Bright Data for large-scale scraping"
+        }
+      ],
+      "note": "SEO and marketing analysis chain"
+    },
+
+    "contentManagement": {
+      "primary": "mcp__sanity__query",
+      "fallbacks": [
+        {
+          "mcp": "mcp__notion__search",
+          "condition": "sanity_unavailable",
+          "note": "Notion as CMS alternative"
+        }
+      ],
+      "note": "Headless CMS chain"
+    },
+
+    "airtableOperations": {
+      "primary": "mcp__airtable__search_records",
+      "fallbacks": [
+        {
+          "mcp": "mcp__supabase__execute_sql",
+          "condition": "airtable_unavailable",
+          "note": "Supabase for structured data fallback"
+        },
+        {
+          "mcp": "mcp__notion__search",
+          "condition": "supabase_unavailable",
+          "note": "Notion database as fallback"
+        }
+      ],
+      "note": "Airtable CRUD operations fallback chain"
+    },
+
+    "makeAutomation": {
+      "primary": "mcp__make__execute_scenario",
+      "fallbacks": [
+        {
+          "mcp": "mcp__n8n__workflow_execute",
+          "condition": "make_unavailable",
+          "note": "n8n self-hosted as fallback"
+        },
+        {
+          "mcp": "mcp__desktop-commander__start_process",
+          "condition": "n8n_unavailable",
+          "note": "Local script execution fallback"
+        }
+      ],
+      "note": "Make (Integromat) automation fallback chain"
+    },
+
+    "nocodeAnalysis": {
+      "primary": "mcp__lovable__analyze_project",
+      "fallbacks": [
+        {
+          "mcp": "mcp__firecrawl__firecrawl_scrape",
+          "condition": "lovable_unavailable",
+          "note": "Firecrawl for web-based project analysis"
+        },
+        {
+          "mcp": "mcp__github__get_file_contents",
+          "condition": "firecrawl_fails",
+          "note": "GitHub for code-based analysis"
+        }
+      ],
+      "note": "No-code project analysis fallback chain"
+    }
+  },
+
+  "errorPatterns": {
+    "unavailable": [
+      "ECONNREFUSED",
+      "ETIMEDOUT",
+      "MCP server not running",
+      "Connection refused"
+    ],
+    "authFailed": [
+      "401",
+      "403",
+      "Unauthorized",
+      "Forbidden",
+      "Invalid API key"
+    ],
+    "rateLimited": [
+      "429",
+      "Rate limit",
+      "Too many requests",
+      "Quota exceeded"
+    ],
+    "notFound": [
+      "404",
+      "Not found",
+      "No results"
+    ]
+  },
+
+  "retryPolicy": {
+    "maxRetries": 2,
+    "backoffMs": 1000,
+    "backoffMultiplier": 2
+  },
+
+  "logging": {
+    "logFallbacks": true,
+    "logErrors": true,
+    "retainHistory": true
+  }
+}

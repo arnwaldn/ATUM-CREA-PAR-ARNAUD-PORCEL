@@ -1,0 +1,1084 @@
+{
+  "api": {
+    "provider": "anthropic",
+    "apiKey": "",
+    "apiUrl": "https://api.anthropic.com",
+    "model": "claude-opus-4-5-20251101"
+  },
+  "aiSources": {
+    "version": 2,
+    "currentId": "d786bc31-1d17-4d23-bb02-0979dd157c96",
+    "sources": [
+      {
+        "id": "d786bc31-1d17-4d23-bb02-0979dd157c96",
+        "name": "Claude Code (Subscription)",
+        "provider": "anthropic",
+        "authType": "api-key",
+        "apiUrl": "https://api.anthropic.com",
+        "apiKey": "__CLAUDE_CODE_NATIVE__",
+        "model": "claude-opus-4-6",
+        "availableModels": [
+          {
+            "id": "claude-opus-4-6",
+            "name": "Claude Opus 4.6"
+          },
+          {
+            "id": "claude-opus-4-5-20251101",
+            "name": "Claude Opus 4.5"
+          },
+          {
+            "id": "claude-sonnet-4-5-20250929",
+            "name": "Claude Sonnet 4.5"
+          },
+          {
+            "id": "claude-haiku-4-5-20251001",
+            "name": "Claude Haiku 4.5"
+          }
+        ],
+        "createdAt": "2026-02-07T17:14:40.827Z",
+        "updatedAt": "2026-02-07T17:23:57.173Z"
+      },
+      {
+        "id": "4c5a3f77-5cb4-456c-a16f-18442a811c9f",
+        "name": "OpenAI Compatible",
+        "provider": "openai",
+        "authType": "api-key",
+        "apiUrl": "https://api.openai.com/v1",
+        "apiKey": "<YOUR_OPENAI_API_KEY>",
+        "model": "gpt-4",
+        "availableModels": [
+          {
+            "id": "babbage-002",
+            "name": "babbage-002"
+          },
+          {
+            "id": "chatgpt-4o-latest",
+            "name": "chatgpt-4o-latest"
+          },
+          {
+            "id": "chatgpt-image-latest",
+            "name": "chatgpt-image-latest"
+          },
+          {
+            "id": "codex-mini-latest",
+            "name": "codex-mini-latest"
+          },
+          {
+            "id": "dall-e-2",
+            "name": "dall-e-2"
+          },
+          {
+            "id": "dall-e-3",
+            "name": "dall-e-3"
+          },
+          {
+            "id": "davinci-002",
+            "name": "davinci-002"
+          },
+          {
+            "id": "gpt-3.5-turbo",
+            "name": "gpt-3.5-turbo"
+          },
+          {
+            "id": "gpt-3.5-turbo-0125",
+            "name": "gpt-3.5-turbo-0125"
+          },
+          {
+            "id": "gpt-3.5-turbo-1106",
+            "name": "gpt-3.5-turbo-1106"
+          },
+          {
+            "id": "gpt-3.5-turbo-16k",
+            "name": "gpt-3.5-turbo-16k"
+          },
+          {
+            "id": "gpt-3.5-turbo-instruct",
+            "name": "gpt-3.5-turbo-instruct"
+          },
+          {
+            "id": "gpt-3.5-turbo-instruct-0914",
+            "name": "gpt-3.5-turbo-instruct-0914"
+          },
+          {
+            "id": "gpt-4",
+            "name": "gpt-4"
+          },
+          {
+            "id": "gpt-4-0125-preview",
+            "name": "gpt-4-0125-preview"
+          },
+          {
+            "id": "gpt-4-0613",
+            "name": "gpt-4-0613"
+          },
+          {
+            "id": "gpt-4-1106-preview",
+            "name": "gpt-4-1106-preview"
+          },
+          {
+            "id": "gpt-4-turbo",
+            "name": "gpt-4-turbo"
+          },
+          {
+            "id": "gpt-4-turbo-2024-04-09",
+            "name": "gpt-4-turbo-2024-04-09"
+          },
+          {
+            "id": "gpt-4-turbo-preview",
+            "name": "gpt-4-turbo-preview"
+          },
+          {
+            "id": "gpt-4.1",
+            "name": "gpt-4.1"
+          },
+          {
+            "id": "gpt-4.1-2025-04-14",
+            "name": "gpt-4.1-2025-04-14"
+          },
+          {
+            "id": "gpt-4.1-mini",
+            "name": "gpt-4.1-mini"
+          },
+          {
+            "id": "gpt-4.1-mini-2025-04-14",
+            "name": "gpt-4.1-mini-2025-04-14"
+          },
+          {
+            "id": "gpt-4.1-nano",
+            "name": "gpt-4.1-nano"
+          },
+          {
+            "id": "gpt-4.1-nano-2025-04-14",
+            "name": "gpt-4.1-nano-2025-04-14"
+          },
+          {
+            "id": "gpt-4o",
+            "name": "gpt-4o"
+          },
+          {
+            "id": "gpt-4o-2024-05-13",
+            "name": "gpt-4o-2024-05-13"
+          },
+          {
+            "id": "gpt-4o-2024-08-06",
+            "name": "gpt-4o-2024-08-06"
+          },
+          {
+            "id": "gpt-4o-2024-11-20",
+            "name": "gpt-4o-2024-11-20"
+          },
+          {
+            "id": "gpt-4o-audio-preview",
+            "name": "gpt-4o-audio-preview"
+          },
+          {
+            "id": "gpt-4o-audio-preview-2024-12-17",
+            "name": "gpt-4o-audio-preview-2024-12-17"
+          },
+          {
+            "id": "gpt-4o-audio-preview-2025-06-03",
+            "name": "gpt-4o-audio-preview-2025-06-03"
+          },
+          {
+            "id": "gpt-4o-mini",
+            "name": "gpt-4o-mini"
+          },
+          {
+            "id": "gpt-4o-mini-2024-07-18",
+            "name": "gpt-4o-mini-2024-07-18"
+          },
+          {
+            "id": "gpt-4o-mini-audio-preview",
+            "name": "gpt-4o-mini-audio-preview"
+          },
+          {
+            "id": "gpt-4o-mini-audio-preview-2024-12-17",
+            "name": "gpt-4o-mini-audio-preview-2024-12-17"
+          },
+          {
+            "id": "gpt-4o-mini-realtime-preview",
+            "name": "gpt-4o-mini-realtime-preview"
+          },
+          {
+            "id": "gpt-4o-mini-realtime-preview-2024-12-17",
+            "name": "gpt-4o-mini-realtime-preview-2024-12-17"
+          },
+          {
+            "id": "gpt-4o-mini-search-preview",
+            "name": "gpt-4o-mini-search-preview"
+          },
+          {
+            "id": "gpt-4o-mini-search-preview-2025-03-11",
+            "name": "gpt-4o-mini-search-preview-2025-03-11"
+          },
+          {
+            "id": "gpt-4o-mini-transcribe",
+            "name": "gpt-4o-mini-transcribe"
+          },
+          {
+            "id": "gpt-4o-mini-transcribe-2025-03-20",
+            "name": "gpt-4o-mini-transcribe-2025-03-20"
+          },
+          {
+            "id": "gpt-4o-mini-transcribe-2025-12-15",
+            "name": "gpt-4o-mini-transcribe-2025-12-15"
+          },
+          {
+            "id": "gpt-4o-mini-tts",
+            "name": "gpt-4o-mini-tts"
+          },
+          {
+            "id": "gpt-4o-mini-tts-2025-03-20",
+            "name": "gpt-4o-mini-tts-2025-03-20"
+          },
+          {
+            "id": "gpt-4o-mini-tts-2025-12-15",
+            "name": "gpt-4o-mini-tts-2025-12-15"
+          },
+          {
+            "id": "gpt-4o-realtime-preview",
+            "name": "gpt-4o-realtime-preview"
+          },
+          {
+            "id": "gpt-4o-realtime-preview-2024-12-17",
+            "name": "gpt-4o-realtime-preview-2024-12-17"
+          },
+          {
+            "id": "gpt-4o-realtime-preview-2025-06-03",
+            "name": "gpt-4o-realtime-preview-2025-06-03"
+          },
+          {
+            "id": "gpt-4o-search-preview",
+            "name": "gpt-4o-search-preview"
+          },
+          {
+            "id": "gpt-4o-search-preview-2025-03-11",
+            "name": "gpt-4o-search-preview-2025-03-11"
+          },
+          {
+            "id": "gpt-4o-transcribe",
+            "name": "gpt-4o-transcribe"
+          },
+          {
+            "id": "gpt-4o-transcribe-diarize",
+            "name": "gpt-4o-transcribe-diarize"
+          },
+          {
+            "id": "gpt-5",
+            "name": "gpt-5"
+          },
+          {
+            "id": "gpt-5-2025-08-07",
+            "name": "gpt-5-2025-08-07"
+          },
+          {
+            "id": "gpt-5-chat-latest",
+            "name": "gpt-5-chat-latest"
+          },
+          {
+            "id": "gpt-5-codex",
+            "name": "gpt-5-codex"
+          },
+          {
+            "id": "gpt-5-mini",
+            "name": "gpt-5-mini"
+          },
+          {
+            "id": "gpt-5-mini-2025-08-07",
+            "name": "gpt-5-mini-2025-08-07"
+          },
+          {
+            "id": "gpt-5-nano",
+            "name": "gpt-5-nano"
+          },
+          {
+            "id": "gpt-5-nano-2025-08-07",
+            "name": "gpt-5-nano-2025-08-07"
+          },
+          {
+            "id": "gpt-5-pro",
+            "name": "gpt-5-pro"
+          },
+          {
+            "id": "gpt-5-pro-2025-10-06",
+            "name": "gpt-5-pro-2025-10-06"
+          },
+          {
+            "id": "gpt-5-search-api",
+            "name": "gpt-5-search-api"
+          },
+          {
+            "id": "gpt-5-search-api-2025-10-14",
+            "name": "gpt-5-search-api-2025-10-14"
+          },
+          {
+            "id": "gpt-5.1",
+            "name": "gpt-5.1"
+          },
+          {
+            "id": "gpt-5.1-2025-11-13",
+            "name": "gpt-5.1-2025-11-13"
+          },
+          {
+            "id": "gpt-5.1-chat-latest",
+            "name": "gpt-5.1-chat-latest"
+          },
+          {
+            "id": "gpt-5.1-codex",
+            "name": "gpt-5.1-codex"
+          },
+          {
+            "id": "gpt-5.1-codex-max",
+            "name": "gpt-5.1-codex-max"
+          },
+          {
+            "id": "gpt-5.1-codex-mini",
+            "name": "gpt-5.1-codex-mini"
+          },
+          {
+            "id": "gpt-5.2",
+            "name": "gpt-5.2"
+          },
+          {
+            "id": "gpt-5.2-2025-12-11",
+            "name": "gpt-5.2-2025-12-11"
+          },
+          {
+            "id": "gpt-5.2-chat-latest",
+            "name": "gpt-5.2-chat-latest"
+          },
+          {
+            "id": "gpt-5.2-codex",
+            "name": "gpt-5.2-codex"
+          },
+          {
+            "id": "gpt-5.2-pro",
+            "name": "gpt-5.2-pro"
+          },
+          {
+            "id": "gpt-5.2-pro-2025-12-11",
+            "name": "gpt-5.2-pro-2025-12-11"
+          },
+          {
+            "id": "gpt-audio",
+            "name": "gpt-audio"
+          },
+          {
+            "id": "gpt-audio-2025-08-28",
+            "name": "gpt-audio-2025-08-28"
+          },
+          {
+            "id": "gpt-audio-mini",
+            "name": "gpt-audio-mini"
+          },
+          {
+            "id": "gpt-audio-mini-2025-10-06",
+            "name": "gpt-audio-mini-2025-10-06"
+          },
+          {
+            "id": "gpt-audio-mini-2025-12-15",
+            "name": "gpt-audio-mini-2025-12-15"
+          },
+          {
+            "id": "gpt-image-1",
+            "name": "gpt-image-1"
+          },
+          {
+            "id": "gpt-image-1-mini",
+            "name": "gpt-image-1-mini"
+          },
+          {
+            "id": "gpt-image-1.5",
+            "name": "gpt-image-1.5"
+          },
+          {
+            "id": "gpt-realtime",
+            "name": "gpt-realtime"
+          },
+          {
+            "id": "gpt-realtime-2025-08-28",
+            "name": "gpt-realtime-2025-08-28"
+          },
+          {
+            "id": "gpt-realtime-mini",
+            "name": "gpt-realtime-mini"
+          },
+          {
+            "id": "gpt-realtime-mini-2025-10-06",
+            "name": "gpt-realtime-mini-2025-10-06"
+          },
+          {
+            "id": "gpt-realtime-mini-2025-12-15",
+            "name": "gpt-realtime-mini-2025-12-15"
+          },
+          {
+            "id": "o1",
+            "name": "o1"
+          },
+          {
+            "id": "o1-2024-12-17",
+            "name": "o1-2024-12-17"
+          },
+          {
+            "id": "o1-pro",
+            "name": "o1-pro"
+          },
+          {
+            "id": "o1-pro-2025-03-19",
+            "name": "o1-pro-2025-03-19"
+          },
+          {
+            "id": "o3",
+            "name": "o3"
+          },
+          {
+            "id": "o3-2025-04-16",
+            "name": "o3-2025-04-16"
+          },
+          {
+            "id": "o3-mini",
+            "name": "o3-mini"
+          },
+          {
+            "id": "o3-mini-2025-01-31",
+            "name": "o3-mini-2025-01-31"
+          },
+          {
+            "id": "o4-mini",
+            "name": "o4-mini"
+          },
+          {
+            "id": "o4-mini-2025-04-16",
+            "name": "o4-mini-2025-04-16"
+          },
+          {
+            "id": "o4-mini-deep-research",
+            "name": "o4-mini-deep-research"
+          },
+          {
+            "id": "o4-mini-deep-research-2025-06-26",
+            "name": "o4-mini-deep-research-2025-06-26"
+          },
+          {
+            "id": "omni-moderation-2024-09-26",
+            "name": "omni-moderation-2024-09-26"
+          },
+          {
+            "id": "omni-moderation-latest",
+            "name": "omni-moderation-latest"
+          },
+          {
+            "id": "sora-2",
+            "name": "sora-2"
+          },
+          {
+            "id": "sora-2-pro",
+            "name": "sora-2-pro"
+          },
+          {
+            "id": "text-embedding-3-large",
+            "name": "text-embedding-3-large"
+          },
+          {
+            "id": "text-embedding-3-small",
+            "name": "text-embedding-3-small"
+          },
+          {
+            "id": "text-embedding-ada-002",
+            "name": "text-embedding-ada-002"
+          },
+          {
+            "id": "tts-1",
+            "name": "tts-1"
+          },
+          {
+            "id": "tts-1-1106",
+            "name": "tts-1-1106"
+          },
+          {
+            "id": "tts-1-hd",
+            "name": "tts-1-hd"
+          },
+          {
+            "id": "tts-1-hd-1106",
+            "name": "tts-1-hd-1106"
+          },
+          {
+            "id": "whisper-1",
+            "name": "whisper-1"
+          }
+        ],
+        "createdAt": "2026-02-08T23:45:03.330Z",
+        "updatedAt": "2026-02-08T23:46:29.172Z"
+      }
+    ]
+  },
+  "permissions": {
+    "fileAccess": "allow",
+    "commandExecution": "allow",
+    "networkAccess": "allow",
+    "trustMode": false
+  },
+  "appearance": {
+    "theme": "dark"
+  },
+  "system": {
+    "autoLaunch": false,
+    "agentTeams": true
+  },
+  "remoteAccess": {
+    "enabled": false,
+    "port": 3847
+  },
+  "onboarding": {
+    "completed": false
+  },
+  "mcpServers": {
+    "github": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_PAT>"
+      }
+    },
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--project-ref",
+        "<YOUR_SUPABASE_PROJECT_REF>"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "<YOUR_SUPABASE_ACCESS_TOKEN>"
+      }
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "git": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "uvx",
+        "mcp-server-git"
+      ]
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:/Users/arnau/Desktop/ATUM CREA",
+        "C:/Users/arnau/Desktop"
+      ]
+    },
+    "desktop-commander": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "@wonderwhy-er/desktop-commander@latest"
+      ]
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "shadcn-ui-mcp-server"
+      ],
+      "disabled": true
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@automatalabs/mcp-server-playwright"
+      ],
+      "disabled": true
+    },
+    "vercel": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "vercel-mcp",
+        "VERCEL_API_KEY=<YOUR_VERCEL_API_KEY>"
+      ],
+      "disabled": true
+    },
+    "railway": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@railway/mcp-server"
+      ],
+      "env": {
+        "RAILWAY_API_TOKEN": "<YOUR_RAILWAY_TOKEN>"
+      },
+      "disabled": true
+    },
+    "cloudflare": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@cloudflare/mcp-server-cloudflare",
+        "run",
+        "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
+      ],
+      "env": {
+        "CLOUDFLARE_API_TOKEN": "<YOUR_CLOUDFLARE_API_TOKEN>",
+        "CLOUDFLARE_ACCOUNT_ID": "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
+      },
+      "disabled": true
+    },
+    "stripe": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@stripe/mcp",
+        "--tools=all"
+      ],
+      "env": {
+        "STRIPE_SECRET_KEY": "<YOUR_STRIPE_SECRET_KEY>"
+      },
+      "disabled": true
+    },
+    "resend": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "resend-mcp"
+      ],
+      "env": {
+        "RESEND_API_KEY": "<YOUR_RESEND_API_KEY>",
+        "SENDER_EMAIL_ADDRESS": "noreply@resend.dev"
+      },
+      "disabled": true
+    },
+    "notion": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "@notionhq/notion-mcp-server"
+      ],
+      "env": {
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer <YOUR_NOTION_TOKEN>\", \"Notion-Version\": \"2022-06-28\"}"
+      },
+      "disabled": true
+    },
+    "deepl": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "deepl-mcp-server"
+      ],
+      "env": {
+        "DEEPL_API_KEY": "<YOUR_DEEPL_API_KEY>"
+      },
+      "disabled": true
+    },
+    "exa": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "exa-mcp-server"
+      ],
+      "env": {
+        "EXA_API_KEY": "<YOUR_EXA_API_KEY>"
+      },
+      "disabled": true
+    },
+    "tavily": {
+      "type": "http",
+      "url": "https://mcp.tavily.com/mcp/?tavilyApiKey=<YOUR_TAVILY_API_KEY>",
+      "disabled": true
+    },
+    "firecrawl": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "<YOUR_FIRECRAWL_API_KEY>"
+      },
+      "disabled": true
+    },
+    "ollama": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "ollama-mcp-server"
+      ],
+      "env": {
+        "OLLAMA_HOST": "http://localhost:11434"
+      },
+      "disabled": true
+    },
+    "replicate": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "mcp-replicate"
+      ],
+      "env": {
+        "REPLICATE_API_TOKEN": "<YOUR_REPLICATE_TOKEN>"
+      },
+      "disabled": true
+    },
+    "sentry": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "@sentry/mcp-server"
+      ],
+      "env": {
+        "SENTRY_ACCESS_TOKEN": "<YOUR_SENTRY_TOKEN>"
+      },
+      "disabled": true
+    },
+    "sonarqube": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "oe-sonar-mcp"
+      ],
+      "env": {
+        "SONAR_HOST_URL": "https://sonarcloud.io",
+        "SONAR_TOKEN": "<YOUR_SONAR_TOKEN>"
+      },
+      "disabled": true
+    },
+    "semgrep": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "semgrep",
+        "mcp"
+      ],
+      "disabled": true
+    },
+    "clickhouse": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "clickhouse-mcp"
+      ],
+      "env": {
+        "CLICKHOUSE_HOST": "https://if1k1mp2fy.europe-west4.gcp.clickhouse.cloud:8443",
+        "CLICKHOUSE_USER": "default",
+        "CLICKHOUSE_PASSWORD": "<YOUR_CLICKHOUSE_PASSWORD>"
+      },
+      "disabled": true
+    },
+    "upstash": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "@upstash/mcp-server"
+      ],
+      "env": {
+        "UPSTASH_EMAIL": "<YOUR_EMAIL>",
+        "UPSTASH_API_KEY": "<YOUR_UPSTASH_API_KEY>"
+      },
+      "disabled": true
+    },
+    "sanity": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "@sanity/mcp-server"
+      ],
+      "env": {
+        "SANITY_PROJECT_ID": "<YOUR_SANITY_PROJECT_ID>",
+        "SANITY_DATASET": "production",
+        "SANITY_API_TOKEN": "<YOUR_SANITY_TOKEN>",
+        "MCP_USER_ROLE": "developer"
+      },
+      "disabled": true
+    },
+    "expo": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "expo-mcp",
+        "--dev-server-url",
+        "http://localhost:8081"
+      ],
+      "env": {
+        "EXPO_TOKEN": "<YOUR_EXPO_TOKEN>_swnVkFksC8jTQ7F0L8xgGMyE"
+      },
+      "disabled": true
+    },
+    "dart-flutter": {
+      "command": "dart",
+      "args": [
+        "mcp-server"
+      ],
+      "disabled": true
+    },
+    "unity": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@iflow-mcp/mcp-unity-server"
+      ],
+      "disabled": true
+    },
+    "blender": {
+      "command": "uvx",
+      "args": [
+        "blender-mcp"
+      ],
+      "disabled": true
+    },
+    "figma": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "figma-mcp"
+      ],
+      "disabled": true
+    },
+    "youtube": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "youtube-data-mcp-server"
+      ],
+      "env": {
+        "YOUTUBE_API_KEY": "<YOUR_YOUTUBE_API_KEY>"
+      },
+      "disabled": true
+    },
+    "docker-mcp": {
+      "command": "docker",
+      "args": [
+        "mcp",
+        "gateway",
+        "run"
+      ],
+      "disabled": true
+    },
+    "magic-ui": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@21st-dev/magic"
+      ],
+      "disabled": true
+    },
+    "e2b": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@e2b/mcp-server"
+      ],
+      "env": {
+        "E2B_API_KEY": "<YOUR_E2B_API_KEY>"
+      },
+      "disabled": true
+    },
+    "mermaid": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@peng-shawn/mermaid-mcp-server"
+      ],
+      "disabled": true
+    },
+    "echarts": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "npx",
+        "-y",
+        "echarts-mcp-server"
+      ],
+      "disabled": true
+    },
+    "docling": {
+      "command": "node",
+      "args": [
+        "C:/Users/arnau/Desktop/ATUM CREA/hello-halo/scripts/mcp-schema-proxy.cjs",
+        "uvx",
+        "--from=docling-mcp",
+        "docling-mcp-server"
+      ],
+      "disabled": true
+    },
+    "cloudflare-docs": {
+      "type": "http",
+      "url": "https://docs.mcp.cloudflare.com/mcp",
+      "disabled": true
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ],
+      "disabled": true
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres"
+      ],
+      "env": {
+        "DATABASE_URL": "${DATABASE_URL}"
+      },
+      "disabled": true
+    },
+    "browserbase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@browserbasehq/mcp-server-browserbase"
+      ],
+      "env": {
+        "BROWSERBASE_API_KEY": "${BROWSERBASE_API_KEY}",
+        "BROWSERBASE_PROJECT_ID": "${BROWSERBASE_PROJECT_ID}"
+      },
+      "disabled": true
+    },
+    "vscode": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@vscode-mcp/vscode-mcp-server"
+      ],
+      "disabled": true
+    },
+    "sqlite": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-sqlite"
+      ],
+      "disabled": true
+    },
+    "neo4j": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@johnymontana/neo4j-mcp"
+      ],
+      "env": {
+        "NEO4J_URI": "${NEO4J_URI}",
+        "NEO4J_PASSWORD": "${NEO4J_PASSWORD}"
+      },
+      "disabled": true
+    },
+    "magic": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@magicuidesign/mcp@latest"
+      ],
+      "disabled": true
+    },
+    "mongodb": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mongodb-mcp-server"
+      ],
+      "env": {
+        "MDB_MCP_API_CLIENT_ID": "<YOUR_MONGODB_CLIENT_ID>",
+        "MDB_MCP_API_CLIENT_SECRET": "<YOUR_MONGODB_SECRET>"
+      },
+      "disabled": true
+    },
+    "elevenlabs": {
+      "command": "uvx",
+      "args": [
+        "elevenlabs-mcp"
+      ],
+      "env": {
+        "ELEVENLABS_API_KEY": "<YOUR_ELEVENLABS_API_KEY>"
+      },
+      "disabled": true
+    },
+    "ffmpeg": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "ffmpeg-mcp"
+      ],
+      "disabled": true
+    },
+    "n8n": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "n8n-mcp"
+      ],
+      "disabled": true
+    },
+    "slack": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-slack"
+      ],
+      "env": {
+        "SLACK_BOT_TOKEN": "<YOUR_SLACK_BOT_TOKEN>",
+        "SLACK_TEAM_ID": "<YOUR_SLACK_TEAM_ID>"
+      },
+      "disabled": true
+    }
+  },
+  "isFirstLaunch": false,
+  "gitBash": {
+    "installed": true,
+    "path": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "skipped": false
+  }
+}

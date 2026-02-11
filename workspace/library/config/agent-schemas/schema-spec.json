@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "27.16",
+  "name": "Agent Schema Specification",
+  "description": "OpenAPI-style tool specifications for agents (WorkGPT Pattern)",
+  "source_pattern": "WorkGPT (awesome-ai-agents)",
+
+  "agent_schema": {
+    "type": "object",
+    "required": ["id", "name", "description", "capabilities", "inputs", "outputs"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*$",
+        "description": "Unique agent identifier"
+      },
+      "name": {
+        "type": "string",
+        "description": "Human-readable agent name"
+      },
+      "description": {
+        "type": "string",
+        "description": "What the agent does"
+      },
+      "version": {
+        "type": "string",
+        "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+        "description": "Agent version"
+      },
+      "capabilities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/capability"
+        },
+        "description": "List of agent capabilities with typed inputs/outputs"
+      },
+      "inputs": {
+        "type": "object",
+        "description": "Global input schema for the agent",
+        "additionalProperties": {
+          "$ref": "#/definitions/parameter"
+        }
+      },
+      "outputs": {
+        "type": "object",
+        "description": "Global output schema for the agent",
+        "additionalProperties": {
+          "$ref": "#/definitions/parameter"
+        }
+      },
+      "dependencies": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Required MCPs or other agents"
+      },
+      "examples": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/example"
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "capability": {
+      "type": "object",
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "inputs": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/parameter" }
+        },
+        "outputs": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/parameter" }
+        },
+        "triggers": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "parameter": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["string", "number", "boolean", "array", "object", "file", "code"]
+        },
+        "description": { "type": "string" },
+        "required": { "type": "boolean", "default": false },
+        "default": {},
+        "enum": { "type": "array" },
+        "pattern": { "type": "string" },
+        "minLength": { "type": "integer" },
+        "maxLength": { "type": "integer" },
+        "minimum": { "type": "number" },
+        "maximum": { "type": "number" },
+        "items": { "$ref": "#/definitions/parameter" },
+        "properties": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/parameter" }
+        }
+      }
+    },
+    "example": {
+      "type": "object",
+      "required": ["name", "input", "output"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "input": { "type": "object" },
+        "output": { "type": "object" }
+      }
+    }
+  },
+
+  "sample_agents": {
+    "frontend-developer": {
+      "id": "frontend-developer",
+      "name": "Frontend Developer",
+      "description": "Expert en developpement frontend React/Next.js",
+      "version": "1.0.0",
+      "capabilities": [
+        {
+          "name": "create-component",
+          "description": "Creer un composant React",
+          "inputs": {
+            "name": { "type": "string", "required": true, "description": "Nom du composant" },
+            "type": { "type": "string", "enum": ["functional", "server"], "default": "functional" },
+            "props": { "type": "object", "description": "Schema des props" },
+            "styling": { "type": "string", "enum": ["tailwind", "css-modules", "styled"], "default": "tailwind" }
+          },
+          "outputs": {
+            "file_path": { "type": "file", "description": "Chemin du fichier cree" },
+            "component_code": { "type": "code", "description": "Code du composant" }
+          },
+          "triggers": ["creer composant", "nouveau component", "create component"]
+        },
+        {
+          "name": "create-page",
+          "description": "Creer une page Next.js",
+          "inputs": {
+            "route": { "type": "string", "required": true, "description": "Route de la page" },
+            "type": { "type": "string", "enum": ["static", "dynamic", "api"], "default": "static" },
+            "metadata": { "type": "object", "description": "SEO metadata" }
+          },
+          "outputs": {
+            "file_path": { "type": "file" },
+            "page_code": { "type": "code" }
+          },
+          "triggers": ["creer page", "nouvelle page", "create page"]
+        }
+      ],
+      "inputs": {
+        "project_path": { "type": "string", "required": true },
+        "framework": { "type": "string", "enum": ["react", "nextjs", "vue"], "default": "nextjs" }
+      },
+      "outputs": {
+        "files_created": { "type": "array", "items": { "type": "file" } },
+        "success": { "type": "boolean" }
+      },
+      "dependencies": ["context7", "shadcn"]
+    },
+    "database-architect": {
+      "id": "database-architect",
+      "name": "Database Architect",
+      "description": "Expert en conception et optimisation de bases de donnees",
+      "version": "1.0.0",
+      "capabilities": [
+        {
+          "name": "design-schema",
+          "description": "Concevoir un schema de base de donnees",
+          "inputs": {
+            "entities": { "type": "array", "required": true, "description": "Liste des entites" },
+            "database": { "type": "string", "enum": ["postgresql", "mysql", "mongodb", "sqlite"], "default": "postgresql" },
+            "orm": { "type": "string", "enum": ["prisma", "drizzle", "typeorm"], "default": "prisma" }
+          },
+          "outputs": {
+            "schema_file": { "type": "file" },
+            "migration_files": { "type": "array", "items": { "type": "file" } },
+            "er_diagram": { "type": "string", "description": "Mermaid diagram" }
+          }
+        },
+        {
+          "name": "optimize-queries",
+          "description": "Optimiser les requetes SQL",
+          "inputs": {
+            "queries": { "type": "array", "items": { "type": "string" } },
+            "explain_analyze": { "type": "boolean", "default": true }
+          },
+          "outputs": {
+            "optimized_queries": { "type": "array", "items": { "type": "string" } },
+            "recommendations": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      ],
+      "dependencies": ["postgres", "context7"]
+    }
+  }
+}

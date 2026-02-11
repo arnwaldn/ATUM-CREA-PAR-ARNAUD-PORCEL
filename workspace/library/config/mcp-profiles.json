@@ -1,0 +1,755 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "29.4",
+  "description": "MCP profiles with token budgets - WAKE INTEGRATION",
+  "totalMcpsConfigured": 58,
+  "mcpsReference": "knowledge/reference/mcps-detailed.md",
+
+  "tokenBudgets": {
+    "description": "Token budget limits per MCP call - v28.0 anti-saturation",
+    "tiers": {
+      "tier0_core": {
+        "budget": "unlimited",
+        "mcps": ["hindsight"],
+        "reason": "Memory is critical for system operation"
+      },
+      "tier1_essential": {
+        "budget": 5000,
+        "mcps": ["context7", "shadcn", "supabase", "github"],
+        "reason": "Essential for development workflow"
+      },
+      "tier2_profile": {
+        "budget": 2000,
+        "mcps": ["playwright", "puppeteer", "firecrawl", "exa", "e2b", "figma", "mermaid", "postgres", "notion", "airtable", "make", "lovable"],
+        "reason": "Profile-specific MCPs"
+      },
+      "tier3_explicit": {
+        "budget": 1000,
+        "mcps": ["unity", "blender", "godot", "ollama", "replicate", "remotion"],
+        "reason": "Heavy/specialized MCPs - on-demand only"
+      }
+    },
+    "defaults": {
+      "maxOutputTokens": 2000,
+      "truncateAfter": 8000,
+      "collapseRepetitive": true,
+      "toolSearchEnabled": true,
+      "dynamicLoading": true
+    }
+  },
+
+  "lazyLoading": {
+    "description": "MCP lazy loading configuration - v28.1 with Tool Search",
+    "alwaysLoaded": ["hindsight"],
+    "loadOnIntent": ["context7", "shadcn", "supabase", "github"],
+    "loadOnProfile": ["playwright", "firecrawl", "e2b"],
+    "loadExplicit": ["unity", "blender", "ollama"],
+    "toolSearch": {
+      "enabled": true,
+      "description": "Dynamic MCP Tool Search - reduces token usage by 95%",
+      "threshold": 0.10,
+      "maxToolsPreloaded": 5,
+      "searchOnDemand": true,
+      "cacheToolSchemas": true,
+      "cacheTTL": 300000,
+      "supportedModels": ["sonnet-4", "opus-4", "opus-4.5"]
+    }
+  },
+
+  "profiles": {
+    "saas-development": {
+      "description": "SaaS application development profile",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "ui": "shadcn",
+        "database": "supabase",
+        "auth": "supabase",
+        "payments": "stripe",
+        "deployment": "vercel"
+      },
+      "secondary": ["github", "postgres", "figma"],
+      "optional": ["notion", "sentry"]
+    },
+
+    "game-development": {
+      "description": "Game development profile",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "execution": "e2b",
+        "filesystem": "desktop-commander"
+      },
+      "secondary": ["github", "mermaid"],
+      "optional": ["figma"]
+    },
+
+    "ml-development": {
+      "description": "Machine learning development profile",
+      "primary": {
+        "memory": "hindsight",
+        "execution": "e2b",
+        "filesystem": "desktop-commander"
+      },
+      "secondary": ["github", "postgres"],
+      "optional": ["supabase"]
+    },
+
+    "api-development": {
+      "description": "API/Backend development profile",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "database": "supabase",
+        "testing": "e2b"
+      },
+      "secondary": ["postgres", "github"],
+      "optional": ["notion"]
+    },
+
+    "frontend-development": {
+      "description": "Frontend/UI development profile",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "ui": "shadcn",
+        "design": "figma"
+      },
+      "secondary": ["mermaid", "github"],
+      "optional": ["playwright"]
+    },
+
+    "mobile-development": {
+      "description": "Mobile app development profile",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "backend": "supabase"
+      },
+      "secondary": ["github", "figma"],
+      "optional": ["notion"]
+    },
+
+    "research": {
+      "description": "Research and analysis profile - Optimized v27.1",
+      "primary": {
+        "memory": "hindsight",
+        "deepResearch": "firecrawl",
+        "search": "exa",
+        "code": "exa"
+      },
+      "secondary": ["firecrawl", "github", "fetch"],
+      "optional": ["notion"],
+      "features": ["firecrawl-agent", "exa-code-context", "web-search-fallback"],
+      "notes": "firecrawl_agent pour deep research autonome, exa pour code context"
+    },
+
+    "automation": {
+      "description": "Browser/Desktop automation profile",
+      "primary": {
+        "browser": "playwright",
+        "desktop": "desktop-commander",
+        "automation": "desktop-automation"
+      },
+      "secondary": ["puppeteer", "firecrawl"],
+      "optional": ["e2b"]
+    },
+
+    "documentation": {
+      "description": "Documentation generation profile",
+      "primary": {
+        "memory": "hindsight",
+        "diagrams": "mermaid",
+        "docs": "notion"
+      },
+      "secondary": ["github", "figma"],
+      "optional": ["fetch"]
+    },
+
+    "chrome-user-session": {
+      "description": "Chrome access with user's live sessions and cookies",
+      "primary": {
+        "browser": "puppeteer",
+        "memory": "hindsight",
+        "filesystem": "desktop-commander"
+      },
+      "secondary": ["playwright", "browserbase"],
+      "optional": ["github"],
+      "requirements": ["chrome-debug-running"]
+    },
+
+    "vercel-development": {
+      "description": "Vercel advanced features development (Blob, KV, Cron, Edge)",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "deployment": "vercel-cli",
+        "database": "supabase"
+      },
+      "secondary": ["github", "postgres"],
+      "optional": ["notion", "firecrawl"],
+      "features": ["blob-storage", "kv-cache", "cron-jobs", "edge-functions", "rate-limiting"]
+    },
+
+    "supabase-native-development": {
+      "description": "Supabase-first development with native auth, MFA, and RLS",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "database": "supabase",
+        "auth": "supabase"
+      },
+      "secondary": ["github", "postgres"],
+      "optional": ["notion"],
+      "features": ["supabase-ssr", "mfa-totp", "rls-policies", "storage-buckets", "realtime"]
+    },
+
+    "ui-extended-development": {
+      "description": "UI development with extended component libraries (Flowbite, DaisyUI)",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "ui": "shadcn",
+        "design": "figma"
+      },
+      "secondary": ["firecrawl", "github", "mermaid"],
+      "optional": ["playwright"],
+      "features": ["flowbite-react", "daisyui-themes", "tailwind-plugins", "dashboard-templates"]
+    },
+
+    "workflow-automation-development": {
+      "description": "Workflow automation with n8n and integrations",
+      "primary": {
+        "memory": "hindsight",
+        "filesystem": "desktop-commander",
+        "documentation": "context7"
+      },
+      "secondary": ["github", "notion", "postgres"],
+      "optional": ["supabase", "firecrawl"],
+      "features": ["n8n-self-hosted", "webhooks", "api-integrations", "automation-pipelines"]
+    },
+
+    "boilerplate-infrastructure": {
+      "description": "Infrastructure boilerplate and DevOps setup",
+      "primary": {
+        "memory": "hindsight",
+        "filesystem": "desktop-commander",
+        "repos": "github"
+      },
+      "secondary": ["firecrawl", "postgres"],
+      "optional": ["notion"],
+      "features": ["docker-compose", "kubernetes", "terraform", "ci-cd-pipelines"]
+    },
+
+    "document-processing": {
+      "description": "Document parsing and extraction profile (PDF, DOCX, PPTX, XLSX, images, audio, 100+ languages)",
+      "primary": {
+        "memory": "hindsight",
+        "parsing": "docling",
+        "ocr-multilingual": "paddleocr",
+        "filesystem": "desktop-commander"
+      },
+      "secondary": ["firecrawl", "github"],
+      "optional": ["notion", "e2b"],
+      "features": ["pdf-parsing", "table-extraction", "formula-recognition", "ocr", "ocr-multilingual", "handwriting", "ancient-text", "audio-transcription", "batch-processing"],
+      "notes": "docling pour Office/audio, paddleocr pour OCR multilingue 100+ langues et handwriting"
+    },
+
+    "payment-development": {
+      "description": "Stripe payment integration profile (Checkout, Subscriptions, Webhooks, Connect)",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "payment": "stripe",
+        "database": "supabase"
+      },
+      "secondary": ["github", "shadcn"],
+      "optional": ["figma", "postgres"],
+      "features": ["checkout-sessions", "payment-intents", "webhooks", "subscriptions", "stripe-connect", "token-metering"],
+      "notes": "stripe MCP pour API directe, context7 pour docs Next.js/React, patterns depuis stripe-patterns.md"
+    },
+
+    "ucp-commerce": {
+      "description": "Universal Commerce Protocol (UCP) - Agentic commerce (Google/Shopify standard)",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "database": "supabase",
+        "repos": "github"
+      },
+      "secondary": ["stripe", "e2b"],
+      "optional": ["figma", "postgres"],
+      "features": ["checkout-sessions", "identity-linking", "order-management", "payment-handlers", "ap2-mandates"],
+      "triggers": ["ucp", "universal commerce", "agentic commerce", "commerce agent", "autonomous commerce"],
+      "notes": "UCP (Google + Shopify + 20 partners) pour commerce agentique, patterns depuis ucp-patterns.md et stripe-patterns.md"
+    },
+
+    "auto-upgrade": {
+      "description": "Auto-upgrade and self-improvement profile (22 patterns, 7 phases, 8 sources veille)",
+      "primary": {
+        "memory": "hindsight",
+        "search": "exa",
+        "research": "firecrawl",
+        "repos": "github",
+        "documentation": "context7",
+        "reasoning": "sequential-thinking"
+      },
+      "secondary": ["memory", "fetch"],
+      "optional": ["notion", "e2b"],
+      "features": [
+        "session-analysis",
+        "weakness-detection",
+        "solution-research",
+        "improvement-proposal",
+        "innovation-tracking",
+        "competitor-monitoring",
+        "cmp-metric",
+        "self-attributing"
+      ],
+      "phases": ["VEILLE", "PARSE", "DIAGNOSE", "RESEARCH", "SYNTHESIZE", "PROPOSE", "LEARN"],
+      "patterns": 22,
+      "maxConcurrentAgents": 8,
+      "backgroundAgents": ["innovation-monitor"],
+      "sharedWorkspace": true,
+      "sources": ["arxiv", "github-trending", "anthropic-blog", "openai-blog", "huggingface", "producthunt", "hackernews", "twitter"],
+      "notes": "Profile pour auto-amelioration continue du systeme ATUM CREA via /autoupgrade"
+    },
+
+    "ai-ml-development": {
+      "description": "AI/ML development with LLM APIs and model inference",
+      "primary": {
+        "memory": "hindsight",
+        "llm": "ollama",
+        "inference": "replicate",
+        "embeddings": "openai"
+      },
+      "secondary": ["huggingface", "vectorize", "supabase"],
+      "optional": ["e2b", "github"],
+      "features": ["local-llm", "image-generation", "embeddings", "fine-tuning"]
+    },
+
+    "video-production": {
+      "description": "Video editing, rendering and media processing",
+      "primary": {
+        "memory": "hindsight",
+        "video": "ffmpeg-ai",
+        "editing": "video-editor",
+        "animation": "remotion"
+      },
+      "secondary": ["imagemagick", "desktop-commander"],
+      "optional": ["cloudflare"],
+      "features": ["video-conversion", "thumbnails", "animations", "compression"]
+    },
+
+    "game-3d-development": {
+      "description": "3D modeling and game development",
+      "primary": {
+        "memory": "hindsight",
+        "3d": "blender",
+        "game-engine": "unity",
+        "documentation": "context7"
+      },
+      "secondary": ["godot", "github", "figma"],
+      "optional": ["remotion"],
+      "features": ["3d-modeling", "game-assets", "procedural-generation", "physics"]
+    },
+
+    "devops-cloud": {
+      "description": "DevOps, CI/CD and cloud deployment",
+      "primary": {
+        "memory": "hindsight",
+        "cdn": "cloudflare",
+        "orchestration": "kubernetes",
+        "ci-cd": "gitlab"
+      },
+      "secondary": ["github", "sentry"],
+      "optional": ["posthog"],
+      "features": ["workers", "kv-storage", "helm", "docker", "ci-pipelines"]
+    },
+
+    "analytics-monitoring": {
+      "description": "Error tracking, analytics and code quality",
+      "primary": {
+        "memory": "hindsight",
+        "errors": "sentry",
+        "analytics": "posthog",
+        "quality": "sonarqube"
+      },
+      "secondary": ["semgrep", "github"],
+      "optional": ["supabase"],
+      "features": ["error-tracking", "user-analytics", "code-quality", "security-scanning"]
+    },
+
+    "seo-scraping": {
+      "description": "SEO analysis and large-scale web scraping",
+      "primary": {
+        "memory": "hindsight",
+        "seo": "semrush",
+        "search": "tavily",
+        "scraping": "bright-data"
+      },
+      "secondary": ["firecrawl", "exa"],
+      "optional": ["supabase"],
+      "features": ["keyword-research", "backlink-analysis", "proxy-rotation", "serp-tracking"]
+    },
+
+    "cms-content": {
+      "description": "Content management and headless CMS",
+      "primary": {
+        "memory": "hindsight",
+        "cms": "sanity",
+        "cache": "upstash",
+        "storage": "supabase"
+      },
+      "secondary": ["notion", "github"],
+      "optional": ["cloudflare"],
+      "features": ["headless-cms", "redis-cache", "content-modeling", "webhooks"]
+    },
+
+    "cross-browser-testing": {
+      "description": "Cross-browser testing and automation",
+      "primary": {
+        "memory": "hindsight",
+        "e2e": "octomind",
+        "cross-browser": "browserstack",
+        "debug": "chrome-devtools"
+      },
+      "secondary": ["playwright", "puppeteer"],
+      "optional": ["sentry"],
+      "features": ["visual-testing", "cross-browser", "device-testing", "ai-test-generation"]
+    },
+
+    "nocode-automation-development": {
+      "description": "No-code/low-code automation avec Airtable, Make et Lovable",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "database-external": "airtable",
+        "automation": "make",
+        "analysis": "lovable"
+      },
+      "secondary": ["supabase", "github", "notion"],
+      "optional": ["n8n", "firecrawl"],
+      "features": ["airtable-crud", "make-scenarios", "lovable-analysis", "workflow-automation", "nocode-database"],
+      "triggers": ["airtable", "make", "lovable", "nocode", "integromat", "scenario", "base airtable"],
+      "notes": "Profile pour developpement nocode avec bases Airtable, scenarios Make et projets Lovable"
+    },
+
+    "notion-development": {
+      "description": "Notion database and page management via API + E2B Desktop for views",
+      "primary": {
+        "memory": "hindsight",
+        "documentation": "context7",
+        "notion": "notion",
+        "desktop": "e2b"
+      },
+      "secondary": ["supabase", "github", "make"],
+      "optional": ["playwright", "firecrawl"],
+      "features": ["database-crud", "page-crud", "blocks", "relations", "search", "comments", "views-via-e2b"],
+      "triggers": ["notion", "notion database", "notion api", "notion page", "notion view", "notion relation"],
+      "notes": "API-First Protocol: Use Notion API for CRUD (99% reliability), E2B Desktop for views/UI-only ops (75% reliability)"
+    },
+
+    "terminal-history": {
+      "description": "Terminal history via Wake MCP - captures commands/outputs from external terminal",
+      "primary": {
+        "memory": "hindsight",
+        "terminal": "wake-mcp"
+      },
+      "secondary": ["github"],
+      "optional": [],
+      "features": ["command-history", "output-capture", "session-context", "error-recall"],
+      "triggers": ["terminal history", "what did I do", "recent commands", "qu'ai fait", "historique terminal"],
+      "notes": "Complements Hindsight: Wake captures 'what' (commands), Hindsight retains 'why' (patterns)"
+    }
+  },
+
+  "fallbackChains": {
+    "memory": {
+      "chain": ["hindsight", "memory"],
+      "description": "Memory systems fallback"
+    },
+    "documentation": {
+      "chain": ["context7"],
+      "description": "Framework documentation lookup"
+    },
+    "ui": {
+      "chain": ["shadcn", "figma"],
+      "description": "UI component systems"
+    },
+    "database": {
+      "chain": ["supabase", "postgres"],
+      "description": "Database systems"
+    },
+    "code-execution": {
+      "chain": ["e2b", "desktop-commander"],
+      "description": "Code execution environments"
+    },
+    "browser": {
+      "chain": ["playwright", "puppeteer", "firecrawl"],
+      "description": "Browser automation"
+    },
+    "search": {
+      "chain": ["firecrawl", "exa", "WebSearch"],
+      "description": "Web search capabilities"
+    },
+    "pdf": {
+      "chain": ["desktop-commander", "e2b", "playwright"],
+      "description": "PDF creation fallback - CRITICAL"
+    },
+    "document-parsing": {
+      "chain": ["docling", "desktop-commander"],
+      "description": "Document parsing (PDF, DOCX, PPTX, XLSX, images, audio) - Docling preferred"
+    },
+    "github": {
+      "chain": ["github", "git"],
+      "description": "Git operations"
+    },
+    "diagrams": {
+      "chain": ["mermaid"],
+      "description": "Diagram generation"
+    },
+    "ui-extended": {
+      "chain": ["shadcn", "figma", "context7"],
+      "description": "Extended UI component libraries"
+    },
+    "workflow": {
+      "chain": ["desktop-commander", "github", "notion"],
+      "description": "Workflow automation tools"
+    },
+    "auto-upgrade": {
+      "chain": ["hindsight", "exa", "firecrawl", "github", "context7", "sequential-thinking"],
+      "description": "Auto-upgrade and self-improvement MCPs (22 patterns, 7 phases)"
+    },
+    "database-external": {
+      "chain": ["airtable", "supabase", "notion"],
+      "description": "External database systems fallback (Airtable preferred for nocode)"
+    },
+    "nocode-automation": {
+      "chain": ["make", "n8n", "desktop-commander"],
+      "description": "No-code automation platform fallback"
+    },
+    "nocode-analysis": {
+      "chain": ["lovable", "firecrawl", "github"],
+      "description": "No-code project analysis fallback"
+    },
+    "terminal-history": {
+      "chain": ["wake-mcp"],
+      "description": "Terminal history and command logs from external terminal sessions"
+    }
+  },
+
+  "mcpCapabilities": {
+    "hindsight": {
+      "capabilities": ["memory", "recall", "retain", "reflect", "learn"],
+      "port": 8888,
+      "required": true
+    },
+    "context7": {
+      "capabilities": ["documentation", "framework-docs", "library-lookup"],
+      "required": true
+    },
+    "shadcn": {
+      "capabilities": ["ui-components", "react-components"],
+      "required": true
+    },
+    "supabase": {
+      "capabilities": ["database", "auth", "storage", "functions", "realtime"],
+      "required": false
+    },
+    "e2b": {
+      "capabilities": ["python-execution", "sandbox", "code-run"],
+      "required": false
+    },
+    "desktop-commander": {
+      "capabilities": ["filesystem", "process", "pdf", "excel", "search"],
+      "required": false
+    },
+    "playwright": {
+      "capabilities": ["browser", "screenshot", "automation", "testing"],
+      "required": false
+    },
+    "puppeteer": {
+      "capabilities": ["browser", "chrome-connect", "user-sessions", "multi-tab"],
+      "required": false,
+      "debugPort": 9222
+    },
+    "firecrawl": {
+      "capabilities": ["scraping", "search", "crawl", "extract"],
+      "required": false
+    },
+    "github": {
+      "capabilities": ["repos", "issues", "prs", "commits", "branches"],
+      "required": false
+    },
+    "figma": {
+      "capabilities": ["design", "components", "export"],
+      "required": false
+    },
+    "mermaid": {
+      "capabilities": ["diagrams", "flowcharts", "sequences"],
+      "required": false
+    },
+    "notion": {
+      "capabilities": ["docs", "pages", "databases"],
+      "required": false
+    },
+    "docling": {
+      "capabilities": ["pdf-parsing", "document-conversion", "table-extraction", "formula-recognition", "ocr", "audio-transcription", "image-extraction", "batch-processing"],
+      "required": false,
+      "formats": ["pdf", "docx", "pptx", "xlsx", "html", "png", "tiff", "jpeg", "wav", "mp3", "vtt"]
+    },
+    "airtable": {
+      "capabilities": ["database", "records", "tables", "bases", "schema", "crud", "comments", "search"],
+      "required": false,
+      "apiKeyRequired": true
+    },
+    "make": {
+      "capabilities": ["automation", "scenarios", "integrations", "webhooks", "workflow", "integromat"],
+      "required": false,
+      "apiKeyRequired": true,
+      "zones": ["eu1", "eu2", "us1", "us2"]
+    },
+    "lovable": {
+      "capabilities": ["analysis", "project-context", "debugging", "code-review", "nocode-projects"],
+      "required": false,
+      "readOnly": true
+    },
+    "wake-mcp": {
+      "capabilities": ["terminal-history", "command-log", "output-capture", "session-replay"],
+      "required": false,
+      "storage": "~/.wake/",
+      "retention": "21 days",
+      "description": "Captures terminal activity outside Claude Code"
+    }
+  },
+
+  "autoSelection": {
+    "rules": [
+      {
+        "intent": "create saas|subscription|payment",
+        "profile": "saas-development"
+      },
+      {
+        "intent": "game|phaser|three.js|unity",
+        "profile": "game-development"
+      },
+      {
+        "intent": "ml|machine learning|pytorch|training",
+        "profile": "ml-development"
+      },
+      {
+        "intent": "api|backend|server|endpoint",
+        "profile": "api-development"
+      },
+      {
+        "intent": "ui|frontend|component|design",
+        "profile": "frontend-development"
+      },
+      {
+        "intent": "mobile|expo|react native",
+        "profile": "mobile-development"
+      },
+      {
+        "intent": "research|search|find|arxiv",
+        "profile": "research"
+      },
+      {
+        "intent": "automate|browser|scrape",
+        "profile": "automation"
+      },
+      {
+        "intent": "docs|documentation|readme",
+        "profile": "documentation"
+      },
+      {
+        "intent": "chrome|access my|login to|my account|user session",
+        "profile": "chrome-user-session"
+      },
+      {
+        "intent": "vercel|blob storage|kv cache|cron job|edge function|rate limit.*vercel|vercel advanced",
+        "profile": "vercel-development"
+      },
+      {
+        "intent": "flowbite|daisyui|dashboard|admin panel|theme system",
+        "profile": "ui-extended-development"
+      },
+      {
+        "intent": "n8n|workflow automation|zapier|make|integrations",
+        "profile": "workflow-automation-development"
+      },
+      {
+        "intent": "boilerplate|infrastructure|docker setup|kubernetes|terraform|devops setup",
+        "profile": "boilerplate-infrastructure"
+      },
+      {
+        "intent": "parse pdf|extract table|document extraction|ocr|convert docx|convert pptx|transcribe audio|pdf structure|docling",
+        "profile": "document-processing"
+      },
+      {
+        "intent": "/autoupgrade|auto-upgrade|améliorer système|upgrade ultra-create|analyser sessions|auto-amélioration|self-improvement|veille innovation",
+        "profile": "auto-upgrade"
+      },
+      {
+        "intent": "stripe|payment|checkout|subscription|webhook|billing|paiement|facturation|invoice",
+        "profile": "payment-development"
+      },
+      {
+        "intent": "ucp|universal commerce|agentic commerce|commerce agent|autonomous commerce|checkout session ucp|payment handler",
+        "profile": "ucp-commerce"
+      },
+      {
+        "intent": "llm|ai model|inference|embedding|ollama|gpt|openai api|replicate|huggingface",
+        "profile": "ai-ml-development"
+      },
+      {
+        "intent": "video|mp4|render video|animation|remotion|ffmpeg|convert video",
+        "profile": "video-production"
+      },
+      {
+        "intent": "3d|blender|unity|godot|game asset|mesh|model 3d|game development",
+        "profile": "game-3d-development"
+      },
+      {
+        "intent": "kubernetes|k8s|cloudflare|gitlab|ci/cd|devops|workers|cdn",
+        "profile": "devops-cloud"
+      },
+      {
+        "intent": "sentry|analytics|posthog|sonarqube|monitoring|error tracking|code quality",
+        "profile": "analytics-monitoring"
+      },
+      {
+        "intent": "seo|semrush|keywords|bright data|scrape at scale|tavily|backlinks",
+        "profile": "seo-scraping"
+      },
+      {
+        "intent": "sanity|cms|headless|upstash|redis cache|content management",
+        "profile": "cms-content"
+      },
+      {
+        "intent": "cross-browser|browserstack|octomind|e2e test|visual testing",
+        "profile": "cross-browser-testing"
+      },
+      {
+        "intent": "airtable|base airtable|airtable records|airtable schema|airtable table",
+        "profile": "nocode-automation-development"
+      },
+      {
+        "intent": "make|make.com|integromat|make scenario|automation make|scenario make",
+        "profile": "nocode-automation-development"
+      },
+      {
+        "intent": "lovable|lovable project|debug lovable|analyse lovable|lovable code",
+        "profile": "nocode-automation-development"
+      },
+      {
+        "intent": "nocode|no-code|low-code|visual builder|citizen developer",
+        "profile": "nocode-automation-development"
+      },
+      {
+        "intent": "terminal history|what did I do|recent commands|qu'ai fait|historique terminal|commandes recentes|earlier today|before this session|what I did|derniere commande|commande precedente",
+        "profile": "terminal-history"
+      }
+    ]
+  }
+}

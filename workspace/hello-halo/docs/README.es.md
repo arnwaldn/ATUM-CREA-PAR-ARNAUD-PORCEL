@@ -1,0 +1,287 @@
+<div align="center">
+
+<img src="../resources/icon.png" alt="ATUM CREA Logo" width="120" height="120">
+
+# ATUM CREA
+
+### Open Source Cowork for Everyone
+
+
+Experimenta todo el poder de un AI Agent sin tocar la terminal. ATUM CREA ofrece una experiencia de escritorio visual y multiplataforma para todos—open source y gratis.
+
+> **Nuestra filosofía:** Envolver tecnología compleja en interacción humana intuitiva.
+
+[![GitHub Stars](https://img.shields.io/github/stars/atumcrea/atum-crea?style=social)](https://github.com/atumcrea/atum-crea/stargazers)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux%20%7C%20Web-lightgrey.svg)](#instalación)
+[![Downloads](https://img.shields.io/github/downloads/atumcrea/atum-crea/total.svg)](https://github.com/atumcrea/atum-crea/releases)
+
+[Descargar](#instalación) · [Documentación](#documentación) · [Contribuir](#contribuir)
+
+**[English](../README.md)** | **[简体中文](./README.zh-CN.md)** | **[繁體中文](./README.zh-TW.md)** | **[Deutsch](./README.de.md)** | **[Français](./README.fr.md)** | **[日本語](./README.ja.md)**
+
+</div>
+
+---
+
+<div align="center">
+
+![Space Home](./assets/space_home.jpg)
+
+</div>
+
+---
+
+## ¿Por qué ATUM CREA?
+
+**Claude Code es el agente de IA para programación más capaz disponible.** Pero hay un problema:
+
+> **Está atrapado en una terminal.**
+
+Para desarrolladores cómodos con CLI, está bien. Pero para diseñadores, PMs, estudiantes, y cualquiera que solo quiera que la IA *haga cosas* — la terminal es una barrera.
+
+**ATUM CREA rompe esa barrera.**
+
+Tomamos el 100% de las capacidades de Agent de Claude Code y las envolvimos en una interfaz visual que cualquiera puede usar. Mismo poder, cero fricción.
+
+| | Claude Code CLI | ATUM CREA |
+|---|:---:|:---:|
+| Capacidades completas de Agent | ✅ | ✅ |
+| Interfaz visual | ❌ | ✅ |
+| Instalación con un clic | ❌ | ✅ |
+| Acceso remoto desde cualquier dispositivo | ❌ | ✅ |
+| Vista previa y gestión de archivos | ❌ | ✅ |
+| Navegador IA integrado | ❌ | ✅ |
+
+> Piénsalo así:
+> **Windows** convirtió DOS en escritorios visuales.
+> **ATUM CREA** convierte Claude Code CLI en un compañero de IA visual.
+
+---
+
+## Características
+
+<table>
+<tr>
+<td width="50%">
+
+### Bucle de Agent Real
+No solo chat. ATUM CREA puede **realmente hacer cosas** — escribir código, crear archivos, ejecutar comandos, e iterar hasta que la tarea esté hecha.
+
+### Sistema de Espacios
+Espacios de trabajo aislados mantienen tus proyectos organizados. Cada Espacio tiene sus propios archivos, conversaciones y contexto.
+
+### Barra de Artefactos Elegante
+Ve cada archivo que la IA crea en tiempo real. Previsualiza código, HTML, imágenes — todo sin salir de la aplicación.
+
+</td>
+<td width="50%">
+
+### Acceso Remoto
+Controla tu ATUM CREA de escritorio desde tu teléfono o cualquier navegador. Trabaja desde cualquier lugar — incluso desde una cama de hospital (historia real).
+
+### Navegador IA
+Deja que la IA controle un navegador real integrado. Web scraping, llenado de formularios, pruebas — todo automatizado.
+
+### Soporte MCP
+Extiende capacidades con Model Context Protocol. Compatible con servidores MCP de Claude Desktop.
+
+</td>
+</tr>
+</table>
+
+### Y Más...
+
+- **Soporte Multi-proveedor** — Anthropic, OpenAI, DeepSeek, y cualquier API compatible con OpenAI
+- **Pensamiento en Tiempo Real** — Observa el proceso de pensamiento de la IA mientras trabaja
+- **Permisos de Herramientas** — Aprueba o permite automáticamente operaciones de archivos/comandos
+- **Temas Oscuro/Claro** — Tematización consciente del sistema
+- **i18n Listo** — Inglés, Chino, Español (más por venir)
+- **Actualizaciones Automáticas** — Mantente al día con actualizaciones de un clic
+
+---
+
+## Capturas de Pantalla
+
+![Chat Intro](./assets/chat_intro.jpg)
+
+![Chat Todo](./assets/chat_todo.jpg)
+
+
+*Acceso Remoto: Controla ATUM CREA desde cualquier lugar*
+
+![Remote Settings](./assets/remote_setting.jpg)
+<p align="center">
+  <img src="./assets/mobile_remote_access.jpg" width="45%" alt="Acceso Remoto Móvil">
+  &nbsp;&nbsp;
+  <img src="./assets/mobile_chat.jpg" width="45%" alt="Chat Móvil">
+</p>
+
+---
+
+## Instalación
+
+### Descargar (Recomendado)
+
+| Plataforma | Descargar | Requisitos |
+|----------|----------|--------------|
+| **macOS** (Apple Silicon) | [Descargar .dmg](https://github.com/atumcrea/atum-crea/releases/latest) | macOS 11+ |
+| **macOS** (Intel) | [Descargar .dmg](https://github.com/atumcrea/atum-crea/releases/latest) | macOS 11+ |
+| **Windows** | [Descargar .exe](https://github.com/atumcrea/atum-crea/releases/latest) | Windows 10+ |
+| **Linux** | [Descargar .AppImage](https://github.com/atumcrea/atum-crea/releases/latest) | Ubuntu 20.04+ |
+| **Web** (PC/Móvil) | Habilita Acceso Remoto en la app de escritorio | Cualquier navegador moderno |
+
+**Eso es todo.** Descarga, instala, ejecuta. Sin Node.js. Sin npm. Sin comandos de terminal.
+
+### Compilar desde Código Fuente
+
+Para desarrolladores que quieran contribuir o personalizar:
+
+```bash
+git clone https://github.com/atumcrea/atum-crea.git
+cd atum-crea
+npm install
+npm run dev
+```
+
+---
+
+## Inicio Rápido
+
+1. **Inicia ATUM CREA** e ingresa tu clave API (Anthropic recomendado)
+2. **Comienza a chatear** — prueba "Crea una app de tareas simple con React"
+3. **Observa la magia** — ve los archivos aparecer en la Barra de Artefactos
+4. **Previsualiza e itera** — haz clic en cualquier archivo para previsualizar, pide cambios
+
+> **Consejo pro:** Para mejores resultados, usa los modelos Claude Sonnet 4.5 u Opus 4.5.
+
+---
+
+## Cómo Funciona
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     ATUM CREA Escritorio                          │
+│  ┌─────────────┐    ┌─────────────┐    ┌───────────────────┐   │
+│  │   React UI  │◄──►│   Proceso   │◄──►│  Claude Code SDK  │   │
+│  │  (Renderer) │IPC │   Principal │    │  (Bucle Agent)    │   │
+│  └─────────────┘    └─────────────┘    └───────────────────┘   │
+│                            │                                    │
+│                            ▼                                    │
+│                    ┌───────────────┐                           │
+│                    │Archivos Locales│                           │
+│                    │   ~/.halo/    │                           │
+│                    └───────────────┘                           │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+- **100% Local** — Tus datos nunca salen de tu máquina (excepto llamadas API)
+- **Sin Backend Requerido** — Cliente de escritorio puro, usa tus propias claves API
+- **Bucle de Agent Real** — Ejecución de herramientas, no solo generación de texto
+
+> **Powered by [Claude Code](https://github.com/anthropics/claude-code)** — Gracias a Anthropic por construir el agente de IA más capaz.
+
+---
+
+## Qué Está Construyendo la Gente
+
+ATUM CREA no es solo para desarrolladores. Hemos visto:
+
+- **Equipos de finanzas** construyendo apps full-stack desde cero — sin experiencia en programación
+- **Diseñadores** prototipando mockups interactivos
+- **Estudiantes** aprendiendo a programar con IA como su compañero de pair programming
+- **Desarrolladores** entregando funciones más rápido que nunca
+
+La barrera ya no es la capacidad de la IA. **Es la accesibilidad.** ATUM CREA elimina esa barrera.
+
+---
+
+## Hoja de Ruta
+
+- [x] Bucle de Agent central con Claude Code SDK
+- [x] Gestión de Espacios y Conversaciones
+- [x] Vista previa de artefactos (Código, HTML, Imágenes, Markdown)
+- [x] Acceso Remoto (control por navegador)
+- [x] Navegador IA (basado en CDP)
+- [x] Soporte de servidor MCP
+- [ ] Sistema de plugins
+- [ ] Entrada por voz
+
+---
+
+## Contribuir
+
+ATUM CREA es código abierto porque la IA debería ser accesible para todos.
+
+Damos la bienvenida a contribuciones de todo tipo:
+
+- **Traducciones** — Ayúdanos a llegar a más usuarios (ver `src/renderer/i18n/`)
+- **Reportes de bugs** — ¿Encontraste algo roto? Háznoslo saber
+- **Ideas de funciones** — ¿Qué haría a ATUM CREA mejor para ti?
+- **Contribuciones de código** — ¡PRs bienvenidos!
+
+```bash
+# Configuración de desarrollo
+git clone https://github.com/atumcrea/atum-crea.git
+cd atum-crea
+npm install
+npm run dev
+```
+
+Ver [CONTRIBUTING.md](../CONTRIBUTING.md) para guías.
+
+---
+
+## Comunidad
+
+- [GitHub Discussions](https://github.com/atumcrea/atum-crea/discussions) — Preguntas e ideas
+- [Issues](https://github.com/atumcrea/atum-crea/issues) — Reportes de bugs y solicitudes de funciones
+
+---
+
+## Licencia
+
+Licencia MIT — ver [LICENSE](../LICENSE) para detalles.
+
+---
+
+## La Historia Detrás de ATUM CREA
+
+Hace unos meses, comenzó con una simple frustración: **Quería usar Claude Code, pero estaba atrapado en reuniones todo el día.**
+
+Durante reuniones aburridas (todos hemos estado ahí), pensé: *¿Y si pudiera controlar Claude Code en mi computadora de casa desde mi teléfono?*
+
+Luego vino otro problema — mis colegas no técnicos querían probar Claude Code después de ver lo que podía hacer. Pero se quedaron atascados en la instalación. *"¿Qué es npm? ¿Cómo instalo Node.js?"* Algunos pasaron días intentando descifrarlo.
+
+Así que construí ATUM CREA para mí y mis amigos:
+- **Interfaz visual** — no más mirar salida de terminal
+- **Instalación con un clic** — sin Node.js, sin npm, solo descarga y ejecuta
+- **Acceso remoto** — controla desde teléfono, tablet, o cualquier navegador
+
+La primera versión tomó unas horas. ¿Todo después de eso? **100% construido por ATUM CREA mismo.** Lo hemos estado usando a diario durante meses.
+
+IA construyendo IA. Ahora en las manos de todos.
+
+---
+
+## Contribuidores
+
+<a href="https://github.com/atumcrea/atum-crea/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=atumcrea/atum-crea" />
+</a>
+
+Made with ❤️ by our contributors.
+
+<div align="center">
+
+### Construido por IA, para humanos.
+
+Si ATUM CREA te ayuda a construir algo increíble, nos encantaría saberlo.
+
+**Dale Star a este repo** para ayudar a otros a descubrir ATUM CREA.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=atumcrea/atum-crea&type=Date)](https://star-history.com/#atumcrea/atum-crea&Date)
+
+[⬆ Volver Arriba](#atum-crea)
+
+</div>

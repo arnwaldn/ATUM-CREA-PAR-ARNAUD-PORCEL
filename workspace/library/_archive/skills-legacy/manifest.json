@@ -1,0 +1,66 @@
+{
+  "$schema": "https://agentskills.io/schemas/skill-manifest.json",
+  "version": "1.0.0",
+  "source": "ultra-create",
+  "description": "ULTRA-CREATE v28.5 Skills Registry - Agent Skills Spec compatible",
+  "lastSync": "2026-01-25T11:55:00Z",
+  "exported": [],
+  "community": [
+    {
+      "name": "docx",
+      "path": "skills/community/docx",
+      "source": "anthropics/skills",
+      "description": "Comprehensive DOCX creation, editing, and analysis with tracked changes support",
+      "importedAt": "2026-01-25T11:55:00Z"
+    },
+    {
+      "name": "xlsx",
+      "path": "skills/community/xlsx",
+      "source": "anthropics/skills",
+      "description": "Excel spreadsheet creation with formulas, charts, and data manipulation",
+      "importedAt": "2026-01-25T11:55:00Z"
+    },
+    {
+      "name": "pptx",
+      "path": "skills/community/pptx",
+      "source": "anthropics/skills",
+      "description": "PowerPoint presentation creation with layouts, templates, and charts",
+      "importedAt": "2026-01-25T11:55:00Z"
+    },
+    {
+      "name": "pdf",
+      "path": "skills/community/pdf",
+      "source": "anthropics/skills",
+      "description": "PDF manipulation: extraction, merging, splitting, forms handling",
+      "importedAt": "2026-01-25T11:55:00Z"
+    },
+    {
+      "name": "webapp-testing",
+      "path": "skills/community/webapp-testing",
+      "source": "anthropics/skills",
+      "description": "Web application testing with Playwright for UI verification",
+      "importedAt": "2026-01-25T11:55:00Z"
+    },
+    {
+      "name": "mcp-builder",
+      "path": "skills/community/mcp-builder",
+      "source": "anthropics/skills",
+      "description": "Guide for creating high-quality MCP servers",
+      "importedAt": "2026-01-25T11:55:00Z"
+    },
+    {
+      "name": "web-artifacts-builder",
+      "path": "skills/community/web-artifacts-builder",
+      "source": "anthropics/skills",
+      "description": "Complex HTML artifact creation using React, Tailwind, shadcn/ui",
+      "importedAt": "2026-01-25T11:55:00Z"
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/community/skill-creator",
+      "source": "anthropics/skills",
+      "description": "Meta-skill for creating new Agent Skills",
+      "importedAt": "2026-01-25T11:55:00Z"
+    }
+  ]
+}
